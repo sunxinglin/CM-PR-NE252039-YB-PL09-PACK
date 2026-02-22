@@ -1,0 +1,9 @@
+AsZero.Core
+FutureTech.Protocols
+Itminus.Middlewares.JobCtrls.EFCoreBased
+MediatR
+Microsoft.Extensions.Hosting
+Microsoft.Extensions.Options.ConfigurationExtensions
+Newtonsoft.Json
+StdUnit.Sharp7.Options
+System.Reactive

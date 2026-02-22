@@ -1,0 +1,402 @@
+﻿<local:RealTimeCommonPage x:Class="Ctp0600P.Client.Views.Pages.RealtimePage"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:app="clr-namespace:Ctp0600P.Client"
+                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                          xmlns:local="clr-namespace:Ctp0600P.Client.Views.Pages"
+                          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                          xmlns:rwc="clr-namespace:Ctp0600P.Client.UserControls"
+                          xmlns:uc="clr-namespace:Ctp0600P.Client.UserControls"
+                          xmlns:viewmodels="clr-namespace:Ctp0600P.Client.ViewModels"
+                          xmlns:wcu="clr-namespace:AsZero.Wpf.Common.UserControls;assembly=AsZero.Wpf.Common"
+                          Title="RealtimePage"
+                          d:DataContext="{d:DesignInstance Type=viewmodels:RealtimePageViewModel}"
+                          d:DesignHeight="768"
+                          d:DesignWidth="1366"
+                          Background="#FFFFFF"
+                          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                          mc:Ignorable="d">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="250" />
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  工作面板  -->
+            <Grid Grid.Row="1" Margin="0,5,0,0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <ScrollViewer x:Name="leftScroll">
+                    <ListBox Margin="0"
+                             HorizontalContentAlignment="Stretch"
+                             VerticalContentAlignment="Top"
+                             ItemContainerStyle="{StaticResource ListItemNullFocusContainerStyle}"
+                             ItemsSource="{Binding Path=StationTaskLeftTagDataList}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="5" />
+                                    </Grid.RowDefinitions>
+                                    <Border Grid.Row="0"
+                                            Height="35"
+                                            Margin="0"
+                                            d:Background="#0000"
+                                            Background="{Binding BackBrush, Mode=TwoWay, NotifyOnSourceUpdated=True}"
+                                            CornerRadius="3">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="10"
+                                                              Opacity="0.7"
+                                                              RenderingBias="Performance"
+                                                              ShadowDepth="4"
+                                                              Color="Black" />
+                                        </Border.Effect>
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="11"
+                                                   FontWeight="Bold"
+                                                   Text="{Binding Header}"
+                                                   TextWrapping="Wrap" />
+                                    </Border>
+                                    <Path Grid.Row="1"
+                                          HorizontalAlignment="Center"
+                                          Fill="LightBlue"
+                                          Stroke="Black"
+                                          StrokeThickness="0"
+                                          Visibility="{Binding NeedShow}">
+                                        <Path.Data>
+                                            <PathGeometry>
+                                                <PathGeometry.Figures>
+                                                    <PathFigure IsClosed="True">
+                                                        <LineSegment Point="0,0" />
+                                                        <LineSegment Point="20,0" />
+                                                        <LineSegment Point="10,5" />
+                                                    </PathFigure>
+                                                </PathGeometry.Figures>
+                                            </PathGeometry>
+                                        </Path.Data>
+                                    </Path>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="Blue"
+                                   Text="Pack码："
+                                   TextAlignment="Right" />
+                        <TextBlock Grid.Column="1"
+                                   Margin="10,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="DarkGreen"
+                                   Text="{Binding Source={x:Static app:App.Current}, Path=PackBarCode, UpdateSourceTrigger=PropertyChanged}"
+                                   TextAlignment="Left" />
+                        <TextBlock Grid.Column="2"
+                                   Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="Blue"
+                                   Text="出货码："
+                                   TextAlignment="Right" />
+                        <TextBlock Grid.Column="3"
+                                   Margin="10,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="DarkGreen"
+                                   Text="{Binding Source={x:Static app:App.Current}, Path=PackOutCode, UpdateSourceTrigger=PropertyChanged}"
+                                   TextAlignment="Left" />
+                        <TextBlock Grid.Column="4"
+                                   Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="Blue"
+                                   Text="AGV车号："
+                                   TextAlignment="Right" />
+                        <TextBlock Name="agvcode"
+                                   Grid.Column="5"
+                                   Margin="10,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="DarkGreen"
+                                   Text="{Binding Source={x:Static app:App.Current}, Path=AGVCode, UpdateSourceTrigger=PropertyChanged}"
+                                   TextAlignment="Left" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="4"
+                                   Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="Blue"
+                                   Text="耗时(S)："
+                                   TextAlignment="Right" />
+                        <TextBlock Name="timeUsed"
+                                   Grid.Row="1"
+                                   Grid.Column="5"
+                                   Margin="10,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="30"
+                                   FontWeight="Bold"
+                                   Foreground="DarkGreen"
+                                   Text="{Binding CurrentPackUsedTime, UpdateSourceTrigger=PropertyChanged}"
+                                   TextAlignment="Left" />
+                    </Grid>
+
+                    <StackPanel Grid.Row="2"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style BasedOn="{StaticResource MaterialDesignFlatMidBgButton}" TargetType="Button">
+                                <Setter Property="Margin" Value="5,0,0,0" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button x:Name="rework"
+                                Width="90"
+                                Height="45"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Click="Button_Click_ReWork"
+                                Content="返工设置"
+                                Cursor="Hand" />
+                        <Button Name="bingagv"
+                                Width="90"
+                                Height="45"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Command="{Binding Bingagv}"
+                                Content="AGV绑定"
+                                Cursor="Hand" />
+                        <Button Name="pageInit"
+                                Width="90"
+                                Height="45"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Command="{Binding InitPage}"
+                                Content="初始化"
+                                Cursor="Hand" />
+                        <Button Name="skipStep"
+                                Width="90"
+                                Height="45"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Command="{Binding SkipStep}"
+                                Content="跳步"
+                                Cursor="Hand" />
+                        <Button Name="uploadAgain"
+                                Width="90"
+                                Height="45"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Command="{Binding UploadAgain}"
+                                Content="数据重传"
+                                Cursor="Hand" />
+                        <!--<Button Content="拧紧1" HorizontalAlignment="Center" Background="Black"  VerticalAlignment="Top" Width="80" Height="45" Click="Button_Click_Scan2" />-->
+                        <!--<Button Width="80"
+                                Height="45"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Background="Black"
+                                Click="Button_Click_Scan4"
+                                Content="扫码1" />-->
+                        <!--<Button Content="扫码4" HorizontalAlignment="Center"  Background="Black" VerticalAlignment="Top" Width="80" Height="45" Click="Button_Click_Scan1"/>-->
+                    </StackPanel>
+
+                    <TabControl x:Name="tabcontrol"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Margin="0,10,0,0"
+                                Padding="0"
+                                BorderThickness="0"
+                                ItemsSource="{Binding StationTaskDataList}"
+                                SelectedIndex="{Binding SelectedIndex}">
+                        <TabControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Height="30"
+                                            Margin="0"
+                                            Orientation="Horizontal">
+                                    <TextBlock Margin="0" Text="{Binding Header}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </TabControl.ItemTemplate>
+
+                        <TabControl.ItemContainerStyle>
+                            <Style TargetType="{x:Type TabItem}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Style>
+                        </TabControl.ItemContainerStyle>
+                        <TabControl.ContentTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding Content}" />
+                            </DataTemplate>
+                        </TabControl.ContentTemplate>
+                    </TabControl>
+
+
+                </Grid>
+            </Grid>
+
+            <StackPanel Grid.RowSpan="2">
+                <Expander Background="AliceBlue">
+                    <Expander.Header>
+                        <rwc:PLC01MonitorHeaderView DataContext="{Binding PLC01MonitorViewModel.Value}" />
+                    </Expander.Header>
+                    <Expander.Content>
+                        <rwc:PLC01MonitorView DataContext="{Binding PLC01MonitorViewModel.Value}" />
+                    </Expander.Content>
+                </Expander>
+            </StackPanel>
+
+
+
+        </Grid>
+
+        <!--  日志、报警  -->
+        <Grid Grid.Column="1" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <GroupBox Margin="0,5,5,5"
+                      materialDesign:ColorZoneAssist.Background="Black"
+                      materialDesign:ColorZoneAssist.Foreground="White"
+                      materialDesign:ColorZoneAssist.Mode="Custom"
+                      Style="{DynamicResource MaterialDesignGroupBox}">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Width="20"
+                                                     Height="20"
+                                                     VerticalAlignment="Center"
+                                                     Kind="TelevisionGuide" />
+                            <TextBlock Margin="8,0,0,0"
+                                       FontSize="30"
+                                       Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                       Text="报警日志" />
+                        </StackPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <GroupBox.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize" Value="16px" />
+                        <Setter Property="FontFamily" Value="NSimSun" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Width" Value="120" />
+                    </Style>
+
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="16px" />
+                        <Setter Property="FontFamily" Value="NSimSun" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Width" Value="100" />
+                    </Style>
+                </GroupBox.Resources>
+                <ScrollViewer Grid.Row="1"
+                              Grid.Column="1"
+                              wcu:Helper.AutoScroll="{Binding IsAlarmsChanged}"
+                              Background="Azure"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                    <!--<wcu:AlarmMessageUserControl DataContext="{Binding AlarmLogs}" ></wcu:AlarmMessageUserControl>-->
+                    <uc:AlarmUserControl VerticalAlignment="Top" DataContext="{Binding Alarms}" />
+                </ScrollViewer>
+            </GroupBox>
+
+            <GroupBox Grid.Row="1"
+                      Margin="0,5,5,5"
+                      materialDesign:ColorZoneAssist.Background="Black"
+                      materialDesign:ColorZoneAssist.Foreground="White"
+                      materialDesign:ColorZoneAssist.Mode="Custom"
+                      Style="{DynamicResource MaterialDesignGroupBox}">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Width="20"
+                                                     Height="20"
+                                                     VerticalAlignment="Center"
+                                                     Kind="TelevisionGuide" />
+                            <TextBlock Margin="8,0,0,0"
+                                       FontSize="30"
+                                       Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                       Text="日志消息" />
+                        </StackPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <GroupBox.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize" Value="16px" />
+                        <Setter Property="FontFamily" Value="NSimSun" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Width" Value="120" />
+                    </Style>
+
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="16px" />
+                        <Setter Property="FontFamily" Value="NSimSun" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Width" Value="100" />
+                    </Style>
+                </GroupBox.Resources>
+                <ScrollViewer Grid.Row="3"
+                              Grid.Column="1"
+                              wcu:Helper.AutoScroll="{Binding IsLogsChanged}"
+                              Background="Azure"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                    <wcu:LogMessageUserControl DataContext="{Binding Logs}" />
+                </ScrollViewer>
+            </GroupBox>
+
+        </Grid>
+    </Grid>
+</local:RealTimeCommonPage>

@@ -1,0 +1,6 @@
+AsZero.Core
+FutureTech.OpResults
+MediatR
+Microsoft.Extensions.Configuration
+Microsoft.Extensions.DependencyInjection
+System.Net.Sockets

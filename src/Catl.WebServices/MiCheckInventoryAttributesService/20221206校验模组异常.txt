@@ -1,0 +1,29 @@
+
+http://rqmes1.catlbattery.com:8103/atlmeswebservice/MiCheckInventoryAttributesServiceService
+
+
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mac="http://machineintegration.ws.atlmes.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <mac:miCheckInventoryAttributes>
+         <!--Optional:-->
+         <CheckInventoryAttributesRequest>
+            <site>2620</site>
+            <sfc>001PBESS00272CCC60100242</sfc>
+            <operation>PABGLU</operation>
+            <!--Optional:-->
+            <operationRevision>#</operationRevision>
+            <resource>PEBAI002-1</resource>
+            <user>SUP_PL03</user>
+            <activityId>Z_MD_MRK_CHK</activityId>
+            <modeCheckInventory>MODE_NONE</modeCheckInventory>
+            <requiredQuantity>1</requiredQuantity>
+            <!--1 or more repetitions:-->
+            <inventoryArray>001MBMM400000CCC60100269</inventoryArray>
+            <!--Zero or more repetitions:-->
+            <inventoryAttributeList>?</inventoryAttributeList>
+         </CheckInventoryAttributesRequest>
+      </mac:miCheckInventoryAttributes>
+   </soapenv:Body>
+</soapenv:Envelope>

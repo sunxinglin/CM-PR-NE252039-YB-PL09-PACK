@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://machineclose.machine.ws.atlmes.com/" targetNamespace="http://machineclose.machine.ws.atlmes.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://machineclose.machine.ws.atlmes.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="machineCloseRequest" type="tns:machineCloseRequest" />
+      <xs:element name="machineCloseResponse" type="tns:machineCloseResponse" />
+      <xs:element name="machineCloseService" type="tns:machineCloseService" />
+      <xs:element name="machineCloseServiceResponse" type="tns:machineCloseServiceResponse" />
+      <xs:complexType name="machineCloseService">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Request" type="tns:machineCloseRequest" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="machineCloseRequest">
+        <xs:sequence>
+          <xs:element name="site" type="xs:string" />
+          <xs:element name="resrce" type="xs:string" />
+          <xs:element name="reasonCode" type="xs:string" />
+          <xs:element minOccurs="0" name="language" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="machineCloseServiceResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:machineCloseResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="machineCloseResponse">
+        <xs:sequence>
+          <xs:element name="code" type="xs:int" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="machineCloseServiceIn">
+    <wsdl:part name="parameters" element="tns:machineCloseService" />
+  </wsdl:message>
+  <wsdl:message name="machineCloseServiceOut">
+    <wsdl:part name="machineCloseServiceResponse" element="tns:machineCloseServiceResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MachineCloseService">
+    <wsdl:operation name="machineCloseService" parameterOrder="parameters">
+      <wsdl:input message="tns:machineCloseServiceIn" />
+      <wsdl:output message="tns:machineCloseServiceOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="MachineCloseServiceBinding" type="tns:MachineCloseService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="machineCloseService">
+      <soap:operation soapAction="" />
+      <wsdl:input>
+        <soap:body use="literal" parts="parameters" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MachineCloseServiceService">
+    <wsdl:port name="MachineCloseServicePort" binding="tns:MachineCloseServiceBinding">
+      <address location="http://ndmes1p044.catlbattery.com:50400/atlmeswebservice/MachineCloseServiceService" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

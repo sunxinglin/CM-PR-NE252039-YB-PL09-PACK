@@ -1,0 +1,210 @@
+﻿<UserControl x:Class="Ctp0600P.Client.UserControls.DebugTools.IOControlUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="800">
+    <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="250"></RowDefinition>
+                <RowDefinition Height="550"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280"></ColumnDefinition>
+                <ColumnDefinition Width="520"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <GroupBox Grid.Row="0" Grid.Column="0" Header="DI(IO输入)" Style="{DynamicResource MaterialDesignGroupBox}" Margin="1" FontSize="16"
+                            md:ColorZoneAssist.Mode="Custom"
+                            md:ColorZoneAssist.Background="Black"
+                            md:ColorZoneAssist.Foreground="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <md:Card Grid.Row="0" Grid.Column="0" Background="{DynamicResource PrimaryHueLightBrush}" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="DI 0" />
+                    </md:Card>
+                    <md:Card Grid.Row="0" Grid.Column="2" Background="{DynamicResource PrimaryHueLightBrush}" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="DI 1" />
+                    </md:Card>
+                    <md:Card Grid.Row="1" Grid.Column="0" Background="{DynamicResource PrimaryHueLightBrush}" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="DI 2" />
+                    </md:Card>
+                    <md:Card Grid.Row="1" Grid.Column="2" Background="{DynamicResource PrimaryHueLightBrush}" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="DI 3" />
+                    </md:Card>
+                    <md:Card Grid.Row="2" Grid.Column="0" Background="{DynamicResource PrimaryHueLightBrush}" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="DI 4" />
+                    </md:Card>
+                    <md:Card Grid.Row="2" Grid.Column="2" Background="{DynamicResource PrimaryHueLightBrush}" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="DI 5" />
+                    </md:Card>
+                    <md:Card Grid.Row="3" Grid.Column="0" Background="{DynamicResource PrimaryHueLightBrush}" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="DI 6" />
+                    </md:Card>
+                    <md:Card Grid.Row="3" Grid.Column="2" Background="{DynamicResource PrimaryHueLightBrush}" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="DI 7" />
+                    </md:Card>
+
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="0" Grid.Column="1" Height="42" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDI.Value.io.di[0].diStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="0" Grid.Column="3" Height="42" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDI.Value.io.di[1].diStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="1" Grid.Column="1" Height="42" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDI.Value.io.di[2].diStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="1" Grid.Column="3" Height="42" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDI.Value.io.di[3].diStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="2" Grid.Column="1" Height="42" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDI.Value.io.di[4].diStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="2" Grid.Column="3" Height="42" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDI.Value.io.di[5].diStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="3" Grid.Column="1" Height="42" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDI.Value.io.di[6].diStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="3" Grid.Column="3" Height="42" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDI.Value.io.di[7].diStatus}" />
+
+                </Grid>
+
+            </GroupBox>
+
+            <GroupBox Grid.Row="0" Grid.Column="1" Header="DO(IO输出)" Style="{DynamicResource MaterialDesignGroupBox}" Margin="1" FontSize="16"
+                            md:ColorZoneAssist.Mode="Custom"
+                            md:ColorZoneAssist.Background="Black"
+                            md:ColorZoneAssist.Foreground="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <md:Card Grid.Row="0" Grid.Column="0" Background="#81d4fa" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment ="Center"  FontSize="16" Text="DO 0" />
+                    </md:Card>
+                    <md:Card Grid.Row="0" Grid.Column="4" Background="#81d4fa" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment ="Center" FontSize="16" Text="DO 1" />
+                    </md:Card>
+                    <md:Card Grid.Row="1" Grid.Column="0" Background="#81d4fa" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment ="Center" FontSize="16" Text="DO 2" />
+                    </md:Card>
+                    <md:Card Grid.Row="1" Grid.Column="4" Background="#81d4fa" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment ="Center" FontSize="16" Text="DO 3" />
+                    </md:Card>
+                    <md:Card Grid.Row="2" Grid.Column="0" Background="#81d4fa" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment ="Center" FontSize="16" Text="DO 4" />
+                    </md:Card>
+                    <md:Card Grid.Row="2" Grid.Column="4" Background="#81d4fa" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment ="Center" FontSize="16" Text="DO 5" />
+                    </md:Card>
+                    <md:Card Grid.Row="3" Grid.Column="0" Background="#81d4fa" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment ="Center" FontSize="16" Text="DO 6" />
+                    </md:Card>
+                    <md:Card Grid.Row="3" Grid.Column="4" Background="#81d4fa" 
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
+                                    Width="50" Height="42">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment ="Center" FontSize="16" Text="DO 7" />
+                    </md:Card>
+
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="0" Grid.Column="1" Height="40" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDO.Value.io.Do[0].doStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="0" Grid.Column="5" Height="40" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDO.Value.io.Do[1].doStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="1" Grid.Column="1" Height="40" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDO.Value.io.Do[2].doStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="1" Grid.Column="5" Height="40" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDO.Value.io.Do[3].doStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="2" Grid.Column="1" Height="40" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDO.Value.io.Do[4].doStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="2" Grid.Column="5" Height="40" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDO.Value.io.Do[5].doStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="3" Grid.Column="1" Height="40" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDO.Value.io.Do[6].doStatus}" />
+                    <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="3" Grid.Column="5" Height="40" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDO.Value.io.Do[7].doStatus}" />
+
+                    <Button Grid.Row="0" Grid.Column="2" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo0}"></Button>
+                    <Button Grid.Row="0" Grid.Column="3" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo0}"></Button>
+                    <Button Grid.Row="0" Grid.Column="6" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo1}"></Button>
+                    <Button Grid.Row="0" Grid.Column="7" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo1}"></Button>
+                    <Button Grid.Row="1" Grid.Column="2" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo2}"></Button>
+                    <Button Grid.Row="1" Grid.Column="3" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo2}"></Button>
+                    <Button Grid.Row="1" Grid.Column="6" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo3}"></Button>
+                    <Button Grid.Row="1" Grid.Column="7" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo3}"></Button>
+                    <Button Grid.Row="2" Grid.Column="2" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo4}"></Button>
+                    <Button Grid.Row="2" Grid.Column="3" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo4}"></Button>
+                    <Button Grid.Row="2" Grid.Column="6" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo5}"></Button>
+                    <Button Grid.Row="2" Grid.Column="7" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo5}"></Button>
+                    <Button Grid.Row="3" Grid.Column="2" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo6}"></Button>
+                    <Button Grid.Row="3" Grid.Column="3" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo6}"></Button>
+                    <Button Grid.Row="3" Grid.Column="6" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo7}"></Button>
+                    <Button Grid.Row="3" Grid.Column="7" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo7}"></Button>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Grid.Column="0" Header="DO(IO输出)" Style="{DynamicResource MaterialDesignGroupBox}" Margin="1" FontSize="16"
+                            md:ColorZoneAssist.Mode="Custom"
+                            md:ColorZoneAssist.Background="Black"
+                            md:ColorZoneAssist.Foreground="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60*"></ColumnDefinition>
+                        <ColumnDefinition Width="60*"></ColumnDefinition>
+                        
+                    </Grid.ColumnDefinitions>
+                    <Button  Grid.Row="0" Grid.Column="0" Height="40" Width="120" HorizontalAlignment="Left" Content="手动" Background="#e1bee7"  Command="{Binding 手动}"></Button>
+                    <Button Grid.Row="1" Grid.Column="0" Height="40" Width="120" HorizontalAlignment="Left" Content="自动" Background="#b2ebf2" Command="{Binding 自动}"></Button>
+                    <Button Grid.Row="2" Grid.Column="0" Height="40" Width="120" HorizontalAlignment="Left" Content="启动" Background="#e1bee7"  Command="{Binding 启动}"></Button>
+                    <Button Grid.Row="3" Grid.Column="0" Height="40" Width="120" HorizontalAlignment="Left" Content="复位" Background="#b2ebf2" Command="{Binding 复位}"></Button>
+                    <Button Grid.Row="0" Grid.Column="1" Height="40" Width="120" HorizontalAlignment="Left" Content="电源总开关" Background="#e1bee7"  Command="{Binding 电源总开关}"></Button>
+                    <Button Grid.Row="1" Grid.Column="1" Height="40" Width="120" HorizontalAlignment="Left" Content="24V电源 " Background="#b2ebf2" Command="{Binding 低压电源}"></Button>
+                    <Button Grid.Row="2" Grid.Column="1" Height="40" Width="120" HorizontalAlignment="Left" Content="照明电源空开" Background="#e1bee7"  Command="{Binding 照明电源空开}"></Button>
+                    <Button Grid.Row="3" Grid.Column="1" Height="40" Width="120" HorizontalAlignment="Left" Content="24V电源空开" Background="#b2ebf2" Command="{Binding 低压电源空开}" Cursor="Hand"></Button>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+    </StackPanel>
+</UserControl>
+                

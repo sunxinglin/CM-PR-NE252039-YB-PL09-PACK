@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://machineintegration.ws.atlmes.com/" targetNamespace="http://machineintegration.ws.atlmes.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://machineintegration.ws.atlmes.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="miCheckShoporder" type="tns:miCheckShoporder" />
+      <xs:element name="miCheckShoporderInfoRequest" type="tns:miCheckShoporderInfoRequest" />
+      <xs:element name="miCheckShoporderInfoResponse" type="tns:miCheckShoporderInfoResponse" />
+      <xs:element name="miCheckShoporderResponse" type="tns:miCheckShoporderResponse" />
+      <xs:element name="subShopOrderDataArray" type="tns:subShopOrderDataArray" />
+      <xs:complexType name="miCheckShoporder">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Request" type="tns:miCheckShoporderInfoRequest" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miCheckShoporderInfoRequest">
+        <xs:sequence>
+          <xs:element name="site" type="xs:string" />
+          <xs:element name="resource" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miCheckShoporderResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:miCheckShoporderInfoResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miCheckShoporderInfoResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:int" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" name="parentOrder" type="xs:string" />
+          <xs:element minOccurs="0" name="plannedItem" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="subShopOrderDataArray" type="tns:subShopOrderDataArray" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="subShopOrderDataArray">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="shopOrder" type="xs:string" />
+          <xs:element minOccurs="0" name="qtyOrder" type="xs:string" />
+          <xs:element minOccurs="0" name="planItem" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="miCheckShoporderIn">
+    <wsdl:part name="parameters" element="tns:miCheckShoporder" />
+  </wsdl:message>
+  <wsdl:message name="miCheckShoporderOut">
+    <wsdl:part name="miCheckShoporderResponse" element="tns:miCheckShoporderResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MiCheckShoporderInfoService">
+    <wsdl:operation name="miCheckShoporder" parameterOrder="parameters">
+      <wsdl:input message="tns:miCheckShoporderIn" />
+      <wsdl:output message="tns:miCheckShoporderOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="MiCheckShoporderInfoServiceBinding" type="tns:MiCheckShoporderInfoService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="miCheckShoporder">
+      <soap:operation soapAction="" />
+      <wsdl:input>
+        <soap:body use="literal" parts="parameters" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MiCheckShoporderInfoServiceService">
+    <wsdl:port name="MiCheckShoporderInfoServicePort" binding="tns:MiCheckShoporderInfoServiceBinding">
+      <address location="http://ndmes1p044.catlbattery.com:50400/atlmeswebservice/MiCheckShoporderInfoServiceService" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

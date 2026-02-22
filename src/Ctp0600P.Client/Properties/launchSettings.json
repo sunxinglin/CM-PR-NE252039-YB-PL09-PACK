@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Ctp0600P.Client": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

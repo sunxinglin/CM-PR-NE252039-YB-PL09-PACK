@@ -1,0 +1,88 @@
+﻿<UserControl
+    x:Class="MPAssmebleRecipe.Apps.Views.Recipe.UcRecipeAddView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MPAssmebleRecipe.Apps.Views.Recipe"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:MPAssmebleRecipe.Apps.ViewModels.Recipe"
+    Height="500"
+    d:DataContext="{d:DesignInstance Type=viewmodels:UcRecipeAddViewModel}"
+    Background="Transparent"
+    mc:Ignorable="d">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--  操作  -->
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,10"
+            Orientation="Horizontal">
+            <!--<ComboBox
+                Name="cmb_Pack"
+                Width="160"
+                Margin="0,0,20,0"
+                DisplayMemberPath="Pn"
+                ItemsSource="{Binding lsPack}"
+                SelectedItem="{Binding CurrentPack}"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}" />-->
+            <TextBox
+                Width="160"
+                Margin="0,0,20,0"
+                materialDesign:HintAssist.Hint="Pack料号"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding PackPN, Mode=TwoWay}" />
+            <TextBox
+                Width="100"
+                Margin="0,0,20,0"
+                materialDesign:HintAssist.Hint="层号[0表示全部]"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding LayerNum, Mode=TwoWay}" />
+            <TextBox
+                Width="100"
+                Margin="0,0,20,0"
+                materialDesign:HintAssist.Hint="投产数量"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding WorkCount, Mode=TwoWay}" />
+            <Button
+                Margin="0,0,20,0"
+                Command="{Binding RecipeLoadCommand}"
+                Content="预览"
+                Style="{StaticResource MaterialDesignRaisedButton}" />
+            <Button
+                Margin="0,0,20,0"
+                Command="{Binding RecipeSaveCommand}"
+                Content="保存配方"
+                Style="{StaticResource MaterialDesignRaisedButton}" />
+        </StackPanel>
+
+        <!--  列表  -->
+        <DataGrid
+            x:Name="dgv_RecipeTempss"
+            Grid.Row="1"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            IsReadOnly="True"
+            ItemsSource="{Binding RecipeTempss}">
+            <DataGrid.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel
+                        IsItemsHost="True"
+                        VirtualizingPanel.IsVirtualizing="True"
+                        VirtualizingPanel.VirtualizationMode="Recycling" />
+                </ItemsPanelTemplate>
+            </DataGrid.ItemsPanel>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding RecipeIndex}" Header="配方顺序" />
+                <DataGridTextColumn Binding="{Binding BlockPN}" Header="Block料号" />
+                <DataGridTextColumn Binding="{Binding BlockAmount}" Header="Block数量" />
+                <DataGridTextColumn Binding="{Binding RecipeType}" Header="配方类型" />
+                <DataGridTextColumn Binding="{Binding LayerNum}" Header="层号" />
+                <DataGridTextColumn Binding="{Binding AttributionLine}" Header="归属拉线" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

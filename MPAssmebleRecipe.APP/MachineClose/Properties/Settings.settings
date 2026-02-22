@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MachineClose.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MachineClose_MachineClose_MachineCloseServiceService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ndmes1p044.catlbattery.com:50400/atlmeswebservice/MachineCloseServiceService</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

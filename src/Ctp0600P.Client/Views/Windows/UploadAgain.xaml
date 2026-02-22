@@ -1,0 +1,35 @@
+﻿<Window x:Class="Ctp0600P.Client.Views.Windows.UploadAgain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ctp0600P.Client.Views.Windows"
+        d:DataContext="{d:DesignInstance Type=local:UploadAgainViewModel}"
+        mc:Ignorable="d"
+        Title="UploadAgain" Height="450" Width="800" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Text="Pack码：" VerticalAlignment="Center" FontSize="30"> </TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding PackCode.Value}" Background="#0000" Width="400" VerticalAlignment="Center" FontSize="30" ></TextBox>
+        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Text="工位：" VerticalAlignment="Center" FontSize="30"></TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding StationCode.Value}" Background="#0000" Width="400" VerticalAlignment="Center" FontSize="30" ></TextBox>
+        <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Text="启用过站：" VerticalAlignment="Center" FontSize="30"></TextBlock>
+        <ToggleButton Grid.Row="3" IsChecked="{Binding IsNeedChangeStatus.Value}" Grid.Column="1" Width="55" Height="45"  HorizontalAlignment="Left" VerticalAlignment="Center"></ToggleButton>
+        <StackPanel Orientation="Horizontal"  Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
+            <Button Content="取消" Command="{Binding BtnCancel}" FontSize="25" Width="100" Height="40"/>
+            <Button Content="确认" Command="{Binding BtnOk}" FontSize="25" Width="100" Height="40" Margin="40 0 0 0"/>
+        </StackPanel>
+    </Grid>
+</Window>

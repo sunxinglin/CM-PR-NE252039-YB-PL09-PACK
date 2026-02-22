@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="MPAssmebleRecipe.Apps.Views.AddPlcTagDialog"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="400">
+
+    <Grid Margin="16" Width="300">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Row="0"
+                 Text="{Binding TagName}"
+                 MaterialDesign:HintAssist.Hint="名称"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0,8"/>
+
+        <TextBox Grid.Row="1"
+          Text="{Binding IP}"
+          MaterialDesign:HintAssist.Hint="IP地址"
+          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+          Margin="0,8"/>
+
+        <TextBox Grid.Row="2"
+                 Text="{Binding Dbnr}"
+                 MaterialDesign:HintAssist.Hint="DB地址"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0,8"/>
+
+        <TextBox Grid.Row="3"
+           Text="{Binding StartAddress}"
+           MaterialDesign:HintAssist.Hint="开始地址"
+           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+           Margin="0,8"/>
+
+        <TextBox Grid.Row="4"
+           Text="{Binding DataLength}"
+           MaterialDesign:HintAssist.Hint="长度"
+           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+           Margin="0,8"/>      
+        <ComboBox Grid.Row="5"
+                  x:Name="cbx_DataType"
+                  ItemsSource="{Binding lsDateType}"
+                  SelectedItem="{Binding DateTypeValue}"
+                  MaterialDesign:HintAssist.Hint="数据类型"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                  Margin="0,8"/>
+        <TextBox Grid.Row="6"
+                  Text="{Binding DataBit}"
+                  MaterialDesign:HintAssist.Hint="数据位"
+                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                  Margin="0,8"/>
+        <Label Grid.Row="7" Content="是否上传MES"  Margin="20,8"/>
+        <CheckBox Grid.Row="7"
+                  x:Name="cbx_IsUpload"                 
+                  IsChecked="{Binding IsUpload}"    
+                     Margin="0,8"/>
+        <Label Grid.Row="8" Content="是否开启本地校验"  Margin="20,8"/>
+        <CheckBox Grid.Row="8"
+             x:Name="cbx_IsChecked" 
+                     Margin="0,8"
+             IsChecked="{Binding IsChecked}"/>
+        <TextBox Grid.Row="9"
+          Text="{Binding LowerLimit}"
+          MaterialDesign:HintAssist.Hint="本地校验下限"
+               
+          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+          Margin="0,8"/>
+
+        <TextBox Grid.Row="10"
+          Text="{Binding UpperLimit}"
+          MaterialDesign:HintAssist.Hint="本地校验上限"
+          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+          Margin="0,8"/>
+        <TextBox Grid.Row="11"
+          Text="{Binding MesName}"
+          MaterialDesign:HintAssist.Hint="MES参数名称"
+          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+          Margin="0,8"/>
+        <ComboBox Grid.Row="12"
+               SelectedItem="{Binding MesDataType}"
+               ItemsSource="{Binding MesDataTypes}"
+              MaterialDesign:HintAssist.Hint="MES参数类型"
+              Style="{StaticResource MaterialDesignComboBox}"
+              Margin="0,8"/>
+        <StackPanel Grid.Row="13" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,16,0,0">
+            <Button Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{Binding CancelCommand}"
+                    Content="取消" Cursor="Hand"/>
+            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding SaveCommand}"
+                    Content="保存"
+                    Margin="8,0,0,0"/>
+        </StackPanel>
+    </Grid>
+</UserControl> 

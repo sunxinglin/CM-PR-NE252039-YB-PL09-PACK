@@ -1,0 +1,186 @@
+<wsdl:definitions targetNamespace="http://machineintegration.ws.atlmes.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://machineintegration.ws.atlmes.com/">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://machineintegration.ws.atlmes.com/" version="1.0" xmlns:ns1="http://www.sap.com/me/production" xmlns:ns2="http://www.sap.com/me/datacollection" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.sap.com/me/production"/>
+      <xs:import namespace="http://www.sap.com/me/datacollection"/>
+      <xs:element name="assembleAndCollectDataForSfcRequest" type="tns:assembleAndCollectDataForSfcRequest"/>
+      <xs:element name="assembleAndCollectDataForSfcResponse" type="tns:assembleAndCollectDataForSfcResponse"/>
+      <xs:element name="baseResponse" type="tns:baseResponse"/>
+      <xs:element name="getInventoryQty" type="tns:getInventoryQty"/>
+      <xs:element name="getInventoryQtyRequest" type="tns:getInventoryQtyRequest"/>
+      <xs:element name="getInventoryQtyResponse" type="tns:getInventoryQtyResponse"/>
+      <xs:element name="machineIntegrationParametricData" type="tns:machineIntegrationParametricData"/>
+      <xs:element name="miAssmebleAndCollectDataForSfc" type="tns:miAssmebleAndCollectDataForSfc"/>
+      <xs:element name="miAssmebleAndCollectDataForSfcResponse" type="tns:miAssmebleAndCollectDataForSfcResponse"/>
+      <xs:element name="miInventoryData" type="tns:miInventoryData"/>
+      <xs:element name="nonConfirmCodeArray" type="tns:nonConfirmCodeArray"/>
+      <xs:complexType name="miAssmebleAndCollectDataForSfc">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AssembleAndCollectDataForSfcRequest" type="tns:assembleAndCollectDataForSfcRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="assembleAndCollectDataForSfcRequest">
+        <xs:sequence>
+          <xs:element name="site" type="xs:string"/>
+          <xs:element name="sfc" type="xs:string"/>
+          <xs:element name="dcGroup" type="xs:string"/>
+          <xs:element minOccurs="0" name="dcGroupRevision" type="xs:string"/>
+          <xs:element name="operation" type="xs:string"/>
+          <xs:element minOccurs="0" name="operationRevision" type="xs:string"/>
+          <xs:element name="resource" type="xs:string"/>
+          <xs:element name="user" type="xs:string"/>
+          <xs:element name="activityId" type="xs:string"/>
+          <xs:element name="modeProcessSFC" type="tns:dataCollectForSfcModeProcessSfc"/>
+          <xs:element name="partialAssembly" type="xs:boolean"/>
+          <xs:element maxOccurs="unbounded" name="inventoryArray" type="tns:miInventoryData"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="parametricDataArray" type="tns:machineIntegrationParametricData"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="ncCodeArray" type="tns:nonConfirmCodeArray"/>
+          <xs:element minOccurs="0" name="remark" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miInventoryData">
+        <xs:sequence>
+          <xs:element name="inventory" type="xs:string"/>
+          <xs:element minOccurs="0" name="qty" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="assemblyDataFields" type="ns1:AssemblyDataField"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="machineIntegrationParametricData">
+        <xs:sequence>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element name="value" type="xs:string"/>
+          <xs:element name="dataType" type="ns2:ParameterDataType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="nonConfirmCodeArray">
+        <xs:sequence>
+          <xs:element name="ncCode" type="xs:string"/>
+          <xs:element name="hasNc" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miAssmebleAndCollectDataForSfcResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:assembleAndCollectDataForSfcResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="assembleAndCollectDataForSfcResponse">
+        <xs:sequence>
+          <xs:element name="code" type="xs:int"/>
+          <xs:element name="message" type="xs:string"/>
+          <xs:element minOccurs="0" name="sfc" type="xs:string"/>
+          <xs:element minOccurs="0" name="failedInventory" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getInventoryQty">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="GetInventoryQtyRequest" type="tns:getInventoryQtyRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getInventoryQtyRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="site" type="xs:string"/>
+          <xs:element minOccurs="0" name="inventory" type="xs:string"/>
+          <xs:element minOccurs="0" name="resource" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getInventoryQtyResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:baseResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="baseResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:int"/>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="dataCollectForSfcModeProcessSfc">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="MODE_NONE"/>
+          <xs:enumeration value="MODE_START_SFC_PRE_DC"/>
+          <xs:enumeration value="MODE_COMPLETE_SFC_POST_DC"/>
+          <xs:enumeration value="MODE_PASS_SFC_POST_DC"/>
+          <xs:enumeration value="MODE_START_AND_COMPLETE_SFC_POST_DC"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+    <xs:schema targetNamespace="http://www.sap.com/me/common" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="AttributeValue">
+        <xs:sequence>
+          <xs:element name="attribute" type="xs:string"/>
+          <xs:element minOccurs="0" name="value" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://www.sap.com/me/production" version="1.0" xmlns:ns1="http://www.sap.com/me/common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.sap.com/me/common"/>
+      <xs:complexType name="AssemblyDataField">
+        <xs:complexContent>
+          <xs:extension base="ns1:AttributeValue">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="sequence" type="xs:decimal"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema targetNamespace="http://www.sap.com/me/datacollection" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:simpleType name="ParameterDataType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="NUMBER"/>
+          <xs:enumeration value="TEXT"/>
+          <xs:enumeration value="FORMULA"/>
+          <xs:enumeration value="BOOLEAN"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="miAssmebleAndCollectDataForSfcIn">
+    <wsdl:part element="tns:miAssmebleAndCollectDataForSfc" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="miAssmebleAndCollectDataForSfcOut">
+    <wsdl:part element="tns:miAssmebleAndCollectDataForSfcResponse" name="miAssmebleAndCollectDataForSfcResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getInventoryQtyIn">
+    <wsdl:part element="tns:getInventoryQty" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getInventoryQtyOut">
+    <wsdl:part element="tns:getInventoryQtyResponse" name="getInventoryQtyResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="MiAssembleAndCollectDataForSfcService">
+    <wsdl:operation name="miAssmebleAndCollectDataForSfc" parameterOrder="parameters">
+      <wsdl:input message="tns:miAssmebleAndCollectDataForSfcIn"/>
+      <wsdl:output message="tns:miAssmebleAndCollectDataForSfcOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="getInventoryQty" parameterOrder="parameters">
+      <wsdl:input message="tns:getInventoryQtyIn"/>
+      <wsdl:output message="tns:getInventoryQtyOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MiAssembleAndCollectDataForSfcServiceBinding" type="tns:MiAssembleAndCollectDataForSfcService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="miAssmebleAndCollectDataForSfc">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getInventoryQty">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MiAssembleAndCollectDataForSfcServiceService">
+    <wsdl:port binding="tns:MiAssembleAndCollectDataForSfcServiceBinding" name="MiAssembleAndCollectDataForSfcServicePort">
+      <soap:address location="http://ndmesd093.CATLBattery.com:50000/atlmeswebservice/MiAssembleAndCollectDataForSfcServiceService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,3 @@
+MediatR
+MediatR.Extensions.Microsoft.DependencyInjection
+Microsoft.Extensions.DependencyInjection.Abstractions

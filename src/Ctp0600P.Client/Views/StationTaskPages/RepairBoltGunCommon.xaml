@@ -1,0 +1,132 @@
+﻿<local:StationTaskCommonPage x:Class="Ctp0600P.Client.Views.StationTaskPages.RepairBoltGunCommon"
+                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                             xmlns:local="clr-namespace:Ctp0600P.Client.Views.StationTaskPages"
+                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                             xmlns:rwc="clr-namespace:Ctp0600P.Client.UserControls"
+                             xmlns:uc="clr-namespace:Ctp0600P.Client.UserControls.ScrewView"
+                             xmlns:vm="clr-namespace:Ctp0600P.Client.ViewModels.StationTaskViewModels"
+                             d:DataContext="{d:DesignInstance Type=vm:RepairBoltGun_CommonViewModel}"
+                             d:DesignHeight="720"
+                             d:DesignWidth="700"
+                             Background="#0000"
+                             Loaded="StationTaskCommonPage_Loaded"
+                             x:Name="screwViewRoot"
+                             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                             mc:Ignorable="d">
+
+    <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="80" />
+        </Grid.RowDefinitions>
+        <Grid Name="Grid_ScrewLayout_P"
+              Grid.Column="0"
+              Width="{Binding GridX.Value}"
+              Height="{Binding GridY.Value}"
+              Margin="0"
+              Background="#0000"
+              RenderTransformOrigin="0,0">
+            <Image Name="Img_ScrewLayout"
+                   Margin="0"
+                   Opacity="0.3"
+                   Source="{Binding ImageSource.Value}"
+                   Stretch="Fill"
+                   RenderTransformOrigin="0.5 0.5">
+                <Image.RenderTransform>
+                    <ScaleTransform ScaleX="{Binding FlipX.Value}" ScaleY="{Binding FlipY.Value}"></ScaleTransform>
+                </Image.RenderTransform>
+            </Image>
+            <TextBlock x:Name="OrderNo_Big"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="150"
+                       Foreground="Red" />
+            <ItemsControl Width="{Binding GridX.Value}"
+                          Height="{Binding GridY.Value}"
+                          ItemsSource="{Binding ScrewListObserver}"
+                          RenderTransformOrigin="0.5 0.5">
+                <ItemsControl.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding FlipX.Value}" ScaleY="{Binding FlipY.Value}"></ScaleTransform>
+                    </TransformGroup>
+                </ItemsControl.RenderTransform>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <uc:ScrewView Width="25"
+                                      Height="25"
+                                      Margin="{Binding MarginSelf}"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top"
+                                      OrderNo="{Binding OrderNo}"
+                                      Status="{Binding Status}"
+                                      TextScaleX="{Binding DataContext.FlipX.Value, ElementName=screwViewRoot}"
+                                      TextScaleY="{Binding DataContext.FlipY.Value, ElementName=screwViewRoot}"
+                                      RenderTransformOrigin="0.5 0.5"
+                                      />
+                    </ItemContainerTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock x:Name="AllNo"
+                       Margin="80,350,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       FontSize="25"
+                       Foreground="Red" />
+            <TextBlock x:Name="AlreadyNo"
+                       Margin="480,350,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       FontSize="25"
+                       Foreground="Red" />
+            <StackPanel Height="Auto" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock FontSize="75"
+                           Foreground="OrangeRed"
+                           Text="螺栓号:" />
+                <TextBlock Margin="20,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="75"
+                           Foreground="OrangeRed"
+                           Text="{Binding CurrentScrewNo.Value}" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Content="扭矩："
+                   FontSize="30" />
+            <TextBlock Grid.Column="1"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       FontSize="30"
+                       Text="{Binding Torque.Value}" />
+            <Label Grid.Column="2"
+                   VerticalAlignment="Top"
+                   Content="角度："
+                   FontSize="30" />
+            <TextBlock Grid.Column="3"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       FontSize="30"
+                       Text="{Binding Angle.Value}" />
+        </Grid>
+    </Grid>
+</local:StationTaskCommonPage>
+
+
+<!--<uc:ScrewView  VerticalAlignment="Top" Margin="{Binding MarginSelf}"  HorizontalAlignment="Left" OrderNo="{Binding OrderNo}" Status="{Binding Status}"  Width ="25" Height = "25" />-->

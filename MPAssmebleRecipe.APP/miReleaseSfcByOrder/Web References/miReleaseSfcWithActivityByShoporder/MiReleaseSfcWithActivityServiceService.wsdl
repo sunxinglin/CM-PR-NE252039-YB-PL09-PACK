@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://machineintegration.ws.atlmes.com/" targetNamespace="http://machineintegration.ws.atlmes.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://machineintegration.ws.atlmes.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="BasicBOBeanException" type="tns:BasicBOBeanException" />
+      <xs:element name="BusinessException" type="tns:BusinessException" />
+      <xs:element name="miReleaseSfcWithActivity" type="tns:miReleaseSfcWithActivity" />
+      <xs:element name="miReleaseSfcWithActivityByShoporder" type="tns:miReleaseSfcWithActivityByShoporder" />
+      <xs:element name="miReleaseSfcWithActivityByShoporderResponse" type="tns:miReleaseSfcWithActivityByShoporderResponse" />
+      <xs:element name="miReleaseSfcWithActivityResponse" type="tns:miReleaseSfcWithActivityResponse" />
+      <xs:element name="releaseSfcWithActivityRequest" type="tns:releaseSfcWithActivityRequest" />
+      <xs:element name="releaseSfcWithActivityResponse" type="tns:releaseSfcWithActivityResponse" />
+      <xs:element name="sfcWithLocation" type="tns:sfcWithLocation" />
+      <xs:complexType name="miReleaseSfcWithActivityByShoporder">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ReleaseSfcWithActivityRequest" type="tns:releaseSfcWithActivityRequest" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="releaseSfcWithActivityRequest">
+        <xs:sequence>
+          <xs:element name="site" type="xs:string" />
+          <xs:element name="resource" type="xs:string" />
+          <xs:element name="operation" type="xs:string" />
+          <xs:element minOccurs="0" name="operationRevision" type="xs:string" />
+          <xs:element name="sfcQty" type="xs:decimal" />
+          <xs:element name="activity" type="xs:string" />
+          <xs:element name="user" type="xs:string" />
+          <xs:element minOccurs="0" name="processlot" type="xs:string" />
+          <xs:element name="isCarrierType" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ColumnOrRowFirst" type="tns:columnOrRow" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="location" type="xs:string" />
+          <xs:element name="modeProcessSFC" type="tns:modeProcessSFC" />
+          <xs:element minOccurs="0" name="shopOrder" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miReleaseSfcWithActivityByShoporderResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:releaseSfcWithActivityResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="releaseSfcWithActivityResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:int" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="sfcArray" type="tns:sfcWithLocation" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sfcWithLocation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sfc" type="xs:string" />
+          <xs:element minOccurs="0" name="carrierLocation" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="BusinessException">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="details" type="xs:anyType" />
+          <xs:element name="errorCode" type="xs:int" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="suppressed" type="tns:throwable" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="throwable">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="stackTrace" nillable="true" type="tns:stackTraceElement" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="stackTraceElement" final="extension restriction">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="BasicBOBeanException">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="data" type="tns:data" />
+          <xs:element minOccurs="0" name="details" type="xs:string" />
+          <xs:element name="error" type="xs:int" />
+          <xs:element minOccurs="0" name="errorMessage" type="tns:errorMessage" />
+          <xs:element minOccurs="0" name="fullMsg" type="xs:string" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" name="origException" type="tns:exception" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="suppressed" type="tns:throwable" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="data">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="errorMessage">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:applicationMessage">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="applicationMessage">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseObject">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="baseObject">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="exception">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:throwable">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="miReleaseSfcWithActivity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ReleaseSfcWithActivityRequest" type="tns:releaseSfcWithActivityRequest" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miReleaseSfcWithActivityResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:releaseSfcWithActivityResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="columnOrRow">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ROW_FIRST" />
+          <xs:enumeration value="COLUMN_FIRST" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="modeProcessSFC">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="MODE_NONE" />
+          <xs:enumeration value="MODE_START_SFC" />
+          <xs:enumeration value="MODE_COMPLETE_SFC" />
+          <xs:enumeration value="MODE_PASS_SFC" />
+          <xs:enumeration value="MODE_START_COMPLETE_SFC" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="miReleaseSfcWithActivityByShoporderIn">
+    <wsdl:part name="parameters" element="tns:miReleaseSfcWithActivityByShoporder" />
+  </wsdl:message>
+  <wsdl:message name="miReleaseSfcWithActivityByShoporderOut">
+    <wsdl:part name="miReleaseSfcWithActivityByShoporderResponse" element="tns:miReleaseSfcWithActivityByShoporderResponse" />
+  </wsdl:message>
+  <wsdl:message name="miReleaseSfcWithActivityByShoporderFault">
+    <wsdl:part name="BasicBOBeanException" element="tns:BasicBOBeanException" />
+  </wsdl:message>
+  <wsdl:message name="MiReleaseSfcWithActivityServicemiReleaseSfcWithActivityByShoporderFault">
+    <wsdl:part name="BusinessException" element="tns:BusinessException" />
+  </wsdl:message>
+  <wsdl:message name="miReleaseSfcWithActivityIn">
+    <wsdl:part name="parameters" element="tns:miReleaseSfcWithActivity" />
+  </wsdl:message>
+  <wsdl:message name="miReleaseSfcWithActivityOut">
+    <wsdl:part name="miReleaseSfcWithActivityResponse" element="tns:miReleaseSfcWithActivityResponse" />
+  </wsdl:message>
+  <wsdl:message name="miReleaseSfcWithActivityFault">
+    <wsdl:part name="BasicBOBeanException" element="tns:BasicBOBeanException" />
+  </wsdl:message>
+  <wsdl:portType name="MiReleaseSfcWithActivityService">
+    <wsdl:operation name="miReleaseSfcWithActivityByShoporder" parameterOrder="parameters">
+      <wsdl:input message="tns:miReleaseSfcWithActivityByShoporderIn" />
+      <wsdl:output message="tns:miReleaseSfcWithActivityByShoporderOut" />
+      <wsdl:fault name="BasicBOBeanException" message="tns:miReleaseSfcWithActivityByShoporderFault" />
+      <wsdl:fault name="BusinessException" message="tns:MiReleaseSfcWithActivityServicemiReleaseSfcWithActivityByShoporderFault" />
+    </wsdl:operation>
+    <wsdl:operation name="miReleaseSfcWithActivity" parameterOrder="parameters">
+      <wsdl:input message="tns:miReleaseSfcWithActivityIn" />
+      <wsdl:output message="tns:miReleaseSfcWithActivityOut" />
+      <wsdl:fault name="BasicBOBeanException" message="tns:miReleaseSfcWithActivityFault" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="MiReleaseSfcWithActivityServiceBinding" type="tns:MiReleaseSfcWithActivityService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="miReleaseSfcWithActivityByShoporder">
+      <soap:operation soapAction="" />
+      <wsdl:input>
+        <soap:body use="literal" parts="parameters" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BasicBOBeanException">
+        <soap:fault use="literal" name="BasicBOBeanException" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessException">
+        <soap:fault use="literal" name="BusinessException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="miReleaseSfcWithActivity">
+      <soap:operation soapAction="" />
+      <wsdl:input>
+        <soap:body use="literal" parts="parameters" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BasicBOBeanException">
+        <soap:fault use="literal" name="BasicBOBeanException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MiReleaseSfcWithActivityServiceService">
+    <wsdl:port name="MiReleaseSfcWithActivityServicePort" binding="tns:MiReleaseSfcWithActivityServiceBinding">
+      <address location="http://ndmes1p042.catlbattery.com:52200/atlmeswebservice/MiReleaseSfcWithActivityServiceService" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

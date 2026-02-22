@@ -1,0 +1,24 @@
+﻿using Automatic.Protocols.Common;
+using FutureTech.Protocols;
+using System.Runtime.InteropServices;
+
+namespace Automatic.Protocols.ModuleInBox.Models
+{
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+    public class DevMsg_SingleInBoxComplete
+    {
+
+        public DevMsgFlag Flag;
+
+        [Endian(Endianness.BigEndian)]
+        public ushort VectorCode;
+
+        public String40 PackCode;
+
+        public String40 ModuleCode;
+
+        [Endian(Endianness.BigEndian)]
+        public ushort ModuleLocation;
+
+    }
+}

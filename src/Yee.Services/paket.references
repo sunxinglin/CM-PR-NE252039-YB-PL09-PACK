@@ -1,0 +1,8 @@
+Microsoft.AspNetCore.Authentication.Cookies
+Microsoft.AspNetCore.Authorization
+Microsoft.AspNetCore.Authorization.Policy
+Microsoft.AspNetCore.DataProtection
+Microsoft.AspNetCore.DataProtection.Extensions
+Catl.HostComputer.CommonServices
+EPPlus
+Itminus.FSharpExtensions

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
+    <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">D:\Workspace\SourceCode\CM-PR-NE240273-LY-PL41-PACK\src\.svcutil\.store\.stage\moq0wgb0.szc</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">D:\Workspace\SourceCode\CM-PR-NE240273-LY-PL41-PACK\src\.svcutil\.store\.stage\moq0wgb0.szc</NuGetPackageFolders>
+    <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">DotnetToolReference</NuGetProjectStyle>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.0.0</NuGetToolVersion>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <SourceRoot Include="D:\Workspace\SourceCode\CM-PR-NE240273-LY-PL41-PACK\src\.svcutil\.store\.stage\moq0wgb0.szc\" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Pkgdotnet-svcutil Condition=" '$(Pkgdotnet-svcutil)' == '' ">D:\Workspace\SourceCode\CM-PR-NE240273-LY-PL41-PACK\src\.svcutil\.store\.stage\moq0wgb0.szc\dotnet-svcutil\2.1.0</Pkgdotnet-svcutil>
+  </PropertyGroup>
+</Project>

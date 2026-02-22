@@ -1,0 +1,233 @@
+﻿<UserControl x:Class="MPAssmebleRecipe.Apps.Views.PlcTagView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:prism="http://prismlibrary.com/"
+                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                          xmlns:local="clr-namespace:RogerTech.Tool;assembly=RogerTech.Tool"  
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <!-- 添加枚举资源 -->
+        <ObjectDataProvider x:Key="dataTypes" 
+                            MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:ParameterDataType"/>
+                <!-- 实际枚举类型 -->
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+
+    <Grid Margin="0,0,-450,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- 左侧分组树 -->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0" Visibility="Hidden" Orientation="Horizontal" Margin="8">
+                <!--<Button Style="{StaticResource MaterialDesignFlatButton}"-->
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding AddGroupCommand}"
+                        Margin="0,0,8,0">
+                    <!--<MaterialDesign:PackIcon Kind="FolderPlus"/>-->
+                    <StackPanel Orientation="Horizontal">
+                        <MaterialDesign:PackIcon Kind="FolderPlus"/>
+                        <TextBlock Text="添加工序" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding RefreshCommand}"
+                        Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <MaterialDesign:PackIcon Kind="Refresh"/>
+                        <TextBlock Text="刷新" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <TreeView Grid.Row="1" 
+                      ItemsSource="{Binding PlcGroups}"
+                      SelectedItemChanged="TreeView_SelectedItemChanged">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <MaterialDesign:PackIcon Kind="Folder" 
+                                                   Margin="0,0,8,0"/>
+                            <TextBlock Text="{Binding GroupName}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Grid>
+
+        <!-- 分隔线 -->
+        <GridSplitter Grid.Column="1" 
+                      Width="5" 
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Stretch"/>
+
+        <!-- 右侧Tag列表 -->
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!-- 工具栏 -->
+            <StackPanel Orientation="Horizontal" Margin="8">
+                <Button x:Name="AddTag" Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding AddTagCommand}"
+                        Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <MaterialDesign:PackIcon Kind="TagPlus"/>
+                        <TextBlock Text="添加Tag" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="EditTag" Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding EditTagCommand}"
+                        CommandParameter="{Binding SelectedTag}"    Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <MaterialDesign:PackIcon Kind="TagEdit"/>
+                        <TextBlock Text="编辑Tag" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="SaveTag" Style="{StaticResource MaterialDesignRaisedButton}"
+                     Command="{Binding SaveTagCommand}" Click="SaveTag_Click" Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <MaterialDesign:PackIcon Kind="ContentSave"/>
+                        <TextBlock Text="保存Tag" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="EditAllTag"  Style="{StaticResource MaterialDesignRaisedButton}"
+       Click="EditAllTag_Click"     Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <MaterialDesign:PackIcon Kind="DatabaseEdit"/>
+                        <TextBlock Text="批量编辑Tag" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Label x:Name="Editing" Content="编辑中" Visibility="Hidden" Foreground="Red" VerticalAlignment="Center"></Label>
+            </StackPanel>
+            <!-- Tag列表 -->
+            <DataGrid Grid.Row="1"                    
+                      ItemsSource="{Binding Tags}"
+                      SelectedItem="{Binding SelectedTag}"
+              
+                      BeginningEdit="tagGrid_BeginningEdit"
+                      CellEditEnding="tagGrid_CellEditEnding"
+                     
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      x:Name="tagGrid"
+                       FontSize="10">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Result.Available}" Value="True">
+                                <Setter Property="Foreground" Value="Green"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Result.Available}" Value="False">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="名称" 
+                                      Binding="{Binding TagName}" IsReadOnly="True"
+                                      Width="auto"/>
+                    <DataGridTextColumn Header="IP地址" 
+                                      Binding="{Binding Connection.IP}" IsReadOnly="True"
+                                      Width="120"/>
+                    <DataGridTextColumn Header="DB地址" 
+                                      Binding="{Binding Dbnr}" IsReadOnly="True"
+                                      Width="80"/>
+                    <DataGridTextColumn Header="开始地址" 
+                                      Binding="{Binding StartAddress}" IsReadOnly="True"
+                                      Width="100"/>
+                    <DataGridTextColumn Header="长度" 
+                                      Binding="{Binding DataLength}" IsReadOnly="True"
+                                      Width="60"/>
+                    <DataGridTextColumn Header="数据类型" 
+                                      Binding="{Binding DataType}" IsReadOnly="True"
+                                      Width="80"/>
+                    <DataGridTextColumn Header="数据位" 
+                                  Binding="{Binding DataBit}" IsReadOnly="True"
+                                  Width="80"/>
+
+                    <DataGridTextColumn x:Name="MesNameColumn" Header="MES参数名称"
+                    Binding="{Binding MesName}"
+                                        
+                    Width="95"/>
+          
+                    <MaterialDesign:DataGridComboBoxColumn 
+                    x:Name="MesTypeColumn" 
+                    Header="MES参数类型"
+                    SelectedItemBinding="{Binding MesDataType}" 
+                    ItemsSource="{Binding Source={StaticResource dataTypes}}" 
+                    Width="95"/>
+
+                    <DataGridTextColumn x:Name="LowerLimitColumn" Header="本地校验下限"
+                     Binding="{Binding LowerLimit}"
+                     Width="95"
+                             
+                                    />
+                    <DataGridTextColumn x:Name="UpperLimitColumn" Header="本地校验上限"
+                   Binding="{Binding UpperLimit}"
+                             
+                   Width="95"/>
+                    <DataGridCheckBoxColumn x:Name="IsCheckedColumn" Header="是否本地校验"
+Binding="{Binding IsChecked}"
+  
+Width="95"/>
+                    <DataGridCheckBoxColumn x:Name="IsUploadColumn" Header="是否上传MES"
+                 Binding="{Binding IsUpload}"
+         
+                 Width="95"/>
+
+                    <DataGridTemplateColumn Header="连接状态"  IsReadOnly="True" Width="60">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Result.Available}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="当前值" 
+                                      Binding="{Binding Result.Value}" IsReadOnly="True"
+                                      Width="auto"/>
+                    <DataGridTemplateColumn Header="操作"  Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Height="15" Orientation="Horizontal">
+                                    <Button x:Name="Btn_WriteTag" Style="{StaticResource MaterialDesignIconButton}"
+                                            Height="15"
+                                            Width="15"
+                                            IsEnabled="False"
+                                            Command="{Binding DataContext.WriteValueCommand, 
+                                                      RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}">
+                                        <MaterialDesign:PackIcon Kind="Pencil" Width="15" Height="15"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl> 

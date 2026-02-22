@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E4362E13-5FEF-4622-9ED4-60C837B10EFF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RogerTech.Common</RootNamespace>
+    <AssemblyName>RogerTech.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism">
+      <HintPath>..\lib\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlSugar">
+      <HintPath>..\lib\SqlSugar.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthService\Model\Menu.cs" />
+    <Compile Include="AuthService\Model\Role.cs" />
+    <Compile Include="AuthService\Model\RoleManage.cs" />
+    <Compile Include="AuthService\Model\RoleMenu.cs" />
+    <Compile Include="AuthService\Model\User.cs" />
+    <Compile Include="AuthService\Model\UserOperationLog.cs" />
+    <Compile Include="AuthService\Model\UserRole.cs" />
+    <Compile Include="AuthService\Model\UserWorkstation.cs" />
+    <Compile Include="AuthService\Model\Workstation.cs" />
+    <Compile Include="AuthService\Services\AuthService.cs" />
+    <Compile Include="AuthService\Services\OperationService.cs" />
+    <Compile Include="AuthService\UserInfo.cs" />
+    <Compile Include="AuthService\UserService.cs" />
+    <Compile Include="Models\AppConfig.cs" />
+    <Compile Include="Models\Recipes\CellAndSfcRecord.cs" />
+    <Compile Include="Models\Recipes\CellTemplate.cs" />
+    <Compile Include="Models\Recipes\Enums.cs" />
+    <Compile Include="Models\LogModel.cs" />
+    <Compile Include="Models\LogModelDto.cs" />
+    <Compile Include="Models\Recipes\ModuleAddDto.cs" />
+    <Compile Include="Models\Recipes\Production_Recipe.cs" />
+    <Compile Include="Models\Recipes\RecipeItem.cs" />
+    <Compile Include="DataContext\DbContext.cs" />
+    <Compile Include="LogMessage.cs" />
+    <Compile Include="Models\Recipes\Recipe_Temp.cs" />
+    <Compile Include="Models\Recipes\TemplateDto.cs" />
+    <Compile Include="Models\Recipes\Template_Block.cs" />
+    <Compile Include="Models\Recipes\Template_Cell.cs" />
+    <Compile Include="Models\Recipes\Template_Module.cs" />
+    <Compile Include="Models\Recipes\Template_Pack.cs" />
+    <Compile Include="Models\UploadData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dataCollectForSfcEx\dataCollectForSfcEx.csproj">
+      <Project>{7db95261-66b1-4630-a1c2-67260a27f6d0}</Project>
+      <Name>dataCollectForSfcEx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RogerTech.Tool\RogerTech.Tool.csproj">
+      <Project>{58ecd4c7-b30c-4ed6-8e48-f63ef3e37a2a}</Project>
+      <Name>RogerTech.Tool</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

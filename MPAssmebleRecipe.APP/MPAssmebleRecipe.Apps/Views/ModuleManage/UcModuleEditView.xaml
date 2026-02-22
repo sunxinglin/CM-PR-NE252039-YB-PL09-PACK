@@ -1,0 +1,147 @@
+﻿<UserControl
+    x:Class="MPAssmebleRecipe.Apps.Views.ModuleManage.UcModuleEditView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enum="clr-namespace:RogerTech.Common.Models;assembly=RogerTech.Common"
+    xmlns:local="clr-namespace:MPAssmebleRecipe.Apps.Views.ModuleManage"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    Width="1200"
+    Height="600"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ObjectDataProvider
+            x:Key="WaterCoolTypeEnum"
+            MethodName="GetValues"
+            ObjectType="{x:Type enum:WaterCoolType}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enum:WaterCoolType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider
+            x:Key="WaterTubeTypeEnum"
+            MethodName="GetValues"
+            ObjectType="{x:Type enum:WaterTubeType}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enum:WaterTubeType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider
+            x:Key="SulationCoverEnum"
+            MethodName="GetValues"
+            ObjectType="{x:Type enum:SulationCoverType}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enum:SulationCoverType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider
+            x:Key="ModuleFaceTapeTypeEnum"
+            MethodName="GetValues"
+            ObjectType="{x:Type enum:ModuleFaceTapeType}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enum:ModuleFaceTapeType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider
+            x:Key="ModuleSideTapeTypeEnum"
+            MethodName="GetValues"
+            ObjectType="{x:Type enum:ModuleSideTapeType}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enum:ModuleSideTapeType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,0,0,10"
+            Orientation="Horizontal">
+            <Button
+                Width="200"
+                Margin="0,0,20,0"
+                Command="{Binding SaveCommand}"
+                Content="保存"
+                Style="{StaticResource MaterialDesignRaisedButton}" />
+            <Button
+                Width="200"
+                Margin="0,0,20,0"
+                Command="{Binding CancelCommand}"
+                Content="取消"
+                Style="{StaticResource MaterialDesignOutlinedButton}" />
+        </StackPanel>
+        <DataGrid
+            Grid.Row="1"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            ItemsSource="{Binding ModuleItems}">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Binding="{Binding BlockPn, Mode=TwoWay}"
+                    Header="Block料号"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Binding="{Binding BlockSequence, Mode=TwoWay}"
+                    Header="AGV托盘号"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Binding="{Binding ModuleType, Mode=TwoWay}"
+                    Header="Unit类型"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Binding="{Binding ModuleIndex, Mode=TwoWay}"
+                    Header="Unit位置"
+                    IsReadOnly="False" />
+                <DataGridCheckBoxColumn
+                    Binding="{Binding ModulePolarity, Mode=TwoWay}"
+                    Header="Unit极性"
+                    IsReadOnly="False" />
+                <DataGridCheckBoxColumn
+                    Binding="{Binding ModuleRotate, Mode=TwoWay}"
+                    Header="Unit旋转"
+                    IsReadOnly="False" />
+                <DataGridTextColumn
+                    Binding="{Binding CellAmount, Mode=TwoWay}"
+                    Header="电芯数量"
+                    IsReadOnly="True" />
+                <MaterialDesign:DataGridComboBoxColumn
+                    x:Name="Side1TapeColumn"
+                    Header="大面胶类型"
+                    IsReadOnly="False"
+                    ItemsSource="{Binding Source={StaticResource ModuleFaceTapeTypeEnum}}"
+                    SelectedItemBinding="{Binding Side1Tape, Mode=TwoWay}" />
+                <MaterialDesign:DataGridComboBoxColumn
+                    x:Name="Side2TapeColumn"
+                    Header="侧面胶类型"
+                    IsReadOnly="False"
+                    ItemsSource="{Binding Source={StaticResource ModuleSideTapeTypeEnum}}"
+                    SelectedItemBinding="{Binding Side2Tape, Mode=TwoWay}" />
+                <MaterialDesign:DataGridComboBoxColumn
+                    x:Name="WaterCoolTypeColumn"
+                    Header="水冷板类型"
+                    IsReadOnly="False"
+                    ItemsSource="{Binding Source={StaticResource WaterCoolTypeEnum}}"
+                    SelectedItemBinding="{Binding WaterCoolType, Mode=TwoWay}" />
+                <MaterialDesign:DataGridComboBoxColumn
+                    x:Name="WaterTubeTypeColumn"
+                    Header="水冷管类型"
+                    IsReadOnly="False"
+                    ItemsSource="{Binding Source={StaticResource WaterTubeTypeEnum}}"
+                    SelectedItemBinding="{Binding WaterTubeType, Mode=TwoWay}" />
+                <MaterialDesign:DataGridComboBoxColumn
+                    x:Name="SulationCoverColumn"
+                    Header="绝缘罩类型"
+                    IsReadOnly="False"
+                    ItemsSource="{Binding Source={StaticResource SulationCoverEnum}}"
+                    SelectedItemBinding="{Binding SulationCover, Mode=TwoWay}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

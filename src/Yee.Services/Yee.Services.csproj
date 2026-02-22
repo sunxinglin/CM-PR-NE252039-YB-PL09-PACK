@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+  <!--<ItemGroup>
+    <PackageReference Include="EPPlus" Version="6.0.6" />
+  </ItemGroup>-->
+  <ItemGroup>
+    <ProjectReference Include="..\AsZero.Core.Services\AsZero.Core.Services.csproj" />
+    <ProjectReference Include="..\AsZero.DbContexts\AsZero.DbContexts.csproj" />
+    <ProjectReference Include="..\Ctp0600P.Shared\Ctp0600P.Shared.csproj" />
+    <ProjectReference Include="..\TimedTask\TimedTask.csproj" />
+    <ProjectReference Include="..\Yee.Entitys\Yee.Entitys.csproj" />
+  </ItemGroup>
+  <!--<ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\packages\epplus\4.5.3.3\lib\netstandard2.1\EPPlus.dll</HintPath>
+    </Reference>
+  </ItemGroup>-->
+  <Import Project="..\.paket\Paket.Restore.targets" />
+</Project>

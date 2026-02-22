@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{60AC13A3-5E4B-41E5-B2C5-2642AC97BFE7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RogerTech.BussnessCore</RootNamespace>
+    <AssemblyName>RogerTech.BussnessCore</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DryIoc">
+      <HintPath>..\lib\DryIoc.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\lib\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism">
+      <HintPath>..\lib\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.DryIoc.Wpf">
+      <HintPath>..\lib\Prism.DryIoc.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf">
+      <HintPath>..\lib\Prism.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="SdkApi.Core">
+      <HintPath>..\lib\SdkApi.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlSugar">
+      <HintPath>..\lib\SqlSugar.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\lib\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BussnessCore.cs" />
+    <Compile Include="BussnessDic.cs" />
+    <Compile Include="Bussness\PlcInProgressBase.cs" />
+    <Compile Include="Bussness\IPlcInProcess.cs" />
+    <Compile Include="BussnessUtility.cs" />
+    <Compile Include="Bussness\PlcProcessAssembleComponentToSfc.cs" />
+    <Compile Include="Bussness\PlcProcessCheckBOMInventory.cs" />
+    <Compile Include="Bussness\PlcProcessDataCollectForResourceInspectTask.cs" />
+    <Compile Include="Bussness\PlcProcessDataCollectForSfcEx.cs" />
+    <Compile Include="Bussness\PlcProcessFindSfcByInventory.cs" />
+    <Compile Include="Bussness\PlcProcessGetParametricValue.cs" />
+    <Compile Include="Bussness\PlcProcessMiFindCustomAndSfcData.cs" />
+    <Compile Include="Bussness\PlcProcessReleaseSfcByShopOrder.cs" />
+    <Compile Include="PlcCommArgs.cs" />
+    <Compile Include="PlcCommucation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CatlMesBase\CatlMesBase.csproj">
+      <Project>{fc939f82-8e4e-4e4e-b770-618712e2a3e1}</Project>
+      <Name>CatlMesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\cellCustomDCCheck\cellCustomDCCheck.csproj">
+      <Project>{04b4abde-0176-44f9-8e0d-a3483f15f871}</Project>
+      <Name>cellCustomDCCheck</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataCollectForResourceInspectTask\DataCollectForResourceInspectTask.csproj">
+      <Project>{e9886309-fe6e-42dc-9664-8dcbdd52dd1a}</Project>
+      <Name>DataCollectForResourceInspectTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dataCollectForSfcEx\dataCollectForSfcEx.csproj">
+      <Project>{7db95261-66b1-4630-a1c2-67260a27f6d0}</Project>
+      <Name>dataCollectForSfcEx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GetParametricValue\GetParametricValue.csproj">
+      <Project>{b8575a29-9122-4a61-92c7-85241a361403}</Project>
+      <Name>GetParametricValue</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MachineClose\MachineClose.csproj">
+      <Project>{86b293aa-951b-4f50-9f61-d0847d186340}</Project>
+      <Name>MachineClose</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MiAssembleAndCollectDataForSfc\MiAssembleAndCollectDataForSfc.csproj">
+      <Project>{d6dbad26-db30-4432-be39-f01653a011dc}</Project>
+      <Name>MiAssembleAndCollectDataForSfc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MiAssembleComponentsToSfcs\MiAssembleComponentsToSfcs.csproj">
+      <Project>{6d609838-8a8a-4c90-adfe-5adb3e0e61ce}</Project>
+      <Name>MiAssembleComponentsToSfcs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MiCheckBOMInventory\MiCheckBOMInventory.csproj">
+      <Project>{22232300-a6d7-4212-ae37-d83220c46d8f}</Project>
+      <Name>MiCheckBOMInventory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\miCheckInventoryAttributes\miCheckInventoryAttributes.csproj">
+      <Project>{a1d944b5-c724-41a1-875a-c5698376150b}</Project>
+      <Name>miCheckInventoryAttributes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\miCheckSfcStatusEx\miCheckSfcStatusEx.csproj">
+      <Project>{ab27f10c-2257-4985-80e7-22574e07acea}</Project>
+      <Name>miCheckSfcStatusEx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MiCheckShoporderInfo\MiCheckShoporderInfo.csproj">
+      <Project>{ca0e5b2c-4a5b-4b08-8d7a-64bb8d25ca64}</Project>
+      <Name>MiCheckShoporderInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\miFindCustomAndSfcData\miFindCustomAndSfcData.csproj">
+      <Project>{16bd31f8-dee5-468c-8f1f-5d2eac69084c}</Project>
+      <Name>miFindCustomAndSfcData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\miReleaseSfcByOrder\miReleaseSfcByOrder.csproj">
+      <Project>{45b0caa6-d3b5-422b-be62-868f5d022794}</Project>
+      <Name>miReleaseSfcByOrder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\miReleaseSfcWithActivity\miReleaseSfcWithActivity.csproj">
+      <Project>{37496127-8770-4a4a-aead-adac4ab8fadb}</Project>
+      <Name>miReleaseSfcWithActivity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MiSFCAttriDataEntry\MiSFCAttriDataEntry.csproj">
+      <Project>{296e0c52-93eb-4251-bf1a-f158835d51c3}</Project>
+      <Name>MiSFCAttriDataEntry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MPAssmebleRecipe.Logger\MPAssmebleRecipe.Logger.csproj">
+      <Project>{18df3162-33ff-4356-8fd3-88a08a86da40}</Project>
+      <Name>MPAssmebleRecipe.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RogerTech.Common\RogerTech.Common.csproj">
+      <Project>{e4362e13-5fef-4622-9ed4-60c837b10eff}</Project>
+      <Name>RogerTech.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RogerTech.Tool\RogerTech.Tool.csproj">
+      <Project>{58ECD4C7-B30C-4ED6-8E48-F63EF3E37A2A}</Project>
+      <Name>RogerTech.Tool</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

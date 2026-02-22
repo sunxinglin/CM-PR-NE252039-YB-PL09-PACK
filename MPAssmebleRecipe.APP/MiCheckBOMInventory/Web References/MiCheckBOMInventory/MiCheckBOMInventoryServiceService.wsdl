@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://machineintegration.ws.atlmes.com/" targetNamespace="http://machineintegration.ws.atlmes.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://www.sap.com/me/common" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:simpleType name="ObjectAliasEnum">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ACTIVITY" />
+          <xs:enumeration value="ACTIVITY_GROUP" />
+          <xs:enumeration value="ACTIVITY_LOG" />
+          <xs:enumeration value="ALARM" />
+          <xs:enumeration value="ALARM_LOG" />
+          <xs:enumeration value="APPLICATION_SETTING" />
+          <xs:enumeration value="ATTACHMENT" />
+          <xs:enumeration value="ATTENDANCE_LOG" />
+          <xs:enumeration value="BACKGROUND_PROCESS" />
+          <xs:enumeration value="BOM" />
+          <xs:enumeration value="BOM_COMPONENT" />
+          <xs:enumeration value="BUYOFF" />
+          <xs:enumeration value="BUYOFF_LOG" />
+          <xs:enumeration value="CERTIFICATION" />
+          <xs:enumeration value="CNC_PROGRAM" />
+          <xs:enumeration value="CONTAINER" />
+          <xs:enumeration value="CONTAINER_DATA" />
+          <xs:enumeration value="COST_CENTER" />
+          <xs:enumeration value="CUSTOMER" />
+          <xs:enumeration value="DATA_FIELD" />
+          <xs:enumeration value="DATA_TYPE" />
+          <xs:enumeration value="DC_GROUP" />
+          <xs:enumeration value="DOCUMENT" />
+          <xs:enumeration value="INVENTORY" />
+          <xs:enumeration value="INVENTORY_LOG" />
+          <xs:enumeration value="ITEM_GROUP" />
+          <xs:enumeration value="LABOR_CHARGE_CODE" />
+          <xs:enumeration value="MESSAGE" />
+          <xs:enumeration value="MESSAGE_LOG" />
+          <xs:enumeration value="MESSAGE_TYPE" />
+          <xs:enumeration value="NC_CODE" />
+          <xs:enumeration value="NEXT_NUMBER" />
+          <xs:enumeration value="OPERATION" />
+          <xs:enumeration value="PROCESS_LOT" />
+          <xs:enumeration value="PRODUCTION_LOG" />
+          <xs:enumeration value="REASON_CODE" />
+          <xs:enumeration value="SAMPLE_PLAN" />
+          <xs:enumeration value="WORK_INSTRUCTION" />
+          <xs:enumeration value="ITEM" />
+          <xs:enumeration value="RESOURCE" />
+          <xs:enumeration value="ROUTER" />
+          <xs:enumeration value="SHOP_ORDER" />
+          <xs:enumeration value="ROUTER_STEP" />
+          <xs:enumeration value="ROUTER_OPERATION" />
+          <xs:enumeration value="SFC" />
+          <xs:enumeration value="USR" />
+          <xs:enumeration value="USER_GROUP" />
+          <xs:enumeration value="WORK_CENTER" />
+          <xs:enumeration value="WORKSTATION" />
+          <xs:enumeration value="RESOURCE_TYPE" />
+          <xs:enumeration value="CUSTOMER_ORDER" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+    <xs:schema xmlns:ns1="http://www.sap.com/me/common" targetNamespace="http://machineintegration.ws.atlmes.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.sap.com/me/common" />
+      <xs:element name="checkBOMInventoryRequest" type="tns:checkBOMInventoryRequest" />
+      <xs:element name="checkBOMInventoryResponse" type="tns:checkBOMInventoryResponse" />
+      <xs:element name="checkBOMInventoryTcData" type="tns:checkBOMInventoryTcData" />
+      <xs:element name="checkBomInventoryData" type="tns:checkBomInventoryData" />
+      <xs:element name="customData" type="tns:customData" />
+      <xs:element name="miCheckBOMInventory" type="tns:miCheckBOMInventory" />
+      <xs:element name="miCheckBOMInventoryResponse" type="tns:miCheckBOMInventoryResponse" />
+      <xs:complexType name="miCheckBOMInventory">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CheckBOMInventoryRequest" type="tns:checkBOMInventoryRequest" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkBOMInventoryRequest">
+        <xs:sequence>
+          <xs:element name="site" type="xs:string" />
+          <xs:element name="operation" type="xs:string" />
+          <xs:element minOccurs="0" default="#" name="operationRevision" type="xs:string" />
+          <xs:element name="resource" type="xs:string" />
+          <xs:element maxOccurs="unbounded" name="customDataArray" type="tns:customData" />
+          <xs:element name="user" type="xs:string" />
+          <xs:element name="activity" type="xs:string" />
+          <xs:element minOccurs="0" name="sfc" type="xs:string" />
+          <xs:element name="modeCheckOperation" type="xs:boolean" />
+          <xs:element name="modeProcessSFC" type="tns:modeProcessSFC" />
+          <xs:element maxOccurs="unbounded" name="inventoryDataArray" type="tns:checkBomInventoryData" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="customData">
+        <xs:sequence>
+          <xs:element name="usage" type="xs:string" />
+          <xs:element name="category" type="ns1:ObjectAliasEnum" />
+          <xs:element name="dataField" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkBomInventoryData">
+        <xs:sequence>
+          <xs:element name="inventory" type="xs:string" />
+          <xs:element minOccurs="0" name="component" type="xs:string" />
+          <xs:element minOccurs="0" name="qty" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miCheckBOMInventoryResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:checkBOMInventoryResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkBOMInventoryResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:int" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" name="failedInventory" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="checkBOMInventoryTcData" type="tns:checkBOMInventoryTcData" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkBOMInventoryTcData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="inventory" type="xs:string" />
+          <xs:element minOccurs="0" name="tcjudgment" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="modeProcessSFC">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="MODE_NONE" />
+          <xs:enumeration value="MODE_START_SFC" />
+          <xs:enumeration value="MODE_COMPLETE_SFC" />
+          <xs:enumeration value="MODE_PASS_SFC" />
+          <xs:enumeration value="MODE_START_COMPLETE_SFC" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="miCheckBOMInventoryIn">
+    <wsdl:part name="parameters" element="tns:miCheckBOMInventory" />
+  </wsdl:message>
+  <wsdl:message name="miCheckBOMInventoryOut">
+    <wsdl:part name="miCheckBOMInventoryResponse" element="tns:miCheckBOMInventoryResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MiCheckBOMInventoryService">
+    <wsdl:operation name="miCheckBOMInventory" parameterOrder="parameters">
+      <wsdl:input message="tns:miCheckBOMInventoryIn" />
+      <wsdl:output message="tns:miCheckBOMInventoryOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="MiCheckBOMInventoryServiceBinding" type="tns:MiCheckBOMInventoryService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="miCheckBOMInventory">
+      <soap:operation soapAction="" />
+      <wsdl:input>
+        <soap:body use="literal" parts="parameters" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MiCheckBOMInventoryServiceService">
+    <wsdl:port name="MiCheckBOMInventoryServicePort" binding="tns:MiCheckBOMInventoryServiceBinding">
+      <address location="http://ndmes1p041.catlbattery.com:52100/atlmeswebservice/MiCheckBOMInventoryServiceService" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

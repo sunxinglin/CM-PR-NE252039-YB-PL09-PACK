@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MiSFCAttriDataEntry.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MiSFCAttriDataEntry_MiSFCAttriDataEntry_MiSFCAttriDataEntryServiceService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ndmes1p042.catlbattery.com:52200/atlmeswebservice/MiSFCAttriDataEntryServiceService</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

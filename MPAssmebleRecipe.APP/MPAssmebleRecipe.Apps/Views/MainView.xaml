@@ -1,0 +1,192 @@
+﻿<Window x:Class="MPAssmebleRecipe.Apps.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MPAssmebleRecipe.Apps.Views"
+        xmlns:prism="http://prismlibrary.com/"  
+        xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="{Binding Title}" 
+        Height="768" 
+        Width="1024"
+        WindowStyle="None"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" 
+            Background="#3f51b5"
+            LastChildFill="True">
+
+            <!-- 左侧按钮 -->
+            <StackPanel Orientation="Horizontal" 
+                 DockPanel.Dock="Left">
+                <Image Source="../Images/CATL.jpg" Width="120"/>
+                <Button Style="{StaticResource MaterialDesignIconButton}"
+                 Command="{Binding ToggleMenuCommand}"
+                 Foreground="White">
+                    <MaterialDesign:PackIcon Kind="Menu"/>
+                </Button>
+
+                <Button Style="{StaticResource MaterialDesignIconButton}"
+                 Command="{Binding HomeCommand}"
+                 Foreground="White">
+                    <MaterialDesign:PackIcon Kind="Home"/>
+                </Button>
+            </StackPanel>
+
+            <!-- 右侧按钮 -->
+            <StackPanel Orientation="Horizontal" 
+                 DockPanel.Dock="Right">
+                <Button Style="{StaticResource MaterialDesignIconButton}"
+                 Command="{Binding ShowLoginCommand}"
+                 Foreground="White" 
+                 ToolTip="用户登录">
+                    <MaterialDesign:PackIcon Kind="Account"/>
+                </Button>
+
+                <Button Style="{StaticResource MaterialDesignIconButton}"
+                 Command="{Binding LogoutCommand}"
+                 Foreground="White"
+                 ToolTip="注销">
+                    <MaterialDesign:PackIcon Kind="Logout"/>
+                </Button>
+
+                <Button Style="{StaticResource MaterialDesignIconButton}"
+                 Command="{Binding MinimizeCommand}"
+                 Foreground="White"
+                 ToolTip="最小化">
+                    <MaterialDesign:PackIcon Kind="WindowMinimize"/>
+                </Button>
+
+                <Button Style="{StaticResource MaterialDesignIconButton}"
+                 Command="{Binding CloseCommand}"
+                 Foreground="White"
+                 ToolTip="关闭">
+                    <MaterialDesign:PackIcon Kind="Close"/>
+                </Button>
+            </StackPanel>
+
+            <!-- 标题 -->
+            <TextBlock Text="{Binding Title}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Foreground="White"
+                FontSize="16"/>
+
+
+        </DockPanel>
+
+        <!-- 主内容区 -->
+        <Grid Grid.Row="1">
+            <!-- 左侧菜单 -->
+            <MaterialDesign:DrawerHost IsLeftDrawerOpen="{Binding IsMenuOpen}">
+                <MaterialDesign:DrawerHost.LeftDrawerContent>
+                    <DockPanel MinWidth="220">
+                        <MaterialDesign:TreeListView ItemsSource="{Binding MenuItems}"  SelectedItem="{Binding SelectedMenuItem}">
+                            <MaterialDesign:TreeListView.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                    <StackPanel Orientation="Horizontal" Height="30" >
+                                        <MaterialDesign:PackIcon VerticalAlignment="Center" Width="25" Height="25" Kind="{Binding Icon}" Margin="0,0,8,0"/>
+                                        <TextBlock VerticalAlignment="Center" FontSize="15" Text="{Binding Title}" />
+                                    </StackPanel>
+                                </HierarchicalDataTemplate>
+                            </MaterialDesign:TreeListView.ItemTemplate>
+                        </MaterialDesign:TreeListView>
+
+
+                    </DockPanel>
+                </MaterialDesign:DrawerHost.LeftDrawerContent>
+
+                <!-- 主内容区 -->
+                <ContentControl prism:RegionManager.RegionName="ContentRegion"/>
+            </MaterialDesign:DrawerHost>
+        </Grid>
+
+        <!-- 状态栏 -->
+        <StatusBar Grid.Row="2" Background="#3f51b5">
+            <!-- 左侧设备状态 -->
+            <StatusBarItem Margin="20,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <ItemsControl ItemsSource="{Binding DeviceStatuses}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                                    <MaterialDesign:PackIcon Kind="Circle" 
+                                                    Foreground="{Binding IsConnected, Converter={StaticResource BoolToColorConverter}}"
+                                                    VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding DeviceName}" 
+                                      Foreground="White" 
+                                      Margin="4,0,0,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StatusBarItem>
+
+            <!-- 中间版本信息 -->
+            <Separator Style="{StaticResource MaterialDesignLightSeparator}" Margin="10,0"/>
+            <StatusBarItem HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding SoftwareVersion}" 
+                      Foreground="White"/>
+                    <TextBlock Text=" | " 
+                      Foreground="White" 
+                      Margin="5,0"/>
+                    <TextBlock Text="{Binding AdditionalInfo}" 
+                      Foreground="White"/>
+                </StackPanel>
+            </StatusBarItem>
+
+            <!-- 右侧用户信息 -->
+            <StatusBarItem DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,0,20,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding CurrentUser.Name}" 
+                      Foreground="White"/>
+                    <TextBlock Text=" | " 
+                      Foreground="White" 
+                      Margin="5,0"/>
+                    <TextBlock Text="{Binding CurrentUser.EmployeeId}" 
+                      Foreground="White"/>
+                    <TextBlock Text=" | " 
+                      Foreground="White" 
+                      Margin="5,0"/>
+                    <TextBlock Text="{Binding CurrentUser.RoleName}" 
+                      Foreground="White"/>
+                    <TextBlock Text=" | " 
+                      Foreground="White" 
+                      Margin="5,0"/>
+                    <TextBlock Text="{Binding AutoLogoutCountdown}" 
+                      Foreground="White"/>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

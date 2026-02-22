@@ -1,0 +1,58 @@
+﻿<!--  Views/PackManage/UcPackAddView.xaml  -->
+<UserControl
+    x:Class="MPAssmebleRecipe.Apps.Views.PackManage.UcPackAddView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    Width="400">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Margin="0,0,0,20"
+            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+            Text="添加Pack" />
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,20">
+            <TextBox
+                Margin="0,0,0,10"
+                materialDesign:HintAssist.Hint="Pack名称"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding PackName}" />
+
+            <TextBox
+                Margin="0,0,0,10"
+                materialDesign:HintAssist.Hint="PackPn"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding PackPn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBox
+                Margin="0,0,0,10"
+                materialDesign:HintAssist.Hint="总层数"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding LayerTotal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="2"
+            Margin="0,0,0,20"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <Button
+                Width="100"
+                Margin="0,0,10,0"
+                Command="{Binding CancelCommand}"
+                Content="取消"
+                Style="{StaticResource MaterialDesignOutlinedButton}" />
+            <Button
+                Width="100"
+                Command="{Binding ConfirmCommand}"
+                Content="确定"
+                Style="{StaticResource MaterialDesignRaisedButton}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

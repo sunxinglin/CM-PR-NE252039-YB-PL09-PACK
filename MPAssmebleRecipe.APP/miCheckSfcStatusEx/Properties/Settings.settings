@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="miCheckSfcStatusEx.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="miCheckSfcStatusEx_com_catlbattery_ndmes7_MiCheckSFCStatusExServiceService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ndmes1p042.catlbattery.com:52200/atlmeswebservice/MiCheckSFCStatusExServiceService</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

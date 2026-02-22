@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;8618</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;8618</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AfterWeld\**" />
+    <Compile Remove="BeamGlue\**" />
+    <Compile Remove="PackPressure\**" />
+    <Compile Remove="PackPressure_1\**" />
+    <Compile Remove="Weld\**" />
+    <EmbeddedResource Remove="AfterWeld\**" />
+    <EmbeddedResource Remove="BeamGlue\**" />
+    <EmbeddedResource Remove="PackPressure\**" />
+    <EmbeddedResource Remove="PackPressure_1\**" />
+    <EmbeddedResource Remove="Weld\**" />
+    <None Remove="AfterWeld\**" />
+    <None Remove="BeamGlue\**" />
+    <None Remove="PackPressure\**" />
+    <None Remove="PackPressure_1\**" />
+    <None Remove="Weld\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Automatic.Protocols.Services\Automatic.Protocols.Services.csproj" />
+  </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
+</Project>

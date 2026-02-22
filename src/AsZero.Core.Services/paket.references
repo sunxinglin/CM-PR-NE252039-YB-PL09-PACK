@@ -1,0 +1,11 @@
+AsZero.Core
+FutureTech.Dal
+MediatR
+NPOI
+Microsoft.Extensions.Hosting
+Microsoft.AspNetCore.Authorization
+Microsoft.AspNetCore.Authentication.Cookies
+Microsoft.AspNetCore.Authorization.Policy
+Microsoft.AspNetCore.DataProtection
+Microsoft.AspNetCore.DataProtection.Abstractions
+Microsoft.AspNetCore.DataProtection.Extensions

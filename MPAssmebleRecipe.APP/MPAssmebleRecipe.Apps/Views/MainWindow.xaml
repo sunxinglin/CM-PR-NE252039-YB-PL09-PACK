@@ -1,0 +1,132 @@
+﻿<Window x:Class="MPAssmebleRecipe.Apps.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MPAssmebleRecipe.Apps.Views"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="宁德时代配方管理系统" 
+        Height="900" 
+        Width="1600"
+        MinHeight="768"
+        MinWidth="1366"
+        MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
+        MaxWidth="{x:Static SystemParameters.MaximizedPrimaryScreenWidth}"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Normal"
+        ResizeMode="CanResizeWithGrip"
+        Background="#F5F6FA"
+        prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <!-- 主容器 -->
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- 左侧导航面板 -->
+        <Border Grid.Column="0" 
+                Background="White" 
+                CornerRadius="20"
+                Margin="0,0,20,0"
+                Effect="{DynamicResource MaterialDesignElevationShadow2}">
+            <DockPanel>
+                <!-- CATL Logo -->
+                <StackPanel DockPanel.Dock="Top">
+                    <Image Source="/Images/CATL.jpg" 
+                           Height="80" 
+                           Margin="30,30,30,20"
+                           Stretch="Uniform"/>
+                    <Separator Margin="20,0,20,20" 
+                             Background="#E0E0E0" 
+                             Height="1"/>
+                </StackPanel>
+
+                <!-- 左侧菜单列表 - 修改为使用Prism命令绑定 -->
+                <ListBox x:Name="MenuList" 
+                        Margin="10,0,10,20" 
+                        SelectedItem="{Binding SelectedMenuItem}"
+                        ItemsSource="{Binding MenuItems}"
+                        Background="Transparent"  
+                        BorderThickness="0"
+                        Padding="5"
+                        VerticalAlignment="Stretch">
+
+                    <!-- 保持原有的ListBoxItem样式 -->
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="FontWeight" Value="Normal" />
+                            <Setter Property="Foreground" Value="#333333" />
+                            <Setter Property="Padding" Value="15,12" />
+                            <Setter Property="Margin" Value="0,5" />
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border x:Name="Border"
+                                                    CornerRadius="10"
+                                                    Background="{TemplateBinding Background}">
+                                            <Grid>
+                                                <ContentPresenter VerticalAlignment="Center" 
+                                                                    HorizontalAlignment="Left"
+                                                                    Margin="15,0" />
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#F0F2FF" />
+                                                <Setter Property="Foreground" Value="#1A237E" />
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="#3F51B5" />
+                                                <Setter Property="Foreground" Value="White" />
+                                                <Setter Property="FontWeight" Value="SemiBold" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <!-- 修改ItemTemplate以支持MVVM -->
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" 
+                                         Text="{Binding Icon}" 
+                                         VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" 
+                                         Text="{Binding Title}" 
+                                         VerticalAlignment="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Border>
+
+        <!-- 右侧内容区域 - 修改为使用Prism区域管理 -->
+        <Border Grid.Column="1" 
+                Background="White"
+                CornerRadius="20"
+                Effect="{DynamicResource MaterialDesignElevationShadow2}">
+            <Grid>
+                <ContentControl prism:RegionManager.RegionName="ContentRegion"
+                              Margin="30"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"/>
+            </Grid>
+        </Border>
+        <!--<Button Content="测试下发内容, 数据从temp获取" Grid.Column="2" Click="Button_Click"/>-->
+    </Grid>
+</Window>

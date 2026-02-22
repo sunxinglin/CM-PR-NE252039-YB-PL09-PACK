@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://misfc.ws.atlmes.com/" targetNamespace="http://misfc.ws.atlmes.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://misfc.ws.atlmes.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="BasicBOBeanException" type="tns:BasicBOBeanException" />
+      <xs:element name="BusinessException" type="tns:BusinessException" />
+      <xs:element name="miSFCAttriDataEntryRequest" type="tns:miSFCAttriDataEntryRequest" />
+      <xs:element name="miSFCAttriDataEntryResponse" type="tns:miSFCAttriDataEntryResponse" />
+      <xs:element name="miSfcAttriDataEntry" type="tns:miSfcAttriDataEntry" />
+      <xs:element name="miSfcAttriDataEntryResponse" type="tns:miSfcAttriDataEntryResponse" />
+      <xs:element name="sfcData" type="tns:sfcData" />
+      <xs:complexType name="miSfcAttriDataEntry">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MiSFCAttriDataEntryRequest" type="tns:miSFCAttriDataEntryRequest" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miSFCAttriDataEntryRequest">
+        <xs:sequence>
+          <xs:element name="site" type="xs:string" />
+          <xs:element name="userId" type="xs:string" />
+          <xs:element minOccurs="0" name="sfcMode" type="xs:string" />
+          <xs:element name="sfc" type="xs:string" />
+          <xs:element name="itemGroup" type="xs:string" />
+          <xs:element maxOccurs="unbounded" name="sfcDatalist" type="tns:sfcData" />
+          <xs:element minOccurs="0" name="isCheckSequence" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sfcData">
+        <xs:sequence>
+          <xs:element name="attributes" type="xs:string" />
+          <xs:element name="value" type="xs:string" />
+          <xs:element minOccurs="0" name="sequence" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miSfcAttriDataEntryResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:miSFCAttriDataEntryResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miSFCAttriDataEntryResponse">
+        <xs:sequence>
+          <xs:element name="code" type="xs:int" />
+          <xs:element name="message" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="BusinessException">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="details" type="xs:anyType" />
+          <xs:element name="errorCode" type="xs:int" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="suppressed" type="tns:throwable" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="throwable">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="stackTrace" nillable="true" type="tns:stackTraceElement" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="stackTraceElement" final="extension restriction">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="BasicBOBeanException">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="data" type="tns:data" />
+          <xs:element minOccurs="0" name="details" type="xs:string" />
+          <xs:element name="error" type="xs:int" />
+          <xs:element minOccurs="0" name="errorMessage" type="tns:errorMessage" />
+          <xs:element minOccurs="0" name="fullMsg" type="xs:string" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" name="origException" type="tns:exception" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="suppressed" type="tns:throwable" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="data">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="errorMessage">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:applicationMessage">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="applicationMessage">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseObject">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="baseObject">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="exception">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:throwable">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="miSfcAttriDataEntryIn">
+    <wsdl:part name="parameters" element="tns:miSfcAttriDataEntry" />
+  </wsdl:message>
+  <wsdl:message name="miSfcAttriDataEntryOut">
+    <wsdl:part name="miSfcAttriDataEntryResponse" element="tns:miSfcAttriDataEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="miSfcAttriDataEntryFault">
+    <wsdl:part name="BasicBOBeanException" element="tns:BasicBOBeanException" />
+  </wsdl:message>
+  <wsdl:message name="MiSFCAttriDataEntryServicemiSfcAttriDataEntryFault">
+    <wsdl:part name="BusinessException" element="tns:BusinessException" />
+  </wsdl:message>
+  <wsdl:portType name="MiSFCAttriDataEntryService">
+    <wsdl:operation name="miSfcAttriDataEntry" parameterOrder="parameters">
+      <wsdl:input message="tns:miSfcAttriDataEntryIn" />
+      <wsdl:output message="tns:miSfcAttriDataEntryOut" />
+      <wsdl:fault name="BasicBOBeanException" message="tns:miSfcAttriDataEntryFault" />
+      <wsdl:fault name="BusinessException" message="tns:MiSFCAttriDataEntryServicemiSfcAttriDataEntryFault" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="MiSFCAttriDataEntryServiceBinding" type="tns:MiSFCAttriDataEntryService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="miSfcAttriDataEntry">
+      <soap:operation soapAction="" />
+      <wsdl:input>
+        <soap:body use="literal" parts="parameters" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BasicBOBeanException">
+        <soap:fault use="literal" name="BasicBOBeanException" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessException">
+        <soap:fault use="literal" name="BusinessException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MiSFCAttriDataEntryServiceService">
+    <wsdl:port name="MiSFCAttriDataEntryServicePort" binding="tns:MiSFCAttriDataEntryServiceBinding">
+      <address location="http://ndmes1p042.catlbattery.com:52200/atlmeswebservice/MiSFCAttriDataEntryServiceService" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

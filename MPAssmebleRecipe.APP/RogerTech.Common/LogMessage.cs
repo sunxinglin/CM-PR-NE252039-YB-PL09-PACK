@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Prism.Events;
+using RogerTech.Common.Models;
+
+namespace RogerTech.Common
+{
+    public class LogMessage:PubSubEvent<LogModel>
+    {
+
+    }
+}

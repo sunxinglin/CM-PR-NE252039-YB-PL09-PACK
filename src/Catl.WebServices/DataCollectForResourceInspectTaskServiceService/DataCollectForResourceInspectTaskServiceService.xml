@@ -1,0 +1,100 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://datacollectforresourceinspect.ws.atlmes.com/" xmlns:tns="http://datacollectforresourceinspect.ws.atlmes.com/">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sap.com/me/datacollection" version="1.0">
+      <xs:simpleType name="ParameterDataType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="NUMBER"/>
+          <xs:enumeration value="TEXT"/>
+          <xs:enumeration value="FORMULA"/>
+          <xs:enumeration value="BOOLEAN"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://datacollectforresourceinspect.ws.atlmes.com/" version="1.0" xmlns:ns1="http://www.sap.com/me/datacollection">
+      <xs:import namespace="http://www.sap.com/me/datacollection"/>
+      <xs:element name="baseResponse" type="tns:baseResponse"/>
+      <xs:element name="dataCollectForResourceInspectTask" type="tns:dataCollectForResourceInspectTask"/>
+      <xs:element name="dataCollectForResourceInspectTaskRequest" type="tns:dataCollectForResourceInspectTaskRequest"/>
+      <xs:element name="dataCollectForResourceInspectTaskResponse" type="tns:dataCollectForResourceInspectTaskResponse"/>
+      <xs:element name="machineIntegrationParametricData" type="tns:machineIntegrationParametricData"/>
+      <xs:element name="planOfDataCollectForInspectionResponse" type="tns:planOfDataCollectForInspectionResponse"/>
+      <xs:complexType name="dataCollectForResourceInspectTask">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DataCollectForResourceInspectTaskRequest" type="tns:dataCollectForResourceInspectTaskRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="dataCollectForResourceInspectTaskRequest">
+        <xs:sequence>
+          <xs:element name="site" type="xs:string"/>
+          <xs:element name="user" type="xs:string"/>
+          <xs:element name="dcMode" type="xs:string"/>
+          <xs:element minOccurs="0" name="executeMode" type="xs:string"/>
+          <xs:element name="resource" type="xs:string"/>
+          <xs:element name="operation" type="xs:string"/>
+          <xs:element name="operationRevision" type="xs:string"/>
+          <xs:element minOccurs="0" name="dcGroup" type="xs:string"/>
+          <xs:element minOccurs="0" name="dcGroupRevision" type="xs:string"/>
+          <xs:element minOccurs="0" name="dcSequence" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" name="parametricDataArray" type="tns:machineIntegrationParametricData"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="machineIntegrationParametricData">
+        <xs:sequence>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element name="value" type="xs:string"/>
+          <xs:element name="dataType" type="ns1:ParameterDataType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="dataCollectForResourceInspectTaskResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:planOfDataCollectForInspectionResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="planOfDataCollectForInspectionResponse">
+        <xs:complexContent>
+          <xs:extension base="tns:baseResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="errorCode" type="xs:int"/>
+              <xs:element minOccurs="0" name="errorMessage" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="baseResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:int"/>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="dataCollectForResourceInspectTaskIn">
+    <wsdl:part element="tns:dataCollectForResourceInspectTask" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="dataCollectForResourceInspectTaskOut">
+    <wsdl:part element="tns:dataCollectForResourceInspectTaskResponse" name="dataCollectForResourceInspectTaskResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="DataCollectForResourceInspectTaskService">
+    <wsdl:operation name="dataCollectForResourceInspectTask" parameterOrder="parameters">
+      <wsdl:input message="tns:dataCollectForResourceInspectTaskIn"/>
+      <wsdl:output message="tns:dataCollectForResourceInspectTaskOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DataCollectForResourceInspectTaskServiceBinding" type="tns:DataCollectForResourceInspectTaskService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="dataCollectForResourceInspectTask">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DataCollectForResourceInspectTaskServiceService">
+    <wsdl:port binding="tns:DataCollectForResourceInspectTaskServiceBinding" name="DataCollectForResourceInspectTaskServicePort">
+      <soap:address xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" location="http://zzmes1p024.catlbattery.com:50400/atlmeswebservice/DataCollectForResourceInspectTaskServiceService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

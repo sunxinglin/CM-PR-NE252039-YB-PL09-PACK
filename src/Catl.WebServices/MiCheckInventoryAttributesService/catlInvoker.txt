@@ -1,0 +1,101 @@
+        /// <summary>
+        /// 校验模组
+        /// </summary>
+        /// <param name="packSN">Pack SN</param>
+        /// <param name="MatteryPN">物料PN</param>
+        /// <param name="Barcode">物料批次条码</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<CatlMESReponse> MICheckInventoryAttribute(string moduleCode, string AutoOpName)
+        {
+            try
+            {
+                var config = this._iniHelper.GetMICheckBOMInventoryConfig(AutoOpName);
+
+                if (config == null)
+                    return new CatlMESReponse { code = 0, message = "未配置接口文件，不调用Catl MES接口" };
+
+                var reqAttributes = new miCheckInventoryAttributes
+                {
+                    CheckInventoryAttributesRequest = new ModuleCellMarkingOrTimeCheckRequest
+                    {
+                        requiredQuantity = 1,
+                        activityId = config.InterfaceParams.ActivityId,
+                        modeCheckInventory = modeCheckInventory.MODE_NONE,
+                        inventoryArray = new string[] { moduleCode },
+                        resource = config.InterfaceParams.resource,
+                        operation = config.InterfaceParams.Operation,
+                        operationRevision = config.InterfaceParams.OperationRevision,
+                        site = config.InterfaceParams.Site,
+                        sfc = config.InterfaceParams.sfc,
+                        user = config.InterfaceParams.User,
+                    }
+                };
+
+                var binding = new BasicHttpBinding();
+                binding.Security.Mode = BasicHttpSecurityMode.TransportCredentialOnly;
+                binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
+                binding.Security.Message.ClientCredentialType = BasicHttpMessageCredentialType.UserName;
+                binding.SendTimeout = TimeSpan.FromMilliseconds(config.ConnectionParams.Timeout);
+                if (string.IsNullOrEmpty(config.ConnectionParams.Url))
+                {
+                    throw new Exception($"调用CATL WebService时URL不可为空，请检查MesCfg.ini配置文件！");
+                }
+                var address = new EndpointAddress(config.ConnectionParams.Url);
+
+                using (var scf = new ChannelFactory<MiCheckInventoryAttributesService>(binding, address))
+                {
+                    scf.Credentials.UserName.UserName = config.ConnectionParams.UserName;
+                    scf.Credentials.UserName.Password = config.ConnectionParams.Password;
+                    var channel = scf.CreateChannel();
+                    var req = new miCheckInventoryAttributesRequest(reqAttributes);
+                    var sentAt = DateTime.Now;
+                    try
+                    {
+                        var resp = await channel.miCheckInventoryAttributesAsync(req);
+                        var result = resp.miCheckInventoryAttributesResponse.@return;
+                        var receivedAt = DateTime.Now;
+                        var logging = new SfcInvocationLogging
+                        {
+                            SentAt = sentAt,
+                            SfcNumber = config.InterfaceParams.sfc,
+                            Payload = JsonConvert.SerializeObject(reqAttributes),
+                            ReceivedAt = receivedAt,
+                            RespCode = result.code.ToString(),
+                            RespInfo = JsonConvert.SerializeObject(result),
+                        };
+                        var svcname = this._iniHelper.MICheckBOMInventoryName;
+                        var svcdesc = "";
+                        await this.WriteExcelAsync(logging, svcname, svcdesc, config.InterfaceParams.sfc);
+                        return new CatlMESReponse { code = result.code, message = result.message };
+                    }
+                    catch (Exception ex)
+                    {
+                        var receivedAt = DateTime.Now;
+                        var logging = new SfcInvocationLogging
+                        {
+                            SentAt = sentAt,
+                            SfcNumber = config.InterfaceParams.sfc,
+                            Payload = JsonConvert.SerializeObject(reqAttributes),
+                            ReceivedAt = receivedAt,
+                            RespCode = String.Empty,
+                            RespInfo = JsonConvert.SerializeObject(ex.Message),
+                        };
+                        var svcname = this._iniHelper.DataCollectForResourceFAIName;
+                        var svcdesc = "";
+                        await this.WriteExcelAsync(logging, svcname, svcdesc, config.InterfaceParams.sfc);
+                        throw;
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                return new CatlMESReponse
+                {
+                    code = 1,
+                    message = ex.Message
+                };
+            }
+        }
+

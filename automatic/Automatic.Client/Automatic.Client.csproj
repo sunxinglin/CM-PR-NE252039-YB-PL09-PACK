@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;8601</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;8601</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="mentechs-logo.png" />
+    <None Remove="Resources\Images\IMG-Circle.png" />
+    <None Remove="Resources\Images\IMG-实时仪表.png" />
+    <None Remove="Resources\Logo\logo-bar.png" />
+    <None Remove="Resources\Logo\logo-bar_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Automatic.Protocols\Automatic.Protocols.csproj" />
+    <ProjectReference Include="..\Automatic.Shared\Automatic.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\IMG-Circle.png" />
+    <Resource Include="Resources\Images\IMG-实时仪表.png" />
+    <Resource Include="Resources\Logo\logo-bar.png" />
+    <Resource Include="Resources\Logo\logo-bar_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="mentechs-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </SplashScreen>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
+</Project>

@@ -1,0 +1,142 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://machineintegration.ws.atlmes.com/" xmlns:tns="http://machineintegration.ws.atlmes.com/">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://machineintegration.ws.atlmes.com/" version="1.0">
+      <xs:element name="BusinessException" type="tns:BusinessException"/>
+      <xs:element name="getParametricValue" type="tns:getParametricValue"/>
+      <xs:element name="getParametricValueData" type="tns:GetParametricValueData"/>
+      <xs:element name="getParametricValueRequest" type="tns:GetParametricValueRequest"/>
+      <xs:element name="getParametricValueRequestData" type="tns:GetParametricValueRequestData"/>
+      <xs:element name="getParametricValueResponse" nillable="true" type="xs:anyType"/>
+      <xs:element name="getValue" type="tns:getValue"/>
+      <xs:element name="getValueResponse" type="tns:getValueResponse"/>
+      <xs:complexType name="getParametricValue">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="GetParametricValueRequest" type="tns:GetParametricValueRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetParametricValueRequest">
+        <xs:sequence>
+          <xs:element name="site" type="xs:string"/>
+          <xs:element name="sfc" type="xs:string"/>
+          <xs:element minOccurs="0" name="user" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="parametricDataArray" type="tns:GetParametricValueRequestData"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetParametricValueRequestData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="parameter" type="xs:string"/>
+          <xs:element minOccurs="0" name="parameterDec" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getParametricValueResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:GetParametricValueResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetParametricValueResponse">
+        <xs:sequence>
+          <xs:element name="code" type="xs:int"/>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+          <xs:element minOccurs="0" name="sfc" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="parametricDataArray" type="tns:GetParametricValueData"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetParametricValueData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="parameter" type="xs:string"/>
+          <xs:element minOccurs="0" name="value" type="xs:string"/>
+          <xs:element minOccurs="0" name="date" type="xs:string"/>
+          <xs:element minOccurs="0" name="parameterDec" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="BusinessException">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="details" type="xs:anyType"/>
+          <xs:element name="errorCode" type="xs:int"/>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="suppressed" type="tns:throwable"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="throwable">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="stackTrace" nillable="true" type="tns:stackTraceElement"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType final="extension restriction" name="stackTraceElement">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="getValue">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="GetParametricValueRequest" type="tns:GetParametricValueRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getValueResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:GetParametricValueResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getParametricValueIn">
+    <wsdl:part element="tns:getParametricValue" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getParametricValueOut">
+    <wsdl:part element="tns:getParametricValueResponse" name="getParametricValueResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getParametricValueFault">
+    <wsdl:part element="tns:BusinessException" name="BusinessException"/>
+  </wsdl:message>
+  <wsdl:message name="getValueIn">
+    <wsdl:part element="tns:getValue" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getValueOut">
+    <wsdl:part element="tns:getValueResponse" name="getValueResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getValueFault">
+    <wsdl:part element="tns:BusinessException" name="BusinessException"/>
+  </wsdl:message>
+  <wsdl:portType name="GetParametricValueService">
+    <wsdl:operation name="getParametricValue" parameterOrder="parameters">
+      <wsdl:input message="tns:getParametricValueIn"/>
+      <wsdl:output message="tns:getParametricValueOut"/>
+      <wsdl:fault message="tns:getParametricValueFault" name="BusinessException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getValue" parameterOrder="parameters">
+      <wsdl:input message="tns:getValueIn"/>
+      <wsdl:output message="tns:getValueOut"/>
+      <wsdl:fault message="tns:getValueFault" name="BusinessException"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GetParametricValueServiceBinding" type="tns:GetParametricValueService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getParametricValue">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BusinessException">
+        <soap:fault name="BusinessException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getValue">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BusinessException">
+        <soap:fault name="BusinessException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GetParametricValueServiceService">
+    <wsdl:port binding="tns:GetParametricValueServiceBinding" name="GetParametricValueServicePort">
+      <soap:address xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" location="http://lymesap225.catlbattery.com:52200/atlmeswebservice/GetParametricValueServiceService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

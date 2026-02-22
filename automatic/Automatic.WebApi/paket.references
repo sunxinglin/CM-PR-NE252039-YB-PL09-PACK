@@ -1,0 +1,16 @@
+Swashbuckle.AspNetCore
+Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson
+MediatR
+MediatR.Extensions.Microsoft.DependencyInjection
+Refit
+Refit.HttpClientFactory
+Refit.Newtonsoft.Json
+Serilog
+Serilog.AspNetCore
+Serilog.Extensions.Hosting
+Serilog.Extensions.Logging
+Serilog.Formatting.Compact
+Serilog.Settings.Configuration
+Serilog.Sinks.Console
+Serilog.Sinks.Debug
+Serilog.Sinks.File

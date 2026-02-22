@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<ProjectReference Include="..\AsZero.Core.Services\AsZero.Core.Services.csproj" />
+		<ProjectReference Include="..\Ctp0600P.Shared\Ctp0600P.Shared.csproj" />
+		<ProjectReference Include="..\Yee.Entitys\Yee.Entitys.csproj" />
+	</ItemGroup>
+	<Import Project="..\.paket\Paket.Restore.targets" />
+</Project>

@@ -1,0 +1,6 @@
+FSharp.Core
+Itminus.FSharpExtensions
+Microsoft.Extensions.DependencyInjection.Abstractions
+AsZero.Core.Shared
+Refit
+Microsoft.Extensions.Options

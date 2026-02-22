@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MiCheckBOMInventory.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MiCheckBOMInventory_MiCheckBOMInventory_MiCheckBOMInventoryServiceService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ndmes1p041.catlbattery.com:52100/atlmeswebservice/MiCheckBOMInventoryServiceService</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

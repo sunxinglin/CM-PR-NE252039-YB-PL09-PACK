@@ -1,0 +1,515 @@
+{
+  "ProductType": "EAP1",
+  "ImageUrl": "D:\\CTP600\\src\\Ctp0600P.Client\\Resources\\Auto160_EAP1.png",
+  "LimitCount": 56,
+  "StepCode": "OP170",
+  "LayOut_Width": 500,
+  "LayOut_Height": 522,
+  "pointList": null,
+  "ScrewLocationList": [
+    {
+      "OrderNo": 1,
+      "Margin": {
+        "Left": 237.0,
+        "Top": 25.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 2,
+      "Margin": {
+        "Left": 194.0,
+        "Top": 25.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 3,
+      "Margin": {
+        "Left": 152.0,
+        "Top": 25.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 4,
+      "Margin": {
+        "Left": 108.0,
+        "Top": 25.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 5,
+      "Margin": {
+        "Left": 66.0,
+        "Top": 25.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 6,
+      "Margin": {
+        "Left": 28.0,
+        "Top": 25.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 7,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 38.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 8,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 54.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 9,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 90.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 10,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 121.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 11,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 158.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 12,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 194.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 13,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 227.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 14,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 265.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 15,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 298.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 16,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 332.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 17,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 368.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 18,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 396.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 19,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 420.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 20,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 444.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 21,
+      "Margin": {
+        "Left": 12.0,
+        "Top": 468.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 22,
+      "Margin": {
+        "Left": 33.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 23,
+      "Margin": {
+        "Left": 70.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 24,
+      "Margin": {
+        "Left": 115.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 25,
+      "Margin": {
+        "Left": 157.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 26,
+      "Margin": {
+        "Left": 185.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 27,
+      "Margin": {
+        "Left": 211.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 28,
+      "Margin": {
+        "Left": 263.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 29,
+      "Margin": {
+        "Left": 288.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 30,
+      "Margin": {
+        "Left": 338.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 31,
+      "Margin": {
+        "Left": 371.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 32,
+      "Margin": {
+        "Left": 415.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 33,
+      "Margin": {
+        "Left": 455.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 34,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 466.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 35,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 445.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 36,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 421.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 37,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 400.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 38,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 367.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 39,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 333.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 40,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 297.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 41,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 263.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 42,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 227.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 43,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 193.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 44,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 159.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 45,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 124.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 46,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 89.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 47,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 54.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 48,
+      "Margin": {
+        "Left": 465.0,
+        "Top": 37.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 49,
+      "Margin": {
+        "Left": 455.0,
+        "Top": 25.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 50,
+      "Margin": {
+        "Left": 426.0,
+        "Top": 25.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 51,
+      "Margin": {
+        "Left": 395.0,
+        "Top": 25.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 52,
+      "Margin": {
+        "Left": 367.0,
+        "Top": 25.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 53,
+      "Margin": {
+        "Left": 323.0,
+        "Top": 25.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 54,
+      "Margin": {
+        "Left": 280.0,
+        "Top": 25.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 55,
+      "Margin": {
+        "Left": 242.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 56,
+      "Margin": {
+        "Left": 308.0,
+        "Top": 484.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    }
+  ]
+}

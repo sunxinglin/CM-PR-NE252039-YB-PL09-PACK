@@ -1,0 +1,88 @@
+source https://api.nuget.org/v3/index.json
+source https://baget.stdunit.com/v3/index.json
+
+storage: none
+framework: net6.0, net6.0-windows,netstandard2.0, netstandard2.1
+
+cache ./nuget-package-caches
+
+
+nuget System.ServiceModel.Primitives <= 4.10.3
+nuget Microsoft.EntityFrameworkCore.Sqlite <= 7.0.14
+nuget Microsoft.EntityFrameworkCore.Abstractions 7.0.19
+nuget Microsoft.AspNetCore.WebUtilities <= 2.2.0
+nuget Microsoft.Net.Http.Headers <= 2.2.8
+
+
+nuget EPPlus 4.5.3.3
+nuget FutureTech.Dal
+nuget FutureTech.OpResults
+nuget Microsoft.Extensions.Hosting < 7.0.0
+nuget Microsoft.Extensions.Hosting.Abstractions < 7.0.0
+nuget Microsoft.Extensions.Options < 7.0.0
+nuget Microsoft.Extensions.Configuration.Abstractions < 7.0.0
+nuget Microsoft.Extensions.DependencyInjection.Abstractions < 7.0.0
+nuget Microsoft.Extensions.Options.ConfigurationExtensions < 7.0.0
+nuget Newtonsoft.Json 13.0.1
+nuget AsZero.Core <= 0.2.0
+nuget MediatR ~> 9.0.0
+nuget NPOI
+nuget System.ServiceModel.Http <= 4.10.3
+nuget Swashbuckle.AspNetCore
+nuget Microsoft.Extensions.Logging.Log4Net.AspNetCore
+nuget MediatR.Extensions.Microsoft.DependencyInjection
+nuget Microsoft.AspNetCore.Mvc.NewtonsoftJson 6.0.0
+nuget Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson 6.0.35
+nuget Microsoft.AspNetCore.DataProtection <= 6.0.35
+nuget Microsoft.AspNetCore.DataProtection.Abstractions <= 6.0.35
+nuget Microsoft.AspNetCore.DataProtection.Extensions <= 6.0.35
+nuget Microsoft.AspNetCore.Authentication.Cookies <= 6.0.35
+nuget Microsoft.AspNetCore.Authorization <= 6.0.35
+nuget Microsoft.AspNetCore.Authorization.Policy <= 6.0.35
+nuget Microsoft.EntityFrameworkCore <= 6.0.35
+nuget Microsoft.EntityFrameworkCore.Relational <= 6.0.35
+nuget Microsoft.EntityFrameworkCore.Sqlite.Core <= 6.0.35
+nuget Microsoft.EntityFrameworkCore.Tools <= 6.0.35
+nuget Microsoft.AspNetCore.SignalR
+nuget Microsoft.AspNetCore.SignalR.Common 6.0.35
+nuget Microsoft.AspNetCore.SignalR.Client 6.0.35
+nuget Microsoft.Extensions.Http
+nuget Microsoft.EntityFrameworkCore.Design <= 7.0.19
+nuget Microsoft.AspNetCore.Cryptography.Internal 6.0.35
+nuget Microsoft.AspNetCore.Connections.Abstractions 6.0.35
+nuget Microsoft.AspNetCore.Metadata 6.0.35
+nuget Microsoft.AspNetCore.Http.Connections.Common 6.0.35
+
+nuget System.Text.Encoding.CodePages
+nuget System.IO.Ports
+nuget System.Net.Sockets
+nuget System.Management
+
+nuget FSharp.Core
+nuget AsZero.Wpf.Common
+nuget Catl.HostComputer.CommonServices
+nuget Catl.HostComputer.Commons.Wpf
+nuget FutureTech.Mvvm
+nuget MaterialDesignThemes 4.4
+nuget ReactiveProperty 8.0.0
+nuget ReactiveProperty.Core 8.0.0
+nuget ReactiveProperty.WPF 8.0.0
+nuget FutureTech.Protocols ~> 0.4.2
+nuget Itminus.Middlewares.JobCtrls.EFCoreBased ~> 0.3.9
+nuget StdUnit.Sharp7.Options >= 0.6.0
+nuget XamlAnimatedGif ~> 2.0.2
+nuget NModbus
+nuget Fake.Core.Target
+
+nuget coverlet.collector 3.1.2
+nuget Microsoft.Extensions.DependencyInjection <= 7.0.0
+nuget MSTest.TestAdapter 2.2.10
+nuget MSTest.TestFramework 2.2.10
+nuget Microsoft.NET.Test.Sdk 17.3.2
+nuget xunit 2.4.2
+nuget xunit.runner.visualstudio 2.4.5
+nuget Refit 6.0.1
+nuget Refit.HttpClientFactory 6.0.1
+nuget Refit.Newtonsoft.Json 6.0.1
+nuget Microsoft.EntityFrameworkCore.SqlServer <= 6.0.35
+nuget Itminus.FSharpExtensions 0.1.5

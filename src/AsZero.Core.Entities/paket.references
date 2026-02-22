@@ -1,0 +1,5 @@
+FutureTech.Dal
+FutureTech.OpResults
+Microsoft.EntityFrameworkCore
+Newtonsoft.Json
+Microsoft.EntityFrameworkCore.SqlServer

@@ -1,0 +1,5 @@
+AsZero.Core
+MediatR
+Microsoft.Extensions.Hosting.Abstractions
+Microsoft.Extensions.Options
+System.IO.Ports

@@ -1,0 +1,186 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://machineintegration.ws.atlmes.com/" xmlns:tns="http://machineintegration.ws.atlmes.com/">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://machineintegration.ws.atlmes.com/" version="1.0">
+      <xs:element name="BusinessException" type="tns:BusinessException"/>
+      <xs:element name="checkInventoryAttributesRequest" type="tns:ModuleCellMarkingOrTimeCheckRequest"/>
+      <xs:element name="checkInventoryAttributesResponse" type="tns:checkInventoryAttributesResponse"/>
+      <xs:element name="checkInventoryDataFields" type="tns:checkInventoryDataFields"/>
+      <xs:element name="getInventoryIDDataField" type="tns:getInventoryIDDataField"/>
+      <xs:element name="getInventoryIDDataFieldResponse" type="tns:getInventoryIDDataFieldResponse"/>
+      <xs:element name="getNcListByInventoryID" type="tns:getNcListByInventoryID"/>
+      <xs:element name="getNcListByInventoryIDResponse" type="tns:getNcListByInventoryIDResponse"/>
+      <xs:element name="miCheckInventoryAttributes" type="tns:miCheckInventoryAttributes"/>
+      <xs:element name="miCheckInventoryAttributesResponse" type="tns:miCheckInventoryAttributesResponse"/>
+      <xs:complexType name="miCheckInventoryAttributes">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CheckInventoryAttributesRequest" type="tns:ModuleCellMarkingOrTimeCheckRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ModuleCellMarkingOrTimeCheckRequest">
+        <xs:sequence>
+          <xs:element name="site" type="xs:string"/>
+          <xs:element name="sfc" type="xs:string"/>
+          <xs:element name="operation" type="xs:string"/>
+          <xs:element minOccurs="0" name="operationRevision" type="xs:string"/>
+          <xs:element name="resource" type="xs:string"/>
+          <xs:element name="user" type="xs:string"/>
+          <xs:element name="activityId" type="xs:string"/>
+          <xs:element name="modeCheckInventory" type="tns:modeCheckInventory"/>
+          <xs:element name="requiredQuantity" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" name="inventoryArray" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="inventoryAttributeList" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miCheckInventoryAttributesResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:checkInventoryAttributesResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkInventoryAttributesResponse">
+        <xs:sequence>
+          <xs:element name="code" type="xs:int"/>
+          <xs:element name="message" type="xs:string"/>
+          <xs:element minOccurs="0" name="failedSfc" type="xs:string"/>
+          <xs:element minOccurs="0" name="failedInventory" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="inventoryDataFields" nillable="true" type="tns:checkInventoryDataFields"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkInventoryDataFields">
+        <xs:sequence>
+          <xs:element name="inventory" type="xs:string"/>
+          <xs:element name="attribute" type="xs:string"/>
+          <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNcListByInventoryID">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+          <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+          <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNcListByInventoryIDResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="BusinessException">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="details" type="xs:anyType"/>
+          <xs:element name="errorCode" type="xs:int"/>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="suppressed" type="tns:throwable"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="throwable">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="stackTrace" nillable="true" type="tns:stackTraceElement"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType final="extension restriction" name="stackTraceElement">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="getInventoryIDDataField">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+          <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+          <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getInventoryIDDataFieldResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="modeCheckInventory">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="MODE_MARK_ONLY"/>
+          <xs:enumeration value="MODE_TIME_ONLY"/>
+          <xs:enumeration value="MODE_MARK_AND_TIME"/>
+          <xs:enumeration value="MODE_NONE"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="miCheckInventoryAttributesIn">
+    <wsdl:part element="tns:miCheckInventoryAttributes" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="miCheckInventoryAttributesOut">
+    <wsdl:part element="tns:miCheckInventoryAttributesResponse" name="miCheckInventoryAttributesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getNcListByInventoryIDIn">
+    <wsdl:part element="tns:getNcListByInventoryID" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getNcListByInventoryIDOut">
+    <wsdl:part element="tns:getNcListByInventoryIDResponse" name="getNcListByInventoryIDResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getNcListByInventoryIDFault">
+    <wsdl:part element="tns:BusinessException" name="BusinessException"/>
+  </wsdl:message>
+  <wsdl:message name="getInventoryIDDataFieldIn">
+    <wsdl:part element="tns:getInventoryIDDataField" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getInventoryIDDataFieldOut">
+    <wsdl:part element="tns:getInventoryIDDataFieldResponse" name="getInventoryIDDataFieldResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getInventoryIDDataFieldFault">
+    <wsdl:part element="tns:BusinessException" name="BusinessException"/>
+  </wsdl:message>
+  <wsdl:portType name="MiCheckInventoryAttributesService">
+    <wsdl:operation name="miCheckInventoryAttributes" parameterOrder="parameters">
+      <wsdl:input message="tns:miCheckInventoryAttributesIn"/>
+      <wsdl:output message="tns:miCheckInventoryAttributesOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="getNcListByInventoryID" parameterOrder="parameters">
+      <wsdl:input message="tns:getNcListByInventoryIDIn"/>
+      <wsdl:output message="tns:getNcListByInventoryIDOut"/>
+      <wsdl:fault message="tns:getNcListByInventoryIDFault" name="BusinessException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getInventoryIDDataField" parameterOrder="parameters">
+      <wsdl:input message="tns:getInventoryIDDataFieldIn"/>
+      <wsdl:output message="tns:getInventoryIDDataFieldOut"/>
+      <wsdl:fault message="tns:getInventoryIDDataFieldFault" name="BusinessException"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MiCheckInventoryAttributesServiceBinding" type="tns:MiCheckInventoryAttributesService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="miCheckInventoryAttributes">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNcListByInventoryID">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BusinessException">
+        <soap:fault name="BusinessException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getInventoryIDDataField">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BusinessException">
+        <soap:fault name="BusinessException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MiCheckInventoryAttributesServiceService">
+    <wsdl:port binding="tns:MiCheckInventoryAttributesServiceBinding" name="MiCheckInventoryAttributesServicePort">
+      <soap:address xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" location="http://rqmes1p023:50300/atlmeswebservice/MiCheckInventoryAttributesServiceService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

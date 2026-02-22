@@ -1,0 +1,449 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{339EE8AF-5B1A-4915-8149-A1A65B1BB351}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MPAssmebleRecipe.Apps</RootNamespace>
+    <AssemblyName>MPAssmebleRecipe.Apps</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo_256x256.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DryIoc">
+      <HintPath>..\lib\DryIoc.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=7.4.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="libnodave.net, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\libnodave.net.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors">
+      <HintPath>..\lib\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf">
+      <HintPath>..\lib\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream">
+      <HintPath>..\lib\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors">
+      <HintPath>..\lib\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MPAssmebleRecipe.Model\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql, Version=5.0.18.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism">
+      <HintPath>..\lib\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.DryIoc.Wpf">
+      <HintPath>..\lib\Prism.DryIoc.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf">
+      <HintPath>..\lib\Prism.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlSugar, Version=5.1.4.149, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\SqlSugar.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AppManager.cs" />
+    <Compile Include="Common\ViewModelBase.cs" />
+    <Compile Include="Converters\NotEqualToZeroConverter.cs" />
+    <Compile Include="Models\MenuItem.cs" />
+    <Compile Include="Models\UserInfoEvent.cs" />
+    <Compile Include="ViewModels\AddPlcTagDialogViewModel.cs" />
+    <Compile Include="ViewModels\BlockManage\UcAddtionBlockDialogViewModel.cs" />
+    <Compile Include="ViewModels\BlockManage\UcBlockAddViewModel.cs" />
+    <Compile Include="ViewModels\BlockManage\UcBlockEditViewModel.cs" />
+    <Compile Include="ViewModels\CellManage\UcCellEditViewModel.cs" />
+    <Compile Include="ViewModels\CellManage\UcCellViewModel.cs" />
+    <Compile Include="ViewModels\CellManage\UcCurrentCellOrderViewModel.cs" />
+    <Compile Include="ViewModels\ConfirmDialogViewModel.cs" />
+    <Compile Include="ViewModels\MESCFGViewModel.cs" />
+    <Compile Include="ViewModels\LogViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ModuleManage\UcModuleAddViewModel.cs" />
+    <Compile Include="ViewModels\ModuleManage\UcModuleDisplayViewModel.cs" />
+    <Compile Include="ViewModels\ModuleManage\UcModuleEditViewModel.cs" />
+    <Compile Include="ViewModels\PackManage\UcPackAddViewModel.cs" />
+    <Compile Include="ViewModels\PackManage\UcPackManageViewModel.cs" />
+    <Compile Include="ViewModels\PlcTagViewModel.cs" />
+    <Compile Include="Converters\BoolToColorConverter.cs" />
+    <Compile Include="ViewModels\Recipe\CellRecipeReplaceViewModel.cs" />
+    <Compile Include="ViewModels\Recipe\CellRecipeViewModel.cs" />
+    <Compile Include="ViewModels\Recipe\UcRecipeAddViewModel.cs" />
+    <Compile Include="ViewModels\Recipe\UcRecipeManageViewModel.cs" />
+    <Compile Include="ViewModels\UcOperationViewModel.cs" />
+    <Compile Include="ViewModels\UploadDataViewModel.cs" />
+    <Compile Include="ViewModels\User\AddRoleManagerDialogViewModel.cs" />
+    <Compile Include="ViewModels\User\AddRoleViewModel.cs" />
+    <Compile Include="ViewModels\User\AddUserDialogViewModel.cs" />
+    <Compile Include="ViewModels\User\AuthMainViewModel.cs" />
+    <Compile Include="ViewModels\User\CardLoginDialogViewModel.cs" />
+    <Compile Include="ViewModels\User\CodeDetailViewModel.cs" />
+    <Compile Include="ViewModels\User\LoginDialogViewModel.cs" />
+    <Compile Include="ViewModels\User\MenuSelectionDialogViewModel.cs" />
+    <Compile Include="ViewModels\User\RoleManagerViewModel.cs" />
+    <Compile Include="ViewModels\User\RoleViewModel.cs" />
+    <Compile Include="ViewModels\User\UserViewModel.cs" />
+    <Compile Include="Views\BlockManage\UcAddtionBlockDialog.xaml.cs">
+      <DependentUpon>UcAddtionBlockDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BlockManage\UcBlockAddView.xaml.cs">
+      <DependentUpon>UcBlockAddView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BlockManage\UcBlockEditView.xaml.cs">
+      <DependentUpon>UcBlockEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CellManage\UcCellEditView.xaml.cs">
+      <DependentUpon>UcCellEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CellManage\UcCellView.xaml.cs">
+      <DependentUpon>UcCellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CellManage\UcCurrentCellOrderView.xaml.cs">
+      <DependentUpon>UcCurrentCellOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConfirmDialog.xaml.cs">
+      <DependentUpon>ConfirmDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MESCFGView.xaml.cs">
+      <DependentUpon>MESCFGView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LogView.xaml.cs">
+      <DependentUpon>LogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddPlcTagDialog.xaml.cs">
+      <DependentUpon>AddPlcTagDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModuleManage\UcModuleAddView.xaml.cs">
+      <DependentUpon>UcModuleAddView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModuleManage\UcModuleDisplayView.xaml.cs">
+      <DependentUpon>UcModuleDisplayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModuleManage\UcModuleEditView.xaml.cs">
+      <DependentUpon>UcModuleEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PackManage\UcPackAddView.xaml.cs">
+      <DependentUpon>UcPackAddView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PackManage\UcPackManageView.xaml.cs">
+      <DependentUpon>UcPackManageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlcTagView.xaml.cs">
+      <DependentUpon>PlcTagView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Recipe\CellRecipeReplaceView.xaml.cs">
+      <DependentUpon>CellRecipeReplaceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Recipe\UcRecipeAddView.xaml.cs">
+      <DependentUpon>UcRecipeAddView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Recipe\UcRecipeManageView.xaml.cs">
+      <DependentUpon>UcRecipeManageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UcOperationView.xaml.cs">
+      <DependentUpon>UcOperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UploadDataView.xaml.cs">
+      <DependentUpon>UploadDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\AddRoleManagerDialog.xaml.cs">
+      <DependentUpon>AddRoleManagerDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\AddRoleView.xaml.cs">
+      <DependentUpon>AddRoleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\AddUserDialog.xaml.cs">
+      <DependentUpon>AddUserDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\AuthMainView.xaml.cs">
+      <DependentUpon>AuthMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\CardLoginDialog.xaml.cs">
+      <DependentUpon>CardLoginDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\CodeDetailView.xaml.cs">
+      <DependentUpon>CodeDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\LoginDialog.xaml.cs">
+      <DependentUpon>LoginDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\MenuSelectionDialog.xaml.cs">
+      <DependentUpon>MenuSelectionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\RoleManagerView.xaml.cs">
+      <DependentUpon>RoleManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\RoleView.xaml.cs">
+      <DependentUpon>RoleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\UserView.xaml.cs">
+      <DependentUpon>UserView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CatlMesBase\CatlMesBase.csproj">
+      <Project>{fc939f82-8e4e-4e4e-b770-618712e2a3e1}</Project>
+      <Name>CatlMesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MPAssmebleRecipe.Logger\MPAssmebleRecipe.Logger.csproj">
+      <Project>{18df3162-33ff-4356-8fd3-88a08a86da40}</Project>
+      <Name>MPAssmebleRecipe.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RogerTech.BussnessCore\RogerTech.BussnessCore.csproj">
+      <Project>{60ac13a3-5e4b-41e5-b2c5-2642ac97bfe7}</Project>
+      <Name>RogerTech.BussnessCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RogerTech.Common\RogerTech.Common.csproj">
+      <Project>{e4362e13-5fef-4622-9ed4-60c837b10eff}</Project>
+      <Name>RogerTech.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RogerTech.Tool\RogerTech.Tool.csproj">
+      <Project>{58ECD4C7-B30C-4ED6-8E48-F63EF3E37A2A}</Project>
+      <Name>RogerTech.Tool</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\BlockManage\UcAddtionBlockDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BlockManage\UcBlockAddView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BlockManage\UcBlockEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CellManage\UcCellEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CellManage\UcCellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CellManage\UcCurrentCellOrderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ConfirmDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MESCFGView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddPlcTagDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ModuleManage\UcModuleAddView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ModuleManage\UcModuleDisplayView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ModuleManage\UcModuleEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PackManage\UcPackAddView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PackManage\UcPackManageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PlcTagView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Recipe\CellRecipeReplaceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Recipe\UcRecipeAddView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Recipe\UcRecipeManageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UcOperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UploadDataView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\AddRoleManagerDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\AddRoleView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\AddUserDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\AuthMainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\CardLoginDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\CodeDetailView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\LoginDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\MenuSelectionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\RoleManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\RoleView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\UserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CATL.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Logo_256x256.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

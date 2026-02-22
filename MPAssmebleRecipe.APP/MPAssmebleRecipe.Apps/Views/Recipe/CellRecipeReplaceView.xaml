@@ -1,0 +1,61 @@
+﻿<UserControl
+    x:Class="MPAssmebleRecipe.Apps.Views.Recipe.CellRecipeReplaceView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    Width="400"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="Transparent"
+    mc:Ignorable="d">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.Column="0"
+            Margin="0,0,0,20"
+            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+            Text="电芯条码" />
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,20">
+            <TextBox
+                Margin="0,10"
+                materialDesign:HintAssist.Hint="旧电芯条码"
+                FontSize="15"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding CellSN_Old, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBox
+                Margin="0,10"
+                materialDesign:HintAssist.Hint="新电芯条码"
+                FontSize="15"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding CellSN_New, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="2"
+            Margin="0,0,0,20"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <Button
+                Width="100"
+                Margin="0,0,10,0"
+                Command="{Binding CancelCommand}"
+                Content="取消"
+                Style="{StaticResource MaterialDesignOutlinedButton}" />
+            <Button
+                Width="100"
+                Command="{Binding SaveCommand}"
+                Content="替换"
+                Style="{StaticResource MaterialDesignRaisedButton}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

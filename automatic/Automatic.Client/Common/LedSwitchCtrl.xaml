@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="Automatic.Client.Common.LedSwitchCtrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Automatic.Client.Common"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="ledswitch"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="ledctrl" TargetType="local:LedControl">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="local:LedControl">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Name="grd"
+                                  Width="{Binding Path=ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                                  Margin="{TemplateBinding Padding}"
+                                  VerticalAlignment="Stretch"
+                                  Background="Transparent">
+
+                                <Ellipse x:Name="LedBorder"
+                                         Fill="{TemplateBinding Background}"
+                                         Stretch="Uniform"
+                                         Stroke="{TemplateBinding BorderBrush}"
+                                         StrokeThickness="2" />
+
+                                <Ellipse x:Name="CenterGlow" Stretch="Uniform">
+                                    <Ellipse.Fill>
+                                        <RadialGradientBrush>
+                                            <GradientStop Offset="-0.25" Color="White" />
+                                            <GradientStop Offset="0.91" Color="Transparent" />
+                                        </RadialGradientBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+
+                                <Ellipse x:Name="CornerLight"
+                                         Margin="2"
+                                         Stretch="Uniform">
+                                    <Ellipse.Fill>
+                                        <RadialGradientBrush Center="0.15 0.15" RadiusX="0.5" RadiusY="0.5">
+                                            <GradientStop Offset="0" Color="White" />
+                                            <GradientStop Offset="1" Color="Transparent" />
+                                        </RadialGradientBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </Grid>
+
+                            <ContentPresenter x:Name="content"
+                                              Grid.Column="1"
+                                              Margin="4,0,0,0"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              RecognizesAccessKey="True" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="LedBorder" Property="Fill" Value="{Binding Path=OnColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <Setter TargetName="content" Property="TextElement.Foreground" Value="{Binding Path=OnColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="false">
+                                <Setter TargetName="LedBorder" Property="Fill" Value="{Binding Path=OffColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <Setter TargetName="content" Property="TextElement.Foreground" Value="{Binding Path=OffColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <local:LedControl Content="{Binding Tip, ElementName=ledswitch}"
+                      IsChecked="{Binding IsChecked, ElementName=ledswitch}"
+                      IsEnabled="False"
+                      OffColor="{Binding OffColor, ElementName=ledswitch}"
+                      OnColor="{Binding OnColor, ElementName=ledswitch}"
+                      Style="{StaticResource ledctrl}" />
+</UserControl>

@@ -1,0 +1,245 @@
+﻿<UserControl
+    x:Class="MPAssmebleRecipe.Apps.Views.Recipe.UcRecipeManageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MPAssmebleRecipe.Apps.Views.Recipe"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:MPAssmebleRecipe.Apps.ViewModels.Recipe"
+    d:DataContext="{d:DesignInstance Type=viewmodels:UcRecipeManageViewModel}"
+    Background="Transparent"
+    mc:Ignorable="d">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <GroupBox
+            Grid.Row="0"
+            Grid.Column="0"
+            FontSize="15"
+            Header="开拉配方队列">
+            <DataGrid
+                x:Name="dgv_recipeTempskara"
+                Grid.Row="1"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                IsReadOnly="True"
+                ItemsSource="{Binding RecipeTempsKara}">
+                <DataGrid.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel
+                            IsItemsHost="True"
+                            VirtualizingPanel.IsVirtualizing="True"
+                            VirtualizingPanel.VirtualizationMode="Recycling" />
+                    </ItemsPanelTemplate>
+                </DataGrid.ItemsPanel>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        x:Name="RecipeIndex1"
+                        Binding="{Binding RecipeIndex}"
+                        Header="配方顺序" />
+                    <DataGridTextColumn
+                        x:Name="BlockPN1"
+                        Binding="{Binding BlockPN}"
+                        Header="Block料号" />
+                    <DataGridTextColumn
+                        x:Name="BlockAmount1"
+                        Binding="{Binding BlockAmount}"
+                        Header="Block数量" />
+                    <DataGridTextColumn
+                        x:Name="LayerNum1"
+                        Binding="{Binding LayerNum}"
+                        Header="层号" />
+                    <DataGridTextColumn
+                        x:Name="AttributionLine1"
+                        Binding="{Binding AttributionLine}"
+                        Header="归属拉线" />
+                    <DataGridTextColumn
+                        x:Name="PreallocationLine1"
+                        Binding="{Binding PreallocationLine}"
+                        Header="预分配拉线" />
+                    <DataGridTextColumn
+                        x:Name="IssueLine1"
+                        Binding="{Binding IssueLine}"
+                        Header="下发拉线" />
+                    <!--<DataGridTextColumn
+                                x:Name="PreallocationTime1"
+                                Binding="{Binding PreallocationTime}"
+                                Header="预分配时间" />
+                            <DataGridTextColumn
+                                x:Name="IssueTime1"
+                                Binding="{Binding IssueTime}"
+                                Header="下发时间" />-->
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <GroupBox
+            Grid.Row="1"
+            Grid.Column="0"
+            FontSize="15"
+            Header="收拉配方队列">
+            <DataGrid
+                x:Name="dgv_recipeTempsfinish"
+                Grid.Row="1"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                IsReadOnly="True"
+                ItemsSource="{Binding RecipeTempsFinish}">
+                <DataGrid.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel
+                            IsItemsHost="True"
+                            VirtualizingPanel.IsVirtualizing="True"
+                            VirtualizingPanel.VirtualizationMode="Recycling" />
+                    </ItemsPanelTemplate>
+                </DataGrid.ItemsPanel>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        x:Name="RecipeIndex2"
+                        Binding="{Binding RecipeIndex}"
+                        Header="配方顺序" />
+                    <DataGridTextColumn
+                        x:Name="BlockPN2"
+                        Binding="{Binding BlockPN}"
+                        Header="Block料号" />
+                    <DataGridTextColumn
+                        x:Name="BlockAmount2"
+                        Binding="{Binding BlockAmount}"
+                        Header="Block数量" />
+                    <DataGridTextColumn
+                        x:Name="LayerNum2"
+                        Binding="{Binding LayerNum}"
+                        Header="层号" />
+                    <DataGridTextColumn
+                        x:Name="AttributionLine2"
+                        Binding="{Binding AttributionLine}"
+                        Header="归属拉线" />
+                    <DataGridTextColumn
+                        x:Name="PreallocationLine2"
+                        Binding="{Binding PreallocationLine}"
+                        Header="预分配拉线" />
+                    <DataGridTextColumn
+                        x:Name="IssueLine2"
+                        Binding="{Binding IssueLine}"
+                        Header="下发拉线" />
+                    <!--<DataGridTextColumn
+                                x:Name="PreallocationTime2"
+                                Binding="{Binding PreallocationTime}"
+                                Header="预分配时间" />
+                            <DataGridTextColumn
+                                x:Name="IssueTime2"
+                                Binding="{Binding IssueTime}"
+                                Header="下发时间" />-->
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!--    -->
+        <GroupBox
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            FontSize="15"
+            Header="正常配方队列">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel
+                    Grid.Row="0"
+                    Margin="0,0,0,10"
+                    Orientation="Horizontal">
+                    <Button
+                        Name="配方下发"
+                        Margin="0,0,20,0"
+                        Command="{Binding RecipeAddCommand}"
+                        Content="配方下发"
+                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                    <Button
+                        Name="选中行下方插入"
+                        Margin="0,0,20,0"
+                        Command="{Binding RecipeInsertCommand}"
+                        Content="选中行下方插入"
+                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                    <Button
+                        Name="配方清空"
+                        Margin="0,0,20,0"
+                        Command="{Binding RecipeClearCommand}"
+                        Content="配方清空"
+                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                    <Button
+                        Name="刷新"
+                        Margin="0,0,20,0"
+                        Command="{Binding RefshCommand}"
+                        Content="刷新"
+                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                </StackPanel>
+
+                <DataGrid
+                    x:Name="dgv_recipeTemps"
+                    Grid.Row="1"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding RecipeTemps}"
+                    SelectedItem="{Binding SelectedRecipe}">
+                    <DataGrid.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel
+                                IsItemsHost="True"
+                                VirtualizingPanel.IsVirtualizing="True"
+                                VirtualizingPanel.VirtualizationMode="Recycling" />
+                        </ItemsPanelTemplate>
+                    </DataGrid.ItemsPanel>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            x:Name="RecipeIndex3"
+                            Binding="{Binding RecipeIndex}"
+                            Header="配方顺序" />
+                        <DataGridTextColumn
+                            x:Name="BlockPN3"
+                            Binding="{Binding BlockPN}"
+                            Header="Block料号" />
+                        <DataGridTextColumn
+                            x:Name="BlockAmount3"
+                            Binding="{Binding BlockAmount}"
+                            Header="Block数量" />
+                        <DataGridTextColumn
+                            x:Name="LayerNum3"
+                            Binding="{Binding LayerNum}"
+                            Header="层号" />
+                        <DataGridTextColumn
+                            x:Name="AttributionLine3"
+                            Binding="{Binding AttributionLine}"
+                            Header="归属拉线" />
+                        <DataGridTextColumn
+                            x:Name="PreallocationLine3"
+                            Binding="{Binding PreallocationLine}"
+                            Header="预分配拉线" />
+                        <DataGridTextColumn
+                            x:Name="IssueLine3"
+                            Binding="{Binding IssueLine}"
+                            Header="下发拉线" />
+                        <!--<DataGridTextColumn
+                                    x:Name="PreallocationTime3"
+                                    Binding="{Binding PreallocationTime}"
+                                    Header="预分配时间" />
+                                <DataGridTextColumn
+                                    x:Name="IssueTime3"
+                                    Binding="{Binding IssueTime}"
+                                    Header="下发时间" />-->
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

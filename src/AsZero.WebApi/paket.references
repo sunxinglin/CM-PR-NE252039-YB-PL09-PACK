@@ -1,0 +1,8 @@
+System.ServiceModel.Http
+Swashbuckle.AspNetCore
+Microsoft.AspNetCore.Mvc.NewtonsoftJson
+Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson
+Microsoft.Extensions.Logging.Log4Net.AspNetCore
+MediatR.Extensions.Microsoft.DependencyInjection
+Microsoft.Extensions.Configuration
+Microsoft.EntityFrameworkCore.SqlServer

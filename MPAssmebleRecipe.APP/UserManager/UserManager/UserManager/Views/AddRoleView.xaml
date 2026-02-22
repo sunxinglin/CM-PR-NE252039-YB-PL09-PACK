@@ -1,0 +1,52 @@
+<UserControl x:Class="UserTest.Views.AddRoleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UserTest.Views"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Row="0"
+                Text="{Binding RoleName, UpdateSourceTrigger=PropertyChanged}"
+                MaterialDesign:HintAssist.Hint="角色名称"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Margin="0,8"/>
+
+        <TextBox Grid.Row="1"
+                Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                MaterialDesign:HintAssist.Hint="角色描述"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Margin="0,8"/>
+
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,16,0,0">
+            <Button Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{Binding CancelCommand}"
+                    Content="取消"/>
+            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding SaveCommand}"
+                    Content="保存"
+                    Margin="8,0,0,0"/>
+        </StackPanel>
+    </Grid>
+</UserControl> 

@@ -1,0 +1,154 @@
+﻿<UserControl x:Class="MPAssmebleRecipe.Apps.Views.UploadDataView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+         mc:Ignorable="d" 
+         xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         xmlns:prism="http://prismlibrary.com/"
+         d:DesignHeight="450" d:DesignWidth="1340.965">
+
+
+    <Grid Grid.Column="0" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="61*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <!-- 工具栏 -->
+            <StackPanel Grid.Row="0" 
+                Orientation="Horizontal" 
+                Margin="20,10,20,10" Grid.ColumnSpan="2">
+
+                <DatePicker Margin="16,0,0,0"
+                    Width="120"  VerticalAlignment="Center"
+                    MaterialDesign:HintAssist.Hint="开始日期"
+                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                    SelectedDate="{Binding StartDate, Mode=TwoWay}"
+                   />
+
+                <MaterialDesign:TimePicker Margin="8,0"
+                    Width="120" VerticalAlignment="Center"
+                    MaterialDesign:HintAssist.Hint="开始时间"
+                    Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                    SelectedTime="{Binding StartTime, Mode=TwoWay}"
+                   />
+
+                <DatePicker Width="120"  VerticalAlignment="Center"
+                    MaterialDesign:HintAssist.Hint="结束日期"
+                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                    SelectedDate="{Binding EndDate, Mode=TwoWay}"
+                    />
+
+                <MaterialDesign:TimePicker Margin="8,0"
+                    Width="120" VerticalAlignment="Center"
+                    MaterialDesign:HintAssist.Hint="结束时间"
+                    Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                    SelectedTime="{Binding EndTime, Mode=TwoWay}"
+                    />
+
+            <TextBox Text="{Binding SFC}"
+                    MaterialDesign:HintAssist.Hint="SFC条码"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    Margin="8,0" Width="250"/>
+
+            <Button Margin="10,0" Name="ReflashBtn" Style="{StaticResource MaterialDesignRaisedButton}"  Width="140" Height="35"
+                Command="{Binding RefreshCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <MaterialDesign:PackIcon Kind="Search" 
+                                       VerticalAlignment="Stretch"/>
+                        <TextBlock Text="上传MES查询" 
+                         Margin="0,0,0,0"/>
+                    </StackPanel>
+                </Button>
+            <Button Margin="30,0" Name="LocalReflashBtn" Style="{StaticResource MaterialDesignRaisedButton}"  Width="120" Height="35"
+              Command="{Binding LocalRefreshCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <MaterialDesign:PackIcon Kind="Search" 
+                                     VerticalAlignment="Center"/>
+                            <TextBlock Text="本地查询" 
+                       Margin="4,0,0,0"/>
+                        </StackPanel>
+            </Button>
+            <Button Margin="20,0" Name="UpLoadBtn" Style="{StaticResource MaterialDesignRaisedButton}"  Width="120" Height="35"
+                 >
+                <StackPanel Orientation="Horizontal">
+                    <MaterialDesign:PackIcon Kind="Upload" 
+                           VerticalAlignment="Center"/>
+                    <TextBlock Text="重新上传" 
+             Margin="4,0,0,0"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+            <!-- 数据列表 -->
+            <DataGrid x:Name="dataGrid" Grid.Row="1" Margin="20,10" SelectionMode="Extended"
+              ItemsSource="{Binding Datas}" RowHeight="35" ColumnHeaderHeight="40"
+              AutoGenerateColumns="False" CanUserAddRows="False"  VerticalContentAlignment="Center"
+              CanUserDeleteRows="False"  IsReadOnly="True" 
+              MaterialDesign:DataGridAssist.CellPadding="5 2 2 2"
+              MaterialDesign:DataGridAssist.ColumnHeaderPadding="4"
+              MouseDoubleClick="DataGrid_MouseDoubleClick">
+                <!--<DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                        <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsUpload}" Value="0">
+                                <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+                            </DataTrigger>
+                        <DataTrigger Binding="{Binding IsUpload, Converter={StaticResource NotEqualToZeroConverter}}" Value="True">
+                                <Setter Property="Foreground" Value="Red" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>-->
+                <DataGrid.Columns>
+                <!--<DataGridTemplateColumn x:Name="selectBox" Header="选中" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox  HorizontalAlignment="Center"  Width="auto"
+                    Style="{StaticResource MaterialDesignCheckBox}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+                <DataGridTextColumn Header="SFC" CanUserSort="False"
+                              Binding="{Binding SFC}"
+                              Width="200"/>
+                <DataGridTextColumn Header="上传接口"  CanUserSort="False"
+                              Binding="{Binding InterfaceName}"
+                              Width="140"/>
+                <DataGridTextColumn Header="上传参数"  CanUserSort="False"
+                              Binding="{Binding UploadDataName}"
+                              Width="140"/>
+                <DataGridTextColumn Header="参数值"  CanUserSort="False"
+                              Binding="{Binding UploadDataValue}"
+                              Width="140"/>
+                <DataGridTextColumn Header="参数类型"  CanUserSort="False"
+                              Binding="{Binding UploadDataType}"
+                              Width="140"/>
+                    <!--<DataGridTextColumn Header="是否上传" 
+                              Binding="{Binding IsUpload}"
+                              Width="140"/>-->
+                <DataGridTextColumn Header="时间"   CanUserSort="False"
+                              Binding="{Binding Time, StringFormat={}{0:yyyy-MM-dd HH:mm:ss:fff}}"
+                              Width="*"/>
+               
+                    </DataGrid.Columns>
+            </DataGrid>
+
+
+            <!-- 分页按钮 -->
+            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="0,10,0,10" Width="auto">
+            <Button Content="首页" Command="{Binding FirstPageCommand}" Margin="5" Width="75"/>
+            <Button Content="上一页" Command="{Binding PrevPageCommand}" Margin="5" Width="75"/>
+            <TextBlock Text="{Binding CurrentPage}" Margin="5"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="/" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding TotalPages}" Margin="5"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Content="下一页" Command="{Binding NextPageCommand}" Margin="5" Width="75"/>
+            <Button Content="尾页" Command="{Binding LastPageCommand}" Margin="5" Width="75"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

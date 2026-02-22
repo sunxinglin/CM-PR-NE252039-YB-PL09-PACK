@@ -1,0 +1,5 @@
+switch 中添加：
+
+case "Ctp0600P.Client.Views.StationTaskPages.GluingTimeout":
+                    ((GluingTimeout)sender)._VM.CatchGluingTimeMessage();
+                    break;
