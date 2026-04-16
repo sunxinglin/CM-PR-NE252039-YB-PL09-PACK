@@ -1,27 +1,27 @@
 ﻿using Itminus.Middlewares;
+
 using MediatR;
 
-namespace Ctp0600P.Client.PLC.PLC01.Middlewares.Common.PublishNotification
+namespace Ctp0600P.Client.PLC.PLC01.Middlewares.Common.PublishNotification;
+
+public class PublishNotificationMiddleware : IWorkMiddleware<ScanContext>
 {
-    public class PublishNotificationMiddleware : IWorkMiddleware<ScanContext>
+    private readonly IMediator _mediator;
+
+    public PublishNotificationMiddleware(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public PublishNotificationMiddleware(IMediator mediator)
+    public async Task InvokeAsync(ScanContext context, WorkDelegate<ScanContext> next)
+    {
+        try
         {
-            _mediator = mediator;
+            await _mediator.Publish(new ScanContextNotification(context));
         }
-
-        public async Task InvokeAsync(ScanContext context, WorkDelegate<ScanContext> next)
+        finally
         {
-            try
-            {
-                await _mediator.Publish(new ScanContextNotification(context));
-            }
-            finally
-            {
-                await next(context);
-            }
+            await next(context);
         }
     }
 }

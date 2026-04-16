@@ -12,34 +12,44 @@ export function startNewConnection(type) {
 			console.log('signalr error:' + err);
 		});
 		connection.on("showAlarmMsg", function(output) {
-
-
-			RefreshdAlarmMsg(output)
-
+			
+			
+			if (typeof window !== "undefined" && typeof window.RefreshdAlarmMsg === "function") {
+				window.RefreshdAlarmMsg(output)
+			}
+			
 		});
 		connection.on("showMsg", function(output) {
-
-			RefreshMsg(output)
-
+			
+			if (typeof window !== "undefined" && typeof window.RefreshMsg === "function") {
+				window.RefreshMsg(output)
+			}
+			
 		});
-
+		
 		if (type == 'duiduoji') {
-
-
+			
+			
 			connection.on("receiveMBStockerMsg1", function(output) {
-
-				RefreshPlcMsg(output, 1)
-
+				
+				if (typeof window !== "undefined" && typeof window.RefreshPlcMsg === "function") {
+					window.RefreshPlcMsg(output, 1)
+				}
+				
 			});
 			connection.on("receiveMBStockerMsg2", function(output) {
-
-				RefreshPlcMsg(output, 2)
-
+				
+				if (typeof window !== "undefined" && typeof window.RefreshPlcMsg === "function") {
+					window.RefreshPlcMsg(output, 2)
+				}
+				
 			});
 			connection.on("receiveMBStockerMsg3", function(output) {
-			
-				RefreshPlcMsg(output, 1)
-			
+				
+				if (typeof window !== "undefined" && typeof window.RefreshPlcMsg === "function") {
+					window.RefreshPlcMsg(output, 1)
+				}
+				
 			});
 
 		}

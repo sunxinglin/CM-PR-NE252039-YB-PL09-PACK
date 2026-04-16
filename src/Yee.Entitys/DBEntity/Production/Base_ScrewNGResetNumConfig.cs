@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+
 using Yee.Entitys.DBEntity.Common;
 using Yee.Entitys.Production;
 

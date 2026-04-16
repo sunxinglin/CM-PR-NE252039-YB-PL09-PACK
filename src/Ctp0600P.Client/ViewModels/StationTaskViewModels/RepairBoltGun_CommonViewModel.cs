@@ -1,23 +1,25 @@
-﻿using Ctp0600P.Client.Apis;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media.Imaging;
+
+using Ctp0600P.Client.Apis;
 using Ctp0600P.Client.CommonEntity;
 using Ctp0600P.Client.DTOS;
 using Ctp0600P.Client.PLC.Context;
 using Ctp0600P.Client.Protocols;
 using Ctp0600P.Client.Protocols.BoltGun.Models;
-using Ctp0600P.Client.Views.PopupPages;
 using Ctp0600P.Shared;
+
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
+
 using Microsoft.Extensions.Options;
+
 using Reactive.Bindings;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Imaging;
+
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.AlarmMgmt;
 using Yee.Entitys.DBEntity.Production;
@@ -60,7 +62,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             BindHistory();
             if (!_StationTaskDTO.HasFinish)
             {
-                LoadScrewList();
+                _ = LoadScrewList();
             }
 
             _stationPLCContext = stationPLCContext;
@@ -79,12 +81,16 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
         /// 加载未OK的数据
         /// </summary>
         /// <returns></returns>
-        public async void LoadScrewList()
+        public async Task LoadScrewList()
         {
             var result = await _apiHelper.LoadAutoTightenData(App.PackBarCode, _taskReworkScrewBase.ReworkType, _taskReworkScrewBase.ScrewNum);
             if (result.Code != 200)
             {
-                await _mediator.Publish(new AlarmSYSNotification() { Code = AlarmCode.系统运行错误, Name = AlarmCode.系统运行错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"{result.Message}" });
+                await _mediator.Publish(new AlarmSYSNotification
+                {
+                    Code = AlarmCode.系统运行错误, Name = nameof(AlarmCode.系统运行错误), Module = AlarmModule.SERVER_MODULE,
+                    Description = $"{result.Message}"
+                });
                 return;
             }
             var ScrewList = result.Result.OrderBy(o => o.OrderNo).Select(s => new Proc_AutoBoltInfo_Detail_DTO_Ext
@@ -111,8 +117,8 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             var HasRepairData = App.HisTaskData2.StationTaskRecords.FirstOrDefault(f => f.StationTaskRecord.Base_StationTaskId == _StationTaskDTO.StationTaskId);
             if (HasRepairData != null)
             {
-                var hasReapir = HasRepairData.TightenReworks ?? new List<Proc_StationTask_TightenRework>();
-                foreach (var item in hasReapir)
+                var hasRepair = HasRepairData.TightenReworks ?? new List<Proc_StationTask_TightenRework>();
+                foreach (var item in hasRepair)
                 {
                     var AutoScrewData = AutoScrewDataList.FirstOrDefault(f => f.OrderNo == item.OrderNo);
                     if (AutoScrewData == null)
@@ -126,7 +132,8 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             this.GridX.Value = productScrewDockData.LayOut_Width;
             this.GridY.Value = productScrewDockData.LayOut_Height;
             this.ImageSource.Value = new BitmapImage(new Uri(productScrewDockData.ImageUrl));
-            for (int i = 0; i < this.productScrewDockData.ScrewLocationList.Count; i++)
+            var count = Math.Min(this.productScrewDockData.ScrewLocationList.Count, AutoScrewDataList.Count);
+            for (int i = 0; i < count; i++)
             {
                 this.productScrewDockData.ScrewLocationList[i].Status = AutoScrewDataList[i].ResultIsOK ? "OK" : "NG";
             }
@@ -153,22 +160,33 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
         /// </summary>
         public void FindNextNG()
         {
-            if (!AutoScrewDataList.Any(a => !a.ResultIsOK))
+            if (AutoScrewDataList == null || AutoScrewDataList.Count == 0)
+            {
+                return;
+            }
+
+            if (AutoScrewDataList.All(a => a.ResultIsOK))
             {
                 CompleteTask();
                 return;
             }
 
-            App.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 CurDoingScrew = AutoScrewDataList.OrderBy(x => x.OrderNo).FirstOrDefault(a => !a.ResultIsOK && a.OrderNo > 0);
+                if (CurDoingScrew == null)
+                {
+                    return;
+                }
+
                 CurDoingScrew.Status = "Doing";
                 var screw = this.ScrewListObserver.FirstOrDefault(f => f.OrderNo == CurDoingScrew.OrderNo);
                 if (screw != null)
                 {
                     screw.Status = "Doing";
                 }
-                this.CurrentScrewNo.Value = screw.OrderNo;
+
+                this.CurrentScrewNo.Value = CurDoingScrew.OrderNo;
             });
         }
 
@@ -177,15 +195,15 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
         /// </summary>
         public async void EnableBoltGuns()
         {
-            if (!AutoScrewDataList.Any(a => !a.ResultIsOK))
+            if (AutoScrewDataList.All(a => a.ResultIsOK))
             {
                 return;
             }
 
             //获取当前工位配置的拧紧枪
-            var desoutterlist = await _apiHelper.LoadStationProResourceConfig(ProResourceTypeEnum.拧紧枪);
+            var desoutterList = await _apiHelper.LoadStationProResourceConfig(ProResourceTypeEnum.拧紧枪);
 
-            foreach (var desoutter in desoutterlist)
+            foreach (var desoutter in desoutterList)
             {
                 if (string.IsNullOrEmpty(desoutter.DeviceNo))
                 {
@@ -236,7 +254,11 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             {
                 if (CurDoingScrew == null)
                 {
-                    await _mediator.Publish(new AlarmSYSNotification() { Code = AlarmCode.拧紧枪错误, Name = AlarmCode.拧紧枪错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"没有需要补拧的螺栓" });
+                    await _mediator.Publish(new AlarmSYSNotification
+                    {
+                        Code = AlarmCode.拧紧枪错误, Name = nameof(AlarmCode.拧紧枪错误), Module = AlarmModule.SERVER_MODULE,
+                        Description = $"没有需要补拧的螺栓"
+                    });
                     return;
                 }
 
@@ -245,7 +267,11 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
 
                 if (request.ProgramNo != _taskReworkScrewBase.ProgramNo)
                 {
-                    await _mediator.Publish(new AlarmSYSNotification() { Code = AlarmCode.拧紧枪错误, Name = AlarmCode.拧紧枪错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"拧紧数据采集参数错误，请求的程序号{request.ProgramNo}，需要的程序号{_taskReworkScrewBase.ProgramNo}" });
+                    await _mediator.Publish(new AlarmSYSNotification
+                    {
+                        Code = AlarmCode.拧紧枪错误, Name = nameof(AlarmCode.拧紧枪错误), Module = AlarmModule.SERVER_MODULE,
+                        Description = $"拧紧数据采集参数错误，请求的程序号{request.ProgramNo}，需要的程序号{_taskReworkScrewBase.ProgramNo}"
+                    });
                     return;
                 }
 
@@ -277,8 +303,14 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
                 var saveResult = await _apiHelper.SaveRepairData(dto);
                 if (saveResult.Code != 200)
                 {
-                    var notice = new AlarmSYSNotification() { Code = AlarmCode.系统运行错误, Name = AlarmCode.系统运行错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"保存失败，请联系管理员！" };
-                    await this._mediator.Publish(notice);
+                    var notice = new AlarmSYSNotification
+                    {
+                        Code = AlarmCode.系统运行错误,
+                        Name = nameof(AlarmCode.系统运行错误),
+                        Module = AlarmModule.SERVER_MODULE,
+                        Description = $"保存失败，错误信息：{saveResult.Message}；MainId={dto.MainId}；StationTaskId={dto.StationTaskId}；OrderNo={dto.OrderNo}"
+                    };
+                    await _mediator.Publish(notice);
                     return;
                 }
                 CurDoingScrew.Status = null;
@@ -335,7 +367,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             }
             catch (Exception ex)
             {
-                await _mediator.Publish(new AlarmSYSNotification() { Code = AlarmCode.系统运行错误, Name = AlarmCode.系统运行错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"{ex.Message}/{ex.StackTrace}" });
+                await _mediator.Publish(new AlarmSYSNotification() { Code = AlarmCode.系统运行错误, Name = nameof(AlarmCode.系统运行错误), Module = AlarmModule.DESOUTTER_MODULE, Description = $"{ex.Message}/{ex.StackTrace}" });
             }
         }
 
@@ -346,11 +378,11 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             //判断拧紧数据是否异常
             if (!request.ResultIsOK)
             {
-                await _mediator.Publish(new AlarmSYSNotification()
+                await _mediator.Publish(new AlarmSYSNotification
                 {
                     Code = AlarmCode.拧紧枪错误,
                     DeviceNo = request.DeviceNo,
-                    Name = AlarmCode.拧紧NG.ToString(),
+                    Name = nameof(AlarmCode.拧紧NG),
                     Module = "拧紧NG",
                     PackCode = task.PackCode,
                     Description = $"拧紧NG，请复位后重拧！\r\n任务:{task.StationTask.Name}\r\n枪号:{request.DeviceNo}, 程序号:{task.ProgramNo}",
@@ -361,11 +393,11 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             // 校验角度和扭矩是否相等
             if (dto.AngleValue == dto.TorqueValue)
             {
-                await _mediator.Publish(new AlarmSYSNotification()
+                await _mediator.Publish(new AlarmSYSNotification
                 {
                     Code = AlarmCode.拧紧枪错误,
                     DeviceNo = request.DeviceNo,
-                    Name = AlarmCode.拧紧NG.ToString(),
+                    Name = nameof(AlarmCode.拧紧NG),
                     Module = "拧紧NG",
                     PackCode = task.PackCode,
                     Description = $"拧紧角度[{dto.AngleValue}]和扭矩[{dto.TorqueValue}]相同！请复位后重拧！\r\n任务:{task.StationTask.Name}\r\n枪号:{request.DeviceNo}, 程序号:{task.ProgramNo}",
@@ -375,11 +407,11 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             }
             if (dto.AngleValue == 0 || dto.TorqueValue == 0)
             {
-                await _mediator.Publish(new AlarmSYSNotification()
+                await _mediator.Publish(new AlarmSYSNotification
                 {
                     Code = AlarmCode.拧紧枪错误,
                     DeviceNo = request.DeviceNo,
-                    Name = AlarmCode.拧紧NG.ToString(),
+                    Name = nameof(AlarmCode.拧紧NG),
                     Module = "拧紧NG",
                     PackCode = task.PackCode,
                     Description = $"拧紧角度[{dto.AngleValue}]或扭矩[{dto.TorqueValue}]为 0！请复位后重拧！\r\n任务:{task.StationTask.Name}\r\n枪号:{request.DeviceNo}, 程序号:{task.ProgramNo}",
@@ -388,13 +420,13 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
                 return false;
             }
             //校验角度是否超限
-            if ((request.FinalAngle < task.MinAngle) || (request.FinalAngle > task.MaxAngle))
+            if (request.FinalAngle < task.MinAngle || request.FinalAngle > task.MaxAngle)
             {
-                await _mediator.Publish(new AlarmSYSNotification()
+                await _mediator.Publish(new AlarmSYSNotification
                 {
                     Code = AlarmCode.拧紧枪错误,
                     DeviceNo = request.DeviceNo,
-                    Name = AlarmCode.拧紧NG.ToString(),
+                    Name = nameof(AlarmCode.拧紧NG),
                     Module = "拧紧NG",
                     PackCode = task.PackCode,
                     Description = $"拧紧角度超限[{task.MinAngle}, {task.MaxAngle}]，请复位后重拧！\r\n任务:{task.StationTask.Name}\r\n枪号:{request.DeviceNo}, 程序号:{task.ProgramNo}",
@@ -403,13 +435,13 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
                 return false;
             }
             //校验扭矩是否超限
-            if ((request.FinalTorque < task.MinTorque) || (request.FinalTorque > task.MaxTorque))
+            if (request.FinalTorque < task.MinTorque || request.FinalTorque > task.MaxTorque)
             {
-                await _mediator.Publish(new AlarmSYSNotification()
+                await _mediator.Publish(new AlarmSYSNotification
                 {
                     Code = AlarmCode.拧紧枪错误,
                     DeviceNo = request.DeviceNo,
-                    Name = AlarmCode.拧紧NG.ToString(),
+                    Name = nameof(AlarmCode.拧紧NG),
                     Module = "拧紧NG",
                     PackCode = task.PackCode,
                     Description = $"拧紧扭矩超限[{task.MinTorque}, {task.MaxTorque}]，请复位后重拧！\r\n任务:{task.StationTask.Name}\r\n枪号:{request.DeviceNo}, 程序号:{task.ProgramNo}",
@@ -424,7 +456,6 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
         /// <summary>
         /// 当前任务完成
         /// </summary>
-        /// <param name="hasGoods"></param>
         private void CompleteTask()
         {
             _StationTaskDTO.PackCode = App.PackBarCode;
@@ -442,7 +473,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
         /// <param name="limtcount"></param>
         public void InitData(int limtcount)
         {
-            ///初始化螺丝数据集合
+            // 初始化螺丝数据集合
             for (int i = 0; i < limtcount; i++)
             {
                 _AutoScrewDataList.Add(new Proc_AutoBoltInfo_Detail_DTO_Ext());
@@ -453,10 +484,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
 
         public ObservableCollection<Proc_AutoBoltInfo_Detail_DTO_Ext> AutoScrewDataList
         {
-            get
-            {
-                return _AutoScrewDataList;
-            }
+            get => _AutoScrewDataList;
             set
             {
                 if (_AutoScrewDataList != value)

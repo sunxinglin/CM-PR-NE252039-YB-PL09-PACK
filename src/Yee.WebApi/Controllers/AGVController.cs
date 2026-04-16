@@ -1,10 +1,15 @@
 ﻿using AsZero.Core.Services.Repos;
 using AsZero.DbContexts;
+
 using Ctp0600P.Shared.NotificationDTO;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using Newtonsoft.Json;
+
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.CommonEntity;
 using Yee.Entitys.DBEntity;
@@ -286,7 +291,7 @@ namespace Yee.WebApi.Controllers
         /// <param name="producttype">pack类型</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<Response<string>> BingAgv(BingAgvDTO dTO)
+        public async Task<Response<string>> BingAgv(BindAgvDTO dTO)
         {
             Response<string> response = new Response<string>();
             try
@@ -346,7 +351,7 @@ namespace Yee.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<Response<string>> BingAgv_SBox(BingAgvDTO dTO)
+        public async Task<Response<string>> BingAgv_SBox(BindAgvDTO dTO)
         {
             Response<string> response = new Response<string>();
             try

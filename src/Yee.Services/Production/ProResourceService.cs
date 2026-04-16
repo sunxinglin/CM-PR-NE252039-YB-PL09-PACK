@@ -1,14 +1,9 @@
 ﻿using AsZero.DbContexts;
+
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Yee.Common.Library.CommonEnum;
-using Yee.Entitys.DTOS;
 using Yee.Entitys.Production;
-using Yee.Services.Request;
 
 namespace Yee.Services.Production
 {

@@ -1,18 +1,24 @@
-﻿using AsZero.Core.Services.Messages;
-using Ctp0600P.Client.Apis;
-using Ctp0600P.Client.PLC.Context;
-using Ctp0600P.Client.Protocols.BoltGun.Models;
-using Ctp0600P.Shared;
-using FutureTech.Mvvm;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+
+using AsZero.Core.Services.Messages;
+
+using Ctp0600P.Client.Apis;
+using Ctp0600P.Client.PLC.Context;
+using Ctp0600P.Client.Protocols.BoltGun.Models;
+using Ctp0600P.Shared;
+
+using FutureTech.Mvvm;
+
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+
+using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.Production;
 
 namespace Ctp0600P.Client.UserControls.DebugTools
@@ -88,7 +94,7 @@ namespace Ctp0600P.Client.UserControls.DebugTools
         public async void LoadProtocols()
         {
 
-            var list = await _aPIHelper.LoadStationProResourceConfig(Yee.Common.Library.CommonEnum.ProResourceTypeEnum.拧紧枪);
+            var list = await _aPIHelper.LoadStationProResourceConfig(ProResourceTypeEnum.拧紧枪);
             if (list != null)
             {
                 foreach (var item in list)

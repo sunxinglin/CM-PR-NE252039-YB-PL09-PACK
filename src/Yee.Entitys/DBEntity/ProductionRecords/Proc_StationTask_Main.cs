@@ -1,13 +1,9 @@
-﻿using AsZero.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using AsZero.Core.Entities;
+
 using Yee.Common.Library.CommonEnum;
-using Yee.Entitys.Common;
 using Yee.Entitys.Production;
 
 namespace Yee.Entitys.DBEntity
@@ -36,7 +32,7 @@ namespace Yee.Entitys.DBEntity
         public int? CreateUserID { get; set; }
         public User? CreateUser { get; set; }
 
-        public DateTime? UpdateTime { get; set; }
+        public DateTime? UpdateTime { get; set; } = DateTime.Now;
         public int? UpdateUserID { get; set; }
         public User? UpdateUser { get; set; }
         public DateTime? DeleteTime { get; set; }

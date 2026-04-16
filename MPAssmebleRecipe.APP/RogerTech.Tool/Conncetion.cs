@@ -7,8 +7,8 @@ namespace RogerTech.Tool
 {
     public class Connection
     {
-        private readonly int MaxLength = 200;
-        private static object locker = new object();
+        private readonly int MaxLength = 210;
+        private readonly object locker = new object();
         public string IP { get; private set; }
         public int Port { get; private set; }
         public bool Connected { get { return ComProtocol.Connected; } }
@@ -46,6 +46,35 @@ namespace RogerTech.Tool
             }
 
         }
+
+        /// <summary>
+        /// 批量添加Tag，只在最后排序和解析一次，大幅提升性能
+        /// </summary>
+        public void AddTags(IEnumerable<Tag> tagsToAdd)
+        {
+            lock (locker)
+            {
+
+                HashSet<string> existingKeys = new HashSet<string>();
+                foreach (var item in Tags)
+                {
+                    existingKeys.Add($"{item.Dbnr}_{item.StartAddress}_{item.TagName}");
+                }
+
+                foreach (var tag in tagsToAdd)
+                {
+                    string key = $"{tag.Dbnr}_{tag.StartAddress}_{tag.TagName}";
+                    if (!existingKeys.Contains(key))
+                    {
+                        Tags.Add(tag);
+                        existingKeys.Add(key);
+                    }
+                }
+
+                Tags.Sort();
+                InterPerterTags(Tags);
+            }
+        }
         public void WriteTagValue(Tag tag, object value)
         {
             int index = 0;
@@ -53,6 +82,7 @@ namespace RogerTech.Tool
             {
                 index++;
                 byte[] buffer = DataConvert.GetTagBytes(tag, value);
+
                 bool flag = false;
                 if (tag.DataType == DataType.BIT)
                 {
@@ -62,15 +92,12 @@ namespace RogerTech.Tool
                 {
                     ComProtocol.WriteBytes(tag.Dbnr, tag.StartAddress, buffer, out flag);
                 }
-               
-
                 TagResult obj = ReadTag(tag);
 
                 if (obj.Value.ToString() == value.ToString())
                     break;
             } while (index < retryTimes);
         }
-
         #region 获取buffer
 
         #endregion
@@ -89,13 +116,11 @@ namespace RogerTech.Tool
         {
             TagResult result = new TagResult();
             bool flag = false;
-
-
             byte[] tempBytes = ComProtocol.ReadBytes(tag.Dbnr, tag.StartAddress, tag.DataLength, out flag);
+
             object obj = DataConvert.GetTagValue(tag, tempBytes);
             result.SetValue(obj);
-            result.SetAviliable(flag);
-
+            result.SetAvailable(flag);
             return result;
 
         }
@@ -106,17 +131,31 @@ namespace RogerTech.Tool
             if (Connected)
             {
                 List<Task> Tasks = new List<Task>();
-                for (int i = TagGroups.Count - 1; i >= 0; i--)
+                // 在锁内获取TagGroups的快照，避免并发修改问题
+                List<InterPreter> tagGroupsSnapshot;
+                lock (locker)
+                {
+                    if (TagGroups == null || TagGroups.Count == 0)
+                        return;
+                    tagGroupsSnapshot = new List<InterPreter>(TagGroups);
+                }
+
+                for (int i = tagGroupsSnapshot.Count - 1; i >= 0; i--)
                 {
                     bool flag = true;
-                    byte[] buffer = ComProtocol.ReadBytes(TagGroups[i].DbNr, TagGroups[i].Start, TagGroups[i].Length, out flag);
+                    InterPreter currentGroup = tagGroupsSnapshot[i];
+                    int expectedLength = currentGroup.Length;
+                    byte[] buffer = ComProtocol.ReadBytes(currentGroup.DbNr, currentGroup.Start, expectedLength, out flag);
 
+                    // 验证返回的数据长度是否正确
+                    if (buffer == null || buffer.Length != expectedLength)
+                    {
+                        flag = false;
+                    }
 
-
-                    int index = i;
                     Tasks.Add(Task.Run(() =>
                     {
-                        TagGroups[index].GetResult(buffer, flag);
+                        currentGroup.GetResult(buffer, flag);
                     }));
                 }
 
@@ -133,7 +172,7 @@ namespace RogerTech.Tool
             {
                 Connect();
             }
-            // Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff")+ "\t"+ "Read:" + IP + ":" + sw.ElapsedMilliseconds);
+            //Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff")+ "\t"+ "Read:" + IP + ":" + sw.ElapsedMilliseconds);
             if (sw.ElapsedMilliseconds > 300)
             {
             }
@@ -161,7 +200,8 @@ namespace RogerTech.Tool
                 {
 
                 }
-                System.Threading.Thread.Sleep(30);
+                System.Threading.Thread.Sleep(10);
+
                 //   Console.WriteLine(sw.ElapsedMilliseconds);
                 sw.Reset();
             }
@@ -180,35 +220,43 @@ namespace RogerTech.Tool
             public List<Tag> tags { get; private set; }
             public List<TagResult> results { get; private set; }
             public int Start { get; private set; }
-
             public int Length { get; private set; }
             public int DbNr { get; private set; }
             //将结果解析写入到tags中
             public void GetResult(byte[] bytes, bool avilid)
             {
-                if (bytes != null&& bytes.Length>0)
+                // 如果数据无效或为空，将所有tag标记为不可用
+                if (bytes == null || !avilid)
                 {
-                    int length = tags[tags.Count - 1].StartAddress + tags[tags.Count - 1].DataLength - tags[0].StartAddress;
-                    if (bytes.Length != length)
-                        throw new ArgumentOutOfRangeException("In connection InterPreter, Func GetResult tag length not equal byte.length");
-                    int offset = tags[0].StartAddress;
-                    //将所有result的结果写为不可用状态
                     foreach (var tag in tags)
                     {
-                        if (avilid)
-                        {
-                            byte[] tempBytes = new byte[tag.DataLength];
-                            Array.Copy(bytes, tag.StartAddress - offset, tempBytes, 0, tag.DataLength);
-                            object obj = DataConvert.GetTagValue(tag, tempBytes);
-                            tag.Result.SetValue(obj);
-                            tag.Result.SetAviliable(true);
-                        }
-                        else
-                        {
-                            tag.Result.SetAviliable(false);
-                            tag.Result.SetValue(null);
-                        }
+                        tag.Result.SetAvailable(false);
+                        tag.Result.SetValue(null);
                     }
+                    return;
+                }
+
+                int expectedLength = tags[tags.Count - 1].StartAddress + tags[tags.Count - 1].DataLength - tags[0].StartAddress;
+                // 如果长度不匹配，将所有tag标记为不可用，而不是抛出异常
+                if (bytes.Length != expectedLength)
+                {
+                    foreach (var tag in tags)
+                    {
+                        tag.Result.SetAvailable(false);
+                        tag.Result.SetValue(null);
+                    }
+                    return;
+                }
+
+                int offset = tags[0].StartAddress;
+                //解析数据并写入到tags中
+                foreach (var tag in tags)
+                {
+                    byte[] tempBytes = new byte[tag.DataLength];
+                    Array.Copy(bytes, tag.StartAddress - offset, tempBytes, 0, tag.DataLength);
+                    object obj = DataConvert.GetTagValue(tag, tempBytes);
+                    tag.Result.SetValue(obj);
+                    tag.Result.SetAvailable(true);
                 }
             }
 

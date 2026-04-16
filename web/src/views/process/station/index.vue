@@ -1,409 +1,253 @@
 <template>
   <div class="flex-column">
-    <!-- 工位开始 -->
-      <div class="filter-container">
-        <el-card shadow="never" class="boby-small">
-          <div slot="header" class="clearfix">
-            <span>工位表</span>
-          </div>
-          <div>
-            <el-row :gutter="4">
-              <el-col :span="20">
-                <el-button type="primary" icon="el-icon-plus" size="small" @click="handleCreate">添加
-                </el-button>
-                <el-button type="primary" icon="el-icon-edit" size="small" @click="handleUpdate">编辑
-                </el-button>
-                <el-button type="danger" icon="el-icon-delete" size="small" @click="handleDelete">
-                  删除</el-button>
-              </el-col>
-            </el-row>
-          </div>
-        </el-card>
-      </div>
-      <div class="app-container fh">
-        <el-row :gutter="20">
-            <div>
-              <el-table ref="stationTable" :data="stationList" :height="tableHeight" v-loading="stationListLoading"
-                row-key="id" style="width: 100%" @current-change="handlecurrenttionChange" 
-                @selection-change="handleSelectionChange" border fit stripe highlight-current-row align="left">
-                <el-table-column type="selection" width="55" align="center">
-                </el-table-column>
-                <el-table-column prop="code" label="编码" min-width="40px" sortable align="center">
-                </el-table-column>
-                <el-table-column prop="name" label="名称" min-width="80px" sortable align="center">
-                </el-table-column>
-                <el-table-column prop="type" label="工位类型" min-width="60px" :formatter="changeStatus" align="center">
-                </el-table-column>
-                <el-table-column prop="step.name" label="关联工序" min-width="40px" sortable align="center">
-                </el-table-column>
-                <!-- <el-table-column  prop="description" label="描述" min-width="20px" sortable align="center" ></el-table-column> -->
-              </el-table>
-            </div>
+    <div class="filter-container">
+      <el-card shadow="never" class="boby-small">
+        <div slot="header" class="clearfix">
+          <span>工站管理</span>
+        </div>
+        <div>
+          <el-row :gutter="12">
+            <el-col :span="16">
+              <el-button type="primary" icon="el-icon-plus" size="small" @click="handleCreate">新增</el-button>
+              <el-button type="primary" icon="el-icon-edit" size="small" @click="handleUpdate">编辑</el-button>
+              <el-button type="danger" icon="el-icon-delete" size="small" @click="handleDelete">删除</el-button>
+            </el-col>
+            <el-col :span="8" style="text-align: right">
+              <el-input
+                v-model="listQuery.key"
+                size="small"
+                prefix-icon="el-icon-search"
+                style="width: 240px"
+                placeholder="关键字"
+                @keyup.enter.native="handleFilter"
+              />
+              <el-button type="primary" size="small" icon="el-icon-search" @click="handleFilter">查询</el-button>
+            </el-col>
+          </el-row>
+        </div>
+      </el-card>
+    </div>
+
+    <div class="app-container fh">
+      <el-table
+        ref="stationTable"
+        :data="list"
+        v-loading="listLoading"
+        row-key="id"
+        style="width: 100%"
+        :height="tableHeight"
+        border
+        fit
+        stripe
+        highlight-current-row
+        @selection-change="handleSelectionChange"
+        @row-click="rowClick"
+        align="left"
+      >
+        <el-table-column type="selection" width="55" align="center" />
+        <el-table-column prop="code" label="工站编号" min-width="150px" sortable align="center" />
+        <el-table-column prop="name" label="工站名称" min-width="180px" sortable align="center" />
+        <el-table-column prop="stepId" label="所属工序" min-width="200px" :formatter="formatStep" align="center" />
+        <el-table-column prop="stepType" label="类型" min-width="180px" :formatter="formatStepType" align="center" />
+        <el-table-column prop="ipAddress" label="IP地址" min-width="170px" sortable align="center" />
+        <el-table-column prop="description" label="描述" min-width="220px" sortable align="center" />
+      </el-table>
+
+      <pagination
+        v-show="total > 0"
+        :total="total"
+        :page.sync="listQuery.page"
+        :limit.sync="listQuery.limit"
+        @pagination="getList"
+      />
+    </div>
+
+    <el-dialog v-el-drag-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="640px">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-width="100px">
+        <el-row :gutter="16">
+          <el-col :span="12">
+            <el-form-item label="工站编号" prop="code">
+              <el-input v-model="temp.code" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="工站名称" prop="name">
+              <el-input v-model="temp.name" />
+            </el-form-item>
+          </el-col>
         </el-row>
 
+        <el-row :gutter="16">
+          <el-col :span="12">
+            <el-form-item label="所属工序" prop="stepId">
+              <el-select v-model="temp.stepId" placeholder="请选择" filterable style="width: 100%">
+                <el-option v-for="s in stepOptions" :key="s.id" :label="s.label" :value="s.id" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="类型" prop="stepType">
+              <el-select v-model="temp.stepType" placeholder="请选择" style="width: 100%">
+                <el-option v-for="item in stationTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row :gutter="16">
+          <el-col :span="12">
+            <el-form-item label="IP地址" prop="ipAddress">
+              <el-input v-model="temp.ipAddress" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-form-item label="描述" prop="description">
+          <el-input v-model="temp.description" type="textarea" :autosize="{ minRows: 2, maxRows: 4 }" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取消</el-button>
+        <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">确认</el-button>
       </div>
-      <!-- 工位弹框-->
-      <el-dialog v-el-drag-dialog class="dialog-mini" width="500px" :title="textMap[dialogStatus]"
-        :visible.sync="dialogFormVisible">
-        <div>
-          <el-form :rules="stationRules" ref="dataForm" :model="stationTemp" label-position="right" label-width="100px">
-            <el-form-item size="small" :label="'编码'" prop="code">
-							<el-input v-model="stationTemp.code" >
-							</el-input>
-						</el-form-item>
-            <el-form-item size="small" :label="'名称'" prop="name">
-              <el-input v-model="stationTemp.name"></el-input>
-            </el-form-item>
-            <el-form-item size="small" :label="'描述'">
-              <el-input v-model="stationTemp.description" :min="1" :max="20"></el-input>
-            </el-form-item>
-          </el-form>
-        </div>
-        <div slot="footer">
-          <el-button size="mini" @click="dialogFormVisible = false">取消</el-button>
-          <el-button size="mini" v-if="dialogStatus == 'create'" type="primary" @click="createData">确认
-          </el-button>
-          <el-button size="mini" v-else type="primary" @click="updateData">确认</el-button>
-        </div>
-      </el-dialog>
-    </div>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
 import * as stations from "@/api/station";
-
-import * as categoryTypes from "@/api/categoryTypes";
-import * as flows from "@/api/flow";
 import * as steps from "@/api/step";
-
-import waves from "@/directive/waves"; // 水波纹指令
-import Sticky from "@/components/Sticky";
-import permissionBtn from "@/components/PermissionBtn";
+import waves from "@/directive/waves";
 import Pagination from "@/components/Pagination";
 import elDragDialog from "@/directive/el-dragDialog";
 
 export default {
-  name: "station",
-  components: {
-    Sticky,
-    permissionBtn,
-    Pagination,
-  },
+  name: "stationCrud",
+  components: { Pagination },
   directives: {
     waves,
     elDragDialog,
   },
   data() {
     return {
-      stationList: [], //数据表
-      stationTotal: 0, //数据条数
-      flowTotal: 0, //数据条数
-      stationListLoading: false, //加载特效
-      flowListLoading: false, //加载特效
       tableHeight: null,
-      stationListQuery: {
-        //查询条件
-        flowid: this.stepId,
-      },
-      flowlistQuery: {
-        //查询条件
+      listLoading: false,
+      list: [],
+      total: 0,
+      listQuery: {
         page: 1,
         limit: 20,
         key: undefined,
       },
-      fullscreenloading: false,
-      indexvisible: true,
-      importfilevisible: false,
-      stationtaskvisible: false,
-      progressvalue: 0,
-      taskId: 1,
-
-      stationTemp: {
-        //模块临时值
-        id: undefined,
-        code: "",
-        name: "",
-        stepId: this.stepId,
-        description: "",
-      },
-      stepId: 0,
-      dialogFormVisible: false, //编辑框
-
-      dialogStatus: "", //编辑框功能(添加/编辑)
+      multipleSelection: [],
+      dialogFormVisible: false,
+      dialogStatus: "",
       textMap: {
         update: "编辑",
         create: "添加",
-        detail: "任务详情",
       },
-
-      detailData: [],
-      flowList: [],
-      stationRules: {
-        //编辑框输入限制
-        code: [
-          {
-            required: true,
-            message: "编号不能为空",
-            trigger: "blur",
-          },
-        ],
-        name: [
-          {
-            required: true,
-            message: "名称不能为空",
-            trigger: "blur",
-          },
-        ],
-        type: [
-          {
-            required: true,
-            message: "工位类型不能为空",
-            trigger: "blur",
-          },
-        ],
-        stepId: [
-          {
-            required: true,
-            message: "关联工序不能为空",
-            trigger: "blur",
-          },
-        ],
-      },
-
-      options: [
-        {
-          type: 1,
-          label: "自动站",
-        },
-        {
-          type: 2,
-          label: "线内人工站",
-        },
-        {
-          type: 3,
-          label: "线外人工站",
-          },
-          {
-              type: 4,
-              label: "可跳过人工站",
-          },
-      ],
-      value: 1,
-      sequeceoptions: [
-        {
-          sequence: 1,
-          label: "1",
-        },
-        {
-          sequence: 2,
-          label: "2",
-        },
-        {
-          sequence: 3,
-          label: "3",
-        },
-        {
-          sequence: 4,
-          label: "4",
-        },
-      ],
-      excelfiles: [],
-      multipleSelection: [],
-      flowtablerowselect: {},
-      stationtablerowselect: {}
-    };
-    
-  },
-  mounted() {
-    
-    this.stepId=this.$route.query.stepId;
-    this.stationTemp.stepId=this.stepId;
-    let h = document.documentElement.clientHeight; // 可见区域高度
-    let topH = this.$refs.stationTable.$el.offsetTop; //表格距浏览器顶部距离
-    let tableHeight = (h - topH) * 0.74; //表格应该有的高度   乘以多少可自定义
-    this.tableHeight = tableHeight;
-    this.stationListQuery.stepId=this.stepId;
-    this.stationLoad();
-
-    // this.stepsload();
-  },
-  methods: {
-    
-    //Bool转换
-    formatterBoolean(row, column, cellValue) {
-      if (cellValue) {
-        return "是";
-      } else {
-        return "否";
-      }
-    },
-
-    //关键字搜索
-    handleFilter() {
-      this.stationLoad();
-    },
-
-    //编辑框数值初始值
-    resetTemp() {
-      this.stationTemp = {
+      temp: {
         id: undefined,
         code: "",
         name: "",
-        stepId: this.stepId,
+        stepId: undefined,
+        ipAddress: "",
         description: "",
-      };
-     (this.multipleSelection = []);
-    },
-    handleTaskDetail() {
-      if (
-        this.stationTemp.id == undefined ||
-        this.multipleSelection.length == 0
-      ) {
-        this.$message({
-          message: "请选择需要查看的数据",
-          type: "error",
-          duration: 5 * 1000,
-        });
-        return;
-      }
-      console.log(this.multipleSelection);
-      if (this.multipleSelection.length > 1) {
-        this.$message({
-          message: "请选择单条数据!",
-          type: "error",
-          duration: 5 * 1000,
-        });
-        return;
-      }
-      this.stationtaskvisible = true;
-      this.indexvisible = false;
-    },
-
-    ///当前的工位的值
-    handlecurrenttionChange(val) {
-      this.resetTemp();
-
-      this.$refs.stationTable.toggleRowSelection(val);
-
-      console.log(this.multipleSelection);
+        stepType: 2,
+      },
+      rules: {
+        code: [{ required: true, message: "编号不能为空", trigger: "blur" }],
+        name: [{ required: true, message: "名称不能为空", trigger: "blur" }],
+        stepId: [{ required: true, message: "所属工序不能为空", trigger: "change" }],
+        stepType: [{ required: true, message: "类型不能为空", trigger: "change" }],
+      },
+      stepOptions: [],
+      stationTypeOptions: [
+        { key: 1, display_name: "自动站" },
+        { key: 2, display_name: "线内人工站" },
+        { key: 3, display_name: "线外人工站" },
+        { key: 4, display_name: "线内可跳过人工站" },
+        { key: 5, display_name: "模组数量监控站" },
+      ],
+    };
+  },
+  mounted() {
+    let h = document.documentElement.clientHeight;
+    let topH = this.$refs.stationTable.$el.offsetTop;
+    this.tableHeight = h - topH - 140;
+    this.loadSteps().then(() => {
+      this.getList();
+    });
+  },
+  methods: {
+    rowClick(row) {
+      this.$refs.stationTable.clearSelection();
+      this.$refs.stationTable.toggleRowSelection(row);
     },
     handleSelectionChange(val) {
-      this.resetTemp();
       this.multipleSelection = val;
-     
-      if (val.length == 1) {
-        this.stationTemp = val[0];
-        this.stationTemp.id = val[0].id;
-        this.stationTemp.stepId = val[0].stepId;
-        this.stationtablerowselect = val[0]
-      }
     },
-    //列表加载
-    stationLoad() {
-      this.stationListLoading = true;
-      console.log(this.stationListQuery);
-      stations.GetStationsByStepId(this.stationListQuery).then((response) => {
-        this.stationList = response.data; //提取数据表
-        this.stationTotal = response.count; //提取数据表条数
-        this.stationListLoading = false;
-this.$nextTick(() => {
-     this.$refs.stationTable.doLayout();
-     // el-table添加ref="tableName"
- });
-      });
+    formatStepType(row, column, cellValue) {
+      const match = this.stationTypeOptions.find((x) => x.key === cellValue);
+      return match ? match.display_name : cellValue;
     },
-
-    //点击添加
+    formatStep(row) {
+      const match = this.stepOptions.find((x) => x.id === row.stepId);
+      return match ? match.label : row.stepId;
+    },
+    handleFilter() {
+      this.listQuery.page = 1;
+      this.getList();
+    },
+    resetTemp() {
+      this.temp = {
+        id: undefined,
+        code: "",
+        name: "",
+        stepId: undefined,
+        ipAddress: "",
+        description: "",
+        stepType: 2,
+      };
+    },
     handleCreate() {
-      //弹出编辑框
-      if (this.stepId==undefined) {
-        this.$notify({
-          title: "失败",
-          message: "请进入工序页面进行操作",
-          type: "fail",
-          duration: 500,
-        });
-        return;
-      }
-      this.resetTemp(); //数值初始化
-      this.dialogStatus = "create"; //编辑框功能选择（添加）
-      this.dialogFormVisible = true; //编辑框显示
-
+      this.resetTemp();
+      this.dialogStatus = "create";
+      this.dialogFormVisible = true;
       this.$nextTick(() => {
         this.$refs["dataForm"].clearValidate();
       });
     },
-
-    ///保存提交
-    createData() {
-      this.$refs["dataForm"].validate((valid) => {
-        if (valid) {
-          console.log(this.stationTemp);
-          stations.add(this.stationTemp).then((response) => {
-            this.dialogFormVisible = false; //编辑框关闭
-            this.$notify({
-              title: "成功",
-              message: "创建成功",
-              type: "success",
-              duration: 2000,
-            });
-            this.stationLoad(); //页面加载
-          });
-        }
-      });
-    },
-
-    //点击编辑
     handleUpdate() {
-      if (this.stationTemp.code === "" || this.multipleSelection.length > 1) {
-        this.$notify({
-          title: "失败",
-          message: "请点击一行数据",
-          type: "fail",
-          duration: 500,
+      if (this.multipleSelection.length !== 1) {
+        this.$message({
+          message: "请选择一条数据进行编辑",
+          type: "warning",
         });
         return;
       }
-      this.dialogStatus = "update"; //编辑框功能选择（更新）
-      this.value = this.stationTemp.type;
-      this.dialogFormVisible = true; //编辑框显示
+      this.temp = Object.assign({}, this.multipleSelection[0]);
+      if (this.temp.stepType === undefined || this.temp.stepType === null) {
+        this.temp.stepType = 2;
+      }
+      this.dialogStatus = "update";
+      this.dialogFormVisible = true;
       this.$nextTick(() => {
         this.$refs["dataForm"].clearValidate();
       });
     },
-    //更新提交
-    updateData() {
-      this.$refs["dataForm"].validate((valid) => {
-        if (valid) {
-          stations.update(this.stationTemp).then(() => {
-            this.dialogFormVisible = false; //编辑框关闭
-            this.$notify({
-              title: "成功",
-              message: "更新成功",
-              type: "success",
-              duration: 2000,
-            });
-            this.stationLoad(); //页面加载
-          });
-        }
-      });
-    },
-    //点击删除
     handleDelete() {
-      if (this.stationTemp.id === undefined) {
+      if (this.multipleSelection.length <= 0) {
         this.$message({
-          message: "请选择一个想要删除的数据",
-          type: "error",
+          message: "请选择要删除的数据",
+          type: "warning",
         });
         return;
       }
+      const ids = this.multipleSelection.map((x) => x.id);
+      const param = { ids };
       this.$confirm("确定要删除吗？")
-        .then((_) => {
-          var selectids = [];
-          selectids.push(this.stationTemp.id); //提取复选框的数据的Id
-          var param = {
-            ids: selectids,
-          };
+        .then(() => {
           stations.del(param).then(() => {
             this.$notify({
               title: "成功",
@@ -411,39 +255,70 @@ this.$nextTick(() => {
               type: "success",
               duration: 2000,
             });
-            this.stationLoad(); //页面加载
+            this.getList();
           });
         })
-        .catch((_) => { });
+        .catch(() => {});
     },
-
-    //#endregion
-    changeStatus(row, column, cellValue) {
-      switch (cellValue) {
-        case 1:
-          return "自动站";
-        case 2:
-          return "线内人工站";
-        case 3:
-              return "线外人工站";
-          case 4:
-              return "可跳过人工站";
-      }
-    },
-
-    LodaType() {
-      categoryTypes.loadType().then((response) => {
-        this.typeoptions = response.data; //提取数据表
+    createData() {
+      this.$refs["dataForm"].validate((valid) => {
+        if (!valid) return;
+        const payload = Object.assign({}, this.temp, { type: this.temp.stepType });
+        stations.add(payload).then(() => {
+          this.dialogFormVisible = false;
+          this.$notify({
+            title: "成功",
+            message: "创建成功",
+            type: "success",
+            duration: 2000,
+          });
+          this.getList();
+        });
       });
     },
-    backflowtableSelect() {
-      this.$nextTick(() => {
-    
-        this.$refs.flowtable.toggleRowSelection(this.flowtablerowselect);
-        this.$refs.stationTable.toggleRowSelection(this.stationtablerowselect);
-
-      })
-
+    updateData() {
+      this.$refs["dataForm"].validate((valid) => {
+        if (!valid) return;
+        const tempData = Object.assign({}, this.temp, { type: this.temp.stepType });
+        stations.update(tempData).then(() => {
+          this.dialogFormVisible = false;
+          this.$notify({
+            title: "成功",
+            message: "更新成功",
+            type: "success",
+            duration: 2000,
+          });
+          this.getList();
+        });
+      });
+    },
+    getList() {
+      this.listLoading = true;
+      stations
+        .getList(this.listQuery)
+        .then((res) => {
+          const rows = res.data || res.result || [];
+          this.list = rows.map((x) => {
+            const stepType = x.stepType !== undefined ? x.stepType : x.type !== undefined ? x.type : x.steptype;
+            return Object.assign({}, x, { stepType });
+          });
+          this.total = res.count || 0;
+        })
+        .finally(() => {
+          this.listLoading = false;
+        });
+    },
+    loadSteps() {
+      const params = { page: 1, limit: 9999, key: undefined };
+      return steps.getList(params).then((res) => {
+        const rows = res.data || res.result || [];
+        this.stepOptions = rows.map((x) => {
+          const code = x.code || "";
+          const name = x.name || "";
+          const label = code && name ? `${code} - ${name}` : code || name || String(x.id);
+          return { id: x.id, label };
+        });
+      });
     },
   },
 };

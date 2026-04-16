@@ -1,4 +1,15 @@
-﻿
+﻿using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.ServiceModel.Description;
+using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -15,27 +26,27 @@ namespace Catl.WebServices.MICheckBOMInventory
 
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://machineintegration.ws.atlmes.com/", ConfigurationName = "MiCheckBOMInventoryService")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [ServiceContract(Namespace = "http://machineintegration.ws.atlmes.com/", ConfigurationName = "MiCheckBOMInventoryService")]
     public interface MiCheckBOMInventoryService
     {
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<miCheckBOMInventoryResponse1> miCheckBOMInventoryAsync(miCheckBOMInventoryRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<miCheckBOMInventoryResponse1> miCheckBOMInventoryAsync(miCheckBOMInventoryRequest request);
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class miCheckBOMInventory
     {
 
         private checkBOMInventoryRequest checkBOMInventoryRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public checkBOMInventoryRequest CheckBOMInventoryRequest
         {
             get
@@ -50,9 +61,9 @@ namespace Catl.WebServices.MICheckBOMInventory
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class checkBOMInventoryRequest
     {
 
@@ -84,7 +95,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -98,7 +109,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string operation
         {
             get
@@ -112,8 +123,8 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
-        [System.ComponentModel.DefaultValueAttribute("#")]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
+        [DefaultValue("#")]
         public string operationRevision
         {
             get
@@ -127,7 +138,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string resource
         {
             get
@@ -141,7 +152,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("customDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement("customDataArray", Form = XmlSchemaForm.Unqualified, Order = 4)]
         public customData[] customDataArray
         {
             get
@@ -155,7 +166,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string user
         {
             get
@@ -169,7 +180,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string activity
         {
             get
@@ -183,7 +194,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string sfc
         {
             get
@@ -197,7 +208,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public bool modeCheckOperation
         {
             get
@@ -212,7 +223,7 @@ namespace Catl.WebServices.MICheckBOMInventory
 
         [JsonConverter(typeof(StringEnumConverter))]
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 9)]
         public modeProcessSFC modeProcessSFC
         {
             get
@@ -226,7 +237,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("inventoryDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement("inventoryDataArray", Form = XmlSchemaForm.Unqualified, Order = 10)]
         public checkBomInventoryData[] inventoryDataArray
         {
             get
@@ -241,9 +252,9 @@ namespace Catl.WebServices.MICheckBOMInventory
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class customData
     {
 
@@ -254,7 +265,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         private string dataFieldField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string usage
         {
             get
@@ -270,7 +281,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         [JsonConverter(typeof(StringEnumConverter))]
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public ObjectAliasEnum category
         {
             get
@@ -284,7 +295,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dataField
         {
             get
@@ -299,8 +310,8 @@ namespace Catl.WebServices.MICheckBOMInventory
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.sap.com/me/common")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [XmlType(Namespace = "http://www.sap.com/me/common")]
     public enum ObjectAliasEnum
     {
 
@@ -459,9 +470,9 @@ namespace Catl.WebServices.MICheckBOMInventory
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class checkBOMInventoryResponse
     {
 
@@ -474,7 +485,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         private string failedInventoryField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -488,7 +499,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -502,7 +513,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -516,7 +527,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string failedInventory
         {
             get
@@ -531,16 +542,16 @@ namespace Catl.WebServices.MICheckBOMInventory
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class miCheckBOMInventoryResponse
     {
 
         private checkBOMInventoryResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public checkBOMInventoryResponse @return
         {
             get
@@ -555,9 +566,9 @@ namespace Catl.WebServices.MICheckBOMInventory
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class checkBomInventoryData
     {
 
@@ -568,7 +579,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         private string qtyField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string inventory
         {
             get
@@ -582,7 +593,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string component
         {
             get
@@ -596,7 +607,7 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string qty
         {
             get
@@ -611,8 +622,8 @@ namespace Catl.WebServices.MICheckBOMInventory
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public enum modeProcessSFC
     {
 
@@ -632,14 +643,14 @@ namespace Catl.WebServices.MICheckBOMInventory
         MODE_START_COMPLETE_SFC,
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class miCheckBOMInventoryRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
         public miCheckBOMInventory miCheckBOMInventory;
 
         public miCheckBOMInventoryRequest()
@@ -652,14 +663,14 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class miCheckBOMInventoryResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
         public miCheckBOMInventoryResponse miCheckBOMInventoryResponse;
 
         public miCheckBOMInventoryResponse1()
@@ -672,14 +683,14 @@ namespace Catl.WebServices.MICheckBOMInventory
         }
     }
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    public interface MiCheckBOMInventoryServiceChannel : MiCheckBOMInventoryService, System.ServiceModel.IClientChannel
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    public interface MiCheckBOMInventoryServiceChannel : MiCheckBOMInventoryService, IClientChannel
     {
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    public partial class MiCheckBOMInventoryServiceClient : System.ServiceModel.ClientBase<MiCheckBOMInventoryService>, MiCheckBOMInventoryService
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    public partial class MiCheckBOMInventoryServiceClient : ClientBase<MiCheckBOMInventoryService>, MiCheckBOMInventoryService
     {
 
         /// <summary>
@@ -687,96 +698,96 @@ namespace Catl.WebServices.MICheckBOMInventory
         /// </summary>
         /// <param name="serviceEndpoint">要配置的终结点</param>
         /// <param name="clientCredentials">客户端凭据</param>
-        static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
+        static partial void ConfigureEndpoint(ServiceEndpoint serviceEndpoint, ClientCredentials clientCredentials);
 
         public MiCheckBOMInventoryServiceClient() :
-                base(MiCheckBOMInventoryServiceClient.GetDefaultBinding(), MiCheckBOMInventoryServiceClient.GetDefaultEndpointAddress())
+                base(GetDefaultBinding(), GetDefaultEndpointAddress())
         {
             this.Endpoint.Name = EndpointConfiguration.MiCheckBOMInventoryServicePort.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
         public MiCheckBOMInventoryServiceClient(EndpointConfiguration endpointConfiguration) :
-                base(MiCheckBOMInventoryServiceClient.GetBindingForEndpoint(endpointConfiguration), MiCheckBOMInventoryServiceClient.GetEndpointAddress(endpointConfiguration))
+                base(GetBindingForEndpoint(endpointConfiguration), GetEndpointAddress(endpointConfiguration))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
         public MiCheckBOMInventoryServiceClient(EndpointConfiguration endpointConfiguration, string remoteAddress) :
-                base(MiCheckBOMInventoryServiceClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
+                base(GetBindingForEndpoint(endpointConfiguration), new EndpointAddress(remoteAddress))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
-        public MiCheckBOMInventoryServiceClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(MiCheckBOMInventoryServiceClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
+        public MiCheckBOMInventoryServiceClient(EndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress) :
+                base(GetBindingForEndpoint(endpointConfiguration), remoteAddress)
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
-        public MiCheckBOMInventoryServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+        public MiCheckBOMInventoryServiceClient(Binding binding, EndpointAddress remoteAddress) :
                 base(binding, remoteAddress)
         {
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<miCheckBOMInventoryResponse1> MiCheckBOMInventoryService.miCheckBOMInventoryAsync(miCheckBOMInventoryRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<miCheckBOMInventoryResponse1> MiCheckBOMInventoryService.miCheckBOMInventoryAsync(miCheckBOMInventoryRequest request)
         {
             return base.Channel.miCheckBOMInventoryAsync(request);
         }
 
-        public System.Threading.Tasks.Task<miCheckBOMInventoryResponse1> miCheckBOMInventoryAsync(miCheckBOMInventory miCheckBOMInventory)
+        public Task<miCheckBOMInventoryResponse1> miCheckBOMInventoryAsync(miCheckBOMInventory miCheckBOMInventory)
         {
             miCheckBOMInventoryRequest inValue = new miCheckBOMInventoryRequest();
             inValue.miCheckBOMInventory = miCheckBOMInventory;
             return ((MiCheckBOMInventoryService)(this)).miCheckBOMInventoryAsync(inValue);
         }
 
-        public virtual System.Threading.Tasks.Task OpenAsync()
+        public virtual Task OpenAsync()
         {
-            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
+            return Task.Factory.FromAsync(((ICommunicationObject)(this)).BeginOpen(null, null), new Action<IAsyncResult>(((ICommunicationObject)(this)).EndOpen));
         }
 
-        public virtual System.Threading.Tasks.Task CloseAsync()
+        public virtual Task CloseAsync()
         {
-            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginClose(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndClose));
+            return Task.Factory.FromAsync(((ICommunicationObject)(this)).BeginClose(null, null), new Action<IAsyncResult>(((ICommunicationObject)(this)).EndClose));
         }
 
-        private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
+        private static Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
             if ((endpointConfiguration == EndpointConfiguration.MiCheckBOMInventoryServicePort))
             {
-                System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
+                BasicHttpBinding result = new BasicHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
-                result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
+                result.ReaderQuotas = XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
                 result.AllowCookies = true;
                 return result;
             }
-            throw new System.InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
+            throw new InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
         }
 
-        private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
+        private static EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
             if ((endpointConfiguration == EndpointConfiguration.MiCheckBOMInventoryServicePort))
             {
-                return new System.ServiceModel.EndpointAddress("http://ndmesd093.catlbattery.com:50000/atlmeswebservice/MiCheckBOMInventoryServic" +
-                        "eService");
+                return new EndpointAddress("http://ndmesd093.catlbattery.com:50000/atlmeswebservice/MiCheckBOMInventoryServic" +
+                                           "eService");
             }
-            throw new System.InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
+            throw new InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
         }
 
-        private static System.ServiceModel.Channels.Binding GetDefaultBinding()
+        private static Binding GetDefaultBinding()
         {
-            return MiCheckBOMInventoryServiceClient.GetBindingForEndpoint(EndpointConfiguration.MiCheckBOMInventoryServicePort);
+            return GetBindingForEndpoint(EndpointConfiguration.MiCheckBOMInventoryServicePort);
         }
 
-        private static System.ServiceModel.EndpointAddress GetDefaultEndpointAddress()
+        private static EndpointAddress GetDefaultEndpointAddress()
         {
-            return MiCheckBOMInventoryServiceClient.GetEndpointAddress(EndpointConfiguration.MiCheckBOMInventoryServicePort);
+            return GetEndpointAddress(EndpointConfiguration.MiCheckBOMInventoryServicePort);
         }
 
         public enum EndpointConfiguration

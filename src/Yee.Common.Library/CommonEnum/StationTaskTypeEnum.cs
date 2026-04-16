@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Yee.Common.Library.CommonEnum
+﻿namespace Yee.Common.Library.CommonEnum
 {
     public enum StationTaskTypeEnum
     {
@@ -19,6 +13,7 @@ namespace Yee.Common.Library.CommonEnum
         称重 = 8,
         补拧 = 9,
         放行 = 10,
+        图示拧紧 = 11,
 
         //自动站特殊
         涂胶检测 = 31,

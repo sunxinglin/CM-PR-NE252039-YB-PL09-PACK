@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Ctp0600P.Client.Protocols.AnyLoad_Wifi;
 
-namespace Ctp0600P.Client.Protocols.AnyLoad_Wifi
+public interface IAnyLoadApi
 {
-    public interface IAnyLoadApi
-    {
-        Task ReadCurrentWeightData();
-    }
+    Task ReadCurrentWeightData();
 }

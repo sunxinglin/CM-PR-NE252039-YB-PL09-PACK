@@ -1,12 +1,14 @@
-﻿using AsZero.Core.Entities;
+﻿using System.Security.Claims;
+using System.Text;
+using System.Text.Encodings.Web;
+
+using AsZero.Core.Entities;
 using AsZero.DbContexts;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Security.Claims;
-using System.Text;
-using System.Text.Encodings.Web;
 
 namespace AsZero.Services.Auth
 {

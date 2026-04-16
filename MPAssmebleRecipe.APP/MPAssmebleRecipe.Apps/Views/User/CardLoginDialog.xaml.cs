@@ -44,8 +44,12 @@ namespace MPAssmebleRecipe.Apps.Views
         private void PreviewKeyDownLogin(object sender, KeyEventArgs e)
         {
             string LoginOrCard = ConfigurationManager.AppSettings["LoginByCard"];
-            string CardTime = ConfigurationManager.AppSettings["CardTime"];
-            int cardTime = int.Parse(CardTime);
+            string cardTimeString = ConfigurationManager.AppSettings["CardTime"] ?? "400"; // 提供默认值以防为null
+            if (!int.TryParse(cardTimeString, out int cardTime))
+            {
+                cardTime = 400;
+            }
+           
             bool flag = false;
             if (bool.TryParse(LoginOrCard, out flag))
             {

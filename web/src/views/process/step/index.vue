@@ -1,437 +1,291 @@
 <template>
   <div class="flex-column">
-    <div v-if="indexvisible" style="height: 100%" v-loading.fullscreen.lock="fullscreenloading">
-
-      <div class="filter-container">
-        <el-card shadow="never" class="boby-small" style="height: 100%">
-          <div slot="header" class="clearfix">
-            <span>工序表</span>
-          </div>
-          <div>
-            <el-row :gutter="2">
-              <el-col :span="21">
-                <el-button type="primary" icon="el-icon-menu" size="small" @click="handleTaskDetail">
-                  配方详情</el-button>
-                <el-button type="primary" size="small" icon="el-icon-download" @click="importfilebtn">
-                  导入配方 </el-button>
-                <el-button type="primary" icon="el-icon-upload2" size="small" @click="ModelExpornt">
-                  导出配方</el-button>
-              </el-col>
-              <el-col :span="3">
-                <el-input @keyup.enter.native="handleFilter" prefix-icon="el-icon-search" size="small"
-                  style="width: 200px" class="filter-item" :placeholder="'关键字'" v-model="stepListQuery.key"></el-input>
-              </el-col>
-            </el-row>
-          </div>
-        </el-card>
-      </div>
-
-      <div class="app-container fh">
-        <el-row :gutter="20">
-          <el-col :span="6">
-            <el-table ref="productTable" :data="productList" v-loading="productListLoading" row-key="id"
-              style="width: 100%" :height="tableHeight" @current-change="producthandleSelectionChange" border fit stripe
-              highlight-current-row align="left">
-              <el-table-column type="selection" min-width="20px" align="center"></el-table-column>
-              <el-table-column prop="code" label="PN号" min-width="20px" sortable align="center"></el-table-column>
-              <el-table-column prop="name" label="名称" min-width="20px" sortable align="center"></el-table-column>
-              <!-- <el-table-column prop="specification" label="产品描述" min-width="100px" sortable align="center">
-            </el-table-column> -->
-            </el-table>
-            <pagination :total="productTotal" v-show="productTotal > 0" :page.sync="productListQuery.page"
-              :limit.sync="productListQuery.limit" @pagination="producthandleCurrentChange" />
-          </el-col>
-          <el-col :span="18">
-            <el-table ref="stepTable" :data="stepList" v-loading="stepListLoading" row-key="id" style="width: 100%"
-              :height="tableHeight2" @selection-change="handleSelectionChange" border fit stripe highlight-current-row
-              align="left">
-              <el-table-column type="selection" min-width="20px" align="center"></el-table-column>
-              <el-table-column prop="code" label="编码" min-width="20px" sortable align="center"></el-table-column>
-              <el-table-column prop="name" label="名称" min-width="20px" sortable align="center"></el-table-column>
-              <el-table-column prop="steptype" label="类型" min-width="20px" :formatter="changeStatus"
-                align="center"></el-table-column>
-              <!-- 		<el-table-column prop="description" label="描述" min-width="20px" sortable align="center"></el-table-column> -->
-            </el-table>
-
-            <pagination :total="stepTotal" v-show="stepTotal > 0" :page.sync="stepListQuery.page"
-              :limit.sync="stepListQuery.limit" @pagination="handleCurrentChange" />
-          </el-col>
-        </el-row>
-
-      </div>
-
-      <!-- 导入弹框-->
-      <el-dialog :visible.sync="importfilevisible">
-        <el-upload ref="upload" action="string" :auto-upload="false" :on-change="elInFile" :limit="1" :multiple="false"
-          drag accept=".xlsx,.xls">
-          <i class="el-icon-upload"></i>
-          <div class="el-upload__text">将文件拖到此处，或<em>点击选择</em></div>
-        </el-upload>
-        <el-progress :text-inside="true" :stroke-width="26" :percentage="progressvalue" />
-        <div slot="footer">
-          <el-button type="primary" size="small" @click="importfilevisible = false">取消</el-button>
-
-          <el-button type="primary" size="small" @click="importfile">确认</el-button>
+    <div class="filter-container">
+      <el-card shadow="never" class="boby-small">
+        <div slot="header" class="clearfix">
+          <span>工序管理</span>
         </div>
-      </el-dialog>
-
+        <div>
+          <el-row :gutter="12">
+            <el-col :span="16">
+              <el-button type="primary" icon="el-icon-plus" size="small" @click="handleCreate">新增</el-button>
+              <el-button type="primary" icon="el-icon-edit" size="small" @click="handleUpdate">编辑</el-button>
+              <el-button type="danger" icon="el-icon-delete" size="small" @click="handleDelete">删除</el-button>
+            </el-col>
+            <el-col :span="8" style="text-align: right">
+              <el-input
+                v-model="listQuery.key"
+                size="small"
+                prefix-icon="el-icon-search"
+                style="width: 240px"
+                placeholder="关键字"
+                @keyup.enter.native="handleFilter"
+              />
+              <el-button type="primary" size="small" icon="el-icon-search" @click="handleFilter">查询</el-button>
+            </el-col>
+          </el-row>
+        </div>
+      </el-card>
     </div>
-    <Stationtask ref="stationtask" v-if="steptaskvisible" style="height: 100%;" />
 
+    <div class="app-container fh">
+      <el-table
+        ref="stepTable"
+        :data="list"
+        v-loading="listLoading"
+        row-key="id"
+        style="width: 100%"
+        :height="tableHeight"
+        border
+        fit
+        stripe
+        highlight-current-row
+        @selection-change="handleSelectionChange"
+        @row-click="rowClick"
+        align="left"
+      >
+        <el-table-column type="selection" width="55" align="center" />
+        <el-table-column prop="code" label="工序编号" min-width="160px" sortable align="center" />
+        <el-table-column prop="name" label="工序名称" min-width="200px" sortable align="center" />
+        <el-table-column prop="stepType" label="类型" min-width="180px" :formatter="formatStepType" align="center" />
+        <el-table-column prop="description" label="描述" min-width="240px" sortable align="center" />
+      </el-table>
+
+      <pagination
+        v-show="total > 0"
+        :total="total"
+        :page.sync="listQuery.page"
+        :limit.sync="listQuery.limit"
+        @pagination="getList"
+      />
+    </div>
+
+    <el-dialog v-el-drag-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="520px">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-width="90px">
+        <el-form-item label="编号" prop="code">
+          <el-input v-model="temp.code" />
+        </el-form-item>
+        <el-form-item label="名称" prop="name">
+          <el-input v-model="temp.name" />
+        </el-form-item>
+        <el-form-item label="类型" prop="stepType">
+          <el-select v-model="temp.stepType" placeholder="请选择" style="width: 100%">
+            <el-option v-for="item in typeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="描述" prop="description">
+          <el-input v-model="temp.description" type="textarea" :autosize="{ minRows: 2, maxRows: 4 }" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取消</el-button>
+        <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">确认</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import * as steps from "@/api/step";
-import Stationtask from "./stationtask.vue";
-
-import * as products from "@/api/product";
-import * as flow from "@/api/flow";
-import * as axios from "axios";
-import waves from "@/directive/waves"; // 水波纹指令
-import Sticky from "@/components/Sticky";
-import permissionBtn from "@/components/PermissionBtn";
+import * as dictionaryDetails from "@/api/dictionaryDetail";
+import waves from "@/directive/waves";
 import Pagination from "@/components/Pagination";
 import elDragDialog from "@/directive/el-dragDialog";
-export default {
-  name: "step",
 
-  components: {
-    Sticky,
-    permissionBtn,
-    Pagination,
-    Stationtask,
-  },
+export default {
+  name: "stepCrud",
+  components: { Pagination },
   directives: {
     waves,
     elDragDialog,
   },
   data() {
     return {
-      stepname: "",
-      indexvisible: true,
-      steptaskvisible: false,
-      stepMultipleSelection: [], //勾选的数据表值
-      StationTaskExporn: {
-        StepIds: [],
-        ProductId: 0,
-      },
-      codeinputdis: true,
-      stepList: [], //数据表
-      productList: [], //数据表
-      productListLoading: true, //加载特效
-      productListQuery: {
-        //查询条件
-        page: 1,
-        limit: 20,
-        key: undefined,
-      },
-      stepId: 0,
-      stepTotal: 0, //数据条数
-      productTotal: 0, //数据条数
-      productid: 0,
-      stepListLoading: false, //加载特效
       tableHeight: null,
-      tableHeight2:null,
-      progressvisible: "hidden",
-      progressvalue: 0,
-      importfilevisible: false,
-      fullscreenloading: false,
-
-      stepListQuery: {
-        //查询条件
+      listLoading: false,
+      list: [],
+      total: 0,
+      listQuery: {
         page: 1,
         limit: 20,
-        productid: 0,
         key: undefined,
       },
-      stepTemp: {
-        //模块临时值
-        id: undefined,
-        code: "",
-        name: "",
-        flowId: "",
-        description: "",
-        steptype: 0
-      },
-
-      options: [
-        {
-          type: 1,
-          label: "自动站",
-        },
-        {
-          type: 2,
-          label: "线内人工站",
-        },
-        {
-          type: 3,
-          label: "线外人工站",
-        },
-        {
-          type: 4,
-          label: "可跳过人工站",
-        },
-      ],
-      dialogFormVisible: false, //编辑框
-      dialogStatus: "", //编辑框功能(添加/编辑)
+      multipleSelection: [],
+      dialogFormVisible: false,
+      dialogStatus: "",
       textMap: {
         update: "编辑",
         create: "添加",
       },
-      stepRules: {
-        //编辑框输入限制
-        code: [
-          {
-            required: true,
-            message: "编号不能为空",
-            trigger: "blur",
-          },
-        ],
-        name: [
-          {
-            required: true,
-            message: "名称不能为空",
-            trigger: "blur",
-          },
-        ],
-      },
-      excelfiles: [],
-
-    };
-  },
-  mounted() {
-    let h = document.documentElement.clientHeight; // 可见区域高度
-    let topH = this.$refs.productTable.$el.offsetTop; //表格距浏览器顶部距离
-    let tableHeight = (h - topH) * 0.74; //表格应该有的高度   乘以多少可自定义
-    this.tableHeight = tableHeight;
-    this.tableHeight2 = tableHeight+50;
-    this.productLoad();
-  },
-  methods: {
-    changeStatus(row, column, cellValue) {
-      switch (cellValue) {
-        case 1:
-          return "自动站";
-        case 2:
-          return "线内人工站";
-        case 3:
-          return "线外人工站";
-        case 4:
-          return "可跳过人工站";
-      }
-    },
-
-    importfilebtn() {
-      this.importfilevisible = true
-      this.progressvalue = 0
-    },
-
-    //勾选框
-    handleSelectionChange(val) {
-      console.log("点击行############");
-      console.log(this.productid);
-      console.log(val);
-      this.resetTemp();
-
-      if (val.length == 1) {
-        this.stepTemp = val[0];
-        this.stepId = val[0].id;
-        this.id = val[0].id;
-        this.stationtablerowselect = val[0]
-        this.stepname = val[0].name
-      }
-
-      console.log(this.stepTemp);
-
-      this.stepMultipleSelection = val;
-    },
-    producthandleSelectionChange(val) {
-
-      this.productid = val.id
-      this.stepListQuery.productid = this.productid
-      this.$refs.productTable.clearSelection();
-      this.$refs.productTable.toggleRowSelection(val);
-      this.stepList = []
-      this.stepLoad()
-    },
-    //关键字搜索
-    handleFilter() {
-      this.stepLoad();
-    },
-    //分页
-    handleCurrentChange(val) {
-      this.stepListQuery.page = val.page;
-      this.stepListQuery.limit = val.limit;
-      this.stepLoad(); //页面加载
-    },
-    producthandleCurrentChange(val) {
-      this.productListQuery.page = val.page;
-      this.productListQuery.limit = val.limit;
-      this.productid = 0
-      this.productLoad(); //页面加载
-    },
-    //列表加载
-    stepLoad() {
-      this.stepListLoading = true;
-      steps.GetStepsByProductId(this.stepListQuery).then((response) => {
-        this.stepList = response.result; //提取数据表
-        this.stepTotal = response.count; //提取数据表条数
-        console.log(this.productid);
-        this.stepListLoading = false;
-      });
-    },
-    //产品列表加载
-    productLoad() {
-      this.productListLoading = true;
-      products.load(this.productListQuery).then((response) => {
-        this.productList = response.data; //提取数据表
-        this.productTotal = response.count; //提取数据表条数
-        this.productListLoading = false;
-      });
-    },
-    //编辑框数值初始值
-    resetTemp() {
-      this.stepTemp = {
+      temp: {
         id: undefined,
         code: "",
         name: "",
-        flowId: "",
+        stepType: 2,
+        description: "",
+      },
+      rules: {
+        code: [{ required: true, message: "编号不能为空", trigger: "blur" }],
+        name: [{ required: true, message: "名称不能为空", trigger: "blur" }],
+        stepType: [{ required: true, message: "类型不能为空", trigger: "change" }],
+      },
+      typeOptions: [],
+    };
+  },
+  mounted() {
+    let h = document.documentElement.clientHeight;
+    let topH = this.$refs.stepTable.$el.offsetTop;
+    this.tableHeight = h - topH - 140;
+    this.loadStepTypes();
+  },
+  methods: {
+    rowClick(row) {
+      this.$refs.stepTable.clearSelection();
+      this.$refs.stepTable.toggleRowSelection(row);
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+    formatStepType(row, column, cellValue) {
+      const match = this.typeOptions.find((x) => x.key === cellValue);
+      return match ? match.display_name : cellValue;
+    },
+    handleFilter() {
+      this.listQuery.page = 1;
+      this.getList();
+    },
+    resetTemp() {
+      this.temp = {
+        id: undefined,
+        code: "",
+        name: "",
+        stepType: 2,
         description: "",
       };
-      this.codeinputdis = false
     },
-    elInFile(f, fs) {
-      this.excelfiles = fs;
-    },
-    importfile() {
-      var form = new FormData();
-      if (this.excelfiles.length <= 0) {
-        this.$message("请选择文件后重试!");
-        return;
-      }
-      this.$refs.upload.clearFiles();
-      form.append("file", this.excelfiles[0].raw);
-      this.excelfiles = [];
-
-      this.progressvisible = "visible";
-      this.progressvalue = 50
-      steps
-        .imporntStationFile(form)
-        .then((reponse) => {
-          this.$notify({
-            title: "成功",
-            message: "导入成功",
-            type: "success",
-            duration: 2000,
-          });
-          this.importfilevisible = false;
-          this.progressvisible = "hidden";
-          this.progressvalue = 0
-          this.stationLoad();
-        });
-    },
-    ModelExpornt() {
-      if (this.stepMultipleSelection.length <= 0) {
-        this.$message("请选择工位后重试!");
-        return;
-      }
-      // this.fullscreenloading = true;
-      this.stepMultipleSelection.map((o) => o.id)
-      this.StationTaskExporn.StepIds = this.stepMultipleSelection.map((o) => o.id)
-      this.StationTaskExporn.ProductId = this.productid
-      steps
-        .ModelExpornt(this.StationTaskExporn)
-        .then((request) => {
-          // this.fullscreenloading = false;
-          this.$notify({
-            title: "提示",
-            message: "数据整理完毕,正在下载",
-            type: "success",
-            duration: 2000,
-          });
-          var blob = new Blob([request], {
-            type: "application/vnd.ms-excel",
-          });
-          var fileName = "工位配方导入导出.xlsx";
-          if (window.navigator.msSaveOrOpenBlob) {
-            navigator.msSaveBlob(blob, fileName);
-          } else {
-            var link = document.createElement("a");
-
-            link.href = window.URL.createObjectURL(blob);
-            link.download = fileName;
-            link.click();
-            window.URL.revokeObjectURL(link.href);
-          }
-        });
-    },
-
-
-    handleStationDetail() {
-      if (
-        this.stepTemp.id == undefined ||
-        this.stepMultipleSelection.length == 0
-      ) {
-        this.$message({
-          message: "请选择需要查看的数据",
-          type: "error",
-          duration: 5 * 1000,
-        });
-        return;
-      }
-      console.log(this.stepMultipleSelection);
-      if (this.stepMultipleSelection.length > 1) {
-        this.$message({
-          message: "请选择单条数据!",
-          type: "error",
-          duration: 5 * 1000,
-        });
-        return;
-      }
-
-
-
-      const vm = this;
-      console.log(this.stepTemp.id);
-      vm.$router.push({
-        path: '/Process/station/Index',
-        query: {
-          stepId: this.stepTemp.id
-        }
+    handleCreate() {
+      this.resetTemp();
+      this.dialogStatus = "create";
+      this.dialogFormVisible = true;
+      this.$nextTick(() => {
+        this.$refs["dataForm"].clearValidate();
       });
     },
-
-    handleTaskDetail() {
-      if (
-        this.stepTemp.id == undefined ||
-        this.stepMultipleSelection.length == 0
-      ) {
+    handleUpdate() {
+      if (this.multipleSelection.length !== 1) {
         this.$message({
-          message: "请选择需要查看的数据",
-          type: "error",
-          duration: 5 * 1000,
+          message: "请选择一条数据进行编辑",
+          type: "warning",
         });
         return;
       }
-      if (this.stepMultipleSelection.length > 1) {
-        this.$message({
-          message: "请选择单条数据!",
-          type: "error",
-          duration: 5 * 1000,
-        });
-        return;
-      }
-      this.steptaskvisible = true;
-      this.indexvisible = false;
-      this.$refs.stationtask.Load();
+      this.temp = Object.assign({}, this.multipleSelection[0]);
+      this.dialogStatus = "update";
+      this.dialogFormVisible = true;
+      this.$nextTick(() => {
+        this.$refs["dataForm"].clearValidate();
+      });
     },
-
-    checkstep() {
-      flow.GetMapByStepId({ "stepid": this.stepTemp.id }).then((response) => {
-        this.codeinputdis = response.result
-      })
-    }
+    handleDelete() {
+      if (this.multipleSelection.length <= 0) {
+        this.$message({
+          message: "请选择要删除的数据",
+          type: "warning",
+        });
+        return;
+      }
+      const ids = this.multipleSelection.map((x) => x.id);
+      const param = { ids };
+      this.$confirm("确定要删除吗？")
+        .then(() => {
+          steps.del(param).then(() => {
+            this.$notify({
+              title: "成功",
+              message: "删除成功",
+              type: "success",
+              duration: 2000,
+            });
+            this.getList();
+          });
+        })
+        .catch(() => {});
+    },
+    createData() {
+      this.$refs["dataForm"].validate((valid) => {
+        if (!valid) return;
+        const payload = Object.assign({}, this.temp, { steptype: this.temp.stepType });
+        steps.add(payload).then(() => {
+          this.dialogFormVisible = false;
+          this.$notify({
+            title: "成功",
+            message: "创建成功",
+            type: "success",
+            duration: 2000,
+          });
+          this.getList();
+        });
+      });
+    },
+    updateData() {
+      this.$refs["dataForm"].validate((valid) => {
+        if (!valid) return;
+        const tempData = Object.assign({}, this.temp, { steptype: this.temp.stepType });
+        steps.update(tempData).then(() => {
+          this.dialogFormVisible = false;
+          this.$notify({
+            title: "成功",
+            message: "更新成功",
+            type: "success",
+            duration: 2000,
+          });
+          this.getList();
+        });
+      });
+    },
+    getList() {
+      this.listLoading = true;
+      steps
+        .getList(this.listQuery)
+        .then((res) => {
+          const rows = res.data || res.result || [];
+          this.list = rows.map((x) => {
+            const stepType = x.stepType !== undefined ? x.stepType : x.steptype;
+            return Object.assign({}, x, {
+              stepType,
+            });
+          });
+          this.total = res.count || 0;
+        })
+        .finally(() => {
+          this.listLoading = false;
+        });
+    },
+    loadStepTypes() {
+      const fallback = [
+        { key: 1, display_name: "自动站" },
+        { key: 2, display_name: "线内人工站" },
+        { key: 3, display_name: "线外人工站" },
+        { key: 4, display_name: "线内可跳过人工站" },
+        { key: 5, display_name: "模组数量监控站" },
+      ];
+      const param = {
+        typeCode: "stepType",
+      };
+      dictionaryDetails.getListByType(param).then((response) => {
+        const list = response.data || response.result || [];
+        const dictOptions = list.map((item) => {
+          return { key: item.value, display_name: item.name };
+        });
+        const merged = [];
+        fallback.forEach((x) => {
+          const dictItem = dictOptions.find((d) => d.key === x.key);
+          merged.push(dictItem || x);
+        });
+        this.typeOptions = merged;
+        this.getList();
+      });
+    },
   },
 };
 </script>
+

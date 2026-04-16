@@ -60,8 +60,7 @@ namespace miFindCustomAndSfcData
             Requst.inventory = model.InventoryField;
             Requst.isGetXY = model.IsGetXYField;
             Requst.sfcOrder = model.SfcOrderField;
-            Requst.targetOrder = model.TargetOrderField;
-            Requst.activity = model.ActivityField;
+            Requst.targetOrder = model.TargetOrderField;         
             ObjectAliasEnum[] masterDataArr = new ObjectAliasEnum[] { ObjectAliasEnum.ITEM };            
             Requst.masterDataArray = masterDataArr;
             string _StrName = string.Empty;

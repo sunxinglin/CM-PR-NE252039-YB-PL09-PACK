@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using Menu = RogerTech.AuthService.Models.Menu;
+using Prism.Events;
 
 namespace MPAssmebleRecipe.Apps.ViewModels
 {
@@ -15,7 +16,17 @@ namespace MPAssmebleRecipe.Apps.ViewModels
     {
         private bool _isAllSelected;
         private ObservableCollection<MenuItemViewModel> _menuItems;
-
+        private readonly IEventAggregator _eventAggregator;
+        private SubscriptionToken _closeToken;
+        public void Dispose()
+        {
+            // 取消订阅
+            if (_closeToken != null)
+            {
+                _eventAggregator.GetEvent<CloseAllDialogsEvent>().Unsubscribe(_closeToken);
+                _closeToken = null;
+            }
+        }
         public bool IsAllSelected
         {
             get => _isAllSelected;
@@ -48,8 +59,11 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         public DelegateCommand SaveCommand { get; }
         public DelegateCommand CancelCommand { get; }
 
-        public MenuSelectionDialogViewModel()
+        public MenuSelectionDialogViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
+
             MenuItems = new ObservableCollection<MenuItemViewModel>();
             SaveCommand = new DelegateCommand(Save);
             CancelCommand = new DelegateCommand(Cancel);
@@ -123,6 +137,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
 
         public void OnDialogClosed()
         {
+            Dispose();
         }
     }
 

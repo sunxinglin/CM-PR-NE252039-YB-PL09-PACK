@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AsZero.Core.Services.Auth
+﻿namespace AsZero.Core.Services.Auth
 {
     public interface IPasswordHasher
     {

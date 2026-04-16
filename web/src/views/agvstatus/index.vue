@@ -1,5 +1,5 @@
 <template>
-  <!-- 产品维护 -->
+  <!-- AGV状态监控 -->
   <div class="flex-column">
     <div class="filter-container">
       <el-card shadow="never" class="boby-small" style="height: 100%">
@@ -56,6 +56,7 @@
           row-key="id"
           style="width: 100%"
           height="calc(100% - 52px)"
+          @row-click="handleRowClick"
           @selection-change="handleSelectionChange"
           border
           fit
@@ -77,14 +78,6 @@
           >
           </el-table-column>
           <el-table-column
-            prop="holderBarCode"
-            label="出货码"
-            min-width="20px"
-            sortable
-            align="center"
-          >
-          </el-table-column>
-          <el-table-column
             prop="stationCode"
             label="工位编码"
             min-width="20px"
@@ -96,6 +89,14 @@
             prop="packPN"
             label="PACK码"
             min-width="60px"
+            sortable
+            align="center"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="holderBarCode"
+            label="出货码"
+            min-width="20px"
             sortable
             align="center"
           >
@@ -126,28 +127,6 @@
                   size="small"
                   @click.native.prevent="handleunbingagv(scope.row)"
                   >解绑</el-button
-                >
-                <el-button
-                  style="margin-left: 20px"
-                  type="primary"
-                  size="small"
-                  @click.native.prevent="handleunagvarrive(scope.row)"
-                  >手动到站</el-button
-                >
-                <el-button
-                  style="margin-left: 20px"
-                  type="danger"
-                  icon="el-icon-delete"
-                  size="small"
-                  @click.native.prevent="handleunagvleaved(scope.row)"
-                  >手动离站</el-button
-                >
-                <el-button
-                  style="margin-left: 20px"
-                  type="primary"
-                  size="small"
-                  @click.native.prevent="runagv(scope.row)"
-                  >放行</el-button
                 >
               </el-button-group>
             </template>
@@ -216,7 +195,7 @@
       >
         <div>
           <el-form
-            ref="dataForm"
+            ref="bindForm"
             :model="bingAGVPAck"
             label-position="right"
             label-width="100px"
@@ -227,13 +206,22 @@
             </el-form-item>
 
             <el-form-item size="small" :label="'工位编码'" prop="stationcode">
-              <el-input v-model="bingAGVPAck.stationcode"></el-input>
+              <el-select
+                v-model="bingAGVPAck.stationcode"
+                placeholder="请选择"
+                filterable
+                clearable
+                :loading="stationOptionsLoading"
+                style="width: 100%"
+              >
+                <el-option v-for="s in stationOptions" :key="s.code" :label="s.label" :value="s.code" />
+              </el-select>
             </el-form-item>
             <el-form-item size="small" :label="'PACK码'" prop="packpn">
               <el-input v-model="bingAGVPAck.packpn"></el-input>
             </el-form-item>
 
-            <el-form-item size="small" :label="'出货码'">
+            <el-form-item size="small" :label="'出货码'" prop="holderBarCode">
               <el-input v-model="bingAGVPAck.holderBarCode"></el-input>
             </el-form-item>
           </el-form>
@@ -248,41 +236,13 @@
         </div>
       </el-dialog>
 
-		  <el-dialog
-        v-el-drag-dialog
-        class="dialog-mini"
-        width="500px"
-        title="AGV手动到站"
-        :visible.sync="dialogagvarriveVisible"
-      >
-        <div>
-          <el-form
-            ref="dataForm"
-            :model="agvArriveTemp"
-            label-position="right"
-            label-width="100px"
-          >
-            <el-form-item size="small" :label="'工位编码'" >
-              <el-input v-model="agvArriveTemp.stationName"></el-input>
-            </el-form-item>
-		  </el-form>
-        </div>
-        <div slot="footer">
-          <el-button size="mini" @click="agvArrivedHide"
-            >取消</el-button
-          >
-          <el-button size="mini" type="primary" @click="agvArrived"
-            >确认</el-button
-          >
-        </div>
-      </el-dialog>
-
     </div>
   </div>
 </template>
 
 <script>
 import * as agvstatus from "@/api/agvstatus";
+import * as stations from "@/api/station";
 import * as dictionaryDetails from "@/api/dictionaryDetail";
 import * as axios from "axios";
 import waves from "@/directive/waves"; // 水波纹指令
@@ -290,6 +250,32 @@ import Sticky from "@/components/Sticky";
 import permissionBtn from "@/components/PermissionBtn";
 import Pagination from "@/components/Pagination";
 import elDragDialog from "@/directive/el-dragDialog";
+
+const validatePackPn = (rule, value, callback) => {
+  if (value === undefined || value === null || value === "") {
+    callback();
+    return;
+  }
+  const len = String(value).length;
+  if (len !== 12 && len !== 24) {
+    callback(new Error("PACK码长度必须为12或24位"));
+    return;
+  }
+  callback();
+};
+
+const validateHolderBarCode = (rule, value, callback) => {
+  if (value === undefined || value === null || value === "") {
+    callback();
+    return;
+  }
+  const len = String(value).length;
+  if (len !== 12) {
+    callback(new Error("出货码长度必须为12位"));
+    return;
+  }
+  callback();
+};
 export default {
   name: "product",
 
@@ -304,6 +290,7 @@ export default {
   },
   data() {
     return {
+      selectedAgvStatusRowId: null,
       productMultipleSelection: [], //勾选的数据表值
       productList: [], //数据表
       productTotal: 0, //数据条数
@@ -324,17 +311,9 @@ export default {
         stationCode: "",
         holderBarCode: "",
       },
-      agvArriveTemp: {
-        agvNo: "",
-        productType: "",
-        productCode: "",
-        stationName: "",
-        holderBarCode: "",
-      },
       dialogFormVisible: false, //编辑框
       dialogbingagvpackVisible: false,
       dialogStatus: "", //编辑框功能(添加/编辑)
-      dialogagvarriveVisible: false,
       textMap: {
         update: "编辑",
         create: "添加",
@@ -362,7 +341,7 @@ export default {
           {
             required: true,
             message: "工位编码不能为空",
-            trigger: "blur",
+            trigger: "change",
           },
         ],
         packpn: [
@@ -371,26 +350,66 @@ export default {
             message: "pack条码不能为空",
             trigger: "blur",
           },
+          {
+            validator: validatePackPn,
+            trigger: "blur",
+          },
+        ],
+        holderBarCode: [
+          {
+            required: true,
+            message: "出货码不能为空",
+            trigger: "blur",
+          },
+          {
+            validator: validateHolderBarCode,
+            trigger: "blur",
+          },
         ],
       },
       typeOptions: [],
+      stationOptionsLoading: false,
+      stationOptions: [],
       bingAGVPAck: {
         state: 0,
         agvcode: 0,
         stationcode: "",
         packpn: "",
-        producttype: "",
-        HolderBarCode: "",
+        productType: "",
+        holderBarCode: "",
       },
     };
   },
   mounted() {
     this.Load();
+    this.loadStations();
   },
   methods: {
     //勾选框
     handleSelectionChange(val) {
       this.productMultipleSelection = val;
+      if (val.length === 1) {
+        this.selectedAgvStatusRowId = val[0].id;
+      } else if (val.length === 0) {
+        this.selectedAgvStatusRowId = null;
+      } else {
+        this.selectedAgvStatusRowId = null;
+      }
+    },
+    handleRowClick(row, column) {
+      if (column && (column.type === "selection" || column.label === "操作")) return;
+
+      const table = this.$refs.mainTable;
+      if (!table) return;
+
+      const isSameRow = this.selectedAgvStatusRowId === row.id;
+      table.clearSelection();
+      if (isSameRow) {
+        this.selectedAgvStatusRowId = null;
+        return;
+      }
+      table.toggleRowSelection(row, true);
+      this.selectedAgvStatusRowId = row.id;
     },
     //关键字搜索
     handleFilter() {
@@ -442,7 +461,7 @@ export default {
         packpn: "",
         productType: "",
         stationcode: "",
-        HolderBarCode: "",
+        holderBarCode: "",
       };
     },
     //点击添加
@@ -536,6 +555,9 @@ export default {
     handlebingagvpack(row) {
       this.bingAGVPAck.state = 1;
       this.bingAGVPAck.agvcode = row.agvNo;
+      this.bingAGVPAck.stationcode = row.stationCode || "";
+      this.bingAGVPAck.packpn = row.packPN || "";
+      this.bingAGVPAck.holderBarCode = row.holderBarCode || "";
       this.dialogbingagvpackVisible = true;
       // this.bingAGVPAck.agvtemp = Object.assign({}, row); //复制选中的数据
       this.agvstatusTemp = Object.assign({}, row);
@@ -548,61 +570,26 @@ export default {
       this.bingagvpack();
       // this.bingAGVPAck.agvtemp = Object.assign({}, row); //复制选中的数据
     },
-    //强行离站
-    handleunagvleaved(row) {
-      this.bingAGVPAck.agvcode = row.agvNo;
-      agvstatus.AGVLeaved(this.bingAGVPAck).then((_) => {
-        this.$notify({
-          title: "成功",
-          message: "离站成功",
-          type: "success",
-          duration: 2000,
-        });
-        this.Load();
-      });
-    },
-    handleunagvarrive(row) {
-      this.agvArriveTemp.agvcode = row.agvNo;
-      this.agvArriveTemp.state = 1;
-      this.agvArriveTemp.productCode = row.packPN;
-      this.agvArriveTemp.producttype = row.productType;
-      this.agvArriveTemp.holderBarCode = row.holderBarCode;
-      this.dialogagvarriveVisible = true;
-    },
-    agvArrived() {
-      agvstatus.AGVArrived(this.agvArriveTemp).then((_) => {
-        this.$notify({
-          title: "成功",
-          message: "到站成功",
-          type: "success",
-          duration: 2000,
-        });
-		
-        this.Load();
-		this.agvArrivedHide();
-      });
-    },
-	agvArrivedHide()
-	{
-		this.dialogagvarriveVisible = false
-	},
-    //放行
-    runagv(row) {
-      this.bingAGVPAck.agvcode = row.agvNo;
-      agvstatus
-        .runAGV({ agvCode: this.bingAGVPAck.agvcode, releaseType: 1 })
-        .then((_) => {
-          this.$notify({
-            title: "成功",
-            message: "放行成功",
-            type: "success",
-            duration: 2000,
+    loadStations() {
+      this.stationOptionsLoading = true;
+      return stations
+        .GetAllStation()
+        .then((res) => {
+          const rows = res.result || res.data || [];
+          this.stationOptions = rows.map((x) => {
+            const code = x.code || "";
+            const name = x.name || "";
+            const label = code && name ? `${code} - ${name}` : code || name;
+            return { code, name, label };
           });
-          this.Load();
+        })
+        .finally(() => {
+          this.stationOptionsLoading = false;
         });
     },
     bingagvpack() {
-      agvstatus.BingAgv(this.bingAGVPAck).then((_) => {
+      const run = () => {
+        agvstatus.BingAgv(this.bingAGVPAck).then((_) => {
         if (this.bingAGVPAck.state == 1) {
           this.$notify({
             title: "成功",
@@ -621,6 +608,17 @@ export default {
         this.dialogbingagvpackVisible = false;
         this.resetbingagvpack();
         this.Load();
+      });
+      };
+
+      if (this.bingAGVPAck.state == 2) {
+        run();
+        return;
+      }
+
+      this.$refs["bindForm"].validate((valid) => {
+        if (!valid) return;
+        run();
       });
     },
   },

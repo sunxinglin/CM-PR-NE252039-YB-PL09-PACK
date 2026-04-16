@@ -1,43 +1,41 @@
-﻿using DataCollectForResourceInspectTask.DataCollectForResourceInspectTask;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using DataCollectForResourceInspectTask.DataCollectForResourceInspectTask;
 using RogerTech.Common;
 using RogerTech.Common.Models;
 using RogerTech.Tool;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ParameterDataType = DataCollectForResourceInspectTask.DataCollectForResourceInspectTask.ParameterDataType;
 
 namespace RogerTech.BussnessCore.Bussness
 {
+    /// <summary>
+    /// 首件
+    /// </summary>
     public class PlcProcessDataCollectForResourceInspectTask : PlcInProgressBase
     {
-
-        MesInterface MesInterface;
-        protected string StationName = ConfigurationManager.AppSettings["StationName"];
+        private readonly MesInterface _mesInterface;
+        
         public PlcProcessDataCollectForResourceInspectTask(string groupName, MesInterface mesInterface) : base(groupName, mesInterface)
         {
-            this.MesInterface= mesInterface;
+            _mesInterface = mesInterface;
         }
 
-
-        public override void Excute(Group group)
+        public override void Execute(Group group)
         {
-
-            base.Excute(group);
+            base.Execute(group);
             Task.Run(() => { DbContext.Info("", $"收到plc请求值StartSignal：[0->1]", 0, PlcGroup.GroupName); });
             WriteFinishSignal(true);
             StringBuilder message = new StringBuilder();
             string sfc = string.Empty;
-            //  var dbData = DbContext.GetInstance();
-            BussnessUtility bussness = BussnessUtility.GetInstanse();
+            var db = DbContext.GetInstance();
+            BussnessUtility business = BussnessUtility.GetInstance();
 
             int resultCode = 30001;
             try
             {
-                #region Tag获取和数据校验
-              
+                #region Tag获取和数据校验                
                 List<object> inputs = new List<object>();
 
                 List<machineIntegrationParametricData> datas = new List<machineIntegrationParametricData>();
@@ -52,7 +50,6 @@ namespace RogerTech.BussnessCore.Bussness
                         {
                             if (float.TryParse(item.Result.Value.ToString(), out float value))
                             {
-                                // 修复逻辑：正确检查超出范围
                                 if (value < item.LowerLimit || value > item.UpperLimit)
                                 {
                                     message.Append($"上传失败:[{item.TagName}]超出上下限限制[{item.LowerLimit}-{item.UpperLimit}]");
@@ -67,17 +64,20 @@ namespace RogerTech.BussnessCore.Bussness
                                 return;
                             }
                         }
+                        // 根据 是否上传至工厂MES 本地数据存储
                         if (item.IsUpload)
                         {
-                            datas.Add(new machineIntegrationParametricData()
+                            // 打包工厂MES上传数据
+                            datas.Add(new machineIntegrationParametricData
                             {
                                 name = item.MesName,
                                 value = item.Result.Value.ToString(),
-                                dataType = (DataCollectForResourceInspectTask.DataCollectForResourceInspectTask.ParameterDataType)item.MesDataType
+                                dataType = (ParameterDataType)item.MesDataType
                             });
-                            uploadDatas.Add(new UploadData()
+                            // 存储数据至uploadDatas表
+                            uploadDatas.Add(new UploadData
                             {
-                                InterfaceName = MesInterface.ToString(),
+                                InterfaceName = _mesInterface.ToString(),
                                 StationName = StationName,
                                 UploadDataName = item.MesName,
                                 UploadDataType = item.MesDataType,
@@ -89,9 +89,10 @@ namespace RogerTech.BussnessCore.Bussness
                         }
                         else
                         {
-                            localDatas.Add(new UploadData()
+                            // 存储数据至localDatas表
+                            localDatas.Add(new UploadData
                             {
-                                InterfaceName = MesInterface.ToString(),
+                                InterfaceName = _mesInterface.ToString(),
                                 StationName = StationName,
                                 UploadDataName = item.MesName,
                                 UploadDataType = item.MesDataType,
@@ -101,7 +102,6 @@ namespace RogerTech.BussnessCore.Bussness
                                 SFC = sfc
                             });
                         }
-
                     }
                     else
                     {
@@ -109,23 +109,31 @@ namespace RogerTech.BussnessCore.Bussness
                         WriteResult(30001);
                         return;
                     }
-
-
                 }
                 inputs.Add(datas);
-                List<object> output = bussness.MesInvoke(inputs, MesInterface);
 
+                //空循环模式
+                if (business.bMesSimulation)
+                {
+                    resultCode = 0;
+                    return;
+                }
 
-          
-                DbContext.GetInstance().Updateable<UploadData>()
-                                           .AS("UploadData")
-                                           .SetColumns(u => u.IsReupload == true)
-                                           .Where(u => u.SFC == sfc)
-                                           .ExecuteCommand();
+                List<object> output = business.MesInvoke(inputs, _mesInterface);
 
-                DbContext.GetInstance().Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
-                DbContext.GetInstance().Insertable(localDatas).AS("LocalData").ExecuteCommand();
-                if ((int)(output[0]) == 0)
+                // 若数据已存在，则标记为重新上传
+                if (db.Queryable<UploadData>().AS("UploadData").Where(p => p.SFC == sfc).Any())
+                {
+                    db.Updateable<UploadData>()
+                        .AS("UploadData")
+                        .SetColumns(u => u.IsReupload == true)
+                        .Where(u => u.SFC == sfc)
+                        .ExecuteCommand();
+                }
+
+                db.Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
+                db.Insertable(localDatas).AS("LocalData").ExecuteCommand();
+                if ((int)output[0] == 0)
                 {
                     resultCode = (int)output[0];
                     message.Append("调用mes接口[DataCollectForResourceInspectTask]上传首件数据成功");
@@ -134,8 +142,8 @@ namespace RogerTech.BussnessCore.Bussness
                 {
                     resultCode = (int)output[0];
                     message.Append($"调用mes接口[DataCollectForResourceInspectTask]上传首件数据失败MES代码[{output[0]}] MES信息[{output[1]}]");
-                    return;
                 }
+
                 #endregion
             }
             catch (Exception ex)

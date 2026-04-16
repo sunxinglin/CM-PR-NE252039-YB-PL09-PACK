@@ -65,7 +65,6 @@ namespace dataCollectForSfcEx
             Requst.user = model.UserField;
             Requst.modeProcessSfc = model.DataCollectForSfcExModeProcessSfc;
             Requst.dcGroup = model.DcGroupField;
-            Requst.dcGroupRevision = model.DcGroupRevisionField;
             Requst.activityId = model.ActivityIdField;
 
             dataCollectForSfcEx.dataCollectForSfcEx Requst1 = new dataCollectForSfcEx.dataCollectForSfcEx();

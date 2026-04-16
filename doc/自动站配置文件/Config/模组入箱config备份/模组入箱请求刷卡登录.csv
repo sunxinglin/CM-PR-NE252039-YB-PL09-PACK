@@ -1,0 +1,9 @@
+﻿TagName,Protocol,IP,DataType,DbNumber,StartAddress,Length,Bit,MesName,MesDataType,LowerLimit,UpperLimit,IsChecked,IsUpload
+StartSignal,SIEMENSS7,172.16.21.2,BIT,200,1440,1,0,StartSignal,BOOLEAN,0,999,False,False
+UserCardId,SIEMENSS7,172.16.21.2,STRING,200,1442,24,0,UserCardId,TEXT,0,999,False,False
+WorkId,SIEMENSS7,172.16.21.2,STRING,200,1468,24,0,WorkId,TEXT,0,999,False,False
+AccessLevel,SIEMENSS7,172.16.21.2,SHORT,200,1494,2,0,AccessLevel,NUMBER,0,999,False,False
+FinishSignal,SIEMENSS7,172.16.21.2,BIT,200,3740,1,0,FinishSignal,BOOLEAN,0,999,False,False
+ResCode,SIEMENSS7,172.16.21.2,SHORT,200,3742,2,0,ResCode,NUMBER,0,999,False,False
+WorkId2,SIEMENSS7,172.16.21.2,STRING,200,3744,24,0,WorkId,TEXT,0,999,False,False
+AccessLevel2,SIEMENSS7,172.16.21.2,SHORT,200,3770,2,0,AccessLevel,NUMBER,0,999,False,False

@@ -1,6 +1,8 @@
-﻿using Ctp0600P.Client.ViewModels;
+﻿using System.Timers;
 using System.Windows;
 using System.Windows.Input;
+
+using Ctp0600P.Client.ViewModels;
 
 namespace Ctp0600P.Client.Views.Windows
 {
@@ -9,7 +11,7 @@ namespace Ctp0600P.Client.Views.Windows
     /// </summary>
     public partial class CheckPowerPage : Window
     {
-        private System.Timers.Timer timer;
+        private Timer timer;
 
         public CheckPowerPage(CheckPowerViewModel vm)
         {
@@ -17,7 +19,7 @@ namespace Ctp0600P.Client.Views.Windows
             this.DataContext = vm;
             this.CardNo.Focus();
             Topmost = true;
-            timer = new System.Timers.Timer(3000);
+            timer = new Timer(3000);
             timer.AutoReset = true;
         }
 

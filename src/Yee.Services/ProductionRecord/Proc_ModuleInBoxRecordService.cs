@@ -1,14 +1,11 @@
 ﻿using AsZero.Core.Services.Repos;
 using AsZero.DbContexts;
-using DocumentFormat.OpenXml.InkML;
+
 using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
+
 using Yee.Entitys.DBEntity;
 using Yee.Entitys.DBEntity.ProductionRecords;
 using Yee.Entitys.DTOS;
-using Yee.Entitys.Request;
-using Yee.Services.Request;
-using Yee.Tools;
 
 namespace Yee.Services.ProductionRecord
 {
@@ -80,9 +77,9 @@ namespace Yee.Services.ProductionRecord
             //文件路径
             string filepath = Directory.GetCurrentDirectory() + @"\Block入箱数据导出.xls";
             //判断文件路径是否存在 存在就删除
-            if (System.IO.File.Exists(filepath))
+            if (File.Exists(filepath))
             {
-                System.IO.File.Delete(filepath);
+                File.Delete(filepath);
             }
             //创建文件
             var stream = new FileStream(filepath, FileMode.OpenOrCreate);

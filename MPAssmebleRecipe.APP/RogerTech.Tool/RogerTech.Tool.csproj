@@ -32,13 +32,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HoneywellPrint">
+      <HintPath>..\lib\HoneywellPrint.dll</HintPath>
+    </Reference>
     <Reference Include="HslCommunication">
       <HintPath>..\lib\HslCommunication.dll</HintPath>
     </Reference>
     <Reference Include="libnodave.net">
       <HintPath>..\lib\libnodave.net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism">
+      <HintPath>..\lib\Prism.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiClient.cs" />
+    <Compile Include="ApiHelper.cs" />
     <Compile Include="Conncetion.cs" />
     <Compile Include="CSVFileHelper.cs" />
     <Compile Include="Group.cs" />
@@ -55,11 +67,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="SiemensS7.cs" />
-    <Compile Include="SiemensS7N.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TagHelper.cs" />
     <Compile Include="TagResult.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MPAssmebleRecipe.Logger\MPAssmebleRecipe.Logger.csproj">
+      <Project>{18df3162-33ff-4356-8fd3-88a08a86da40}</Project>
+      <Name>MPAssmebleRecipe.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RogerTech.Share\RogerTech.Share.csproj">
+      <Project>{56a1ae6f-8dc9-46d2-aaf4-2b7028417bca}</Project>
+      <Name>RogerTech.Share</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <!-- 复制HoneywellPrint.dll到输出目录 -->
+  <Target Name="CopyHoneywellDll" AfterTargets="Build">
+    <Copy SourceFiles="..\lib\HoneywellPrint.dll" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="true" />
+  </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using Yee.Entitys.DBEntity.Common;
 
 namespace Yee.Entitys.DBEntity.ProductionRecords

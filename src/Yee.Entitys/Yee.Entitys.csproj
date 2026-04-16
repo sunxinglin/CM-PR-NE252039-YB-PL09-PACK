@@ -7,9 +7,6 @@
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="DTOS\GluingInfoDeleteDTO - 复制.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\AsZero.Core.Entities\AsZero.Core.Entities.csproj" />
     <ProjectReference Include="..\Yee.Common.Library\Yee.Common.Library.csproj" />
     <ProjectReference Include="..\Yee.Tools\Yee.Tools.csproj" />

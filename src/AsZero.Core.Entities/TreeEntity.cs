@@ -1,10 +1,6 @@
-﻿using FutureTech.Dal.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+
+using FutureTech.Dal.Entities;
 
 namespace AsZero.Core.Entities
 {

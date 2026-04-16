@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="Ctp0600P.Client.UserControls.PLC01MonitorView"
+<UserControl x:Class="Ctp0600P.Client.UserControls.PLC01MonitorView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:auc="clr-namespace:AsZero.Wpf.Common.UserControls;assembly=AsZero.Wpf.Common"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Ctp0600P.Client.UserControls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:plc01="clr-namespace:Ctp0600P.Client.UserControls.PLC01"
+             d:DataContext="{d:DesignInstance Type=plc01:PLC01MonitorViewModel}"
              d:DesignHeight="500"
              d:DesignWidth="900"
              mc:Ignorable="d">
@@ -34,37 +35,43 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <auc:LedSwitchCtrl IsChecked="{Binding MST_StartTighten_Req.Value}"
-                                   OffColor="Gray"
-                                   OnColor="Orange"
-                                   Tip="拧紧开始请求" />
-                <Label Content="枪号" />
-                <TextBox Width="50" Text="{Binding MST_StartTighten_DeviceNo.Value}" />
-                <Label Content="枪品牌" />
-                <TextBox Width="50" Text="{Binding MST_StartTighten_DeviceBrand.Value}" />
-                <Label Content="程序号" />
-                <TextBox Width="50" Text="{Binding MST_StartTighten_ProgramNo.Value}" />
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <auc:LedSwitchCtrl IsChecked="{Binding MST_StartTighten_Req.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Orange"
+                                       Tip="拧紧开始请求" />
+                    <Label Content="枪号" />
+                    <TextBox Width="50" Text="{Binding MST_StartTighten_DeviceNo.Value}" />
+                    <Label Content="枪品牌" />
+                    <TextBox Width="50" Text="{Binding MST_StartTighten_DeviceBrand.Value}" />
+                    <Label Content="程序号" />
+                    <TextBox Width="50" Text="{Binding MST_StartTighten_ProgramNo.Value}" />
 
-                <auc:LedSwitchCtrl Margin="10,0,0,0"
-                                   IsChecked="{Binding DEV_StartTighten_Ack.Value}"
-                                   OffColor="Gray"
-                                   OnColor="Orange"
-                                   Tip="拧紧开始确认" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_StartTighten_OK.Value}"
-                                   OffColor="Gray"
-                                   OnColor="Orange"
-                                   Tip="OK" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_StartTighten_NG.Value}"
-                                   OffColor="Gray"
-                                   OnColor="Orange"
-                                   Tip="NG" />
-                <auc:LedSwitchCtrl Margin="10,0,0,0"
-                                   IsChecked="{Binding DEV_StartTighten_EnableFail.Value}"
-                                   OffColor="Gray"
-                                   OnColor="Red"
-                                   Tip="上使能失败" />
-            </StackPanel>
+                    <auc:LedSwitchCtrl Margin="10,0,0,0"
+                                       IsChecked="{Binding DEV_StartTighten_Ack.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Orange"
+                                       Tip="拧紧开始确认" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_StartTighten_OK.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Orange"
+                                       Tip="OK" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_StartTighten_NG.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Orange"
+                                       Tip="NG" />
+                    <auc:LedSwitchCtrl Margin="10,0,0,0"
+                                       IsChecked="{Binding DEV_StartTighten_EnableFail.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Red"
+                                       Tip="上使能失败" />
+                </StackPanel>
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="2">
@@ -80,116 +87,137 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenComplete_Req.Value}"
-                                   OffColor="Gray"
-                                   OnColor="Orange"
-                                   Tip="拧紧完成请求" />
-                <Label Content="枪号" />
-                <TextBox Width="50" Text="{Binding DEV_TightenComplete_DeviceNo.Value}" />
-                <Label Content="枪品牌" />
-                <TextBox Width="50" Text="{Binding DEV_TightenComplete_DeviceBrand.Value}" />
-                <Label Content="程序号" />
-                <TextBox Width="50" Text="{Binding DEV_TightenComplete_Result_PSet.Value}" />
-                <Label Content="扭矩" />
-                <TextBox Width="50" Text="{Binding DEV_TightenComplete_Result_Torque.Value}" />
-                <Label Content="角度" />
-                <TextBox Width="80" Text="{Binding DEV_TightenComplete_Result_Angle.Value}" />
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenComplete_Req.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Orange"
+                                       Tip="拧紧完成请求" />
+                    <Label Content="枪号" />
+                    <TextBox Width="50" Text="{Binding DEV_TightenComplete_DeviceNo.Value}" />
+                    <Label Content="枪品牌" />
+                    <TextBox Width="50" Text="{Binding DEV_TightenComplete_DeviceBrand.Value}" />
+                    <Label Content="程序号" />
+                    <TextBox Width="50" Text="{Binding DEV_TightenComplete_Result_PSet.Value}" />
+                    <Label Content="扭矩" />
+                    <TextBox Width="50" Text="{Binding DEV_TightenComplete_Result_Torque.Value}" />
+                    <Label Content="角度" />
+                    <TextBox Width="80" Text="{Binding DEV_TightenComplete_Result_Angle.Value}" />
 
-                <auc:LedSwitchCtrl IsChecked="{Binding MST_TightenComplete_Ack.Value}"
-                      OffColor="Gray"
-                      OnColor="Orange"
-                      Tip="拧紧完成确认" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding MST_TightenComplete_Ack.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Orange"
+                                       Tip="拧紧完成确认" />
 
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenComplete_Result_OK.Value}"
-                                   OffColor="Gray"
-                                   OnColor="Green"
-                                   Tip="拧紧OK" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenComplete_Result_OK.Value}"
-                                   OffColor="Gray"
-                                   OnColor="Red"
-                                   Tip="拧紧NG" />
-                
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenComplete_Result_OK.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Green"
+                                       Tip="拧紧OK" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenComplete_Result_OK.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Red"
+                                       Tip="拧紧NG" />
+                </StackPanel>
+            </Grid>
 
-            </StackPanel>
-
-            <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenGunStatus_Ready.Value}"
-                 OffColor="Gray"
-                 OnColor="Orange"
-                 Tip="拧紧枪就绪" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenGunStatus_Enabled.Value}"
-                 OffColor="Gray"
-                 OnColor="Orange"
-                 Tip="拧紧枪使能" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenGunStatus_Tightening.Value}"
-                 OffColor="Gray"
-                 OnColor="Orange"
-                 Tip="拧紧中" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenGunStatus_Alarm.Value}"
-                 OffColor="Gray"
-                 OnColor="Orange"
-                 Tip="拧紧枪报警" />
-            </StackPanel>
-
-
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
-
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVAllowEntry.Value}"
-                     OffColor="Gray"
-                     OnColor="Green"
-                     Tip="AGV允许进入" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVEntrying.Value}"
-                     OffColor="Gray"
-                     OnColor="Red"
-                     Tip="AGV正在进入" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVInStation.Value}"
-                     OffColor="Gray"
-                     OnColor="Red"
-                     Tip="AGV在位" />
-                <auc:LedSwitchCtrl IsChecked="{Binding MST_ReleaseAGV_Req.Value}"
-                     OffColor="Gray"
-                     OnColor="Red"
-                     Tip="MES请求离开" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVAllowLeave.Value}"
-                     OffColor="Gray"
-                     OnColor="Red"
-                     Tip="AGV允许离开" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVLeaving.Value}"
-                     OffColor="Gray"
-                     OnColor="Red"
-                     Tip="AGV正在离开" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVReqWriteBarcode.Value}"
-                     OffColor="Gray"
-                     OnColor="Red"
-                     Tip="AGV请求写码" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVWriteBarcodeComplete.Value}"
-                     OffColor="Gray"
-                     OnColor="Red"
-                     Tip="AGV写码完成" />
-            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenGunStatus_Ready.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Orange"
+                                       Tip="拧紧枪就绪" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenGunStatus_Enabled.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Orange"
+                                       Tip="拧紧枪使能" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenGunStatus_Tightening.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Orange"
+                                       Tip="拧紧中" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_TightenGunStatus_Alarm.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Orange"
+                                       Tip="拧紧枪报警" />
+                </StackPanel>
+            </Grid>
 
 
-            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,0">
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVBindPack_Ack.Value}"
-                       OffColor="Gray"
-                       OnColor="Orange"
-                       Tip="AGV绑定请求" />
-                <Label Content="操作行为" />
-                <TextBox Width="50" Text="{Binding MST_AGVBindPack_Behavior.Value}" />
-                <Label Content="AGV车号" />
-                <TextBox Width="50" Text="{Binding DEV_AGVArrive_AGVNo.Value}" />
-                <Label Content="Pack码" />
-                <TextBox Width="200" Text="{Binding DEV_AGVArrive_PackCode.Value}" />
-                <Label Content="台车码" />
-                <TextBox Width="100" Text="{Binding MST_AGVBindPack_HolderBarcode.Value}" />
-                <Label Content="工位编码" />
-                <TextBox Width="50" Text="{Binding DEV_AGVArrive_StationCode.Value}" />
-                <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVBindPack_Ack.Value}"
-                         OffColor="Gray"
-                         OnColor="Orange"
-                         Tip="绑定完成确认" />
-            </StackPanel>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVAllowEntry.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Green"
+                                       Tip="AGV允许进入" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVEntrying.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Red"
+                                       Tip="AGV正在进入" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVInStation.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Red"
+                                       Tip="AGV在位" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding MST_ReleaseAGV_Req.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Red"
+                                       Tip="MES请求离开" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVAllowLeave.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Red"
+                                       Tip="AGV允许离开" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVLeaving.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Red"
+                                       Tip="AGV正在离开" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVReqWriteBarcode.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Red"
+                                       Tip="AGV请求写码" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVStatus_AGVWriteBarcodeComplete.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Red"
+                                       Tip="AGV写码完成" />
+                </StackPanel>
+            </Grid>
+
+
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,0">
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVBindPack_Ack.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Orange"
+                                       Tip="AGV绑定请求" />
+                    <Label Content="操作行为" />
+                    <TextBox Width="50" Text="{Binding MST_AGVBindPack_Behavior.Value}" />
+                    <Label Content="AGV车号" />
+                    <TextBox Width="50" Text="{Binding DEV_AGVArrive_AGVNo.Value}" />
+                    <Label Content="Pack码" />
+                    <TextBox Width="200" Text="{Binding DEV_AGVArrive_PackCode.Value}" />
+                    <Label Content="台车码" />
+                    <TextBox Width="100" Text="{Binding MST_AGVBindPack_HolderBarcode.Value}" />
+                    <Label Content="工位编码" />
+                    <TextBox Width="50" Text="{Binding DEV_AGVArrive_StationCode.Value}" />
+                    <auc:LedSwitchCtrl IsChecked="{Binding DEV_AGVBindPack_Ack.Value}"
+                                       OffColor="Gray"
+                                       OnColor="Orange"
+                                       Tip="绑定完成确认" />
+                </StackPanel>
+            </Grid>
         </Grid>
 
     </Grid>

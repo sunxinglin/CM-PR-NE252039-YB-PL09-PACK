@@ -1,21 +1,23 @@
-﻿using Ctp0600P.Client.Protocols;
-using MediatR;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ctp0600P.Client.MessageHandler
-{
-    public class AnyLoadMessageHandler : INotificationHandler<AnyLoadRequest>
-    {
-        private readonly IMediator _mediator;
-        public AnyLoadMessageHandler(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+using Ctp0600P.Client.Protocols;
 
-        public async Task Handle(AnyLoadRequest request, CancellationToken cancellationToken)
-        {
-            App.AnyLoadRequestSubject.OnNext(request);
-        }
+using MediatR;
+
+namespace Ctp0600P.Client.MessageHandler;
+
+public class AnyLoadMessageHandler : INotificationHandler<AnyLoadRequest>
+{
+    private readonly IMediator _mediator;
+    public AnyLoadMessageHandler(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
+    public Task Handle(AnyLoadRequest request, CancellationToken cancellationToken)
+    {
+        App.AnyLoadRequestSubject.OnNext(request);
+        return Task.CompletedTask;
     }
 }

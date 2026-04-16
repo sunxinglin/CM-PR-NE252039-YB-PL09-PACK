@@ -1,14 +1,18 @@
-﻿using AsZero.Core.Services.Messages;
-using Ctp0600P.Client.Apis;
-using Ctp0600P.Shared;
-using FutureTech.Mvvm;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
+using AsZero.Core.Services.Messages;
+
+using Ctp0600P.Shared;
+
+using FutureTech.Mvvm;
+
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+
 using Yee.Entitys.Production;
 
 namespace Ctp0600P.Client.UserControls.DebugTools

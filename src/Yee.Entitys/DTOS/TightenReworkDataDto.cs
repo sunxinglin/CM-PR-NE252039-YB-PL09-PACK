@@ -1,40 +1,30 @@
-﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+﻿using Yee.Entitys.DTOS.StationTaskDataDTOS;
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace Yee.Entitys.DTOS;
 
-using Yee.Entitys.DTOS.StationTaskDataDTOS;
-
-namespace Yee.Entitys.DTOS
+public  class TightenReworkDataDto:CommonDataDto
 {
-    public  class TightenReworkDataDto:CommonDataDto
-    {
-        public string TaskName { get; set; } = "";
+    public string TaskName { get; set; } = "";
 
-        public int OrderNo { get; set; }
+    public int OrderNo { get; set; }
 
-        public bool ResultOk { get; set; }
+    public bool ResultOk { get; set; }
 
-        public int ProgramNo { get; set; }
-        public decimal TorqueValue { get; set; }
+    public int ProgramNo { get; set; }
+    public decimal TorqueValue { get; set; }
 
-        public decimal AngleValue { get; set; }
+    public decimal AngleValue { get; set; }
         
-        public decimal TorqueMin { get; set; }
+    public decimal TorqueMin { get; set; }
 
-        public decimal TorqueMax { get; set; }
+    public decimal TorqueMax { get; set; }
         
-        public decimal AngleMin { get; set; }
+    public decimal AngleMin { get; set; }
         
-        public decimal AngleMax { get; set; }
+    public decimal AngleMax { get; set; }
 
-        public string UpMesCode { get; set; } = "";
-        public string UpMesCodeJD { get; set; } = "";
+    public string UpMesCode { get; set; } = "";
+    public string UpMesCodeJD { get; set; } = "";
         
-        public int Operator { get; set; }
-    }
+    public int Operator { get; set; }
 }

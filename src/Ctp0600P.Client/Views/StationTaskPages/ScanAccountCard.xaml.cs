@@ -1,7 +1,6 @@
 ﻿
 using Ctp0600P.Client.ViewModels.StationTaskViewModels;
 
-
 namespace Ctp0600P.Client.Views.StationTaskPages
 {
     /// <summary>

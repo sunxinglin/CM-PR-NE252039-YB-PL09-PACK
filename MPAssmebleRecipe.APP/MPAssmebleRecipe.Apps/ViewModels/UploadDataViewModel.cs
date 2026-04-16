@@ -31,7 +31,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         protected string StationName = ConfigurationManager.AppSettings["StationName"];
 
         private readonly IDialogService _dialogService;
-        private BussnessUtility business = BussnessUtility.GetInstanse();
+        private BussnessUtility business = BussnessUtility.GetInstance();
         private string Dbname= "UploadData";
         #region 属性
         private string _SFC;

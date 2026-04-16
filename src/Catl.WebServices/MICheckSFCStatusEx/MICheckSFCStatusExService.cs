@@ -1,4 +1,16 @@
 ﻿
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.ServiceModel.Description;
+using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+
 namespace Catl.WebServices.MICheckSFCStatusEx
 {
     //------------------------------------------------------------------------------
@@ -12,27 +24,27 @@ namespace Catl.WebServices.MICheckSFCStatusEx
 
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://machineintegration.ws.atlmes.com/", ConfigurationName = "MiCheckSFCStatusExService")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [ServiceContract(Namespace = "http://machineintegration.ws.atlmes.com/", ConfigurationName = "MiCheckSFCStatusExService")]
     public interface MiCheckSFCStatusExService
     {
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<miCheckSFCStatusExResponse1> miCheckSFCStatusExAsync(miCheckSFCStatusExRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<miCheckSFCStatusExResponse1> miCheckSFCStatusExAsync(miCheckSFCStatusExRequest request);
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class miCheckSFCStatusEx
     {
 
         private changeSFCStatusExRequest changeSFCStatusExRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public changeSFCStatusExRequest ChangeSFCStatusExRequest
         {
             get
@@ -47,9 +59,9 @@ namespace Catl.WebServices.MICheckSFCStatusEx
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class changeSFCStatusExRequest
     {
 
@@ -64,7 +76,7 @@ namespace Catl.WebServices.MICheckSFCStatusEx
         private string isGetSFCFromCustomerBarcodeField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -78,7 +90,7 @@ namespace Catl.WebServices.MICheckSFCStatusEx
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string operation
         {
             get
@@ -92,7 +104,7 @@ namespace Catl.WebServices.MICheckSFCStatusEx
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operationRevision
         {
             get
@@ -106,7 +118,7 @@ namespace Catl.WebServices.MICheckSFCStatusEx
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string sfc
         {
             get
@@ -120,7 +132,7 @@ namespace Catl.WebServices.MICheckSFCStatusEx
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string isGetSFCFromCustomerBarcode
         {
             get
@@ -135,9 +147,9 @@ namespace Catl.WebServices.MICheckSFCStatusEx
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class miCommonResponse
     {
 
@@ -148,7 +160,7 @@ namespace Catl.WebServices.MICheckSFCStatusEx
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -162,7 +174,7 @@ namespace Catl.WebServices.MICheckSFCStatusEx
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -176,7 +188,7 @@ namespace Catl.WebServices.MICheckSFCStatusEx
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -191,16 +203,16 @@ namespace Catl.WebServices.MICheckSFCStatusEx
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class miCheckSFCStatusExResponse
     {
 
         private miCommonResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public miCommonResponse @return
         {
             get
@@ -214,14 +226,14 @@ namespace Catl.WebServices.MICheckSFCStatusEx
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class miCheckSFCStatusExRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
         public miCheckSFCStatusEx miCheckSFCStatusEx;
 
         public miCheckSFCStatusExRequest()
@@ -234,14 +246,14 @@ namespace Catl.WebServices.MICheckSFCStatusEx
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class miCheckSFCStatusExResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
         public miCheckSFCStatusExResponse miCheckSFCStatusExResponse;
 
         public miCheckSFCStatusExResponse1()
@@ -254,14 +266,14 @@ namespace Catl.WebServices.MICheckSFCStatusEx
         }
     }
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    public interface MiCheckSFCStatusExServiceChannel : MiCheckSFCStatusExService, System.ServiceModel.IClientChannel
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    public interface MiCheckSFCStatusExServiceChannel : MiCheckSFCStatusExService, IClientChannel
     {
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    public partial class MiCheckSFCStatusExServiceClient : System.ServiceModel.ClientBase<MiCheckSFCStatusExService>, MiCheckSFCStatusExService
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    public partial class MiCheckSFCStatusExServiceClient : ClientBase<MiCheckSFCStatusExService>, MiCheckSFCStatusExService
     {
 
         /// <summary>
@@ -269,96 +281,96 @@ namespace Catl.WebServices.MICheckSFCStatusEx
         /// </summary>
         /// <param name="serviceEndpoint">要配置的终结点</param>
         /// <param name="clientCredentials">客户端凭据</param>
-        static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
+        static partial void ConfigureEndpoint(ServiceEndpoint serviceEndpoint, ClientCredentials clientCredentials);
 
         public MiCheckSFCStatusExServiceClient() :
-                base(MiCheckSFCStatusExServiceClient.GetDefaultBinding(), MiCheckSFCStatusExServiceClient.GetDefaultEndpointAddress())
+                base(GetDefaultBinding(), GetDefaultEndpointAddress())
         {
             this.Endpoint.Name = EndpointConfiguration.MiCheckSFCStatusExServicePort.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
         public MiCheckSFCStatusExServiceClient(EndpointConfiguration endpointConfiguration) :
-                base(MiCheckSFCStatusExServiceClient.GetBindingForEndpoint(endpointConfiguration), MiCheckSFCStatusExServiceClient.GetEndpointAddress(endpointConfiguration))
+                base(GetBindingForEndpoint(endpointConfiguration), GetEndpointAddress(endpointConfiguration))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
         public MiCheckSFCStatusExServiceClient(EndpointConfiguration endpointConfiguration, string remoteAddress) :
-                base(MiCheckSFCStatusExServiceClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
+                base(GetBindingForEndpoint(endpointConfiguration), new EndpointAddress(remoteAddress))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
-        public MiCheckSFCStatusExServiceClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(MiCheckSFCStatusExServiceClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
+        public MiCheckSFCStatusExServiceClient(EndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress) :
+                base(GetBindingForEndpoint(endpointConfiguration), remoteAddress)
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
-        public MiCheckSFCStatusExServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+        public MiCheckSFCStatusExServiceClient(Binding binding, EndpointAddress remoteAddress) :
                 base(binding, remoteAddress)
         {
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<miCheckSFCStatusExResponse1> MiCheckSFCStatusExService.miCheckSFCStatusExAsync(miCheckSFCStatusExRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<miCheckSFCStatusExResponse1> MiCheckSFCStatusExService.miCheckSFCStatusExAsync(miCheckSFCStatusExRequest request)
         {
             return base.Channel.miCheckSFCStatusExAsync(request);
         }
 
-        public System.Threading.Tasks.Task<miCheckSFCStatusExResponse1> miCheckSFCStatusExAsync(miCheckSFCStatusEx miCheckSFCStatusEx)
+        public Task<miCheckSFCStatusExResponse1> miCheckSFCStatusExAsync(miCheckSFCStatusEx miCheckSFCStatusEx)
         {
             miCheckSFCStatusExRequest inValue = new miCheckSFCStatusExRequest();
             inValue.miCheckSFCStatusEx = miCheckSFCStatusEx;
             return ((MiCheckSFCStatusExService)(this)).miCheckSFCStatusExAsync(inValue);
         }
 
-        public virtual System.Threading.Tasks.Task OpenAsync()
+        public virtual Task OpenAsync()
         {
-            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
+            return Task.Factory.FromAsync(((ICommunicationObject)(this)).BeginOpen(null, null), new Action<IAsyncResult>(((ICommunicationObject)(this)).EndOpen));
         }
 
-        public virtual System.Threading.Tasks.Task CloseAsync()
+        public virtual Task CloseAsync()
         {
-            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginClose(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndClose));
+            return Task.Factory.FromAsync(((ICommunicationObject)(this)).BeginClose(null, null), new Action<IAsyncResult>(((ICommunicationObject)(this)).EndClose));
         }
 
-        private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
+        private static Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
             if ((endpointConfiguration == EndpointConfiguration.MiCheckSFCStatusExServicePort))
             {
-                System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
+                BasicHttpBinding result = new BasicHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
-                result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
+                result.ReaderQuotas = XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
                 result.AllowCookies = true;
                 return result;
             }
-            throw new System.InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
+            throw new InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
         }
 
-        private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
+        private static EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
             if ((endpointConfiguration == EndpointConfiguration.MiCheckSFCStatusExServicePort))
             {
-                return new System.ServiceModel.EndpointAddress("http://ndmesd093.catlbattery.com:50000/atlmeswebservice/MiCheckSFCStatusExService" +
-                        "Service");
+                return new EndpointAddress("http://ndmesd093.catlbattery.com:50000/atlmeswebservice/MiCheckSFCStatusExService" +
+                                           "Service");
             }
-            throw new System.InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
+            throw new InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
         }
 
-        private static System.ServiceModel.Channels.Binding GetDefaultBinding()
+        private static Binding GetDefaultBinding()
         {
-            return MiCheckSFCStatusExServiceClient.GetBindingForEndpoint(EndpointConfiguration.MiCheckSFCStatusExServicePort);
+            return GetBindingForEndpoint(EndpointConfiguration.MiCheckSFCStatusExServicePort);
         }
 
-        private static System.ServiceModel.EndpointAddress GetDefaultEndpointAddress()
+        private static EndpointAddress GetDefaultEndpointAddress()
         {
-            return MiCheckSFCStatusExServiceClient.GetEndpointAddress(EndpointConfiguration.MiCheckSFCStatusExServicePort);
+            return GetEndpointAddress(EndpointConfiguration.MiCheckSFCStatusExServicePort);
         }
 
         public enum EndpointConfiguration

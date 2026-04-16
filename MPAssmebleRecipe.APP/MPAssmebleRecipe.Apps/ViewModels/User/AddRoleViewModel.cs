@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using RogerTech.AuthService.Models;
@@ -16,9 +17,22 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         private string _roleName;
         private string _description;
         private readonly IDialogService _dialogService;
-
-        public AddRoleViewModel(IDialogService dialogService)
+        private readonly IEventAggregator _eventAggregator;
+        private SubscriptionToken _closeToken;
+        public void Dispose()
         {
+            // 取消订阅
+            if (_closeToken != null)
+            {
+                _eventAggregator.GetEvent<CloseAllDialogsEvent>().Unsubscribe(_closeToken);
+                _closeToken = null;
+            }
+        }
+        public AddRoleViewModel(IDialogService dialogService,IEventAggregator eventAggregator)
+        {
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
+          
             _dialogService = dialogService;
             SaveCommand = new DelegateCommand(Save, CanSave).ObservesProperty(() => RoleName);
             CancelCommand = new DelegateCommand(Cancel);
@@ -47,6 +61,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
 
         public void OnDialogClosed()
         {
+            Dispose();
         }
 
         public List<Role> Roles { get; private set; }

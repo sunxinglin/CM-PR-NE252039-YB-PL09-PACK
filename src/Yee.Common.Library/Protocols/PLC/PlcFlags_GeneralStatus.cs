@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Yee.Common.Library.Protocols
+﻿namespace Yee.Common.Library.Protocols
 {
     /// <summary>
     /// PLC的一些通用状态

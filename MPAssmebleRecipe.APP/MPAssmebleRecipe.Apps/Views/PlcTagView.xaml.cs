@@ -34,46 +34,26 @@ namespace MPAssmebleRecipe.Apps.Views
     {
         bool isreadonly = false;
         private PlcTagViewModel _viewModel;
-
+      
         public PlcTagView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
             this.Loaded += PlcTagView_Loaded;
             this.Unloaded += PlcTagView_Unloaded;
-            EventAggregator = eventAggregator;
-            AppManager appManager = AppManager.GetInstance();
-            ChangUser(appManager.UserInfo);
+            EventAggregator = eventAggregator;          
             EventAggregator.GetEvent<UserInfoEvent>().Subscribe(user =>
             {
-                ChangUser(user);
-            });
-            RegistMenus();
+                PermissionController.UpdatePagePermissions(this, user);
+            });  
         }
-        private void RegistMenus()
-        {
-            List<Menu> menuList = new List<Menu>()
-            {
-                new Menu() { Page = "UserView", SubPage = "",ElementName="AddTag" },
-                new Menu() { Page = "UserView", SubPage = "",ElementName="EditTag" },
-                new Menu(){ Page = "UserView", SubPage = "",ElementName="SaveTag" },
-                new Menu(){ Page = "UserView", SubPage = "",ElementName="EditAllTag" }
-
-
-
-            };
-
-            // List<Menu> menuList = DbContext.GetInstance().Queryable<Menu>().Where(p => p.Page == "UserView" && p.SubPage == "B").ToList();
-            RogerTech.AuthService.AuthService authService = new RogerTech.AuthService.AuthService();
-            foreach (var item in menuList)
-            {
-                authService.AddMenu(item);
-            }
-
-        }
+       
         private ObservableCollection<Tag> _tagsSnapshot;
         private void PlcTagView_Loaded(object sender, RoutedEventArgs e)
         {
             _viewModel = DataContext as PlcTagViewModel;
+            PermissionController.RegisterPageControls(this);
+            AppManager appManager = AppManager.GetInstance();
+            PermissionController.UpdatePagePermissions(this, appManager.UserInfo);
         }
         private void PlcTagView_Unloaded(object sender, RoutedEventArgs e)
         {
@@ -126,53 +106,6 @@ namespace MPAssmebleRecipe.Apps.Views
         }
 
         public IEventAggregator EventAggregator { get; }
-
-        private void ChangUser(UserInfo user)
-        {
-            if (user == null)
-            {
-                AddTag.IsEnabled = false;
-                EditTag.IsEnabled = false;
-                return;
-            }
-            var addUser = user.UserMenus.Where(x => x.Page == "PlcTagView" && x.ElementName == "AddTag").FirstOrDefault();
-            if (addUser != null)
-            {
-                AddTag.IsEnabled = true;
-            }
-            else
-            {
-                 AddTag.IsEnabled = false;
-            }
-            addUser = user.UserMenus.Where(x => x.Page == "PlcTagView" && x.ElementName == "EditTag").FirstOrDefault();
-            if (addUser != null)
-            {
-                EditTag.IsEnabled = true;
-            }
-            else
-            {
-               EditTag.IsEnabled = false;
-            }
-            addUser = user.UserMenus.Where(x => x.Page == "PlcTagView" && x.ElementName == "SaveTag").FirstOrDefault();
-            if (addUser != null)
-            {
-                SaveTag.IsEnabled = true;
-            }
-            else
-            {
-                SaveTag.IsEnabled = false;
-            }
-            addUser = user.UserMenus.Where(x => x.Page == "PlcTagView" && x.ElementName == "EditAllTag").FirstOrDefault();
-            if (addUser != null)
-            {
-                EditAllTag.IsEnabled = true;
-            }
-            else
-            {
-                EditAllTag.IsEnabled = false;
-            }
-
-        }
 
 
         private void SaveTag_Click(object sender, RoutedEventArgs e)

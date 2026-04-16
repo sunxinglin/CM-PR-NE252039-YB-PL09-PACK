@@ -1,6 +1,4 @@
 ﻿using AsZero.DbContexts;
-using Microsoft.EntityFrameworkCore;
-using Yee.Entitys.Production;
 
 namespace Yee.Services.Production
 {

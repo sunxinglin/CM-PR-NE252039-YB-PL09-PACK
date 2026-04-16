@@ -1,11 +1,9 @@
-﻿using AsZero.Core.Services.Auth;
+﻿using System.Security.Claims;
+
+using AsZero.Core.Services.Auth;
 using AsZero.Core.Services.Messages;
+
 using MediatR;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace AsZero.Core.Services.MessageHandlers
 {

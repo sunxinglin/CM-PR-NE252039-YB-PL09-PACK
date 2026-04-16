@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Ctp0600P.Shared
+﻿namespace Ctp0600P.Shared
 {
     public class ApiServerSetting
     {

@@ -1,24 +1,20 @@
-﻿using AsZero.Core.Services.Messages;
+﻿using System;
+using System.Linq;
+
+using AsZero.Core.Services.Messages;
 
 using Ctp0600P.Client.Apis;
 using Ctp0600P.Client.Protocols;
 
 using MediatR;
 
-using NPOI.HSSF.Record;
+using Microsoft.Extensions.Logging;
 
 using Reactive.Bindings;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.AlarmMgmt;
 using Yee.Entitys.DBEntity.Production;
-using Yee.Entitys.DBEntity.ProductionRecords;
 using Yee.Entitys.DTOS;
 using Yee.Entitys.DTOS.StationTaskDataDTOS;
 
@@ -82,7 +78,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
 
                 var newLog = new LogMessage
                 {
-                    Level = Microsoft.Extensions.Logging.LogLevel.Information,
+                    Level = LogLevel.Information,
                     Content = $"时间记录成功。{dto.RecordTimeStr}",
                     Timestamp = DateTime.Now
                 };

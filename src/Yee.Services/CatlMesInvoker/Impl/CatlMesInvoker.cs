@@ -1,4 +1,6 @@
-﻿using Catl.HostComputer.CommonServices.Mes;
+﻿using System.ServiceModel;
+
+using Catl.HostComputer.CommonServices.Mes;
 using Catl.WebServices.AssembleAndCollectDataForSfc;
 using Catl.WebServices.DataCollectForResourceInspect;
 using Catl.WebServices.GetParametricValueServiceService;
@@ -7,12 +9,19 @@ using Catl.WebServices.MICheckBOMInventory;
 using Catl.WebServices.MICheckInventoryAttribute;
 using Catl.WebServices.MICheckSFCStatusEx;
 using Catl.WebServices.MIFindCustomAndSfcData;
+
 using MediatR;
+
 using Newtonsoft.Json;
-using System.ServiceModel;
+
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys;
 using Yee.Entitys.CATL;
+
+using machineIntegrationParametricData = Catl.WebServices.DataCollectForResourceInspect.machineIntegrationParametricData;
+using modeProcessSFC = Catl.WebServices.MIFindCustomAndSfcData.modeProcessSFC;
+using ObjectAliasEnum = Catl.WebServices.MIFindCustomAndSfcData.ObjectAliasEnum;
+using ParameterDataType = Catl.WebServices.MachineIntegrationServices.ParameterDataType;
 
 namespace Yee.Services.CatlMesInvoker
 {
@@ -65,7 +74,7 @@ namespace Yee.Services.CatlMesInvoker
         /// <param name="isStatusChange">是否需要需要按照配置文件执行true：根据配置文件，false: 永远为MODE_NONE</param>
         /// <param name="StationCode">工位编码</param>
         /// <returns></returns>
-        public async Task<CatlMESReponse> MiFindCustomAndSfcData(string sfc, Catl.WebServices.MIFindCustomAndSfcData.modeProcessSFC? modeProcessSFC, string StationCode = "")
+        public async Task<CatlMESReponse> MiFindCustomAndSfcData(string sfc, modeProcessSFC? modeProcessSFC, string StationCode = "")
         {
             var response = new CatlMESReponse();
             int resultCode = 0;
@@ -93,7 +102,7 @@ namespace Yee.Services.CatlMesInvoker
                     modeProcessSFC = modeProcessSFC ?? config.InterfaceParams.modeProcessSfc,
                     sfc = sfc,
                     customDataArray = new customDataInParametricData[1] { new customDataInParametricData { category = config.InterfaceParams.category, dataField = config.InterfaceParams.dataField } },
-                    masterDataArray = new Catl.WebServices.MIFindCustomAndSfcData.ObjectAliasEnum[1] { config.InterfaceParams.masterDataArray }
+                    masterDataArray = new ObjectAliasEnum[1] { config.InterfaceParams.masterDataArray }
                 };
 
                 var binding = new BasicHttpBinding();
@@ -159,7 +168,7 @@ namespace Yee.Services.CatlMesInvoker
         /// 校验贴纸
         /// </summary>
         /// <param name="sfc">pack条码</param>
-        /// <param name="MatteryPN">无聊PN</param>
+        /// <param name="MatteryPN">物料PN</param>
         /// <param name="Barcode">批次/库存条码</param>
         /// <param name="useNum">用量</param>
         /// <param name="stationCode">工位</param>
@@ -244,10 +253,9 @@ namespace Yee.Services.CatlMesInvoker
         /// 组装物料
         /// </summary>
         /// <param name="bomDatas"></param>
+        /// <param name="sfc"></param>
         /// <param name="stationCode"></param>
-        /// <param name="PackCode"></param>
         /// <returns></returns>
-        /// <exception cref="Exception"></exception>
         public async Task<CatlMESReponse> MiAssembleAndCollectDataForSfc(IList<BomData> bomDatas, string sfc, string stationCode = "")
         {
             try
@@ -416,8 +424,8 @@ namespace Yee.Services.CatlMesInvoker
                     var upData = new Catl.WebServices.MachineIntegrationServices.machineIntegrationParametricData
                     {
                         name = item.UpMesCode,
-                        value = item.ParamValue.ToString(),
-                        dataType = (Catl.WebServices.MachineIntegrationServices.ParameterDataType)item.DataType,
+                        value = item.ParamValue,
+                        dataType = (ParameterDataType)item.DataType,
                     };
                     parametricDataArray.Add(upData);
                 }
@@ -490,7 +498,7 @@ namespace Yee.Services.CatlMesInvoker
         /// <param name="dcGroup"></param>
         /// <param name="StationCode"></param>
         /// <returns></returns>
-        public async Task<CatlMESReponse> DataCollectForResourceInspectTask(List<Catl.WebServices.DataCollectForResourceInspect.machineIntegrationParametricData> machineIntegrationParametricDatas, string dcGroup, string StationCode = "")
+        public async Task<CatlMESReponse> DataCollectForResourceInspectTask(List<machineIntegrationParametricData> machineIntegrationParametricDatas, string dcGroup, string StationCode = "")
         {
             if (machineIntegrationParametricDatas.Count == 0)
                 return new CatlMESReponse { code = 0, message = "没有提供首件数据，不调用Catl MES接口" };
@@ -585,9 +593,9 @@ namespace Yee.Services.CatlMesInvoker
                     user = config.InterfaceParams.User,
                     sfcOrder = config.InterfaceParams.sfcOrder,
                     targetOrder = config.InterfaceParams.targetOrder,
-                    modeProcessSFC = Catl.WebServices.MIFindCustomAndSfcData.modeProcessSFC.MODE_NONE,
+                    modeProcessSFC = modeProcessSFC.MODE_NONE,
                     customDataArray = new customDataInParametricData[1] { new customDataInParametricData { category = config.InterfaceParams.category, dataField = config.InterfaceParams.dataField } },
-                    masterDataArray = new Catl.WebServices.MIFindCustomAndSfcData.ObjectAliasEnum[1] { config.InterfaceParams.masterDataArray },
+                    masterDataArray = new ObjectAliasEnum[1] { config.InterfaceParams.masterDataArray },
                     inventory = cellCode,
                     findSfcByInventory = true,
                 };
@@ -879,6 +887,16 @@ namespace Yee.Services.CatlMesInvoker
             {
                 return new CatlMESReponse { code = 1, message = ex.Message };
             }
+        }
+        
+        public Task<CatlMESReponse> dataCollect(string sfc, IList<DcParamValue> uploadCATLData, string DcGroup, bool isStatusChange, string stationCode = "")
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CatlMESReponse> AutoNc(string sfc, string stationCode = "", string ncCode = "")
+        {
+            throw new NotImplementedException();
         }
     }
 }

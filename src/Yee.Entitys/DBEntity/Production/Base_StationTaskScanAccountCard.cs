@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yee.Common.Library;
-using Yee.Common.Library.CommonEnum;
-using Yee.Entitys.BaseData;
+
 using Yee.Entitys.Common;
-using Yee.Tools;
 
 namespace Yee.Entitys.Production
 {

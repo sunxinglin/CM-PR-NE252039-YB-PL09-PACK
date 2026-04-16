@@ -3,20 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="Ctp0600P.Client.Command.NoticeHelp"
         mc:Ignorable="d"
-        WindowStyle ="None"
-        ResizeMode="NoResize" 
+        WindowStyle="None"
+        ResizeMode="NoResize"
         Title="提示" Height="180" Width="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="40" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Background="{Binding ElementName=tbTitle,Path=Background}" Margin="5 0 0 0">
-            <TextBlock x:Name="tbTitle" Grid.Row="0" Text="提示" Foreground ="White" VerticalAlignment="Center"  FontSize="22" FontWeight="Black"/>
+            <TextBlock x:Name="tbTitle" Grid.Row="0" Text="提示" Foreground="White" VerticalAlignment="Center"
+                       FontSize="22" FontWeight="Black" />
         </Grid>
-        <TextBlock Grid.Row="1" x:Name="tbContent" HorizontalAlignment="Left" Margin="36,37,0,0" TextWrapping="Wrap" FontSize="16"
-                       Text="TextBlock" VerticalAlignment="Top"/>
+        <TextBlock Grid.Row="1" x:Name="tbContent" HorizontalAlignment="Left" Margin="36,37,0,0" TextWrapping="Wrap"
+                   FontSize="16"
+                   Text="TextBlock" VerticalAlignment="Top" />
     </Grid>
 </Window>

@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.Common;
 using Yee.Entitys.Production;
@@ -11,7 +11,7 @@ namespace Yee.Entitys.DBEntity
     public class Proc_StationTask_StewingTime : CommonData
     {
         /// <summary>
-        /// 关联工位恩物主表
+        /// 关联工位任务主表
         /// </summary>
         public Proc_StationTask_Record? StationTask_Record { get; set; }
         public int StationTask_RecordId { get; set; }

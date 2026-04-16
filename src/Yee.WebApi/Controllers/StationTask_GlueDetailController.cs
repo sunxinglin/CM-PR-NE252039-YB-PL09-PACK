@@ -1,9 +1,9 @@
 ﻿using AsZero.Core.Services.Repos;
+
 using Microsoft.AspNetCore.Mvc;
-using Yee.Entitys.AutomaticStation;
+
 using Yee.Entitys.DBEntity;
 using Yee.Entitys.DTOS;
-using Yee.Services.AutomaticStation;
 using Yee.Services.ProductionRecord;
 
 namespace Yee.WebApi.Controllers

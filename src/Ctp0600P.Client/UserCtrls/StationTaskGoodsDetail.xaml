@@ -1,29 +1,28 @@
 ﻿<UserControl x:Class="Ctp0600P.Client.UserCtrls.StationTaskGoodsDetail"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Ctp0600P.Client.UserCtrls"
-    Background="{DynamicResource MaterialDesignPaper}"
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             Background="{DynamicResource MaterialDesignPaper}"
+             mc:Ignorable="d"
              d:DesignHeight="80" d:DesignWidth="220">
     <Grid>
         <Border BorderBrush="DarkGray">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{Binding GoodsName}"></TextBlock>
-                <TextBlock Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding NeedNum}"></TextBlock>
-                <TextBlock Grid.Column="2" Text="{Binding Status}"></TextBlock>
-                <TextBlock Grid.Row="1" Text="{Binding GoodsPN}"></TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding GoodsBatch}"></TextBlock>
+                <TextBlock Text="{Binding GoodsName}" />
+                <TextBlock Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding NeedNum}" />
+                <TextBlock Grid.Column="2" Text="{Binding Status}" />
+                <TextBlock Grid.Row="1" Text="{Binding GoodsPN}" />
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding GoodsBatch}" />
             </Grid>
         </Border>
     </Grid>

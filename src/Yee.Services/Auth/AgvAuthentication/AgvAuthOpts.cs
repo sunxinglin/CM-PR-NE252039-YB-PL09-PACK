@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Yee.Services.Auth
 {

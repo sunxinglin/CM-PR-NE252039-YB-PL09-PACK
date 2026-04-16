@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Prism.Events;
+using System.Net.Sockets;
 using RogerTech.Common.AuthService.Model;
-using RogerTech.Common;
 
 namespace RogerTech.Common.AuthService.Services
 {
@@ -21,7 +15,7 @@ namespace RogerTech.Common.AuthService.Services
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var item in host.AddressList)
             {
-                if (item.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                if (item.AddressFamily == AddressFamily.InterNetwork)
                 {
                     return item.ToString();
                 }
@@ -32,7 +26,6 @@ namespace RogerTech.Common.AuthService.Services
         /// <summary>
         /// 用户操作记录
         /// </summary>
-        /// <param name="userInfo">用户信息</param>
         /// <param name="operation">操作</param>
         /// <param name="description">记录内容内容</param>
         public static void OperationRecord(Operation operation, string description)
@@ -50,7 +43,7 @@ namespace RogerTech.Common.AuthService.Services
             #endregion
 
             string ip = GetLocalIpAddress();
-            UserOperationLog log = new UserOperationLog()
+            UserOperationLog log = new UserOperationLog
             {
                 UserName = userInfo.Name,
                 EmployeeId = userInfo.EmployeeId,
@@ -60,7 +53,7 @@ namespace RogerTech.Common.AuthService.Services
                 IpAddress = ip,
                 CreatTime = DateTime.Now,
             };
-            DbContext.GetInstance().Insertable<UserOperationLog>(log).ExecuteCommand();
+            DbContext.GetInstance().Insertable(log).ExecuteCommand();
         }
     }
 }

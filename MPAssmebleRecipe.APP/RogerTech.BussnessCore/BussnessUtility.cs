@@ -24,7 +24,7 @@ namespace RogerTech.BussnessCore
         public Dictionary<string, Type> propertyDictionary { get; set; }
         private static BussnessUtility instance;
         public bool bMesSimulation { get; set; }
-        public static BussnessUtility GetInstanse()
+        public static BussnessUtility GetInstance()
         {
             lock (Locker)
             {
@@ -50,7 +50,10 @@ namespace RogerTech.BussnessCore
                 foreach (var item in Enum.GetNames(typeof(MesInterface)))
                 {
                     MesInvokeBase mes = MesInvoke((MesInterface)Enum.Parse((typeof(MesInterface)), item));
-                    PropertyInfo[] properties = mes.Model.GetType().GetProperties();
+                    if (mes == null)
+						continue;
+
+					PropertyInfo[] properties = mes.Model.GetType().GetProperties();
                     foreach (PropertyInfo property in properties)
                     {
                         if (property.PropertyType.IsEnum)
@@ -82,7 +85,7 @@ namespace RogerTech.BussnessCore
         public List<object> MesInvoke(List<object> inputs, MesInterface interfaceType)
         {
             string fullName = Path.Combine(filePath, fileName);
-            CatlMesBase.MesInvokeBase mesInvoke = null;
+            MesInvokeBase mesInvoke = null;
             switch (interfaceType)
             {
                 case MesInterface.ReleaseSfcWithActivity:
@@ -119,7 +122,7 @@ namespace RogerTech.BussnessCore
                     mesInvoke = new cellCustomDCCheck.MesInvoke(fullName, "CellOcvCheck", "OCV校验");
                     break;
                 case MesInterface.AssembleComponentToSfc:
-                    mesInvoke = new MiAssembleComponentsToSfcs.MesInvoke(fullName, "AssembleComponentToSfc", "物料装配");
+                    mesInvoke = new MiAssembleComponentsToSfcs.MesInvoke(fullName, "AssembleComponentsToSfcs", "物料装配");
                     break;
                 case MesInterface.CheckBOMInventory:
                     mesInvoke = new MiCheckBOMInventory.MesInvoke(fullName, "CheckBOMInventory", "BOM库存校验");
@@ -135,6 +138,9 @@ namespace RogerTech.BussnessCore
                     break;
                 case MesInterface.MiCheckShoporderInfo:
                     mesInvoke = new MiCheckShoporderInfo.MesInvoke(fullName, "MiCheckShoporderInfo", "获取工单信息");
+                    break;
+                case MesInterface.GetMHRUser:
+                    mesInvoke = new GetMHRUser.MesInvoke(fullName, "GetMHRUser", "获取用户");
                     break;
                 default:
                     break;
@@ -181,7 +187,7 @@ namespace RogerTech.BussnessCore
                     mesInvoke = new cellCustomDCCheck.MesInvoke(fullName, "CellOcvCheck", "OCV校验");
                     break;
                 case MesInterface.AssembleComponentToSfc:
-                    mesInvoke = new MiAssembleComponentsToSfcs.MesInvoke(fullName, "AssembleComponentToSfc", "物料装配");
+                    mesInvoke = new MiAssembleComponentsToSfcs.MesInvoke(fullName, "AssembleComponentsToSfcs", "物料装配");
                     break;
                 case MesInterface.CheckBOMInventory:
                     mesInvoke = new MiCheckBOMInventory.MesInvoke(fullName, "CheckBOMInventory", "BOM库存校验");
@@ -198,6 +204,11 @@ namespace RogerTech.BussnessCore
                 case MesInterface.MiCheckShoporderInfo:
                     mesInvoke = new MiCheckShoporderInfo.MesInvoke(fullName, "MiCheckShoporderInfo", "获取工单信息");
                     break;
+                case MesInterface.GetMHRUser:
+                    mesInvoke = new GetMHRUser.MesInvoke(fullName, "GetMHRUser", "获取用户");
+                    break;
+                case MesInterface.None:
+					break;
                 default:
                     break;
             }
@@ -263,6 +274,9 @@ namespace RogerTech.BussnessCore
         DataCollectForResourceInspectTask,
         GetParametricValue,
         SFCAttriDataEntry,
-        MiCheckShoporderInfo
+        MiCheckShoporderInfo,
+        GetMHRUser,
+        //MiGetPrintContent,
+        None
     }
 }

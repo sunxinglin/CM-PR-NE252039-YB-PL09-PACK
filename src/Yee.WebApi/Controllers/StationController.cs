@@ -1,12 +1,7 @@
 ﻿using AsZero.Core.Services.Repos;
-using AsZero.DbContexts;
-using FutureTech.OpResults;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+
 using Microsoft.AspNetCore.Mvc;
-using NPOI.SS.Formula.Functions;
-using Yee.Common.Library.CommonEnum;
-using Yee.Entitys.CATL;
+
 using Yee.Entitys.CommonEntity;
 using Yee.Entitys.DTOS;
 using Yee.Entitys.Production;
@@ -30,7 +25,7 @@ namespace Yee.WebApi.Controllers.BaseData
         private readonly StationTaskResourceService _stationTaskResourceService;
         private readonly Base_StationTaskAnyLoadService base_Station_WeightService;
         private readonly StationTaskImporntService stationTaskImporntService;
-        private readonly StepService stepService;
+        private readonly StepService _stepService;
         private readonly FlowStepMappingService flowStepMappingService;
         private readonly FlowService _flowService;
         private readonly Base_StationTaskGluingTimeService base_StationTaskGluingTimeService;
@@ -59,7 +54,7 @@ namespace Yee.WebApi.Controllers.BaseData
             _stationTaskResourceService = stationTaskResourceService;
             this.base_Station_WeightService = base_Station_WeightService;
             this.stationTaskImporntService = stationTaskImporntService;
-            this.stepService = stepService;
+            this._stepService = stepService;
             this.flowStepMappingService = flowStepMappingService;
             _stationTaskScrewService = stationTaskScrewService;
             this._proResourceService = proResourceService;
@@ -141,7 +136,7 @@ namespace Yee.WebApi.Controllers.BaseData
             {
                 var user = HttpContext.User;
                 var list = new List<Base_Station>();
-                ///获取工艺路线对应工序关系
+                // 获取工艺路线对应工序关系
                 var flowmaps = await flowStepMappingService.GetList(new GetFlowStepMappingListReq() { FlowId = input.Flowid });
                 foreach (var flowmap in flowmaps)
                 {
@@ -275,7 +270,7 @@ namespace Yee.WebApi.Controllers.BaseData
                 {
                     result.Result.Station = station;
                 }
-                var step = await stepService.LoadStepInfo(stepCode);
+                var step = await _stepService.LoadStepInfo(stepCode);
                 if (step != null)
                 {
                     result.Result.Step = step;
@@ -318,11 +313,10 @@ namespace Yee.WebApi.Controllers.BaseData
             {
                 if (!await _stationService.HasCode(obj.Code, obj.StepId))
                 {
-                    var step = await this.stepService.GetById(obj.StepId);
+                    var step = await this._stepService.GetById(obj.StepId);
                     if (step != null)
                     {
-                        var user = Request.Cookies.Where(p => p.Key == "SET_NAME").First().Value.ToString();
-                        //obj.Code = step.Code;
+                        var user = Request.Cookies.First(p => p.Key == "SET_NAME").Value.ToString();
                         var newObj = await _stationService.Add(obj, user);
                         result.Result = newObj;
                     }
@@ -359,7 +353,7 @@ namespace Yee.WebApi.Controllers.BaseData
             var result = new Response<Base_Station>();
             try
             {
-                var user = Request.Cookies.Where(p => p.Key == "SET_NAME").First().Value.ToString();
+                var user = Request.Cookies.First(p => p.Key == "SET_NAME").Value.ToString();
                 obj.Step = null;
                 var res = await _stationService.Update(obj, user);
                 result.Result = res;
@@ -382,22 +376,19 @@ namespace Yee.WebApi.Controllers.BaseData
             var result = new Response<string>();
             try
             {
-                //var user = Request.Cookies.Where(p => p.Key == "SET_NAME").First().Value.ToString();
-                //foreach (var Id in input.Ids)
-                //{
-                //    var entity = await _stationService.GetById(Id);
-                //    if (entity != null)
-                //    {
-                //        var task = await this._stationTaskService.GetStationTaskByStep(entity.Id);
-                //        if (task.Count != 0)
-                //        {
-                //            result.Code = 500;
-                //            result.Message = $"当前工位{entity.Name},存在工位任务,请先删除工位任务!";
-                //            return result;
-                //        }
-                //        await _stationService.Delete(entity, user);
-                //    }
-                //}
+                var user = Request.Cookies.First(p => p.Key == "SET_NAME").Value.ToString();
+                foreach (var id in input.Ids)
+                {
+                    Base_Station station = await _stationService.GetById(id);
+                    var exist = await _stationTaskService.CheckStationTaskExistByStepId(station.StepId);
+                    if (exist)
+                    {
+                        result.Code = 500;
+                        result.Message = $"当前工位：{station.Name},存在工位任务,请先删除工位任务!";
+                        return result;
+                    }
+                    await _stationService.Delete(station, user);
+                }
 
             }
             catch (Exception ex)
@@ -408,6 +399,7 @@ namespace Yee.WebApi.Controllers.BaseData
 
             return result;
         }
+
         /// <summary>
         /// 导入工位Excel数据
         /// </summary>
@@ -429,7 +421,7 @@ namespace Yee.WebApi.Controllers.BaseData
                 var datalist = ExcelToEntity.WorksheetToDataRow<StationTaskExcel>(file.OpenReadStream(), 1, 3, 0, 0, 0);
                 if (datalist.Count > 0)
                 {
-                    var user = Request.Cookies.Where(p => p.Key == "SET_NAME").First().Value.ToString();
+                    var user = Request.Cookies.First(p => p.Key == "SET_NAME").Value.ToString();
                     var (state, mesage) = await stationTaskImporntService.ImporntStationTask(datalist, user);
                     if (!state)
                     {
@@ -450,6 +442,7 @@ namespace Yee.WebApi.Controllers.BaseData
             }
             return response;
         }
+
         /// <summary>
         /// 导出指定的工位任务详情
         /// </summary>
@@ -458,39 +451,29 @@ namespace Yee.WebApi.Controllers.BaseData
         [HttpPost]
         public async Task<IActionResult> ModelExpornt(StationTaskExporn dto)
         {
-            try
+            var memory = new MemoryStream();
+            if (dto.StepIds.Length <= 0)
             {
-                var memory = new MemoryStream();
-                if (dto.StepIds.Length <= 0)
-                {
-                    return this.StatusCode(200, new { data = 208, message = "未选择导出的工位ID" });
-                    //this.ModelState.AddModelError("Message", "");
-                    //return  new FileStreamResult(memory,"");
-                }
-
-                var result = await this.stationTaskImporntService.ExportStationTask(dto.StepIds, dto.ProductId);
-                if (!result.Item1)
-                {
-                    return this.StatusCode(200, new { data = 208, message = result.Item2 });
-                }
-
-
-                using (var filestream = new FileStream(result.Item2, FileMode.Open))
-                {
-                    filestream.CopyTo(memory);
-                }
-
-                memory.Position = 0;
-                this.Request.ContentType = "blob";
-                return File(memory, "application/vnd.ms-excel", $"{DateTime.Now.Date.ToShortDateString()}工位配方导出.xls");
-
-            }
-            catch (Exception)
-            {
-
-                throw;
+                return this.StatusCode(200, new { data = 208, message = "未选择导出的工位ID" });
+                //this.ModelState.AddModelError("Message", "");
+                //return  new FileStreamResult(memory,"");
             }
 
+            var result = await this.stationTaskImporntService.ExportStationTask(dto.StepIds, dto.ProductId);
+            if (!result.Item1)
+            {
+                return this.StatusCode(200, new { data = 208, message = result.Item2 });
+            }
+
+
+            using (var filestream = new FileStream(result.Item2, FileMode.Open))
+            {
+                await filestream.CopyToAsync(memory);
+            }
+
+            memory.Position = 0;
+            this.Request.ContentType = "blob";
+            return File(memory, "application/vnd.ms-excel", $"{DateTime.Now.Date.ToShortDateString()}工位配方导出.xls");
         }
 
     }

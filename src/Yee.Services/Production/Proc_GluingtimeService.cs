@@ -1,9 +1,10 @@
-﻿using AsZero.DbContexts;
-using Yee.Entitys.DBEntity;
+﻿using AsZero.Core.Services.Repos;
+using AsZero.DbContexts;
+
 using Microsoft.EntityFrameworkCore;
-using Yee.Entitys.DTOS;
+
 using Yee.Entitys.DBEntity.ProductionRecords;
-using AsZero.Core.Services.Repos;
+using Yee.Entitys.DTOS;
 
 namespace Yee.Services.Production
 {
@@ -33,7 +34,6 @@ namespace Yee.Services.Production
                         GluingTime = gluingtime.Time,
                         GluingTimeName = gluingtime.TimeName,
                         PackPN = gluingtime.PackPN,
-                        //CreateTime = DateTime.Now,
                         CreateTime = gluingtime.CreateTime,
                     });
 

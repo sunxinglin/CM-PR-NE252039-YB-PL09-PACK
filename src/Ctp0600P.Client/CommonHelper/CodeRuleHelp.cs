@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace Ctp0600P.Client.CommonHelper
 {
@@ -25,13 +21,13 @@ namespace Ctp0600P.Client.CommonHelper
             var codearry = code.ToArray();
             for (int i = 0; i < rulearry.Length; i++)
             {
-                if (string.Equals(rulearry[i], '*')  )
+                if (Equals(rulearry[i], '*')  )
                 {
                     continue;
                 }
                 else
                 {
-                    if (!string.Equals(rulearry[i], codearry[i]))
+                    if (!Equals(rulearry[i], codearry[i]))
                     {
                         return false;
                     }

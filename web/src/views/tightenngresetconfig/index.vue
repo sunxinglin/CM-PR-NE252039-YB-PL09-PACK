@@ -3,7 +3,7 @@
     <div class="filter-container">
       <el-card shadow="never" class="boby-small" style="height: 100%">
         <div slot="header" class="clearfix">
-          <span>生产设备一览表</span>
+          <span>拧紧NG管控</span>
         </div>
         <div>
           <el-row :gutter="2">
@@ -21,8 +21,8 @@
     </div>
     <div class="app-container fh">
       <el-table ref="mainTable" :data="screwNGResetConfigList" v-loading="screwNGResetConfigListLoading" row-key="id"
-        style="width: 100%" height="calc(100% - 52px)" @selection-change="handleSelectionChange" border fit stripe
-        highlight-current-row align="left">
+        style="width: 100%" height="calc(100% - 52px)" @row-click="handleRowClick"
+        @selection-change="handleSelectionChange" border fit stripe highlight-current-row align="left">
         <el-table-column type="selection" align="center" width="55"></el-table-column>
         <el-table-column prop="step.code" label="工序" min-width="20px" sortable align="center"></el-table-column>
         <el-table-column prop="singleScrewResetNum" label="拧紧NG复位次数（单颗）" min-width="20px" sortable
@@ -96,6 +96,7 @@ export default {
   data() {
     return {
       display_name: "",
+      selectedScrewNGResetConfigRowId: null,
       stepMultipleSelection: [], //勾选的数据表值
       screwNGResetConfigList: [], //数据表
       screwNGResetConfigTotal: 0, //数据条数
@@ -135,6 +136,28 @@ export default {
     //勾选框
     handleSelectionChange(val) {
       this.stepMultipleSelection = val;
+      if (val.length === 1) {
+        this.selectedScrewNGResetConfigRowId = val[0].id;
+      } else if (val.length === 0) {
+        this.selectedScrewNGResetConfigRowId = null;
+      } else {
+        this.selectedScrewNGResetConfigRowId = null;
+      }
+    },
+    handleRowClick(row, column) {
+      if (column && column.type === "selection") return;
+
+      const table = this.$refs.mainTable;
+      if (!table) return;
+
+      const isSameRow = this.selectedScrewNGResetConfigRowId === row.id;
+      table.clearSelection();
+      if (isSameRow) {
+        this.selectedScrewNGResetConfigRowId = null;
+        return;
+      }
+      table.toggleRowSelection(row, true);
+      this.selectedScrewNGResetConfigRowId = row.id;
     },
     //关键字搜索
     handleFilter() {

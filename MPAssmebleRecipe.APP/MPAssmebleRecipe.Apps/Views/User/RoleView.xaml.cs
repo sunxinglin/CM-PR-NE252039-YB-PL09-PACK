@@ -1,4 +1,5 @@
 ﻿using MPAssmebleRecipe.Apps;
+using MPAssmebleRecipe.Apps.Views;
 using Prism.Events;
 using RogerTech.AuthService;
 using RogerTech.AuthService.Models;
@@ -28,80 +29,26 @@ namespace UserTest.Views
     /// </summary>
     public partial class RoleView : UserControl
     {
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            // 注册当前页面的所有按钮
+            PermissionController.RegisterPageControls(this);
+            AppManager appManager = AppManager.GetInstance();
+            PermissionController.UpdatePagePermissions(this, appManager.UserInfo);
+        }
 
         public RoleView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
-
-            EventAggregator = eventAggregator;
-            AppManager appManager = AppManager.GetInstance();
-            ChangUser(appManager.UserInfo);
+            Loaded += OnPageLoaded;
+            EventAggregator = eventAggregator;     
             EventAggregator.GetEvent<UserInfoEvent>().Subscribe(user =>
             {
-                ChangUser(user);
+                PermissionController.UpdatePagePermissions(this, user);
             });
-
-            RegistMenus();
         }
-
-        private void RegistMenus()
-        {
-            AuthService authService = new AuthService();
-            List<Menu> menus = new List<Menu>()
-            {
-                new Menu(){ Page = "AuthMainWidow",SubPage = "RoleView", ElementName = "编辑管理菜单"},
-                new Menu(){ Page = "AuthMainWidow",SubPage = "RoleView", ElementName = "添加角色"},
-                new Menu(){ Page = "AuthMainWidow",SubPage = "RoleView", ElementName = "删除角色"},
-            };
-
-            //   List<Menu> menus = DbContext.GetInstance().Queryable<Menu>().Where(p => p.Page == "AuthMainWidow" && p.SubPage == "RoleView").ToList();
-            foreach (Menu menu in menus)
-            {
-                authService.AddMenu(menu);
-            }
-        }
-
 
         public IEventAggregator EventAggregator { get; }
 
-        private void ChangUser(UserInfo user)
-        {
-            if (user == null)
-            {
-                添加角色.IsEnabled = false;
-                删除角色.IsEnabled = false;
-                编辑管理菜单.IsEnabled = false;
-                return;
-            }
-            var add = user.UserMenus.Where(x => x.SubPage == "RoleView" && x.ElementName == "添加角色").FirstOrDefault();
-            if (add != null)
-            {
-                添加角色.IsEnabled = true;
-            }
-            else
-            {
-                添加角色.IsEnabled = false;
-            }
-
-            var del = user.UserMenus.Where(x => x.SubPage == "RoleView" && x.ElementName == "删除角色").FirstOrDefault();
-            if (del != null)
-            {
-                删除角色.IsEnabled = true;
-            }
-            else
-            {
-                删除角色.IsEnabled = false;
-            }
-
-            var edit = user.UserMenus.Where(x => x.SubPage == "RoleView" && x.ElementName == "编辑管理菜单").FirstOrDefault();
-            if (edit != null)
-            {
-                编辑管理菜单.IsEnabled = true;
-            }
-            else
-            {
-                编辑管理菜单.IsEnabled = false;
-            }
-        }
     }
 }

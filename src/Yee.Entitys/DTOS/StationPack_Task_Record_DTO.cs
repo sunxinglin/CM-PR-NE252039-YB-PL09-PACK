@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yee.Common.Library.CommonEnum;
-using Yee.Entitys.CommonEntity;
-using Yee.Entitys.DBEntity;
-using Yee.Entitys.Production;
+﻿using Yee.Common.Library.CommonEnum;
 
 namespace Yee.Entitys.DTOS
 {

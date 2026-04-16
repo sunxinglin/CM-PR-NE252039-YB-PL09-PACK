@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://machineintegration.ws.atlmes.com/" targetNamespace="http://machineintegration.ws.atlmes.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://machineintegration.ws.atlmes.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="getPrintContentRequest" type="tns:getPrintContentRequest" />
+      <xs:element name="getPrintContentsLabel" type="tns:getPrintContentsLabel" />
+      <xs:element name="getPrintContentsResponse" type="tns:getPrintContentsResponse" />
+      <xs:element name="isValidDate" type="tns:isValidDate" />
+      <xs:element name="isValidDateResponse" type="tns:isValidDateResponse" />
+      <xs:element name="miGetSlotData" type="tns:miGetSlotData" />
+      <xs:element name="miGetSlotDataResponse" type="tns:miGetSlotDataResponse" />
+      <xs:complexType name="miGetSlotData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MiGetBarcodeRequest" type="tns:getPrintContentRequest" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPrintContentRequest">
+        <xs:sequence>
+          <xs:element name="site" type="xs:string" />
+          <xs:element minOccurs="0" name="sfc" type="xs:string" />
+          <xs:element minOccurs="0" name="item" type="xs:string" />
+          <xs:element minOccurs="0" name="template" type="xs:string" />
+          <xs:element name="templateVersion" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="field" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="miGetSlotDataResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:getPrintContentsResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPrintContentsResponse">
+        <xs:sequence>
+          <xs:element name="code" type="xs:int" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="labelListArray" type="tns:getPrintContentsLabel" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPrintContentsLabel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="field" type="xs:string" />
+          <xs:element minOccurs="0" name="value" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="isValidDate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="isValidDateResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="miGetSlotDataIn">
+    <wsdl:part name="parameters" element="tns:miGetSlotData" />
+  </wsdl:message>
+  <wsdl:message name="miGetSlotDataOut">
+    <wsdl:part name="miGetSlotDataResponse" element="tns:miGetSlotDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="isValidDateIn">
+    <wsdl:part name="parameters" element="tns:isValidDate" />
+  </wsdl:message>
+  <wsdl:message name="isValidDateOut">
+    <wsdl:part name="isValidDateResponse" element="tns:isValidDateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MiGetPrintContentService">
+    <wsdl:operation name="miGetSlotData" parameterOrder="parameters">
+      <wsdl:input message="tns:miGetSlotDataIn" />
+      <wsdl:output message="tns:miGetSlotDataOut" />
+    </wsdl:operation>
+    <wsdl:operation name="isValidDate" parameterOrder="parameters">
+      <wsdl:input message="tns:isValidDateIn" />
+      <wsdl:output message="tns:isValidDateOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="MiGetPrintContentServiceBinding" type="tns:MiGetPrintContentService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="miGetSlotData">
+      <soap:operation soapAction="" />
+      <wsdl:input>
+        <soap:body use="literal" parts="parameters" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isValidDate">
+      <soap:operation soapAction="" />
+      <wsdl:input>
+        <soap:body use="literal" parts="parameters" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MiGetPrintContentServiceService">
+    <wsdl:port name="MiGetPrintContentServicePort" binding="tns:MiGetPrintContentServiceBinding">
+      <address location="http://xmmesp026.catlbattery.com:50600/atlmeswebservice/MiGetPrintContentServiceService" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,4 +1,15 @@
-﻿
+﻿using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.ServiceModel.Description;
+using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -15,33 +26,33 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
 
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://machineintegration.ws.atlmes.com/", ConfigurationName = "MiAssembleAndCollectDataForSfcService")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [ServiceContract(Namespace = "http://machineintegration.ws.atlmes.com/", ConfigurationName = "MiAssembleAndCollectDataForSfcService")]
     public interface MICheckSFCStatusExService
     {
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AttributeValue))]
-        System.Threading.Tasks.Task<miAssmebleAndCollectDataForSfcResponse1> miAssmebleAndCollectDataForSfcAsync(miAssmebleAndCollectDataForSfcRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        [ServiceKnownType(typeof(AttributeValue))]
+        Task<miAssmebleAndCollectDataForSfcResponse1> miAssmebleAndCollectDataForSfcAsync(miAssmebleAndCollectDataForSfcRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AttributeValue))]
-        System.Threading.Tasks.Task<getInventoryQtyResponse1> getInventoryQtyAsync(getInventoryQtyRequest1 request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        [ServiceKnownType(typeof(AttributeValue))]
+        Task<getInventoryQtyResponse1> getInventoryQtyAsync(getInventoryQtyRequest1 request);
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class miAssmebleAndCollectDataForSfc
     {
 
         private assembleAndCollectDataForSfcRequest assembleAndCollectDataForSfcRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public assembleAndCollectDataForSfcRequest AssembleAndCollectDataForSfcRequest
         {
             get
@@ -56,9 +67,9 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class assembleAndCollectDataForSfcRequest
     {
 
@@ -93,7 +104,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         private string remarkField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -107,7 +118,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string sfc
         {
             get
@@ -121,7 +132,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcGroup
         {
             get
@@ -135,7 +146,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string dcGroupRevision
         {
             get
@@ -149,7 +160,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string operation
         {
             get
@@ -163,7 +174,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string operationRevision
         {
             get
@@ -177,7 +188,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string resource
         {
             get
@@ -191,7 +202,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string user
         {
             get
@@ -205,7 +216,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string activityId
         {
             get
@@ -221,7 +232,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         [JsonConverter(typeof(StringEnumConverter))]
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 9)]
         public dataCollectForSfcModeProcessSfc modeProcessSFC
         {
             get
@@ -235,7 +246,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 10)]
         public bool partialAssembly
         {
             get
@@ -249,7 +260,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("inventoryArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 11)]
+        [XmlElement("inventoryArray", Form = XmlSchemaForm.Unqualified, Order = 11)]
         public miInventoryData[] inventoryArray
         {
             get
@@ -263,7 +274,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 12)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 12)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -277,7 +288,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ncCodeArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 13)]
+        [XmlElement("ncCodeArray", Form = XmlSchemaForm.Unqualified, Order = 13)]
         public nonConfirmCodeArray[] ncCodeArray
         {
             get
@@ -291,7 +302,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 14)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 14)]
         public string remark
         {
             get
@@ -306,8 +317,8 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public enum dataCollectForSfcModeProcessSfc
     {
 
@@ -328,9 +339,9 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class miInventoryData
     {
 
@@ -341,7 +352,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         private AssemblyDataField[] assemblyDataFieldsField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string inventory
         {
             get
@@ -355,7 +366,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string qty
         {
             get
@@ -369,7 +380,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("assemblyDataFields", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement("assemblyDataFields", Form = XmlSchemaForm.Unqualified, Order = 2)]
         public AssemblyDataField[] assemblyDataFields
         {
             get
@@ -384,9 +395,9 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.sap.com/me/production")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://www.sap.com/me/production")]
     public partial class AssemblyDataField : AttributeValue
     {
 
@@ -395,7 +406,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         private bool sequenceFieldSpecified;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order = 0)]
+        [XmlElement(Order = 0)]
         public decimal sequence
         {
             get
@@ -409,7 +420,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool sequenceSpecified
         {
             get
@@ -424,10 +435,10 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AssemblyDataField))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.sap.com/me/common")]
+    [XmlInclude(typeof(AssemblyDataField))]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://www.sap.com/me/common")]
     public partial class AttributeValue
     {
 
@@ -436,7 +447,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         private string valueField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string attribute
         {
             get
@@ -450,7 +461,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string value
         {
             get
@@ -465,9 +476,9 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class baseResponse
     {
 
@@ -478,7 +489,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -492,7 +503,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -506,7 +517,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -521,16 +532,16 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class getInventoryQtyResponse
     {
 
         private baseResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public baseResponse @return
         {
             get
@@ -545,9 +556,9 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class getInventoryQtyRequest
     {
 
@@ -558,7 +569,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         private string resourceField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -572,7 +583,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string inventory
         {
             get
@@ -586,7 +597,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string resource
         {
             get
@@ -601,16 +612,16 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class getInventoryQty
     {
 
         private getInventoryQtyRequest getInventoryQtyRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public getInventoryQtyRequest GetInventoryQtyRequest
         {
             get
@@ -625,9 +636,9 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class assembleAndCollectDataForSfcResponse
     {
 
@@ -640,7 +651,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         private string failedInventoryField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -654,7 +665,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -668,7 +679,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string sfc
         {
             get
@@ -682,7 +693,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string failedInventory
         {
             get
@@ -697,16 +708,16 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class miAssmebleAndCollectDataForSfcResponse
     {
 
         private assembleAndCollectDataForSfcResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public assembleAndCollectDataForSfcResponse @return
         {
             get
@@ -721,9 +732,9 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class nonConfirmCodeArray
     {
 
@@ -732,7 +743,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         private bool hasNcField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string ncCode
         {
             get
@@ -746,7 +757,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public bool hasNc
         {
             get
@@ -761,9 +772,9 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machineintegration.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machineintegration.ws.atlmes.com/")]
     public partial class machineIntegrationParametricData
     {
 
@@ -774,7 +785,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         private ParameterDataType dataTypeField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string name
         {
             get
@@ -788,7 +799,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string value
         {
             get
@@ -802,7 +813,7 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public ParameterDataType dataType
         {
             get
@@ -817,8 +828,8 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.sap.com/me/datacollection")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [XmlType(Namespace = "http://www.sap.com/me/datacollection")]
     public enum ParameterDataType
     {
 
@@ -835,14 +846,14 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         BOOLEAN,
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class miAssmebleAndCollectDataForSfcRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
         public miAssmebleAndCollectDataForSfc miAssmebleAndCollectDataForSfc;
 
         public miAssmebleAndCollectDataForSfcRequest()
@@ -855,14 +866,14 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class miAssmebleAndCollectDataForSfcResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
         public miAssmebleAndCollectDataForSfcResponse miAssmebleAndCollectDataForSfcResponse;
 
         public miAssmebleAndCollectDataForSfcResponse1()
@@ -875,14 +886,14 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class getInventoryQtyRequest1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
         public getInventoryQty getInventoryQty;
 
         public getInventoryQtyRequest1()
@@ -895,14 +906,14 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class getInventoryQtyResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machineintegration.ws.atlmes.com/", Order = 0)]
         public getInventoryQtyResponse getInventoryQtyResponse;
 
         public getInventoryQtyResponse1()
@@ -915,14 +926,14 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         }
     }
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    public interface MiAssembleAndCollectDataForSfcServiceChannel : MICheckSFCStatusExService, System.ServiceModel.IClientChannel
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    public interface MiAssembleAndCollectDataForSfcServiceChannel : MICheckSFCStatusExService, IClientChannel
     {
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    public partial class MiAssembleAndCollectDataForSfcServiceClient : System.ServiceModel.ClientBase<MICheckSFCStatusExService>, MICheckSFCStatusExService
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    public partial class MiAssembleAndCollectDataForSfcServiceClient : ClientBase<MICheckSFCStatusExService>, MICheckSFCStatusExService
     {
 
         /// <summary>
@@ -930,109 +941,109 @@ namespace Catl.WebServices.MiAssembleAndCollectDataForSfc
         /// </summary>
         /// <param name="serviceEndpoint">要配置的终结点</param>
         /// <param name="clientCredentials">客户端凭据</param>
-        static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
+        static partial void ConfigureEndpoint(ServiceEndpoint serviceEndpoint, ClientCredentials clientCredentials);
 
         public MiAssembleAndCollectDataForSfcServiceClient() :
-                base(MiAssembleAndCollectDataForSfcServiceClient.GetDefaultBinding(), MiAssembleAndCollectDataForSfcServiceClient.GetDefaultEndpointAddress())
+                base(GetDefaultBinding(), GetDefaultEndpointAddress())
         {
             this.Endpoint.Name = EndpointConfiguration.MiAssembleAndCollectDataForSfcServicePort.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
         public MiAssembleAndCollectDataForSfcServiceClient(EndpointConfiguration endpointConfiguration) :
-                base(MiAssembleAndCollectDataForSfcServiceClient.GetBindingForEndpoint(endpointConfiguration), MiAssembleAndCollectDataForSfcServiceClient.GetEndpointAddress(endpointConfiguration))
+                base(GetBindingForEndpoint(endpointConfiguration), GetEndpointAddress(endpointConfiguration))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
         public MiAssembleAndCollectDataForSfcServiceClient(EndpointConfiguration endpointConfiguration, string remoteAddress) :
-                base(MiAssembleAndCollectDataForSfcServiceClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
+                base(GetBindingForEndpoint(endpointConfiguration), new EndpointAddress(remoteAddress))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
-        public MiAssembleAndCollectDataForSfcServiceClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(MiAssembleAndCollectDataForSfcServiceClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
+        public MiAssembleAndCollectDataForSfcServiceClient(EndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress) :
+                base(GetBindingForEndpoint(endpointConfiguration), remoteAddress)
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
-        public MiAssembleAndCollectDataForSfcServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+        public MiAssembleAndCollectDataForSfcServiceClient(Binding binding, EndpointAddress remoteAddress) :
                 base(binding, remoteAddress)
         {
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<miAssmebleAndCollectDataForSfcResponse1> MICheckSFCStatusExService.miAssmebleAndCollectDataForSfcAsync(miAssmebleAndCollectDataForSfcRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<miAssmebleAndCollectDataForSfcResponse1> MICheckSFCStatusExService.miAssmebleAndCollectDataForSfcAsync(miAssmebleAndCollectDataForSfcRequest request)
         {
             return base.Channel.miAssmebleAndCollectDataForSfcAsync(request);
         }
 
-        public System.Threading.Tasks.Task<miAssmebleAndCollectDataForSfcResponse1> miAssmebleAndCollectDataForSfcAsync(miAssmebleAndCollectDataForSfc miAssmebleAndCollectDataForSfc)
+        public Task<miAssmebleAndCollectDataForSfcResponse1> miAssmebleAndCollectDataForSfcAsync(miAssmebleAndCollectDataForSfc miAssmebleAndCollectDataForSfc)
         {
             miAssmebleAndCollectDataForSfcRequest inValue = new miAssmebleAndCollectDataForSfcRequest();
             inValue.miAssmebleAndCollectDataForSfc = miAssmebleAndCollectDataForSfc;
             return ((MICheckSFCStatusExService)(this)).miAssmebleAndCollectDataForSfcAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<getInventoryQtyResponse1> MICheckSFCStatusExService.getInventoryQtyAsync(getInventoryQtyRequest1 request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<getInventoryQtyResponse1> MICheckSFCStatusExService.getInventoryQtyAsync(getInventoryQtyRequest1 request)
         {
             return base.Channel.getInventoryQtyAsync(request);
         }
 
-        public System.Threading.Tasks.Task<getInventoryQtyResponse1> getInventoryQtyAsync(getInventoryQty getInventoryQty)
+        public Task<getInventoryQtyResponse1> getInventoryQtyAsync(getInventoryQty getInventoryQty)
         {
             getInventoryQtyRequest1 inValue = new getInventoryQtyRequest1();
             inValue.getInventoryQty = getInventoryQty;
             return ((MICheckSFCStatusExService)(this)).getInventoryQtyAsync(inValue);
         }
 
-        public virtual System.Threading.Tasks.Task OpenAsync()
+        public virtual Task OpenAsync()
         {
-            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
+            return Task.Factory.FromAsync(((ICommunicationObject)(this)).BeginOpen(null, null), new Action<IAsyncResult>(((ICommunicationObject)(this)).EndOpen));
         }
 
-        public virtual System.Threading.Tasks.Task CloseAsync()
+        public virtual Task CloseAsync()
         {
-            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginClose(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndClose));
+            return Task.Factory.FromAsync(((ICommunicationObject)(this)).BeginClose(null, null), new Action<IAsyncResult>(((ICommunicationObject)(this)).EndClose));
         }
 
-        private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
+        private static Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
             if ((endpointConfiguration == EndpointConfiguration.MiAssembleAndCollectDataForSfcServicePort))
             {
-                System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
+                BasicHttpBinding result = new BasicHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
-                result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
+                result.ReaderQuotas = XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
                 result.AllowCookies = true;
                 return result;
             }
-            throw new System.InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
+            throw new InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
         }
 
-        private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
+        private static EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
             if ((endpointConfiguration == EndpointConfiguration.MiAssembleAndCollectDataForSfcServicePort))
             {
-                return new System.ServiceModel.EndpointAddress("http://ndmesd093.catlbattery.com:50000/atlmeswebservice/MiAssembleAndCollectDataF" +
-                        "orSfcServiceService");
+                return new EndpointAddress("http://ndmesd093.catlbattery.com:50000/atlmeswebservice/MiAssembleAndCollectDataF" +
+                                           "orSfcServiceService");
             }
-            throw new System.InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
+            throw new InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
         }
 
-        private static System.ServiceModel.Channels.Binding GetDefaultBinding()
+        private static Binding GetDefaultBinding()
         {
-            return MiAssembleAndCollectDataForSfcServiceClient.GetBindingForEndpoint(EndpointConfiguration.MiAssembleAndCollectDataForSfcServicePort);
+            return GetBindingForEndpoint(EndpointConfiguration.MiAssembleAndCollectDataForSfcServicePort);
         }
 
-        private static System.ServiceModel.EndpointAddress GetDefaultEndpointAddress()
+        private static EndpointAddress GetDefaultEndpointAddress()
         {
-            return MiAssembleAndCollectDataForSfcServiceClient.GetEndpointAddress(EndpointConfiguration.MiAssembleAndCollectDataForSfcServicePort);
+            return GetEndpointAddress(EndpointConfiguration.MiAssembleAndCollectDataForSfcServicePort);
         }
 
         public enum EndpointConfiguration

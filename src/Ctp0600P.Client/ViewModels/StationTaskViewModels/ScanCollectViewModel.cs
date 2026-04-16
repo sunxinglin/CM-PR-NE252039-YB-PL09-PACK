@@ -1,25 +1,15 @@
-﻿using Ctp0600P.Client.Apis;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+
+using Ctp0600P.Client.Apis;
 using Ctp0600P.Client.Command.NoticeHelp.Enum;
 using Ctp0600P.Client.Command.NoticeHelp.Handle;
-using Ctp0600P.Client.CommonEntity;
 using Ctp0600P.Client.Protocols;
-using Ctp0600P.Client.Protocols.AnyLoad;
-
 using Ctp0600P.Client.Protocols.ScanCode.Models;
-using Ctp0600P.Client.Views.StationTaskPages;
 
-using FutureTech.Mvvm;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.AlarmMgmt;
 using Yee.Entitys.DBEntity;

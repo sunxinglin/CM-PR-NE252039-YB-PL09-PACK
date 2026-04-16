@@ -16,7 +16,8 @@ namespace RogerTech.Tool
         STRING,
         DTL,
         BYTE,
-        CHARARRY
+        CHARARRY,
+        REAL
     }
     public static class DataConvert
     {
@@ -192,7 +193,7 @@ namespace RogerTech.Tool
                 //throw new ArgumentOutOfRangeException();
                 return result;
             }
-            ////判断字符串长队是否正确
+            //判断字符串长队是否正确
             //if (buffer.Length != buffer[0]+2)
             //{
             //    //throw new ArgumentOutOfRangeException();

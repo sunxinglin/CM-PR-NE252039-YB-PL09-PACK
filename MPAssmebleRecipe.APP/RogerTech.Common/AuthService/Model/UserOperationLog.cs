@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SqlSugar;
 
 namespace RogerTech.Common.AuthService.Model
@@ -17,7 +13,7 @@ namespace RogerTech.Common.AuthService.Model
             
         public string EmployeeId { get; set; }      //工号
 
-        public  Operation Operation { get; set; }   //操作
+        public Operation Operation { get; set; }   //操作
 
         public string ViewName { get; set; }        //操作页面
 

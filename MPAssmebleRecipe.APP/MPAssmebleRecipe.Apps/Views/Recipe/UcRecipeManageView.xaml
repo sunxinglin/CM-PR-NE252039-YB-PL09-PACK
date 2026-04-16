@@ -176,8 +176,7 @@
                         Command="{Binding RecipeClearCommand}"
                         Content="配方清空"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
-                    <Button
-                        Name="刷新"
+                    <Button                      
                         Margin="0,0,20,0"
                         Command="{Binding RefshCommand}"
                         Content="刷新"

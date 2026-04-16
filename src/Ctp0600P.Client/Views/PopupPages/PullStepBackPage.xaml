@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ctp0600P.Client.UserControls"
-        xmlns:app="clr-namespace:Ctp0600P.Client"
         Height="500" Width="600"
         WindowStyle="ToolWindow" 
         ResizeMode="NoResize" 
@@ -31,16 +30,16 @@
 
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <!--<Button Style="{Binding defaultBtnStyle}"   Grid.Column="0" Content="1" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
             <Button Style="{Binding defaultBtnStyle}"   Grid.Column="1" Content="2" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
@@ -61,7 +60,7 @@
         <Label Grid.Row="2" Grid.Column="0" Content="出货码" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBox Grid.Row="2" Grid.Column="1"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
                    Text="{Binding OutCode}"  Height="40" Width="400" IsReadOnly="True"/>
-        <TextBlock Text="Tips：为确保【拉站】正确执行，请先扫描出货码！" Foreground="Red" Grid.Row="3" Grid.Column="1"  Width="500" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="21"></TextBlock>
+        <TextBlock Text="Tips：为确保【拉站】正确执行，请先扫描出货码！" Foreground="Red" Grid.Row="3" Grid.Column="1"  Width="500" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="21" />
         <Grid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>

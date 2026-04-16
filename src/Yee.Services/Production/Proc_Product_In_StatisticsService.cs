@@ -1,7 +1,8 @@
 ﻿using AsZero.DbContexts;
-using FutureTech.Dal.Repository;
+
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+
+using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.DBEntity;
 using Yee.Entitys.DBEntity.ProductionRecords;
 using Yee.Services.Request;
@@ -30,7 +31,7 @@ namespace Yee.Services.Production
                         PackCode = entity.ProductCode,
                         StationId = entity.StationId,
                         StepId = entity.StepId,
-                        Status = Common.Library.CommonEnum.StationTaskStatusEnum.已完成,
+                        Status = StationTaskStatusEnum.已完成,
                         UseAGVCode = entity.AGVCode
 
                     };
@@ -38,7 +39,7 @@ namespace Yee.Services.Production
                 }
                 else
                 {
-                    taskmain.Status = Common.Library.CommonEnum.StationTaskStatusEnum.已完成;
+                    taskmain.Status = StationTaskStatusEnum.已完成;
                     _dBContext.Update(taskmain);
                 }
                 await _dBContext.SaveChangesAsync();

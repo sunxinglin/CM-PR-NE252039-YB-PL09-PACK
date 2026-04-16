@@ -2,49 +2,48 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Ctp0600P.Client.UserControls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:auc="clr-namespace:AsZero.Wpf.Common.UserControls;assembly=AsZero.Wpf.Common"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.Resources>
             <Style TargetType="auc:LedSwitchCtrl">
-                <Setter Property="MaxHeight" Value="40"></Setter>
-                <Setter Property="MinHeight" Value="20"></Setter>
-                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                <Setter Property="MaxHeight" Value="40" />
+                <Setter Property="MinHeight" Value="20" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
             </Style>
         </Grid.Resources>
 
-        <auc:LedSwitchCtrl IsChecked="{Binding MstHeartBeatReq.Value}"  OnColor="Orange" OffColor="Gray" Tip="MES心跳请求" Grid.Row="0" Grid.Column="0"></auc:LedSwitchCtrl>
-        <auc:LedSwitchCtrl IsChecked="{Binding Heartbeat_Answer.Value}" OnColor="Orange" OffColor="Gray" Tip="PLC心跳应答" Grid.Row="0" Grid.Column="1"></auc:LedSwitchCtrl>
+        <auc:LedSwitchCtrl IsChecked="{Binding MstHeartBeatReq.Value}"  OnColor="Orange" OffColor="Gray" Tip="MES心跳请求" Grid.Row="0" Grid.Column="0" />
+        <auc:LedSwitchCtrl IsChecked="{Binding Heartbeat_Answer.Value}" OnColor="Orange" OffColor="Gray" Tip="PLC心跳应答" Grid.Row="0" Grid.Column="1" />
 
-        <auc:LedSwitchCtrl IsChecked="{Binding Heartbeat_Req.Value}"  OnColor="Orange" OffColor="Gray" Tip="PLC心跳请求" Grid.Row="0" Grid.Column="2"></auc:LedSwitchCtrl>
-        <auc:LedSwitchCtrl IsChecked="{Binding MstHeartbeat_Answer.Value}"  OnColor="Orange" OffColor="Gray" Tip="MES心跳应答" Grid.Row="0" Grid.Column="3"></auc:LedSwitchCtrl>
+        <auc:LedSwitchCtrl IsChecked="{Binding Heartbeat_Req.Value}"  OnColor="Orange" OffColor="Gray" Tip="PLC心跳请求" Grid.Row="0" Grid.Column="2" />
+        <auc:LedSwitchCtrl IsChecked="{Binding MstHeartbeat_Answer.Value}"  OnColor="Orange" OffColor="Gray" Tip="MES心跳应答" Grid.Row="0" Grid.Column="3" />
 
 
-        <Label Content="心跳同步时间" FontStyle="Italic" FontSize="15" Grid.Column="5" VerticalContentAlignment="Center"></Label>
-        <TextBlock Text="{Binding LastBeatedAt.Value, StringFormat={}{0:HH:mm:ss}}" Grid.Row="1" Grid.Column="5"></TextBlock>
+        <Label Content="心跳同步时间" FontStyle="Italic" FontSize="15" Grid.Column="5" VerticalContentAlignment="Center" />
+        <TextBlock Text="{Binding LastBeatedAt.Value, StringFormat={}{0:HH:mm:ss}}" Grid.Row="1" Grid.Column="5" />
 
-        <auc:LedSwitchCtrl IsChecked="{Binding AutoMode.Value}" OnColor="RoyalBlue" OffColor="Gray" Tip="自动模式" Grid.Row="1" Grid.Column="0"></auc:LedSwitchCtrl>
-        <auc:LedSwitchCtrl IsChecked="{Binding ManualMode.Value}" OnColor="Orange" OffColor="Gray" Tip="手动模式" Grid.Row="1" Grid.Column="1"></auc:LedSwitchCtrl>
-        <auc:LedSwitchCtrl IsChecked="{Binding EmgencyStop.Value}" OnColor="Red" OffColor="Gray" Tip="急停模式" Grid.Row="1" Grid.Column="2"></auc:LedSwitchCtrl>
+        <auc:LedSwitchCtrl IsChecked="{Binding AutoMode.Value}" OnColor="RoyalBlue" OffColor="Gray" Tip="自动模式" Grid.Row="1" Grid.Column="0" />
+        <auc:LedSwitchCtrl IsChecked="{Binding ManualMode.Value}" OnColor="Orange" OffColor="Gray" Tip="手动模式" Grid.Row="1" Grid.Column="1" />
+        <auc:LedSwitchCtrl IsChecked="{Binding EmgencyStop.Value}" OnColor="Red" OffColor="Gray" Tip="急停模式" Grid.Row="1" Grid.Column="2" />
         <!--<auc:LedSwitchCtrl IsChecked="{Binding NotYetHoming.Value}" OnColor="Red" OffColor="Gray" Tip="未归零" Grid.Row="1" Grid.Column="3"></auc:LedSwitchCtrl>
         <auc:LedSwitchCtrl IsChecked="{Binding Homing.Value}" OnColor="Red" OffColor="Gray" Tip="归零中" Grid.Row="1" Grid.Column="4"></auc:LedSwitchCtrl>
         <auc:LedSwitchCtrl IsChecked="{Binding HomeCompleted.Value}" OnColor="Green" OffColor="Gray" Tip="归零完成" Grid.Row="1" Grid.Column="5"></auc:LedSwitchCtrl>-->
-        <auc:LedSwitchCtrl IsChecked="{Binding Busy.Value}" OnColor="Orange" OffColor="Gray" Tip="繁忙" Grid.Row="1" Grid.Column="3"></auc:LedSwitchCtrl>
-        <auc:LedSwitchCtrl IsChecked="{Binding Idle.Value}"  OnColor="Green" OffColor="Gray" Tip="空闲" Grid.Row="1" Grid.Column="4"></auc:LedSwitchCtrl>
+        <auc:LedSwitchCtrl IsChecked="{Binding Busy.Value}" OnColor="Orange" OffColor="Gray" Tip="繁忙" Grid.Row="1" Grid.Column="3" />
+        <auc:LedSwitchCtrl IsChecked="{Binding Idle.Value}"  OnColor="Green" OffColor="Gray" Tip="空闲" Grid.Row="1" Grid.Column="4" />
     </Grid>
 </UserControl>

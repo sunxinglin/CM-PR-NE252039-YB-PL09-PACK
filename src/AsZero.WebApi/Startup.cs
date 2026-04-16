@@ -1,17 +1,23 @@
-﻿using AsZero.Core.Services.Auth;
+using AsZero.Core.Services.Auth;
 using AsZero.Core.Services.HostedServices;
 using AsZero.Core.Services.MessageHandlers;
 using AsZero.Core.Services.Messages;
 using AsZero.DbContexts;
+
 using Ctp0600P.Shared;
-using DocumentFormat.OpenXml.InkML;
+
 using MediatR;
+
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+
 using Newtonsoft.Json;
+
 using Swashbuckle.AspNetCore.SwaggerUI;
+
 using TimedTask;
+
 using Yee.Entitys.CommonEntity;
 using Yee.Services;
 using Yee.Services.Auth;
@@ -38,7 +44,6 @@ namespace AsZero.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-
             services.AddMemoryCache();
             services.AddCors();
             services.AddAuth();
@@ -49,7 +54,20 @@ namespace AsZero.WebApi
             {
                 logging.AddLog4Net();
             });
-            services.AddDbContext<AsZeroDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AsZeroDbContext")));
+
+            // 根据配置决定 是否 自动创建 已经用不到的数据库表
+            var dbContextProfile = Configuration.GetValue<string>("DbContextProfile");
+            if (string.Equals(dbContextProfile, "Manual", StringComparison.OrdinalIgnoreCase))
+            {
+                services.AddDbContext<AsZeroDbContext, AsZeroManualDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("AsZeroDbContext")));
+            }
+            else
+            {
+                services.AddDbContext<AsZeroDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("AsZeroDbContext")));
+            }
+
             services.AddAsZeroHostedServices();
             services.AddMediatR(typeof(LoginRequest).Assembly);
             services.AddMediatR(typeof(LoginWithCardRequest).Assembly);
@@ -63,7 +81,7 @@ namespace AsZero.WebApi
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                    //options.SerializerSettings.ContractResolver = new DefaultContractResolver();    
+                    //options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                 })
                 .AddApplicationPart(typeof(PackController).Assembly)
@@ -113,8 +131,6 @@ namespace AsZero.WebApi
                policy => policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
                    .WithOrigins("http://localhost:7223")));
 
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -152,8 +168,7 @@ namespace AsZero.WebApi
             app.UseSwagger();
 
 
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {

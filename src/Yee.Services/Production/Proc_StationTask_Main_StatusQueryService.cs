@@ -2,17 +2,12 @@
 using AsZero.Core.Services.Repos;
 using AsZero.Core.Services.Sys_Logs;
 using AsZero.DbContexts;
-using DocumentFormat.OpenXml.Spreadsheet;
-using FutureTech.Dal.Repository;
+
 using Microsoft.EntityFrameworkCore;
-using NPOI.SS.Formula.Functions;
-using System.Linq.Expressions;
-using System.Text.RegularExpressions;
+
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.DBEntity;
-using Yee.Entitys.DBEntity.ProductionRecords;
 using Yee.Entitys.DTOS;
-using Yee.Services.Request;
 
 namespace Yee.Services.Production
 {

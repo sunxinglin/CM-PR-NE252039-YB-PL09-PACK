@@ -16,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RogerTech.AuthService.Models;
 using Menu = RogerTech.AuthService.Models.Menu;
+using MPAssmebleRecipe.Apps.Views;
+using MPAssmebleRecipe.Apps;
 
 namespace UserTest.Views
 {
@@ -24,6 +26,13 @@ namespace UserTest.Views
     /// </summary>
     public partial class AuthMainView : UserControl
     {
+        //private void OnPageLoaded(object sender, RoutedEventArgs e)
+        //{
+        //    // 注册当前页面的所有按钮
+        //    PermissionController.RegisterPageControls(this);
+        //    AppManager appManager = AppManager.GetInstance();
+        //    PermissionController.UpdatePagePermissions(this, appManager.UserInfo);
+        //}
         private IRegionManager region;
         public AuthMainView(IRegionManager regionManager)
         {
@@ -33,7 +42,7 @@ namespace UserTest.Views
             //var region = regionManager.Regions["UserRegion"];
             //region.Activate(RoleView);
             this.region = regionManager;
-
+          //  Loaded += OnPageLoaded;
             RegionManager.SetRegionManager(this, regionManager);
             RegionManager.UpdateRegions();
             this.Unloaded += (s, e) =>

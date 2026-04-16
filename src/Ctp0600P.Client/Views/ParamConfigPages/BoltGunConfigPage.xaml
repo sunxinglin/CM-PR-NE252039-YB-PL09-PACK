@@ -1,118 +1,132 @@
 ﻿<UserControl x:Class="Ctp0600P.Client.Views.ParamConfigPages.BoltGunConfigPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Ctp0600P.Client.CommonEntity"
-      xmlns:validations="clr-namespace:Ctp0600P.Client.Validations"
-      xmlns:viewmodels="clr-namespace:Ctp0600P.Client.ViewModels.StationTaskViewModels"
-       d:DataContext="{d:DesignInstance Type=viewmodels:BoltGunConfigPageVM}"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800">
-
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:validations="clr-namespace:Ctp0600P.Client.Validations"
+             xmlns:viewmodels="clr-namespace:Ctp0600P.Client.ViewModels.StationTaskViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:BoltGunConfigPageVM}"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"></ColumnDefinition>
-            <ColumnDefinition Width="150"></ColumnDefinition>
-            <ColumnDefinition Width="150"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button x:Name="ComList" Content="添加" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="140" Height="45"  Command="{Binding Add}"/>
-        <Button  Content="删除" Grid.Column="1" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="140" Height="45"  Command="{Binding Del}" />
-        <Button x:Name="BaudRateList" Grid.Column="2"  Content="提交" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="140" Command="{Binding Save}"  Height="45" />
-
-        <ListBox  Grid.Row="1" Grid.ColumnSpan="4" ItemsSource="{Binding Path=StationBoltGunList}"  ItemContainerStyle="{StaticResource ListItemNullFocusContainerStyle}" >
+        <Button x:Name="ComList" Content="添加" HorizontalAlignment="Right" VerticalAlignment="Center" Width="140"
+                Height="45" Command="{Binding Add}" />
+        <Button Grid.Row="0" Grid.Column="1" Content="删除" HorizontalAlignment="Right" VerticalAlignment="Center"
+                Width="140" Height="45" Command="{Binding Del}" />
+        <Button x:Name="BaudRateList" Grid.Row="0" Grid.Column="2" Content="提交" HorizontalAlignment="Right"
+                VerticalAlignment="Center" Width="140" Command="{Binding Save}" Height="45" />
+        <ListBox Grid.Row="1" Grid.ColumnSpan="4" Grid.Column="0" ItemsSource="{Binding Path=StationBoltGunList}"
+                 ItemContainerStyle="{StaticResource ListItemNullFocusContainerStyle}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="35"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="35" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <CheckBox  Grid.Column="0" IsChecked="{Binding IsSelected}" Margin="15 0 0 0" VerticalAlignment="Center" FontSize="18"  HorizontalAlignment="Left"></CheckBox>
+                        <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected}" Margin="15 0 0 0"
+                                  VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Left" />
 
                         <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5" Grid.Column="1">
                             <Border.Style>
                                 <Style TargetType="Border">
-                                    <Setter Property="BorderBrush" Value="LightBlue"></Setter>
-                                    <Setter Property="BorderThickness" Value="2"></Setter>
-                                    <Setter Property="CornerRadius" Value="3"></Setter>
+                                    <Setter Property="BorderBrush" Value="LightBlue" />
+                                    <Setter Property="BorderThickness" Value="2" />
+                                    <Setter Property="CornerRadius" Value="3" />
                                 </Style>
                             </Border.Style>
                             <Grid Margin="15 0 0 0">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="70"/>
-                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70" />
+                                    <RowDefinition Height="70" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <!--是否启用-->
-                                    <ColumnDefinition Width="75"/>
+                                    <ColumnDefinition Width="75" />
                                     <!--IP地址-->
-                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90" />
                                     <!--IP地址-->
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*" />
                                     <!--端口号-->
-                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90" />
                                     <!--端口号-->
-                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="80" />
                                     <!--枪号-->
-                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90" />
                                     <!--枪号-->
-                                    <ColumnDefinition Width="60"/>
-                                  
+                                    <ColumnDefinition Width="60" />
                                 </Grid.ColumnDefinitions>
 
-                                <CheckBox  Grid.Column="0" FlowDirection="RightToLeft" IsChecked="{Binding IsEnable}" Margin="15 0 0 0" Content="启用" VerticalAlignment="Center" FontSize="18"  HorizontalAlignment="Left"></CheckBox>
-                                <TextBlock Grid.Column="1" Text="IP地址：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"></TextBlock>
-                                <TextBox Grid.Column="2" Style="{DynamicResource ValidationTextBoxStyle}" ToolTip="请输入正确的IP"   VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="20"  Height="40" Margin="0 0 10 0">
+                                <CheckBox Grid.Column="0" FlowDirection="RightToLeft" IsChecked="{Binding IsEnable}"
+                                          Margin="15 0 0 0" Content="启用" VerticalAlignment="Center" FontSize="18"
+                                          HorizontalAlignment="Left" />
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="IP地址：" VerticalAlignment="Center"
+                                           HorizontalAlignment="Right" FontSize="18" />
+                                <TextBox Grid.Row="0" Grid.Column="2" Style="{DynamicResource ValidationTextBoxStyle}"
+                                         ToolTip="请输入正确的IP" VerticalContentAlignment="Center"
+                                         VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="20"
+                                         Height="40" Margin="0 0 10 0">
                                     <TextBox.Text>
                                         <Binding Path="IpAddress" Mode="TwoWay" NotifyOnValidationError="True"
-                                     UpdateSourceTrigger="PropertyChanged">
+                                                 UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
-                                                <validations:IPAddressRule ValidatesOnTargetUpdated="True"/>
+                                                <validations:IPAddressRule ValidatesOnTargetUpdated="True" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
                                 </TextBox>
-                                <TextBlock Grid.Column="3" Text="端口号：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"></TextBlock>
-                                <TextBox Grid.Column="4" Style="{DynamicResource ValidationTextBoxStyle}" ToolTip="请输入正确的端口号"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" FontSize="20"  Height="40" Margin="0 0 10 0">
+                                <TextBlock Grid.Row="0" Grid.Column="3" Text="端口号：" VerticalAlignment="Center"
+                                           HorizontalAlignment="Right" FontSize="18" />
+                                <TextBox Grid.Row="0" Grid.Column="4" Style="{DynamicResource ValidationTextBoxStyle}"
+                                         ToolTip="请输入正确的端口号" VerticalContentAlignment="Center"
+                                         VerticalAlignment="Center" HorizontalContentAlignment="Center"
+                                         HorizontalAlignment="Stretch" FontSize="20" Height="40" Margin="0 0 10 0">
                                     <TextBox.Text>
                                         <Binding Path="Port" Mode="TwoWay" NotifyOnValidationError="True"
-                                     UpdateSourceTrigger="PropertyChanged">
+                                                 UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
-                                                <validations:PositiveIntegerRule  ValidatesOnTargetUpdated="True"/>
+                                                <validations:PositiveIntegerRule ValidatesOnTargetUpdated="True" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
                                 </TextBox>
-                                <TextBlock Grid.Column="5" Text="设备号：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"></TextBlock>
-                                <TextBox Grid.Column="6" Style="{DynamicResource ValidationTextBoxStyle}" ToolTip="请输入正确的设备号" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" FontSize="20"  Height="40" Margin="0 0 10 0">
+                                <TextBlock Grid.Row="0" Grid.Column="5" Text="设备号：" VerticalAlignment="Center"
+                                           HorizontalAlignment="Right" FontSize="18" />
+                                <TextBox Grid.Row="0" Grid.Column="6" Style="{DynamicResource ValidationTextBoxStyle}"
+                                         ToolTip="请输入正确的设备号" VerticalContentAlignment="Center"
+                                         VerticalAlignment="Center" HorizontalContentAlignment="Center"
+                                         HorizontalAlignment="Stretch" FontSize="20" Height="40" Margin="0 0 10 0">
                                     <TextBox.Text>
                                         <Binding Path="DeviceNo" Mode="TwoWay" NotifyOnValidationError="True"
-                                     UpdateSourceTrigger="PropertyChanged">
+                                                 UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
-                                                <validations:PositiveIntegerRule  ValidatesOnTargetUpdated="True"/>
+                                                <validations:PositiveIntegerRule ValidatesOnTargetUpdated="True" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
                                 </TextBox>
-                                
-                                <TextBlock Grid.Column="0"  Grid.Row="1" Text="备注：" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Right" ></TextBlock>
-                                <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Style="{StaticResource DefaultTextBoxStyle}"  Text="{Binding Remark}"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="20"  Height="40" Margin="0 0 10 0">
-                                </TextBox>
 
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="备注：" VerticalAlignment="Center"
+                                           FontSize="18" HorizontalAlignment="Right" />
+                                <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6"
+                                         Style="{StaticResource DefaultTextBoxStyle}" Text="{Binding Remark}"
+                                         VerticalContentAlignment="Center" VerticalAlignment="Center"
+                                         HorizontalAlignment="Stretch" FontSize="20" Height="40" Margin="0 0 10 0" />
                             </Grid>
                         </Border>
                     </Grid>
-
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-
     </Grid>
 </UserControl>

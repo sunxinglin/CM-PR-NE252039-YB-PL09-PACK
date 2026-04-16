@@ -1,26 +1,13 @@
 ﻿using AsZero.Core.Entities;
-using AsZero.Core.Services.Repos;
 using AsZero.Core.Services.Sys_Logs;
 using AsZero.DbContexts;
-using Ctp0600P.Shared;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.InkML;
+
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Org.BouncyCastle.Bcpg;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Yee.Common.Library.CommonEnum;
-using Yee.Entitys.CATL;
-using Yee.Entitys.DBEntity;
 using Yee.Entitys.DTOS;
 using Yee.Entitys.Production;
 using Yee.Services.BaseData;
-using Yee.Services.Request;
 
 namespace Yee.Services.Production
 {
@@ -55,8 +42,6 @@ namespace Yee.Services.Production
                 return list;
             }
         }
-        /// 通过ID查询
-        /// </summary>
 
         public async Task<Base_Station> Add(Base_Station entity, string op)
         {
@@ -70,7 +55,6 @@ namespace Yee.Services.Production
 
         public async Task<Base_Station> Update(Base_Station entity, string op)
         {
-            var resold = _dBContext.Base_Stations.Where(a => a.Id == entity.Id && !a.IsDeleted).AsNoTracking().FirstOrDefault();
             await sys_LogService.AddLog(new SysLog() { LogType = Sys_LogType.修改工位, Message = $"修改前工位，工位名称:{entity.Name}", Operator = op });
 
             var res = _dBContext.Update(entity);
@@ -129,11 +113,11 @@ namespace Yee.Services.Production
             var prevStep = await GetPrevStationByPackCode_LoadPeiFang(step, entityFlow, packPN, false);
             if (prevStep != null)
             {
-                if (prevStep.Steptype == StepTypeEnum.线内可跳过人工站)
+                if (prevStep.StepType == StepTypeEnum.线内可跳过人工站)
                 {
                     // 查找上一工位的历史纪录
                     var taskMainPrev = await _dBContext.Proc_StationTask_Mains.FirstOrDefaultAsync(p => p.IsDeleted == false && p.StepId == prevStep.Id && p.PackCode == packPN);
-                    if (taskMainPrev != null && taskMainPrev.Status != Common.Library.CommonEnum.StationTaskStatusEnum.已完成)
+                    if (taskMainPrev != null && taskMainPrev.Status != StationTaskStatusEnum.已完成)
                     {
                         return (false, $"Pack码{packPN}对应的工位数据逻辑顺序有误");
                     }
@@ -144,7 +128,7 @@ namespace Yee.Services.Production
                         {
                             // 查找上一工位的历史纪录
                             taskMainPrev = await _dBContext.Proc_StationTask_Mains.FirstOrDefaultAsync(p => p.IsDeleted == false && p.StepId == prevStep.Id && p.PackCode == packPN);
-                            if (taskMainPrev == null || (taskMainPrev != null && taskMainPrev.Status != Common.Library.CommonEnum.StationTaskStatusEnum.已完成))
+                            if (taskMainPrev == null || (taskMainPrev != null && taskMainPrev.Status != StationTaskStatusEnum.已完成))
                             {
                                 return (false, $"Pack码{packPN}对应的工位数据逻辑顺序有误");
                             }
@@ -155,12 +139,12 @@ namespace Yee.Services.Production
                 {
                     // 查找上一工位的历史纪录
                     var taskMainPrev = await _dBContext.Proc_StationTask_Mains.FirstOrDefaultAsync(p => p.IsDeleted == false && p.StepId == prevStep.Id && p.PackCode == packPN);
-                    if (taskMainPrev == null || (taskMainPrev != null && taskMainPrev.Status != Common.Library.CommonEnum.StationTaskStatusEnum.已完成))
+                    if (taskMainPrev == null || (taskMainPrev != null && taskMainPrev.Status != StationTaskStatusEnum.已完成))
                     {
                         return (false, $"Pack码{packPN}对应的工位数据逻辑顺序有误");
                     }
                     var taskMain = await _dBContext.Proc_StationTask_Mains.FirstOrDefaultAsync(p => p.IsDeleted == false && p.StepId == step.Id && p.PackCode == packPN);
-                    if (taskMain != null && taskMain.Status == Common.Library.CommonEnum.StationTaskStatusEnum.已完成)
+                    if (taskMain != null && taskMain.Status == StationTaskStatusEnum.已完成)
                     {
                         return (false, $"Pack码{packPN}在当站已完成");
                     }
@@ -184,7 +168,7 @@ namespace Yee.Services.Production
 
             if (allowPass)
             {
-                var mappPrev = _dBContext.Base_FlowStepMappings.Include(m => m.Step).OrderByDescending(m => m.OrderNo).FirstOrDefault(f => !f.IsDeleted && f.FlowId == entityFlow.Id && f.OrderNo < mapp.OrderNo && f.Step.Steptype != Common.Library.CommonEnum.StepTypeEnum.线内可跳过人工站);
+                var mappPrev = _dBContext.Base_FlowStepMappings.Include(m => m.Step).OrderByDescending(m => m.OrderNo).FirstOrDefault(f => !f.IsDeleted && f.FlowId == entityFlow.Id && f.OrderNo < mapp.OrderNo && f.Step.StepType != StepTypeEnum.线内可跳过人工站);
                 if (mappPrev == null) return null;
                 return _dBContext.Base_Steps.FirstOrDefault(s => s.IsDeleted == false && s.Id == mappPrev.StepId);
             }
@@ -302,6 +286,29 @@ namespace Yee.Services.Production
                 }
             }
             return null;
+        }
+
+        public async Task<Base_Station> GetById(int id)
+        {
+            Base_Station? station = await _dBContext.Base_Stations.FirstOrDefaultAsync(f => f.Id == id);
+            if (station == null)
+            {
+                throw new KeyNotFoundException($"找不到ID为{id}的工位信息!");
+            }
+            return station;
+        }
+
+        public async Task Delete(Base_Station station, string user)
+        {
+            if (station == null)
+            {
+                throw new KeyNotFoundException($"找不到ID为{station.Id}的工位信息!");
+            }
+
+            station.IsDeleted = true;
+            _dBContext.Base_Stations.Update(station);
+            await sys_LogService.AddLog(new SysLog { LogType = Sys_LogType.删除工位, Message = $"删除工站:{station.Name}", Operator = user });
+            await _dBContext.SaveChangesAsync();
         }
     }
 }

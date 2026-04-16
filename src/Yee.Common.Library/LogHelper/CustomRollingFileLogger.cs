@@ -3,12 +3,6 @@ using log4net.Appender;
 using log4net.Core;
 using log4net.Layout;
 using log4net.Repository.Hierarchy;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Yee.Common.Library.LogHelper
 {
@@ -27,7 +21,7 @@ namespace Yee.Common.Library.LogHelper
             RollingFileAppender newAppender = GetNewFileApender(loggerName, GetFile(category, loggerName), MAX_SIZE_ROLL_BACKUPS, true, true, MAXIMUM_FILE_SIZE, RollingFileAppender.RollingMode.Composite,
                 DATE_PATTERN, LAYOUT_PATTERN);
 
-            log4net.Repository.Hierarchy.Hierarchy repository = (log4net.Repository.Hierarchy.Hierarchy)LogManager.GetRepository();
+            Hierarchy repository = (Hierarchy)LogManager.GetRepository();
             Logger logger = repository.LoggerFactory.CreateLogger(repository, loggerName);
             logger.Hierarchy = repository;
             logger.Parent = repository.Root;

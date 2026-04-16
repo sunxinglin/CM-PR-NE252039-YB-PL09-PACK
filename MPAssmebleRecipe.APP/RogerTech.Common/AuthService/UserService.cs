@@ -47,7 +47,7 @@ namespace RogerTech.Common.AuthService
                     }
                
                 }
-                if (user.UserName == "SystemAdmin")
+                if (user.UserName == "SystemAdmin" || user.RoleName == "SuperAdmin")
                 {
                     var menus = DbContext.GetInstance().Queryable<Menu>().ToList();
                     result.UserMenus = menus;

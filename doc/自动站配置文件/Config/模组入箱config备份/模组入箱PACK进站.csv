@@ -1,0 +1,5 @@
+﻿TagName,Protocol,IP,DataType,DbNumber,StartAddress,Length,Bit,MesName,MesDataType,LowerLimit,UpperLimit,IsChecked,IsUpload
+StartSignal,SIEMENSS7,172.16.21.2,BIT,200,410,1,0,StartSignal,BOOLEAN,100,100,False,False
+PackCode,SIEMENSS7,172.16.21.2,STRING,200,412,24,0,PackCode,TEXT,10,500,True,True
+FinishSignal,SIEMENSS7,172.16.21.2,BIT,200,3460,1,0,FinishSignal,BOOLEAN,100,100,False,False
+ResCode,SIEMENSS7,172.16.21.2,SHORT,200,3462,2,0,ResCode,NUMBER,100,500,False,False

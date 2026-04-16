@@ -43,6 +43,7 @@
         row-key="id"
         style="width: 100%"
         height="calc(100% - 52px)"
+        @row-click="handleRowClick"
         @selection-change="handleSelectionChange"
         border
         fit
@@ -259,6 +260,7 @@ export default {
   data() {
     return {
       display_name: "",
+      selectedProresourceRowId: null,
       stepMultipleSelection: [], //勾选的数据表值
       proresourceList: [], //数据表
       proresourceTotal: 0, //数据条数
@@ -314,9 +316,21 @@ export default {
         },
       ],
       deviceBrandOptions:[
-              {
+        {
           value: 1,
           label: "霍尼韦尔",
+        },
+        {
+          value: 2,
+          label: "得利捷",
+        },
+        {
+          value: 3,
+          label: "康耐视",
+        },
+        {
+          value: 4,
+          label: "华睿",
         },
         {
           value: 11,
@@ -329,6 +343,10 @@ export default {
         {
           value: 21,
           label: "Anyload",
+        },
+        {
+          value: 22,
+          label: "顺展",
         },
       ],
       value: 1,
@@ -386,6 +404,28 @@ export default {
     //勾选框
     handleSelectionChange(val) {
       this.stepMultipleSelection = val;
+      if (val.length === 1) {
+        this.selectedProresourceRowId = val[0].id;
+      } else if (val.length === 0) {
+        this.selectedProresourceRowId = null;
+      } else {
+        this.selectedProresourceRowId = null;
+      }
+    },
+    handleRowClick(row, column) {
+      if (column && column.type === "selection") return;
+
+      const table = this.$refs.mainTable;
+      if (!table) return;
+
+      const isSameRow = this.selectedProresourceRowId === row.id;
+      table.clearSelection();
+      if (isSameRow) {
+        this.selectedProresourceRowId = null;
+        return;
+      }
+      table.toggleRowSelection(row, true);
+      this.selectedProresourceRowId = row.id;
     },
     //关键字搜索
     handleFilter() {
@@ -548,12 +588,20 @@ export default {
       switch (row.deviceBrand) {
         case 1:
           return "霍尼韦尔";
+        case 2:
+          return "得利捷";
+        case 3:
+          return "康耐视";
+        case 4:
+          return "华睿";
         case 11:
           return "马头";
         case 12:
           return "博世";
         case 21:
           return "Anyload";
+        case 22:
+          return "顺展";
  
       }
     },

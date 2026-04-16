@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Ctp0600P.Client.Protocols.BoltGun.Models;
 
-namespace Ctp0600P.Client.Protocols.BoltGun.Models
+public class BoltGunResponse
 {
-    public class BoltGunResponse
-    {
-        public bool Result { get; set; }
-        public string Reason { get; set; }
-    }
+    public bool Result { get; set; }
+    public string Reason { get; set; }
 }

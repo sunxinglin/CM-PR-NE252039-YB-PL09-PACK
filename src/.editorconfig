@@ -1,4 +1,105 @@
-﻿[*.cs]
+﻿[*]
+charset = utf-8
+# 换行符使用 CRLF（Windows 风格）。可用值： lf / crlf / cr
+end_of_line = crlf
+# 文件末尾确保有一个换行符
+insert_final_newline = true
+# 保存时移除行尾多余空白字符
+trim_trailing_whitespace = true
+# 缩进使用空格。可用值： space / tab
+indent_style = space
+# 缩进宽度为 4（当 indent_style=space 时，就是 4 个空格）。可用值：正整数（如 2 / 4 / 8 ），以及 tab （表示与 tab 宽度一致）
+indent_size = 4
+# 建议/约束最大行宽为 140（是否“强制”取决于 IDE/格式化器是否使用它）。可用值：正整数，或 off （关闭行宽限制）
+max_line_length = 140
 
-# CA1051: 不要声明可见实例字段
+
+[*.cs]
+# 设置所有分析器规则的默认严重级别。可用值： none / silent / suggestion / warning / error
+dotnet_analyzer_diagnostic.severity =  suggestion
+# 把“无用 using”提升为警告
+dotnet_diagnostic.IDE0005.severity = warning
+
+# CA1051: 不要声明可见实例字段。
 dotnet_diagnostic.CA1051.severity = none
+
+# var 使用偏好
+# 内置类型（如 int / string ）倾向用 var
+csharp_style_var_for_built_in_types = true:suggestion
+# 当右侧表达式类型显而易见时倾向用 var （如 var x = new Foo(); ）
+csharp_style_var_when_type_is_apparent = true:suggestion
+# 其它情况下（类型不明显）不倾向用 var
+csharp_style_var_elsewhere = false:suggestion
+
+# this. 偏好设置：不强制/不偏好写 this. （例如偏好 Foo 而不是 this.Foo ）
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+dotnet_style_qualification_for_method = false:suggestion
+dotnet_style_qualification_for_event = false:suggestion
+
+# using 指令排序
+# using System... 放在其它 using 之前
+dotnet_sort_system_directives_first = true
+# using 分组之间用空行分隔（例如 System 一组、其它命名空间一组）
+dotnet_separate_import_directive_groups = true
+
+# 更现代的写法偏好
+# 偏好对象初始化器： new Foo { A = 1 }
+dotnet_style_object_initializer = true:suggestion
+# 偏好集合初始化器： new List<int> { 1, 2, 3 }
+dotnet_style_collection_initializer = true:suggestion
+# 偏好自动属性而不是只有简单 get/set 的“带字段属性”
+dotnet_style_prefer_auto_properties = true:suggestion
+# 偏好空条件运算符： a?.B （相对 a == null ? null : a.B ）
+dotnet_style_null_propagation = true:suggestion
+# 偏好 ?? 合并： a ?? b （相对 a != null ? a : b ）
+dotnet_style_coalesce_expression = true:suggestion
+
+# 表达式体偏好
+# 方法不偏好写成表达式体： int M() => 1;
+csharp_style_expression_bodied_methods = false:silent
+# 属性偏好表达式体： int P => 1;
+csharp_style_expression_bodied_properties = true:silent
+
+# 私有字段的命名规范：_camelCase
+# dotnet_naming_symbols.<symbolsName>... ：定义“哪些符号”
+# 符号集合 private_fields 包含 kind 为 field 的符号。可用值：field / property / method / event / interface / class / struct / enum / delegate / namespace 等（可以逗号分隔写多个）
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+# 只包含 private 可访问性的符号。可用值：private / protected / internal / protected_internal / private_protected / public / local（可以逗号分隔写多个）
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+# dotnet_naming_style.<styleName>... ：定义“长什么样”
+# 风格 underscore_camel_case 必须以下划线开头。可用值：任意字符串(也可以配 required_suffix 做后缀规则)
+dotnet_naming_style.underscore_camel_case.required_prefix = _
+# dotnet_naming_style.underscore_camel_case.required_suffix = 
+# 前缀后面的主体使用 camelCase。可用值： pascal_case / camel_case / first_word_upper / all_upper / all_lower
+dotnet_naming_style.underscore_camel_case.capitalization = camel_case
+
+# 把“哪些符号”绑定到“风格”，并给严重级别
+# 这条命名规则基于“符号规范（symbol spec）”来匹配（这是命名规则系统的固定写法之一）
+dotnet_naming_rule.private_fields_should_be_underscore.rule_kind = symbol_specification
+# 把这条规则应用到 private_fields 这个符号集合。可用值：填写你定义过的 <symbolsName>
+dotnet_naming_rule.private_fields_should_be_underscore.symbols = private_fields
+# 匹配到的符号应遵循 underscore_camel_case 风格。可用值：填写你定义过的 <styleName>
+dotnet_naming_rule.private_fields_should_be_underscore.style = underscore_camel_case
+# 不符合时给 suggestion 提示。可用值： none / silent / suggestion / warning / error
+dotnet_naming_rule.private_fields_should_be_underscore.severity = suggestion
+
+# 接口：I 前缀 + PascalCase
+# 符号集合 interfaces 只匹配 interface。可用值：同上 kinds
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+
+# 接口名必须以 I 开头。可用值：任意字符串
+dotnet_naming_style.interface_i_pascal.required_prefix = I
+# 主体使用 PascalCase（例如 IOrderService ）。可用值：同上 capitalization
+dotnet_naming_style.interface_i_pascal.capitalization = pascal_case
+
+# 把"哪些符号"绑定到"风格"，并给严重级别
+# 这条命名规则基于"符号规范（symbol spec）"来匹配（这是命名规则系统的固定写法之一）
+dotnet_naming_rule.interfaces_should_be_i_pascal.rule_kind = symbol_specification
+# 把这条规则应用到 interfaces 这个符号集合。可用值：填写你定义过的 <symbolsName>
+dotnet_naming_rule.interfaces_should_be_i_pascal.symbols = interfaces
+# 匹配到的符号应遵循 interface_i_pascal 风格。可用值：填写你定义过的 <styleName>
+dotnet_naming_rule.interfaces_should_be_i_pascal.style = interface_i_pascal
+# 不符合时给 suggestion 提示。可用值： none / silent / suggestion / warning / error
+dotnet_naming_rule.interfaces_should_be_i_pascal.severity = suggestion

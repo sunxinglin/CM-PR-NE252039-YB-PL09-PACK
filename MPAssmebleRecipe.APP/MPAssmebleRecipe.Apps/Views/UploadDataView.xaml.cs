@@ -14,43 +14,26 @@ namespace MPAssmebleRecipe.Apps.Views
     /// <summary>
     /// LogView.xaml 的交互逻辑
     /// </summary>
+    /// 
+ 
     public partial class UploadDataView : UserControl
     {
         private UploadDataViewModel _ViewModel;
         public IEventAggregator EventAggregator { get; }
         public UploadDataView(IEventAggregator eventAggregator)
         {
-            InitializeComponent();
-
-            this.Loaded += UploadDataView_Loaded;
-            UpLoadBtn.Click += UpLoadBtn_Click;
-
-            RegistMenus();
-
+            InitializeComponent();           
             EventAggregator = eventAggregator;
-            AppManager appManager = AppManager.GetInstance();
-            ChangUser(appManager.UserInfo);
+            this.Loaded += UploadDataView_Loaded;
             EventAggregator.GetEvent<UserInfoEvent>().Subscribe(user =>
             {
-                ChangUser(user);
+                PermissionController.UpdatePagePermissions(this, user);
             });
         }
 
 
 
-        private void RegistMenus()
-        {
-            List<RogerTech.AuthService.Models.Menu> menuList = new List<RogerTech.AuthService.Models.Menu>()
-            {
-                new RogerTech.AuthService.Models.Menu() { Page = "UploadDataView", SubPage = "",ElementName="重新上传" },         
-            };
-            RogerTech.AuthService.AuthService authService = new RogerTech.AuthService.AuthService();
-            foreach (var item in menuList)
-            {
-                authService.AddMenu(item);
-            }
-
-        }
+      
 
         /// <summary>
         /// 
@@ -60,6 +43,10 @@ namespace MPAssmebleRecipe.Apps.Views
         private void UploadDataView_Loaded(object sender, RoutedEventArgs e)
         {
             _ViewModel = DataContext as UploadDataViewModel;
+
+            PermissionController.RegisterPageControls(this);
+            AppManager appManager = AppManager.GetInstance();
+            PermissionController.UpdatePagePermissions(this, appManager.UserInfo);
         }
 
         /// <summary>
@@ -123,26 +110,6 @@ namespace MPAssmebleRecipe.Apps.Views
             viewModel.ShowCodeDetail(code);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="user"></param>
-        private void ChangUser(UserInfo user)
-        {
-            if (user == null)
-            {
-                UpLoadBtn.IsEnabled = false;
-                return;
-            }
-            var addUser = user.UserMenus.Where(x => x.Page == "UploadDataView" && x.ElementName == "重新上传").FirstOrDefault();
-            if (addUser != null)
-            {
-                UpLoadBtn.IsEnabled = true;
-            }
-            else
-            {
-                UpLoadBtn.IsEnabled = false;
-            }
-        }
+      
     }
 }

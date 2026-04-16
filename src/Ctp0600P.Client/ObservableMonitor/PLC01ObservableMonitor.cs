@@ -1,39 +1,35 @@
-﻿using Ctp0600P.Client.PLC.PLC01;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
-namespace Ctp0600P.Client.ObservableMonitor
+using Ctp0600P.Client.PLC.PLC01;
+
+using Microsoft.Extensions.Logging;
+
+namespace Ctp0600P.Client.ObservableMonitor;
+
+public class PLC01ObservableMonitor
 {
-    public class PLC01ObservableMonitor
+    private readonly Subject<ScanContext> _contextSubject = new();
+    private readonly Subject<DateTimeOffset> _heartBeatedSubject = new();
+
+    public IObservable<ScanContext> ContextSource { get; }
+
+    public IObservable<DateTimeOffset> HeartBeatAckedAt { get; }
+
+    public PLC01ObservableMonitor(ILoggerFactory loggerFactory)
     {
-        private Subject<ScanContext> _contextSubject = new();
-        private Subject<DateTimeOffset> _heartbeatedSubject = new();
+        ContextSource = _contextSubject.AsObservable();
+        HeartBeatAckedAt = _heartBeatedSubject.AsObservable();
+    }
 
-        private IObservable<ScanContext> _obsContextSource;
-        private IObservable<DateTimeOffset> _observableHeartbeatSubject;
+    public void OnNextHearted(DateTimeOffset dt)
+    {
+        _heartBeatedSubject.OnNext(dt);
+    }
 
-        public PLC01ObservableMonitor(ILoggerFactory loggerFactory)
-        {
-            this._obsContextSource = _contextSubject.AsObservable();
-            this._observableHeartbeatSubject = _heartbeatedSubject.AsObservable();
-        }
-
-        public void OnNextHearted(DateTimeOffset dt)
-        {
-            this._heartbeatedSubject.OnNext(dt);
-        }
-
-        public void OnNextContext(ScanContext ctx)
-        {
-            this._contextSubject.OnNext(ctx);
-        }
-
-
-        public IObservable<DateTimeOffset> HeartBeatAckedAt => _observableHeartbeatSubject;
-        public IObservable<ScanContext> ContextSource => _obsContextSource;
-
-
+    public void OnNextContext(ScanContext ctx)
+    {
+        _contextSubject.OnNext(ctx);
     }
 }

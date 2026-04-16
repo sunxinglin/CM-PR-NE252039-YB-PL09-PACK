@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-	<Import Project="..\.paket\Paket.Restore.targets" />
 	<ItemGroup>
 	  <ProjectReference Include="..\Ctp0600P.Client.Services\Ctp0600P.Client.Services.csproj" />
 	</ItemGroup>
+    <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

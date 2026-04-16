@@ -25,18 +25,18 @@ namespace miReleaseSfcByOrder
         {
             string modCode = string.Empty;
             Strb_Log = new StringBuilder();
-            int qty = 1;
+            int qty = 0;
             string order = string.Empty;
-            //if (objs != null && objs.Count == 2)
-            //{
-            //    qty = int.Parse(objs[0].ToString());
-            //    order = objs[1].ToString();
-            //}
-            //else
-            //{
-            //    txtFile.WriteFile(SectionNamePath,"Invalid input params");
-            //    return null;
-            //}
+            if (objs != null && objs.Count == 2)
+            {
+                qty = int.Parse(objs[0].ToString());
+                order = objs[1].ToString();
+            }
+            else
+            {
+                txtFile.WriteFile(SectionNamePath,"Invalid input params");
+                return null;
+            }
             List<object> ReturnResult = new List<object>();
             MesDataModel model = (MesDataModel)Model;
             MiReleaseSfcWithActivityServiceService webservice = new MiReleaseSfcWithActivityServiceService();
@@ -56,7 +56,7 @@ namespace miReleaseSfcByOrder
             Requst.modeProcessSFC = model.ReleaseSfcByOrderModeProcessSFCField;
 
             Requst.sfcQty = qty;
-            Requst.shopOrder = model.ShopOrderField;
+            Requst.shopOrder = order;
             miReleaseSfcWithActivityByShoporder.miReleaseSfcWithActivityByShoporder  Requst1 = new miReleaseSfcWithActivityByShoporder.miReleaseSfcWithActivityByShoporder();
             Requst1.ReleaseSfcWithActivityRequest = Requst;
             int retCode = 111;

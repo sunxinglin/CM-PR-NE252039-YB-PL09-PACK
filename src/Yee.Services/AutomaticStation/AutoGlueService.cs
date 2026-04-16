@@ -151,7 +151,7 @@ namespace Yee.Services.AutomaticStation
                 {
                     return resp.ToError(ResponseErrorType.上位机错误, 500, $"处理自动涂胶时存在配方类型不正确的项，请检查后重试").ToErrResult<IList<DcParamValue>, ServiceErrResponse>();
                 }
-                var GlueDatas = new List<Entitys.DBEntity.GlueDataSql>();
+                var GlueDatas = new List<GlueDataSql>();
                 foreach (var item in stationTask)
                 {
                     var glueFormulas = await _dbContext.Base_AutoStationTaskGlues.Where(w => w.StationTaskId == item.Id && !w.IsDeleted).ToListAsync();
@@ -210,8 +210,6 @@ namespace Yee.Services.AutomaticStation
                     glueInfo.PackPN = dto.PackCode;
                     glueInfo.StationCode = dto.StationCode;
                     glueInfo.Proc_StationTask_MainId = MainId;
-                    glueInfo.CreateTime = DateTime.Now;
-                    glueInfo.UpdateTime = DateTime.Now;
                     await _dbContext.AddAsync(glueInfo);
                 }
                 glueInfo.GlueDataJson = JsonConvert.SerializeObject(GlueDatas);
@@ -267,7 +265,7 @@ namespace Yee.Services.AutomaticStation
 
         public async Task<Response<IList<GlueDataSql>>> LoadGlueDataDetail(int dataId)
         {
-            var resp = new Response<IList<Yee.Entitys.DBEntity.GlueDataSql>>();
+            var resp = new Response<IList<GlueDataSql>>();
             try
             {
                 var data = await _dbContext.Proc_GluingInfos.FirstOrDefaultAsync(w => w.Id == dataId);
@@ -277,7 +275,7 @@ namespace Yee.Services.AutomaticStation
                     resp.Message = $"记录未找到";
                     return resp;
                 }
-                var json = JsonConvert.DeserializeObject<IList<Yee.Entitys.DBEntity.GlueDataSql>>(data.GlueDataJson);
+                var json = JsonConvert.DeserializeObject<IList<GlueDataSql>>(data.GlueDataJson);
                 resp.Result = json;
             }
             catch (Exception ex)
@@ -308,7 +306,7 @@ namespace Yee.Services.AutomaticStation
                     resp.Message = $"记录未找到";
                     return resp;
                 }
-                var json = JsonConvert.DeserializeObject<IList<Yee.Entitys.DBEntity.GlueDataSql>>(data.GlueDataJson);
+                var json = JsonConvert.DeserializeObject<IList<GlueDataSql>>(data.GlueDataJson);
                 var dcparams = json.Select(s => new DcParamValue { DataType = ValueTypeEnum.NUMBER, ParamValue = s.Value.ToString(), UpMesCode = s.UploadMesCode }).ToList();
                 var records = await _dbContext.Proc_StationTask_Records.Where(w => w.Proc_StationTask_MainId == main.Id).ToListAsync();
                 foreach (var item in records)

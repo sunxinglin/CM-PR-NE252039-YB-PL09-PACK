@@ -1,13 +1,16 @@
-﻿
-using Ctp0600P.Client.Command.NoticeHelp.Enum;
-using Ctp0600P.Client.Command.NoticeHelp.Handle;
-using Ctp0600P.Client.Protocols;
-using FutureTech.Mvvm;
-using MediatR;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
+using Ctp0600P.Client.Command.NoticeHelp.Enum;
+using Ctp0600P.Client.Command.NoticeHelp.Handle;
+using Ctp0600P.Client.Protocols;
+
+using FutureTech.Mvvm;
+
+using MediatR;
+
 using Yee.Entitys.DTOS;
 
 namespace Ctp0600P.Client.ViewModels

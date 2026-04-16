@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ctp0600P.Shared
+﻿namespace Ctp0600P.Shared
 {
     /// <summary>
     /// 软件的静态配置

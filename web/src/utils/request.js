@@ -58,15 +58,35 @@ service.interceptors.response.use(
 		console.log( response);
 		
 		const res = response.data
+
+		if (res instanceof Blob) {
+			if (res.type && res.type.indexOf("application/json") > -1) {
+				let reader = new FileReader()
+				reader.readAsText(res, 'utf-8')
+				reader.onload = e => {
+					let readerRes = reader.result
+					let parseObj = {}
+					parseObj = JSON.parse(readerRes)
+					Message({
+						message: parseObj.message,
+						type: 'error',
+						duration: 5 * 1000
+					})
+				}
+
+				return Promise.reject('error');
+			}
+			return res
+		}
 		
 		if (res.code == undefined) {
 			if (res.type=="application/json") {
 				let reader = new FileReader()
                     reader.readAsText(res, 'utf-8')
                     reader.onload = e => {
-                        let readerres = reader.result
+                        let readerRes = reader.result
                         let parseObj = {}
-                        parseObj = JSON.parse(readerres)
+                        parseObj = JSON.parse(readerRes)
                         Message({
 							message: parseObj.message,
 							type: 'error',
@@ -83,7 +103,6 @@ service.interceptors.response.use(
 
 				return res.data
 			} else {
-				console.log(1111111);
 
 				Message({
 					message: res.message,
@@ -94,9 +113,6 @@ service.interceptors.response.use(
 			}
 		} else {
 
-			/**
-			 * code为非200是抛错 可结合自己业务进行修改
-			 */
 			const res = response.data
 			
 			if (res.code !== 200) {
@@ -129,7 +145,34 @@ service.interceptors.response.use(
 		}
 	},
 	error => {
-	
+		const resp = error && error.response
+		const data = resp && resp.data
+
+		if (data instanceof Blob && data.type && data.type.indexOf('application/json') > -1) {
+			let reader = new FileReader()
+			reader.readAsText(data, 'utf-8')
+			reader.onload = e => {
+				let readerres = reader.result
+				let parseObj = {}
+				parseObj = JSON.parse(readerres)
+				Message({
+					message: parseObj.message,
+					type: 'error',
+					duration: 5 * 1000
+				})
+			}
+			return Promise.reject(error)
+		}
+
+		if (data && (data.message || data.msg)) {
+			Message({
+				message: data.message || data.msg,
+				type: 'error',
+				duration: 5 * 1000
+			})
+			return Promise.reject(error)
+		}
+
 		Message({
 			message: '请先启动接口站，再刷新本页面，异常详情：' + error.message,
 			type: 'error',

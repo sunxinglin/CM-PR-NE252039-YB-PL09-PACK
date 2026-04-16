@@ -3,6 +3,7 @@ using System.Linq;
 using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 namespace Ctp0600P.Client.CommonHelper
 {
@@ -80,7 +81,7 @@ namespace Ctp0600P.Client.CommonHelper
                 {
                     var props = ni.GetIPProperties();
                     var result = props.UnicastAddresses
-                        .FirstOrDefault(x => x.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                        .FirstOrDefault(x => x.Address.AddressFamily == AddressFamily.InterNetwork);
                     
                     if (result != null)
                     {
@@ -91,7 +92,7 @@ namespace Ctp0600P.Client.CommonHelper
                 // 如果没找到，回退到DNS方式
                 string hostName = Dns.GetHostName();
                 IPHostEntry iPHostEntry = Dns.GetHostEntry(hostName);
-                var addressV = iPHostEntry.AddressList.FirstOrDefault(q => q.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                var addressV = iPHostEntry.AddressList.FirstOrDefault(q => q.AddressFamily == AddressFamily.InterNetwork);
                 if (addressV != null)
                     return addressV.ToString();
                 

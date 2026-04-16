@@ -1,70 +1,63 @@
-﻿using miFindCustomAndSfcData.miFindCustomAndSfcData;
 using RogerTech.Common;
-using RogerTech.Common.Models;
+using RogerTech.Share;
 using RogerTech.Tool;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RogerTech.BussnessCore.Bussness
 {
+    /// <summary>
+    /// 进站
+    /// </summary>
     public class PlcProcessMiFindCustomAndSfcData : PlcInProgressBase
     {
-        MesInterface MesInterface;
-        protected string StationName = ConfigurationManager.AppSettings["StationName"];
+        private readonly MesInterface _mesInterface;
         public PlcProcessMiFindCustomAndSfcData(string groupName, MesInterface mesInterface) : base(groupName, mesInterface)
         {
-            this.MesInterface= mesInterface;
+            _mesInterface = mesInterface;
         }
 
-        public override void Excute(Group group)
+        public override void Execute(Group group)
         {
-
-            base.Excute(group);
+            base.Execute(group);
             Task.Run(() => { DbContext.Info("", $"收到plc请求值StartSignal：[0->1]", 0, PlcGroup.GroupName); });
             WriteFinishSignal(true);
             StringBuilder message = new StringBuilder();
             string sfc = string.Empty;
-            //  var dbData = DbContext.GetInstance();
-            BussnessUtility bussness = BussnessUtility.GetInstanse();
-            string productId = " ";
-            List<string> cellsns = new List<string>();
+            BussnessUtility business =  BussnessUtility.GetInstance();
             int resultCode = 30001;
             try
             {
                 #region Tag获取和数据校验
-                Tag sfcT = group.GetTag("SFC");
-                if (sfcT == null) OnTagNullError("SFC", group.GroupName);
-                sfc = sfcT.Result.Value.ToString();
-                if (sfc == null)
+                if (!TryGetRequiredStringTagValue(
+                        group,
+                        "SFC",
+                        message,
+                        ref resultCode,
+                        Convert.ToInt16(ErrorCode.AutomaticLabelingStation.变量读取异常),
+                        Convert.ToInt16(ErrorCode.AutomaticLabelingStation.传值为空),
+                        "SFC变量读取异常",
+                        "绑定进站失败:传输的Pack码为空",
+                        out sfc))
                 {
-                    message.Append($"绑定出站失败:传输的模组码为空");
-                    WriteResult(resultCode);
                     return;
                 }
-                List<object> inputs = new List<object>();
-                inputs.Add(sfc);
-                List<UploadData> uploadDatas = new List<UploadData>();
-                List<UploadData> localDatas = new List<UploadData>();
 
-                List<object> output = bussness.MesInvoke(inputs, MesInterface);
-
-
-                if (DbContext.GetInstance().Queryable<UploadData>().AS("UploadData").Where(p => p.SFC.Contains(productId)).Count() > 0)
+                //空循环模式
+                if (business.bMesSimulation)
                 {
-                    DbContext.GetInstance().Updateable<UploadData>()
-                                           .AS("UploadData")
-                                           .SetColumns(u => u.IsReupload == true)
-                                           .Where(u => u.SFC == sfc)
-                                           .ExecuteCommand();
+                    resultCode = 0;
+                    return;
                 }
 
-                DbContext.GetInstance().Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
-                DbContext.GetInstance().Insertable(localDatas).AS("LocalData").ExecuteCommand();
-                if ((int)(output[0]) == 0)
+                var db = DbContext.GetInstance();
+                List<object> inputs = new List<object> { sfc };
+                List<object> output = business.MesInvoke(inputs, _mesInterface);
+
+                // 根据MES返回码决定最终写回PLC的结果码和日志信息
+                if ((int)output[0] == 0)
                 {
                     resultCode = (int)output[0];
                     message.Append("调用mes接口[MiFindCustomAndSfcData]进站成功");
@@ -73,7 +66,6 @@ namespace RogerTech.BussnessCore.Bussness
                 {
                     resultCode = (int)output[0];
                     message.Append($"调用mes接口[MiFindCustomAndSfcData]进站失败MES代码[{output[0]}] MES信息[{output[1]}]");
-                    return;
                 }
                 #endregion
             }
@@ -83,9 +75,10 @@ namespace RogerTech.BussnessCore.Bussness
             }
             finally
             {
+                // 统一回写PLC结果，并复位FinishSignal（表示本次处理结束）
                 WriteResult(resultCode);
                 WriteFinishSignal(false);
-                Task.Run(() => { DbContext.Info(productId, message.ToString(), resultCode, PlcGroup.GroupName); });
+                Task.Run(() => { DbContext.Info(sfc, message.ToString(), resultCode, PlcGroup.GroupName); });
             }
         }
     }

@@ -31,56 +31,28 @@ namespace MPAssmebleRecipe.Apps.Views
     /// </summary>
     public partial class MESCFGView : UserControl
     {
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            // 注册当前页面的所有按钮
+            PermissionController.RegisterPageControls(this);
+            AppManager appManager = AppManager.GetInstance();
+            PermissionController.UpdatePagePermissions(this, appManager.UserInfo);
+        }
         string path = Path.Combine(Directory.GetCurrentDirectory(), "MESCFG.ini");
-        BussnessUtility bussness = BussnessUtility.GetInstanse();
+        BussnessUtility bussness = BussnessUtility.GetInstance();
         public IEventAggregator EventAggregator { get; }
         public MESCFGView(IEventAggregator eventAggregator)
         {
-            InitializeComponent();
-
-    
-            RegistMenus();
-
+            InitializeComponent();           
             EventAggregator =eventAggregator;
-            AppManager appManager = AppManager.GetInstance();
-            ChangUser(appManager.UserInfo);
+            Loaded += OnPageLoaded;
             EventAggregator.GetEvent<UserInfoEvent>().Subscribe(user =>
             {
-                ChangUser(user);
+                PermissionController.UpdatePagePermissions(this, user);
             });
-
         }
-        private void RegistMenus()
-        {
-            List<RogerTech.AuthService.Models.Menu> menuList = new List<RogerTech.AuthService.Models.Menu>()
-            {
-                new RogerTech.AuthService.Models.Menu() { Page = "MESCFGView", SubPage = "",ElementName="保存" },
-            };
-            RogerTech.AuthService.AuthService authService = new RogerTech.AuthService.AuthService();
-            foreach (var item in menuList)
-            {
-                authService.AddMenu(item);
-            }
-
-        }
-        private void ChangUser(UserInfo user)
-        {
-            if (user == null)
-            {
-                Save.IsEnabled = false;
-                return;
-            }
-            var addUser = user.UserMenus.Where(x => x.Page == "MESCFGView" && x.ElementName == "保存").FirstOrDefault();
-            if (addUser != null)
-            {
-                Save.IsEnabled = true;
-            }
-            else
-            {
-                Save.IsEnabled = false;
-            }
-        }
-
+     
+      
         private void SelectionChanged(object sender, EventArgs e)
         {
             NameGrid.Children.Clear();

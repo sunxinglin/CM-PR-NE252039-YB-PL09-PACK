@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Yee.Common.Library
+﻿namespace Yee.Common.Library
 {
     /// <summary>
     /// 人工输入类型枚举

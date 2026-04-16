@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using RogerTech.Common.AuthService;
 
 namespace RogerTech.AuthService
 {
@@ -348,5 +349,14 @@ namespace RogerTech.AuthService
             return false;
         }
         #endregion
+
+
+
+
+
+
+
+
+
     }
 } 

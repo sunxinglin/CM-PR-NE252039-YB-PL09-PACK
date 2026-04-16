@@ -1,9 +1,5 @@
-﻿using Catl.HostComputer.CommonServices.Mes;
-using Ctp0600P.Shared;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.DependencyInjection;
 using TimedTask.ClearHisData;
-using Yee.Entitys.DBEntity.ProductionRecords;
+
 using Yee.Services.AGV;
 using Yee.Services.AlarmMgmt;
 using Yee.Services.AutomaticStation;
@@ -46,6 +42,8 @@ public static class AddAppServiceCollectionExtensions
         services.AddScoped<Proc_StationTask_Main_StatusQueryService>();
         services.AddScoped<AGVService>();
         services.AddScoped<IAGVResolver, AGVService>();
+        services.AddScoped<StationTaskTightenByImageService>();
+        services.AddScoped<Proc_outerCodeCheckRecordService>();
 
         services.AddScoped<HistoryData_APIService>();
         services.AddSingleton<IHistoryDataResolver, HistoryDataService>();
@@ -76,6 +74,7 @@ public static class AddAppServiceCollectionExtensions
         //自动站
         services.AddScoped<AutomicCommonService>();
         services.AddScoped<AutoTightenService>();
+        services.AddScoped<ExternalAutoTightenDataService>();
         services.AddScoped<AutoGlueService>();
         services.AddScoped<ModuleInBoxService>();
         services.AddScoped<AutoPressureService>();

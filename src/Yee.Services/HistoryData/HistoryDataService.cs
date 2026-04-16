@@ -1,22 +1,11 @@
-﻿using AsZero.Core.Entities;
-using AsZero.Core.Services.Repos;
-using AsZero.Core.Services.Sys_Logs;
+﻿using AsZero.Core.Services.Repos;
 using AsZero.DbContexts;
-using Ctp0600P.Shared;
-using DocumentFormat.OpenXml.Spreadsheet;
+
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using TimedTask.ClearHisData;
-using Yee.Entitys.CATL;
-using Yee.Entitys.DBEntity;
-using Yee.Entitys.Production;
-using Yee.Services.BaseData;
-using Yee.Services.Production;
-using Yee.Services.Request;
+
+using Yee.Common.Library.CommonEnum;
 
 namespace Yee.Services.HistoryData
 {
@@ -40,7 +29,7 @@ namespace Yee.Services.HistoryData
                 DateTimeOffset hisDataTime = DateTime.Now.AddDays(0 - days).Date;
                 var timeSpan_Q = hisDataTime.ToUnixTimeMilliseconds();
                 //Timespan 在涂胶和上盖拧紧数据保存中未赋值 保存是默认保存0值 导致清除数据时 会清除当天Timespan=0的数据 严重影响生产！！！！！！！！！！
-                var entityList = await _dBContext.Proc_StationTask_Mains.Where(d => d.Status == Common.Library.CommonEnum.StationTaskStatusEnum.已完成 && ((d.Timespan < timeSpan_Q)&&d.Timespan!=0)).ToListAsync();
+                var entityList = await _dBContext.Proc_StationTask_Mains.Where(d => d.Status == StationTaskStatusEnum.已完成 && ((d.Timespan < timeSpan_Q)&&d.Timespan!=0)).ToListAsync();
                 if (entityList != null && entityList.Count > 0)
                 {
                     result = await DeleteRealTimeStationTaskRecordAsync(entityList.Select(m => m.Id).ToList());

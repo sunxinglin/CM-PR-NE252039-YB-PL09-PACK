@@ -1,6 +1,6 @@
-﻿using Ctp0600P.Client.PLC.Common;
-using FutureTech.Protocols;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+
+using Ctp0600P.Client.PLC.Common;
 
 namespace Ctp0600P.Client.PLC.PLC01.Models
 {

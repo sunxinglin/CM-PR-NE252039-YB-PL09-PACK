@@ -1,9 +1,9 @@
 ﻿using AsZero.Core.Services.Repos;
 using AsZero.DbContexts;
-using FutureTech.Dal.Repository;
+
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using System.Text.RegularExpressions;
+
+using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.DBEntity;
 using Yee.Entitys.DBEntity.ProductionRecords;
 using Yee.Entitys.DTOS;
@@ -56,7 +56,7 @@ namespace Yee.Services.Production
                         PackCode = entity.PackCode ?? string.Empty,
                         StationId = entity.StationId,
                         StepId = entity.StepId,
-                        Status = Common.Library.CommonEnum.StationTaskStatusEnum.已完成,
+                        Status = StationTaskStatusEnum.已完成,
                         UseAGVCode = entity.AGVCode
 
                     };
@@ -64,7 +64,7 @@ namespace Yee.Services.Production
                 }
                 else
                 {
-                    taskmain.Status = Common.Library.CommonEnum.StationTaskStatusEnum.已完成;
+                    taskmain.Status = StationTaskStatusEnum.已完成;
                     _dBContext.Update(taskmain);
                 }
                 await _dBContext.SaveChangesAsync();
@@ -275,13 +275,13 @@ namespace Yee.Services.Production
                 var op210Ids = await _dBContext.Base_Steps.Where(e => e.Code == "OP210").Select(e => e.Id).ToArrayAsync();
 
 
-                var moduleInBoxCompletePackQuery = _dBContext.Proc_StationTask_Mains.Where(e => e.IsDeleted == false && op090Ids.Contains(e.StepId ?? 0) && e.Status == Common.Library.CommonEnum.StationTaskStatusEnum.已完成);
+                var moduleInBoxCompletePackQuery = _dBContext.Proc_StationTask_Mains.Where(e => e.IsDeleted == false && op090Ids.Contains(e.StepId ?? 0) && e.Status == StationTaskStatusEnum.已完成);
 
-                var completePackQuery = _dBContext.Proc_StationTask_Mains.Where(e => e.IsDeleted == false && op210Ids.Contains(e.StepId ?? 0) && e.Status == Common.Library.CommonEnum.StationTaskStatusEnum.已完成);
+                var completePackQuery = _dBContext.Proc_StationTask_Mains.Where(e => e.IsDeleted == false && op210Ids.Contains(e.StepId ?? 0) && e.Status == StationTaskStatusEnum.已完成);
 
-                var moduleInBoxTimeOutPackQuery = _dBContext.Proc_StationTask_CheckTimeouts.Where(e => e.IsDeleted == false && e.TimeName == "涂胶入箱超时" && e.Status == Common.Library.CommonEnum.StationTaskStatusEnum.已完成 && e.Pass == false);
+                var moduleInBoxTimeOutPackQuery = _dBContext.Proc_StationTask_CheckTimeouts.Where(e => e.IsDeleted == false && e.TimeName == "涂胶入箱超时" && e.Status == StationTaskStatusEnum.已完成 && e.Pass == false);
 
-                var screwTimeOutPackQuery = _dBContext.Proc_StationTask_CheckTimeouts.Where(e => e.IsDeleted == false && e.TimeName == "涂胶模组拧紧时长" && e.Status == Common.Library.CommonEnum.StationTaskStatusEnum.已完成 && e.Pass == false);
+                var screwTimeOutPackQuery = _dBContext.Proc_StationTask_CheckTimeouts.Where(e => e.IsDeleted == false && e.TimeName == "涂胶模组拧紧时长" && e.Status == StationTaskStatusEnum.已完成 && e.Pass == false);
 
                 #region 今日数据统计
 

@@ -1,0 +1,2 @@
+TagName,Protocol,IP,DataType,DbNumber,StartAddress,Length,Bit,MesName,MesDataType,LowerLimit,UpperLimit,IsChecked,IsUpload
+HeartBeat,SIEMENSS7,172.16.21.2,BIT,200,5000,1,0,Heartbeat,BOOLEAN,100,100,FALSE,FALSE

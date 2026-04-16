@@ -2,18 +2,24 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+
 using AsZero.Core.Entities;
 using AsZero.Core.Services.Auth;
+
 using Ctp0600P.Client.CommonHelper;
 using Ctp0600P.Client.Protocols;
 using Ctp0600P.Client.Views;
 using Ctp0600P.Client.Views.Pages;
 using Ctp0600P.Client.Views.Windows;
 using Ctp0600P.Shared;
+
 using MediatR;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+
 using Reactive.Bindings;
+
 using Yee.Entitys.AlarmMgmt;
 
 namespace Ctp0600P.Client.ViewModels
@@ -33,7 +39,7 @@ namespace Ctp0600P.Client.ViewModels
             this.AppVersion = new ReactiveProperty<string>();
             this.IPAddress = new ReactiveProperty<string>(ClientHelper.GetIpAddress());
             this.AppTitle = new ReactiveProperty<string>(_stationSetting.Project);
-            this.StationTitle = new ReactiveProperty<string>(_stationSetting.StationCode);
+            this.StationTitle = new ReactiveProperty<string>(_stationSetting.StationCode + "—" + _stationSetting.StationName);
 
             this.CurrentStation = new ReactiveProperty<string>(_stationSetting.StationCode);
             this.EquipId = new ReactiveProperty<string>();
@@ -121,7 +127,7 @@ namespace Ctp0600P.Client.ViewModels
                                 //throw;
                             }
                         };
-                        ((CheckPowerViewModel)wincheck.DataContext).ModleName = "参数设置";
+                        ((CheckPowerViewModel)wincheck.DataContext).ModuleName = "参数设置";
                         wincheck.Show();
                     }
                 }
@@ -143,7 +149,7 @@ namespace Ctp0600P.Client.ViewModels
                                 //throw;
                             }
                         };
-                        ((CheckPowerViewModel)wincheck.DataContext).ModleName = "调试工具";
+                        ((CheckPowerViewModel)wincheck.DataContext).ModuleName = "调试工具";
                         wincheck.Show();
                     }
                 }

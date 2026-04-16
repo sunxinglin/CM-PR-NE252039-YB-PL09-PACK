@@ -1,4 +1,7 @@
-﻿using Ctp0600P.Client.CatlMes;
+﻿using System;
+using System.Reflection;
+
+using Ctp0600P.Client.CatlMes;
 using Ctp0600P.Client.IO;
 using Ctp0600P.Client.UserControls;
 using Ctp0600P.Client.UserControls.AGV;
@@ -11,10 +14,9 @@ using Ctp0600P.Client.Views.PopupPages;
 using Ctp0600P.Client.Views.StationTaskPages;
 using Ctp0600P.Client.Views.Windows;
 using Ctp0600P.Shared;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
-using System.Reflection;
 
 namespace Ctp0600P.Client.Views
 {

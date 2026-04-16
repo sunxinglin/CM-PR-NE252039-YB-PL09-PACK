@@ -1,6 +1,5 @@
 ﻿using Catl.WebServices.MiFindCustomAndSfcDataServiceService;
 
-
 namespace Ctp0600P.Shared.CatlMes
 {
    

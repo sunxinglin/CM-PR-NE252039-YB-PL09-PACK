@@ -1,22 +1,7 @@
-﻿using AsZero.Core.Services.Messages;
-using AsZero.DbContexts;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using Ctp0600P.Client.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+using Ctp0600P.Client.ViewModels;
 
 namespace Ctp0600P.Client.Views.Pages
 {

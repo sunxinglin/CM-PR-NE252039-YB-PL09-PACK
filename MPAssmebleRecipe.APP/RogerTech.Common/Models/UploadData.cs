@@ -1,7 +1,6 @@
-﻿using SqlSugar;
-using System;
+﻿using System;
 using RogerTech.Tool;
-using static log4net.Appender.RollingFileAppender;
+using SqlSugar;
 using SqlSugar.DbConvert;
 
 namespace RogerTech.Common.Models

@@ -1,6 +1,9 @@
-﻿using AsZero.DbContexts;
+using AsZero.DbContexts;
+
 using Microsoft.EntityFrameworkCore;
+
 using OfficeOpenXml;
+
 using Yee.Common.Library.Extensions;
 using Yee.Entitys.DBEntity;
 using Yee.Entitys.DTOS;
@@ -15,56 +18,59 @@ namespace Yee.Services.ProductionRecord
         {
             this.dbContext = dbContext;
         }
-        public async Task<(List<Proc_StationTask_BlotGunDetail>, int)> GetBlotGunDetail(BlotGunDetailDto dto)
+        public async Task<(List<Proc_StationTask_BlotGunDetail> Items, int TotalCount)> GetBlotGunDetail(BlotGunDetailDto dto)
         {
-            int totalCount = 0;
-            var query = this.dbContext.Proc_StationTask_BlotGunDetails.Where(o => !o.IsDeleted);
+            var query = dbContext.Proc_StationTask_BlotGunDetails.Where(o => !o.IsDeleted);
 
-            if (dto.PackPN != null && dto.PackPN != string.Empty)
-            {
+            if (!string.IsNullOrWhiteSpace(dto.PackPN))
                 query = query.Where(o => o.PackPN == dto.PackPN);
-            }
-            if (dto.StationCode != null && dto.StationCode != string.Empty)
+
+            if (!string.IsNullOrWhiteSpace(dto.StationCode))
             {
-                var station = await this.dbContext.Base_Stations.Where(o => !o.IsDeleted && o.Code == dto.StationCode).FirstOrDefaultAsync();
-                if (station == null)
-                {
-                    query = query.Where(o => o.StationId == 0);
-                }
-                else
-                {
-                    query = query.Where(o => o.StationId == station.Id);
-                }
+                var stationId = await dbContext.Base_Stations
+                    .Where(o => !o.IsDeleted && o.Code == dto.StationCode)
+                    .Select(o => o.Id)
+                    .FirstOrDefaultAsync();
+
+                query = query.Where(o => o.StationId == stationId);
             }
 
-            if (dto.ResultIsOK == 1)
+            query = dto.ResultIsOK switch
             {
-                query = query.Where(o => o.ResultIsOK == false);
-            }
-            else if (dto.ResultIsOK == 2)
+                1 => query.Where(o => !o.ResultIsOK),
+                2 => query.Where(o => o.ResultIsOK),
+                _ => query
+            };
+
+            if (dto.BeginTime.HasValue)
             {
-                query = query.Where(o => o.ResultIsOK == true);
+                var beginDate = dto.BeginTime.Value.Date;
+                query = query.Where(o => o.CreateTime >= beginDate);
             }
 
-            if (dto.EndTime != null)
+            if (dto.EndTime.HasValue)
             {
-                query = query.Where(o => o.CreateTime.Value.Date <= dto.EndTime.Value.Date);
+                var endDate = dto.EndTime.Value.Date.AddDays(1);
+                query = query.Where(o => o.CreateTime < endDate);
             }
 
-            if (dto.BeginTime != null)
-            {
-                query = query.Where(o => o.CreateTime.Value.Date >= dto.BeginTime.Value.Date);
-            }
-            totalCount = query.Count();
-            query = query.Skip((dto.Page - 1) * dto.Limit).Take(dto.Limit);
+            var totalCount = await query.CountAsync();
 
-            query = query.Include(o => o.CreateUser).Include(o => o.UpdateUser).Include(o => o.DeleteUser).Include(o => o.Base_ProResource)
-                .OrderByDescending(o => o.CreateTime);
-            query = query.Include(o => o.Proc_StationTask_BlotGun.StationTask_Record.Proc_StationTask_Main.Station)
+            query = query
+                .OrderByDescending(o => o.CreateTime)
+                .Skip((dto.Page - 1) * dto.Limit)
+                .Take(dto.Limit);
+
+            query = query
+                .Include(o => o.CreateUser)
+                .Include(o => o.UpdateUser)
+                .Include(o => o.DeleteUser)
+                .Include(o => o.Base_ProResource)
+                .Include(o => o.Proc_StationTask_BlotGun.StationTask_Record.Proc_StationTask_Main.Station)
                 .Include(o => o.Proc_StationTask_BlotGun.StationTask_Record.Proc_StationTask_Main.Step);
-            var result = await query.ToListAsync();
 
-            return (result, totalCount);
+            var items = await query.ToListAsync();
+            return (Items: items, TotalCount: totalCount);
         }
 
         /// <summary>
@@ -74,51 +80,46 @@ namespace Yee.Services.ProductionRecord
         /// <returns></returns>
         public async Task<List<Proc_StationTask_BlotGunDetail>> GetBlotGunDetails(BlotGunDetailDto dto)
         {
+            var query = dbContext.Proc_StationTask_BlotGunDetails.Where(o => !o.IsDeleted);
 
-            var query = this.dbContext.Proc_StationTask_BlotGunDetails.Where(o => !o.IsDeleted);
-
-            if (dto.PackPN != null && dto.PackPN != string.Empty)
-            {
+            if (!string.IsNullOrWhiteSpace(dto.PackPN))
                 query = query.Where(o => o.PackPN == dto.PackPN);
-            }
 
-            if (dto.StationCode != null && dto.StationCode != string.Empty)
+            if (!string.IsNullOrWhiteSpace(dto.StationCode))
             {
-                var station = await this.dbContext.Base_Stations.Where(o => !o.IsDeleted && o.Code == dto.StationCode).FirstOrDefaultAsync();
-                if (station == null)
-                {
-                    query = query.Where(o => o.StationId == 0);
+                var stationId = await dbContext.Base_Stations
+                    .Where(o => !o.IsDeleted && o.Code == dto.StationCode)
+                    .Select(o => o.Id)
+                    .FirstOrDefaultAsync();
 
-                }
-                else
-                {
-                    query = query.Where(o => o.StationId == station.Id);
-                }
+                query = query.Where(o => o.StationId == stationId);
             }
 
-            if (dto.ResultIsOK == 1)
+            query = dto.ResultIsOK switch
             {
-                query = query.Where(o => o.ResultIsOK ==  false);
-            }
-            else if (dto.ResultIsOK == 2)
+                1 => query.Where(o => !o.ResultIsOK),
+                2 => query.Where(o => o.ResultIsOK),
+                _ => query
+            };
+
+            if (dto.BeginTime.HasValue)
             {
-                query = query.Where(o => o.ResultIsOK == true);
+                var beginDate = dto.BeginTime.Value.Date;
+                query = query.Where(o => o.CreateTime >= beginDate);
             }
 
-            if (dto.EndTime != null)
+            if (dto.EndTime.HasValue)
             {
-                query = query.Where(o => o.CreateTime.Value.Date <= dto.EndTime.Value.Date);
+                var endDate = dto.EndTime.Value.Date.AddDays(1);
+                query = query.Where(o => o.CreateTime < endDate);
             }
 
-            if (dto.BeginTime != null)
-            {
-                query = query.Where(o => o.CreateTime.Value.Date >= dto.BeginTime.Value.Date);
-            }
-
-
-            query = query.Include(o => o.CreateUser).Include(o => o.UpdateUser).Include(o => o.DeleteUser).Include(o => o.Base_ProResource)
-                .OrderByDescending(o => o.CreateTime);
-            query = query.Include(o => o.Proc_StationTask_BlotGun.StationTask_Record.Proc_StationTask_Main.Station)
+            query = query
+                .Include(o => o.CreateUser)
+                .Include(o => o.UpdateUser)
+                .Include(o => o.DeleteUser)
+                .Include(o => o.Base_ProResource)
+                .Include(o => o.Proc_StationTask_BlotGun.StationTask_Record.Proc_StationTask_Main.Station)
                 .Include(o => o.Proc_StationTask_BlotGun.StationTask_Record.Proc_StationTask_Main.Step);
             var result = await query.ToListAsync();
 

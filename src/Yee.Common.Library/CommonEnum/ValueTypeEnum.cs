@@ -1,17 +1,15 @@
-﻿namespace Yee.Common.Library.CommonEnum
+﻿namespace Yee.Common.Library.CommonEnum;
+
+/// <summary>
+/// CATL MES 上传数据类型
+/// </summary>
+public enum ValueTypeEnum
 {
-    public enum ValueTypeEnum
-    {
-        /// <remarks/>
-        NUMBER,
+    NUMBER,
 
-        /// <remarks/>
-        TEXT,
+    TEXT,
 
-        /// <remarks/>
-        FORMULA,
+    FORMULA,
 
-        /// <remarks/>
-        BOOLEAN,
-    }
+    BOOLEAN
 }

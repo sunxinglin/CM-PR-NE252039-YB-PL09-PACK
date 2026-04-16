@@ -40,16 +40,6 @@
                 </StackPanel>
             </Button>
 
-            <Button  x:Name="删除管理关系" Style="{StaticResource MaterialDesignRaisedButton}"
-                    Command="{Binding DeleteRoleManageCommand}"
-                    Visibility="Hidden">
-                <StackPanel Orientation="Horizontal">
-                    <MaterialDesign:PackIcon Kind="AccountRemove" 
-                                           VerticalAlignment="Center"/>
-                    <TextBlock Text="删除管理关系" 
-                             Margin="4,0,0,0"/>
-                </StackPanel>
-            </Button>
         </StackPanel>
 
         <!-- 主内容区 -->

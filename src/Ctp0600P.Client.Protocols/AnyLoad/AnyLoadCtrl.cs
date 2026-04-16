@@ -1,13 +1,12 @@
-﻿using AsZero.Core.Services.Messages;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.IO.Ports;
-using System.Linq;
-using System.Net.Sockets;
+﻿using System.IO.Ports;
 using System.Text;
-using System.Threading.Tasks;
+
+using AsZero.Core.Services.Messages;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
 using Yee.Entitys.AlarmMgmt;
 using Yee.Entitys.Production;
 

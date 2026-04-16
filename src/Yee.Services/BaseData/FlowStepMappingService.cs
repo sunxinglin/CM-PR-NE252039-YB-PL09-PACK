@@ -1,6 +1,7 @@
 ﻿using AsZero.DbContexts;
-using FutureTech.Dal.Repository;
+
 using Microsoft.EntityFrameworkCore;
+
 using Yee.Entitys.Production;
 using Yee.Services.Request;
 

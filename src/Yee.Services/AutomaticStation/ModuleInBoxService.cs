@@ -1,10 +1,13 @@
 ﻿using AsZero.Core.Services.Repos;
 using AsZero.DbContexts;
-using Catl.WebServices.MICheckInventoryAttribute;
+
 using Itminus.FSharpExtensions;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.FSharp.Core;
+
 using Newtonsoft.Json;
+
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys;
 using Yee.Entitys.AutomaticStation;
@@ -133,7 +136,7 @@ namespace Yee.Services.AutomaticStation
                     return resp.ToError(ResponseErrorType.上位机错误, 500, $"工位{StationCode}未找到").ToErrResult<(IList<DcParamValue>, DateTime), ServiceErrResponse>();
                 }
 
-                var stationTask = await _dbContext.Base_StationTasks.FirstOrDefaultAsync(f => !f.IsDeleted && f.ProductId == product.Id && f.StepId == station.StepId && f.Type == Common.Library.CommonEnum.StationTaskTypeEnum.超时检测);
+                var stationTask = await _dbContext.Base_StationTasks.FirstOrDefaultAsync(f => !f.IsDeleted && f.ProductId == product.Id && f.StepId == station.StepId && f.Type == StationTaskTypeEnum.超时检测);
                 if (stationTask == null)
                 {
                     return (new List<DcParamValue>(), DateTime.Now).ToOkResult<(IList<DcParamValue>, DateTime), ServiceErrResponse>();

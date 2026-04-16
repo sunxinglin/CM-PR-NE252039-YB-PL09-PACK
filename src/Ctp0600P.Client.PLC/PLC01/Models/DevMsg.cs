@@ -1,5 +1,6 @@
-﻿using Ctp0600P.Client.PLC.Common;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+
+using Ctp0600P.Client.PLC.Common;
 
 namespace Ctp0600P.Client.PLC.PLC01.Models
 {
@@ -83,6 +84,16 @@ namespace Ctp0600P.Client.PLC.PLC01.Models
         /// 拧紧枪状态
         /// </summary>
         public DevMsg_TightenGunStatus TightenGunStatus;
+
+        [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 100)]
+        public byte[] Res8;
+
+        public DevMsg_LeakStart LeakStart;
+
+        [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 100)]
+        public byte[] Res9;
+
+        public DevMsg_LeakComplete LeakComplete;
 
     }
 }

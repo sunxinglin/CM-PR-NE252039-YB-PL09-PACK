@@ -2,15 +2,10 @@
 using AsZero.Core.Services.Repos;
 using AsZero.Core.Services.Sys_Logs;
 using AsZero.DbContexts;
-using DocumentFormat.OpenXml.Validation;
+
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Yee.Entitys.Production;
-using Yee.Services.Request;
 
 namespace Yee.Services.Production
 {

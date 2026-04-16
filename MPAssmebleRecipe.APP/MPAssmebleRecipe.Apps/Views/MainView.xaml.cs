@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -37,7 +39,7 @@ namespace MPAssmebleRecipe.Apps.Views
             regionManager = region;
             _vm = (MainViewModel)DataContext;
 
-            this.Loaded += OnLoaded;
+            this.Loaded += Form1_Load;
             this.Closing += OnClosing;
 
 
@@ -81,17 +83,26 @@ namespace MPAssmebleRecipe.Apps.Views
             //_vm.LoadModules.Execute();
             regionManager.Regions["ContentRegion"].RequestNavigate("LogView");
 
-            MouseMove += new MouseEventHandler((s, e) =>
+
+            MouseMove += new System.Windows.Input.MouseEventHandler((s, e) =>
             {
-                if (e.GetPosition(this).X - x > 10 || e.GetPosition(this).Y - y > 10)
+                if (Math.Abs(e.GetPosition(this).X - x) > 10 || Math.Abs(e.GetPosition(this).Y - y) > 10)
                 {
                     x = e.GetPosition(this).X;
-                    y = e.GetPosition(this).Y;
-
+                    y = e.GetPosition(this).Y;                
                     _vm.ResetAutoLogoutTimer();
                 }
             });
-            KeyDown += new KeyEventHandler((s, e) =>
+            KeyDown += new System.Windows.Input.KeyEventHandler((s, e) =>
+            {
+                _vm.ResetAutoLogoutTimer();
+            });
+            
+            MouseLeftButtonDown += new MouseButtonEventHandler((s, e) =>
+            {
+                _vm.ResetAutoLogoutTimer();
+            });
+            MouseRightButtonDown += new MouseButtonEventHandler((s, e) =>
             {
                 _vm.ResetAutoLogoutTimer();
             });
@@ -111,6 +122,60 @@ namespace MPAssmebleRecipe.Apps.Views
         
         private const int MouseMoveThreshold = 100; // 毫秒
 
+
+        /// <summary>
+        /// 用户模块
+        /// </summary>
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct Point
+        {
+            public int Xstate;
+            public int Ystate;
+            public Point(int x, int y)
+            {
+                this.Xstate = x;
+                this.Ystate = y;
+            }
+
+        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern bool GetCursorPos(out Point lpPoint);
+
+        Point curPoint = new Point();
+        DateTime curTime = DateTime.Now;
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            regionManager.Regions["ContentRegion"].RequestNavigate("LogView");
+            GetCursorPos(out curPoint);
+            Task.Factory.StartNew(() =>
+            {
+                while (true)
+                {
+                    try
+                    {
+
+                        while (true)
+                        {
+                            Point tempoint = new Point();
+                            GetCursorPos(out tempoint);
+
+                            if (Math.Abs(tempoint.Xstate - curPoint.Xstate) > 10 || Math.Abs(tempoint.Ystate - curPoint.Ystate) > 10)
+                            {                              
+                                    curPoint = tempoint;
+                                    curTime = DateTime.Now;
+                                    _vm.ResetAutoLogoutTimer();
+                            }        
+                        }
+                      
+                    }
+                    catch (Exception ex)
+                    {
+                       // errorlog.Error(ex.ToString());
+                    }
+                }
+            });
+        }
 
     }
 }

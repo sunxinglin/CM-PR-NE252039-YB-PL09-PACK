@@ -1,7 +1,4 @@
-﻿
-using Catl.WebServices.AssembleAndCollectDataForSfc;
-using Catl.WebServices.MICheckBOMInventory;
-using Catl.WebServices.MICheckSFCStatusEx;
+﻿using Catl.WebServices.AssembleAndCollectDataForSfc;
 
 namespace Ctp0600P.Shared.CatlMes
 {

@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
@@ -28,7 +29,7 @@ namespace Yee.Services.CatlMesInvoker
         {
             var cred = $"{User}:{Pass}";
             var base64String = Convert.ToBase64String(Encoding.ASCII.GetBytes(cred));
-            var authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", base64String);
+            var authorization = new AuthenticationHeaderValue("Basic", base64String);
             req.Headers.ExpectContinue = false;
             req.Headers.Authorization = authorization;
             return null;

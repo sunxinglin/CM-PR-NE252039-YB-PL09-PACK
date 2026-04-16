@@ -1,67 +1,92 @@
 ﻿using AsZero.Core.Services.Messages;
+
 using Ctp0600P.Client.PLC.Common;
 using Ctp0600P.Client.PLC.Context;
+
 using Itminus.Middlewares;
+
 using MediatR;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Ctp0600P.Client.PLC.PLC01.Middlewares
+namespace Ctp0600P.Client.PLC.PLC01.Middlewares;
+
+/// <summary>
+/// 客户端初始化
+/// </summary>
+public class DealClientInitialReqMiddleware : IWorkMiddleware<ScanContext>
 {
-    public class DealClientInitialReqMiddleware : IWorkMiddleware<ScanContext>
+    private readonly StationPLCContext _stationPLCContext;
+    private readonly IMediator _mediator;
+    private readonly IConfiguration _configuration;
+
+    public DealClientInitialReqMiddleware(ILogger<DealClientInitialReqMiddleware> logger, IMediator mediator,
+        StationPLCContext stationPLCContext, IConfiguration configuration)
     {
-        private readonly StationPLCContext _stationPLCContext;
-        private readonly IMediator _mediator;
-        private readonly IConfiguration _configuration;
+        _stationPLCContext = stationPLCContext;
+        _mediator = mediator;
+        _configuration = configuration;
+    }
 
-        public DealClientInitialReqMiddleware(ILogger<DealClientInitialReqMiddleware> logger, IMediator mediator, StationPLCContext stationPLCContext, IConfiguration configuration)
+    public async Task InvokeAsync(ScanContext context, WorkDelegate<ScanContext> next)
+    {
+        var mstReq = context.MstMsg.Status.HasFlag(MstMsg_GeneralStatus.InitialReq);
+        var devAck = context.DevMsg.Status.HasFlag(DevMsg_GeneralStatus.InitialAck);
+
+        var clientInitialReq = _stationPLCContext.Initial;
+
+        //请求初始化
+        if (clientInitialReq && !mstReq && !devAck)
         {
-            _stationPLCContext = stationPLCContext;
-            _mediator = mediator;
-            _configuration = configuration;
+            context.MstMsg.Status =
+                new MstMsg_GeneralStatusBuilder(context.MstMsg.Status).SetInitialReqOnOff(true).Build();
+
+            //发送日志消息
+            await _mediator.Publish(new UILogNotification(new LogMessage
+                { Content = $"[初始化]发起请求", Level = LogLevel.Information, Timestamp = DateTime.Now }));
         }
 
-        public async Task InvokeAsync(ScanContext context, WorkDelegate<ScanContext> next)
+        //PLC应答，客户端关闭请求
+        if (mstReq && devAck)
         {
-            var mstReq = context.MstMsg.Status.HasFlag(MstMsg_GeneralStatus.InitialReq);
-            var devAck = context.DevMsg.Status.HasFlag(DevMsg_GeneralStatus.InitialAck);
+            //清除客户端请求
+            _stationPLCContext.StationTightenStartReqs.Clear();
+            _stationPLCContext.LetGo = false;
 
-            var clientInitialReq = _stationPLCContext.Initial;
+            //清除拧紧开始信号
+            context.MstMsg.TightenStart.Flag =
+                new RequestFlagBuilder(context.MstMsg.TightenStart.Flag).RestAll().Build();
+            context.MstMsg.TightenStart.DeviceNo = 0;
+            context.MstMsg.TightenStart.DeviceBrand = 0;
+            context.MstMsg.TightenStart.ProgramNo = 0;
 
-            //请求初始化
-            if (clientInitialReq && !mstReq && !devAck)
-            {
-                context.MstMsg.Status = new MstMsg_GeneralStatusBuilder(context.MstMsg.Status).SetInitialReqOnOff(true).Build();
+            //清除拧紧完成确认信号
+            context.MstMsg.TightenComplete.Flag =
+                new ResponseFlagBuilder(context.MstMsg.TightenComplete.Flag).RestAll().Build();
 
-                //发送日志消息
-                await _mediator.Publish(new UILogNotification(new LogMessage { Content = $"[初始化]发起请求", Level = LogLevel.Information, Timestamp = DateTime.Now }));
-            }
+            //清除充气开始信号
+            context.MstMsg.LeakStart.Flag =
+                new RequestFlagBuilder(context.MstMsg.LeakStart.Flag).RestAll().Build();
+            context.MstMsg.LeakStart.LeakDuration = 0;
+            context.MstMsg.LeakStart.PressureDuration = 0;
+            context.MstMsg.LeakStart.LeakStress = 0;
+            context.MstMsg.LeakStart.PressureStress = 0;
 
-            //PLC应答，客户端关闭请求
-            if (mstReq && devAck)
-            {
-                //清除客户端请求
-                _stationPLCContext.StationTightenStartReqs.Clear();
-                _stationPLCContext.LetGo = false;
+            //清除充气完成确认信号
+            context.MstMsg.LeakComplete.Flag =
+                new ResponseFlagBuilder(context.MstMsg.LeakComplete.Flag).RestAll().Build();
 
-                //清除拧紧开始信号
-                context.MstMsg.TightenStart.Flag = new RequestFlagBuilder(context.MstMsg.TightenStart.Flag).RestAll().Build();
-                context.MstMsg.TightenStart.DeviceNo = default;
-                context.MstMsg.TightenStart.DeviceBrand = default;
-                context.MstMsg.TightenStart.ProgramNo = default;
-
-                //清除拧紧完成确认信号
-                context.MstMsg.TightenComplete.Flag = new ResponseFlagBuilder(context.MstMsg.TightenComplete.Flag).RestAll().Build();
-
-                //更新Pending消息
-                context.MstMsg.Status = new MstMsg_GeneralStatusBuilder(context.MstMsg.Status).SetInitialReqOnOff(false).Build();
-                await _mediator.Publish(new UILogNotification(new LogMessage { Content = $"[初始化]完成请求", Level = LogLevel.Information, Timestamp = DateTime.Now }));
-            }
-
-            //清除客户端的初始化标识
-            _stationPLCContext.Initial = false;
-
-            await next(context);
+            //更新Pending消息
+            context.MstMsg.Status =
+                new MstMsg_GeneralStatusBuilder(context.MstMsg.Status).SetInitialReqOnOff(false).Build();
+            await _mediator.Publish(new UILogNotification(new LogMessage
+                { Content = $"[初始化]完成请求", Level = LogLevel.Information, Timestamp = DateTime.Now }));
         }
+
+        //清除客户端的初始化标识
+        _stationPLCContext.Initial = false;
+
+        await next(context);
     }
 }

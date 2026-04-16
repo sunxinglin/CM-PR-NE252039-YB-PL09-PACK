@@ -1,5 +1,6 @@
-﻿using Ctp0600P.Client.ViewModels;
-using System.Windows;
+﻿using System.Windows;
+
+using Ctp0600P.Client.ViewModels;
 
 namespace Ctp0600P.Client.Views.PopupPages
 {

@@ -2,7 +2,9 @@
 using AsZero.Core.Services.Repos;
 using AsZero.Core.Services.Sys_Logs;
 using AsZero.DbContexts;
+
 using Microsoft.EntityFrameworkCore;
+
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.AlarmMgmt;
 using Yee.Entitys.CommonEntity;
@@ -107,7 +109,7 @@ namespace Yee.Services.AGV
             return entity;
         }
 
-        public async Task<(bool, string)> BingAgv(BingAgvDTO dto, string? user)
+        public async Task<(bool, string)> BingAgv(BindAgvDTO dto, string? user)
         {
             var hasagv = await this.HasCode(dto.AgvCode);
             if (hasagv != null)
@@ -193,10 +195,7 @@ namespace Yee.Services.AGV
                 {
                     AGVNo = agvMsg.AgvCode,
                     StationCode = agvMsg.StationName,
-                    PackPN = agvMsg.ProductCode,
-                    CreateTime = DateTime.Now,
-                    UpdateTime = DateTime.Now,
-                    IsDeleted = false
+                    PackPN = agvMsg.ProductCode
                 };
                 await _dbContext.AddAsync(agv);
             }
@@ -221,7 +220,7 @@ namespace Yee.Services.AGV
         /// <summary>
         /// 读取当前工位 在此Pack下对应的配方数据，同时校验此Pack的生产记录是否合法
         /// </summary>
-        /// <param name="code"></param>
+        /// <param name="stepCode"></param>
         /// <param name="agvNo"></param>
         /// <param name="packPN"></param>
         /// <returns></returns>
@@ -318,7 +317,7 @@ namespace Yee.Services.AGV
             int? programNo = 0;
 
             // 读取自动站程序号数据
-            if (step.Steptype == StepTypeEnum.自动站)
+            if (step.StepType == StepTypeEnum.自动站)
             {
                 if (step.Code == "OP120" || step.Code == "OP180")
                 {
@@ -444,7 +443,7 @@ namespace Yee.Services.AGV
             int? programNo = 0;
 
             // 读取自动站程序号数据
-            if (step.Steptype == StepTypeEnum.自动站)
+            if (step.StepType == StepTypeEnum.自动站)
             {
                 if (step.Code == "OP120" || step.Code == "OP180")
                 {
@@ -643,6 +642,9 @@ namespace Yee.Services.AGV
                             break;
                         case StationTaskTypeEnum.补拧:
                             dto.Base_StationTask_TightenRework = await _dbContext.Base_StationTask_TightenReworks.FirstOrDefaultAsync(f => f.StationTaskId == task.Id && !f.IsDeleted);
+                            break;
+                        case StationTaskTypeEnum.图示拧紧:
+                            dto.Base_StationTask_TightenByImage = await _dbContext.Base_StationTask_TightenByImages.FirstOrDefaultAsync(f => f.StationTaskId == task.Id && !f.IsDeleted);
                             break;
                     }
                     stationTaskDto.Add(dto);

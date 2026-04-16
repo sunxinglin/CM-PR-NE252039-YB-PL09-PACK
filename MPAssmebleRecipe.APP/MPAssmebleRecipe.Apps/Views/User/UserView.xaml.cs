@@ -1,4 +1,5 @@
 ﻿using Prism.Events;
+using RogerTech.AuthService.Models;
 using RogerTech.Common;
 using RogerTech.Common.AuthService;
 using SqlSugar;
@@ -25,64 +26,98 @@ namespace MPAssmebleRecipe.Apps.Views
     /// </summary>
     public partial class UserView : UserControl
     {
-
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            // 注册当前页面的所有按钮
+            PermissionController.RegisterPageControls(this);
+            AppManager appManager = AppManager.GetInstance();
+            PermissionController.UpdatePagePermissions(this, appManager.UserInfo);
+        }
         public UserView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
+            Loaded += OnPageLoaded;
             EventAggregator = eventAggregator;
-            AppManager appManager = AppManager.GetInstance();
-            ChangUser(appManager.UserInfo);
             EventAggregator.GetEvent<UserInfoEvent>().Subscribe(user =>
             {
-                ChangUser(user);
+                PermissionController.UpdatePagePermissions(this, user);
             });
-
-            RegistMenus();
         }
-        private void RegistMenus()
-        {
-            List<Menu> menuList = new List<Menu>()
-            {
-                new Menu() { Page = "UserView", SubPage = "",ElementName="添加用户" },
-                new Menu() { Page = "UserView", SubPage = "",ElementName="删除用户" }
-            };
 
-           // List<Menu> menuList = DbContext.GetInstance().Queryable<Menu>().Where(p => p.Page == "UserView" && p.SubPage == "B").ToList();
-            RogerTech.AuthService.AuthService authService = new RogerTech.AuthService.AuthService();
-            foreach (var item in menuList)
-            {
-                authService.AddMenu(item);
-            }
-
-        }
 
         public IEventAggregator EventAggregator { get; }
 
-        private void ChangUser(UserInfo user)
+
+
+    }
+    public class PermissionController
+    {
+        public static void RegisterPageControls(UserControl currentPage)
         {
-            if (user == null)
+            var authService = new RogerTech.AuthService.AuthService();
+            string pageName = currentPage.GetType().Name;
+
+            // 获取页面所有按钮控件
+            var buttons = GetChildControls<Button>(currentPage);
+
+            foreach (var button in buttons)
             {
-                添加用户.IsEnabled = false;
-                删除用户.IsEnabled = false;
-                return;
+                if (string.IsNullOrEmpty(button.Name))
+                {
+                    continue;
+                }
+                // 注册页面菜单权限
+                authService.AddMenu(new Menu
+                {
+                    Page = pageName,
+                    SubPage = "",
+                    ElementName = button.Name
+                });
             }
-            var addUser = user.UserMenus.Where(x => x.Page == "UserView" && x.ElementName == "添加用户").FirstOrDefault();
-            if (addUser != null)
+        }
+
+        public static void UpdatePagePermissions(UserControl currentPage, UserInfo user)
+        {
+            string pageName = currentPage.GetType().Name;
+            var buttons = GetChildControls<Button>(currentPage);
+
+            foreach (var button in buttons)
             {
-                添加用户.IsEnabled = true;
+                if (string.IsNullOrEmpty(button.Name))
+                {
+                    button.IsEnabled = true;
+                    continue;
+                }
+                // 检查用户是否有该按钮的权限
+                bool hasPermission = user?.UserMenus?.Any(m =>
+                    m.Page == pageName &&
+                    m.ElementName == button.Name) ?? false;
+
+                button.IsEnabled = hasPermission;
             }
-            else
+        }
+
+        private static IEnumerable<T> GetChildControls<T>(DependencyObject depObj)
+            where T : DependencyObject
+        {
+            if (depObj == null) yield break;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
             {
-                添加用户.IsEnabled = false;
-            }
-            var delUser = user.UserMenus.Where(x => x.Page == "UserView" && x.ElementName == "删除用户").FirstOrDefault();
-            if (delUser != null)
-            {
-                删除用户.IsEnabled = true;
-            }
-            else
-            {
-                删除用户.IsEnabled = false;
+                var child = VisualTreeHelper.GetChild(depObj, i);
+
+                // 跳过模板部件容器
+                if (child is FrameworkElement fe &&
+                    fe.TemplatedParent != null &&
+                    fe.Name.StartsWith("PART_"))
+                {
+                    continue;
+                }
+                if (child is T t)
+                    yield return t;
+
+                foreach (var grandChild in GetChildControls<T>(child))
+                    yield return grandChild;
             }
         }
     }

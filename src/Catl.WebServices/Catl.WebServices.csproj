@@ -6,8 +6,5 @@
   <ItemGroup>
     <Compile Remove="DataCollectForModuleTest\DataCollectForModuleTestService.cs" />
   </ItemGroup>
-  <!--<ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-  </ItemGroup>-->
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

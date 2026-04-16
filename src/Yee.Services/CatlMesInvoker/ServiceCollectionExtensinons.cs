@@ -1,14 +1,8 @@
 ﻿using AsZero.Core.Services;
+
 using Catl.HostComputer.CommonServices.Actions.Loggings;
 using Catl.HostComputer.CommonServices.Alarm.Loggings;
-using Catl.HostComputer.CommonServices.Mes;
 using Catl.HostComputer.CommonServices.Mes.Loggings;
-
-using Ctp0600P.Shared;
-
-using Microsoft.Extensions.DependencyInjection;
-using Yee.Services.Production;
-using Yee.Services.ProductionRecord;
 
 namespace Yee.Services.CatlMesInvoker
 {

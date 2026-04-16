@@ -11,6 +11,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 using RogerTech.Common;
+using Prism.Events;
 
 namespace MPAssmebleRecipe.Apps.ViewModels.ModuleManage
 {
@@ -21,7 +22,17 @@ namespace MPAssmebleRecipe.Apps.ViewModels.ModuleManage
     {
   
         private readonly UcModuleDisplayViewModel _moduleDisplayViewModel;
-
+        private readonly IEventAggregator _eventAggregator;
+        private SubscriptionToken _closeToken;
+        public void Dispose()
+        {
+            // 取消订阅
+            if (_closeToken != null)
+            {
+                _eventAggregator.GetEvent<CloseAllDialogsEvent>().Unsubscribe(_closeToken);
+                _closeToken = null;
+            }
+        }
         /// <summary>
         /// 当前模组ID，用于保存后的电芯操作
         /// </summary>
@@ -35,7 +46,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels.ModuleManage
 
         public void OnDialogClosed()
         {
-            // 清理资源
+            Dispose();
         }
 
         public void OnDialogOpened(IDialogParameters parameters)
@@ -266,10 +277,12 @@ namespace MPAssmebleRecipe.Apps.ViewModels.ModuleManage
         /// </summary>
         public UcModuleAddViewModel(
             ILoggerHelper logger,     
-            UcModuleDisplayViewModel moduleDisplayViewModel) : base(logger)
+            UcModuleDisplayViewModel moduleDisplayViewModel, IEventAggregator eventAggregator) : base(logger)
         {
   
             _moduleDisplayViewModel = moduleDisplayViewModel;
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
 
             // 初始化命令
             SaveModuleCommand = new DelegateCommand(ExecuteSaveModule);

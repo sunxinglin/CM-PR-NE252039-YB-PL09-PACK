@@ -71,7 +71,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         public void LoadSettings()
         {
             // 加载菜单项
-            BussnessUtility bussness = BussnessUtility.GetInstanse();
+            BussnessUtility bussness = BussnessUtility.GetInstance();
             MesInterface interfacemes;
             try
             {

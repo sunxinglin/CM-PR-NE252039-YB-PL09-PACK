@@ -32,6 +32,7 @@
             Margin="16,0">
             <Button x:Name="添加用户" Style="{StaticResource MaterialDesignRaisedButton}"
             Command="{Binding AddUserCommand}"
+                    IsEnabled="False"
             Margin="0,0,8,0">
                 <StackPanel Orientation="Horizontal">
                     <MaterialDesign:PackIcon Kind="AccountPlus" 
@@ -43,12 +44,32 @@
 
             <Button  x:Name="删除用户" Style="{StaticResource MaterialDesignRaisedButton}"
             Command="{Binding DeleteUserCommand}"
-            CommandParameter="{Binding SelectedUser}">
+                       IsEnabled="False"
+            CommandParameter="{Binding SelectedUser}" Margin="0,0,8,0">
                 <StackPanel Orientation="Horizontal">
                     <MaterialDesign:PackIcon Kind="AccountRemove" 
                                    VerticalAlignment="Center"/>
                     <TextBlock Text="删除用户" 
                      Margin="4,0,0,0"/>
+                </StackPanel>
+            </Button>
+
+            <Button  x:Name="导出用户"   IsEnabled="False" Style="{StaticResource MaterialDesignRaisedButton}"
+Command="{Binding ExportUserCommand}" Margin="0,0,8,0">
+                <StackPanel Orientation="Horizontal">
+                    <MaterialDesign:PackIcon Kind="Export" 
+                       VerticalAlignment="Center"/>
+                    <TextBlock Text="导出用户" 
+         Margin="4,0,0,0"/>
+                </StackPanel>
+            </Button>
+            <Button  x:Name="导入用户"   IsEnabled="False" Style="{StaticResource MaterialDesignRaisedButton}"
+Command="{Binding ImportUserCommand}" Margin="0,0,8,0">
+                <StackPanel Orientation="Horizontal">
+                    <MaterialDesign:PackIcon Kind="Import" 
+                       VerticalAlignment="Center"/>
+                    <TextBlock Text="导入用户" 
+         Margin="4,0,0,0"/>
                 </StackPanel>
             </Button>
         </StackPanel>
@@ -121,14 +142,7 @@
                     <StackPanel Grid.Row="3" 
                       Orientation="Horizontal" 
                       HorizontalAlignment="Right" 
-                      Margin="0,16,0,0">
-                        <Button Style="{StaticResource MaterialDesignFlatButton}"
-                        Command="{x:Static MaterialDesign:DialogHost.CloseDialogCommand}"
-                        Content="取消"/>
-                        <Button Style="{StaticResource MaterialDesignRaisedButton}"
-                        Command="{Binding SaveUserCommand}"
-                        Content="保存"
-                        Margin="8,0,0,0"/>
+                      Margin="0,16,0,0">                     
                     </StackPanel>
                 </Grid>
             </MaterialDesign:DialogHost.DialogContent>

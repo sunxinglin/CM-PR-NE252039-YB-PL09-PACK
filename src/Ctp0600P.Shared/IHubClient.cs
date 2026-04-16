@@ -1,6 +1,8 @@
-﻿using AsZero.Core.Services.Messages;
+﻿using System.Threading.Tasks;
+
+using AsZero.Core.Services.Messages;
+
 using Ctp0600P.Shared.NotificationDTO;
-using System.Threading.Tasks;
 
 namespace Ctp0600P.Shared
 {

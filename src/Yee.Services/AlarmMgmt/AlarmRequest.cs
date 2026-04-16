@@ -1,6 +1,4 @@
-﻿using Yee.Entitys.Common;
-
-namespace Yee.Services.Request
+﻿namespace Yee.Services.Request
 {
     public class AlarmRequest
     {

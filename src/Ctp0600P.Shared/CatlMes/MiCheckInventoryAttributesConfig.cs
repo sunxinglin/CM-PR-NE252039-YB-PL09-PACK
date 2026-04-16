@@ -1,7 +1,4 @@
-﻿
-using Catl.WebServices.MachineIntegrationServices;
-using Catl.WebServices.MICheckInventoryAttribute;
-using System.Collections.Generic;
+﻿using Catl.WebServices.MICheckInventoryAttribute;
 
 namespace Ctp0600P.Shared.CatlMes
 {

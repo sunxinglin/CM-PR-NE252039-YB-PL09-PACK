@@ -1,5 +1,6 @@
 ﻿using MPAssmebleRecipe.Logger.Interfaces;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
@@ -24,7 +25,17 @@ namespace MPAssmebleRecipe.Apps.ViewModels.Recipe
     {
         private readonly ILoggerHelper _logger;
         public event Action<IDialogResult> RequestClose;
-
+        private readonly IEventAggregator _eventAggregator;
+        private SubscriptionToken _closeToken;
+        public void Dispose()
+        {
+            // 取消订阅
+            if (_closeToken != null)
+            {
+                _eventAggregator.GetEvent<CloseAllDialogsEvent>().Unsubscribe(_closeToken);
+                _closeToken = null;
+            }
+        }
         /// <summary>
         /// 标题
         /// </summary>
@@ -109,7 +120,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels.Recipe
         {
             return true;
         }
-        public void OnDialogClosed() { }
+        public void OnDialogClosed() { Dispose(); }
         public void OnDialogOpened(IDialogParameters parameters)
         {
             InsertIndex = parameters.GetValue<int>("InsertIndex");
@@ -126,9 +137,15 @@ namespace MPAssmebleRecipe.Apps.ViewModels.Recipe
                     break;
             }
         }
-        public UcRecipeAddViewModel(ILoggerHelper logger)
+        public UcRecipeAddViewModel(ILoggerHelper logger, IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
+
             _logger = logger;
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
+
             // 异步初始化数据
             //InitializeDataAsync();
             //List<Template_Pack> template_s = DbContext.GetInstance().Queryable<Template_Pack>().OrderBy(r => r.Id).ToList();
@@ -183,7 +200,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels.Recipe
             }
             template_Blocks = template_Blocks.OrderBy(p => p.BlockSequence).ThenBy(s => s.BlockIndex).ToList();
             int inde = InsertIndex;
-            //后续要改成按照C客户要求的算法来写
+         
 
             for (int i = 0; i < WorkCount; i++)
             {
@@ -220,7 +237,6 @@ namespace MPAssmebleRecipe.Apps.ViewModels.Recipe
             var result = MessageBox.Show("确认保存配方", "提示", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {            
-                //非正常下发的要更新后面的序号
                 if (RecipeTypes > 1)
                 {
                     int recipecount = RecipeTempss.Count;

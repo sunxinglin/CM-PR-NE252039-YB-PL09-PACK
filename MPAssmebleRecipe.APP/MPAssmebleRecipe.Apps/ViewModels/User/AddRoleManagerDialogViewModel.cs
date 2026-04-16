@@ -6,6 +6,8 @@ using System.Linq;
 using RogerTech.AuthService.Models;
 using System;
 using System.Collections.Generic;
+using Prism.Events;
+
 
 namespace MPAssmebleRecipe.Apps.ViewModels
 {
@@ -14,6 +16,17 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         private Role _currentRole;
         private bool _isAllSelected;
         private ObservableCollection<RoleSelectionViewModel> _availableRoles;
+        private readonly IEventAggregator _eventAggregator;
+        private SubscriptionToken _closeToken;
+        public void Dispose()
+        {
+            // 取消订阅
+            if (_closeToken != null)
+            {
+                _eventAggregator.GetEvent<CloseAllDialogsEvent>().Unsubscribe(_closeToken);
+                _closeToken = null;
+            }
+        }
 
         public string Title => "添加角色管理关系";
 
@@ -49,8 +62,11 @@ namespace MPAssmebleRecipe.Apps.ViewModels
 
         public event Action<IDialogResult> RequestClose;
 
-        public AddRoleManagerDialogViewModel()
+        public AddRoleManagerDialogViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
+
             AvailableRoles = new ObservableCollection<RoleSelectionViewModel>();
             SaveCommand = new DelegateCommand(Save);
             CancelCommand = new DelegateCommand(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
@@ -102,6 +118,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
 
         public void OnDialogClosed()
         {
+            Dispose();
         }
     }
 

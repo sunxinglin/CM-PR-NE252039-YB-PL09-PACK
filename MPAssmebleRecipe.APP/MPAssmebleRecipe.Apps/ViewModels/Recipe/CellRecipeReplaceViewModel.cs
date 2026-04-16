@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using OfficeOpenXml.FormulaParsing.FormulaExpressions;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using RogerTech.AuthService;
@@ -28,6 +29,17 @@ namespace MPAssmebleRecipe.Apps.ViewModels.Recipe
     public class CellRecipeReplaceViewModel : BindableBase, IDialogAware
     {
         private readonly RogerTech.AuthService.AuthService _authService;
+        private readonly IEventAggregator _eventAggregator;
+        private SubscriptionToken _closeToken;
+        public void Dispose()
+        {
+            // 取消订阅
+            if (_closeToken != null)
+            {
+                _eventAggregator.GetEvent<CloseAllDialogsEvent>().Unsubscribe(_closeToken);
+                _closeToken = null;
+            }
+        }
 
         private string _CellSN_Old;
         public string CellSN_Old
@@ -51,8 +63,11 @@ namespace MPAssmebleRecipe.Apps.ViewModels.Recipe
         public DelegateCommand SaveCommand { get; }
         public DelegateCommand CancelCommand { get; }
 
-        public CellRecipeReplaceViewModel(AuthService authService)
+        public CellRecipeReplaceViewModel(AuthService authService, IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
+
             _authService = authService;
             SaveCommand = new DelegateCommand(Save);
             CancelCommand = new DelegateCommand(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
@@ -64,7 +79,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels.Recipe
         }
         public bool CanCloseDialog() => true;
 
-        public void OnDialogClosed() { }
+        public void OnDialogClosed() { Dispose(); }
 
         private void Save()
         {

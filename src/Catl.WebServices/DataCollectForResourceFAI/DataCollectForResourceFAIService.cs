@@ -1,4 +1,15 @@
-﻿
+﻿using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.ServiceModel.Description;
+using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -16,9 +27,9 @@ namespace Catl.WebServices.DataCollectForResourceFAI
 
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class BusinessException
     {
 
@@ -29,7 +40,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("details", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement("details", Form = XmlSchemaForm.Unqualified, Order = 0)]
         public object[] details
         {
             get
@@ -43,7 +54,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public int errorCode
         {
             get
@@ -57,7 +68,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string message
         {
             get
@@ -72,16 +83,16 @@ namespace Catl.WebServices.DataCollectForResourceFAI
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class getCustomDataValueExResponse
     {
 
         private string returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string @return
         {
             get
@@ -96,9 +107,9 @@ namespace Catl.WebServices.DataCollectForResourceFAI
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class getCustomDataValueEx
     {
 
@@ -113,7 +124,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         private string arg3Field;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string arg0
         {
             get
@@ -128,7 +139,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         [JsonConverter(typeof(StringEnumConverter))]
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public ObjectAliasEnum arg1
         {
             get
@@ -142,7 +153,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool arg1Specified
         {
             get
@@ -156,7 +167,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string arg2
         {
             get
@@ -170,7 +181,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string arg3
         {
             get
@@ -185,8 +196,8 @@ namespace Catl.WebServices.DataCollectForResourceFAI
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.sap.com/me/common")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [XmlType(Namespace = "http://www.sap.com/me/common")]
     public enum ObjectAliasEnum
     {
 
@@ -345,37 +356,37 @@ namespace Catl.WebServices.DataCollectForResourceFAI
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class erroAvoidResponse
     {
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(abstractDataSource))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(baseDataSource))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(systemBase))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [XmlInclude(typeof(abstractDataSource))]
+    [XmlInclude(typeof(baseDataSource))]
+    [XmlInclude(typeof(systemBase))]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class baseObject
     {
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(baseDataSource))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(systemBase))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [XmlInclude(typeof(baseDataSource))]
+    [XmlInclude(typeof(systemBase))]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public abstract partial class abstractDataSource : baseObject
     {
 
         private string dataSourceNameField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string dataSourceName
         {
             get
@@ -390,26 +401,26 @@ namespace Catl.WebServices.DataCollectForResourceFAI
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(systemBase))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [XmlInclude(typeof(systemBase))]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class baseDataSource : abstractDataSource
     {
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class systemBase : baseDataSource
     {
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class erroAvoid
     {
 
@@ -426,7 +437,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         private systemBase arg5Field;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string arg0
         {
             get
@@ -440,7 +451,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string arg1
         {
             get
@@ -454,7 +465,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string arg2
         {
             get
@@ -468,7 +479,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string arg3
         {
             get
@@ -482,7 +493,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string arg4
         {
             get
@@ -496,7 +507,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public systemBase arg5
         {
             get
@@ -511,9 +522,9 @@ namespace Catl.WebServices.DataCollectForResourceFAI
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class machineIntegrationResourceDcResponse
     {
 
@@ -524,7 +535,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -538,7 +549,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -552,7 +563,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -567,16 +578,16 @@ namespace Catl.WebServices.DataCollectForResourceFAI
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForResourceFAIResponse
     {
 
         private machineIntegrationResourceDcResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public machineIntegrationResourceDcResponse @return
         {
             get
@@ -591,9 +602,9 @@ namespace Catl.WebServices.DataCollectForResourceFAI
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class machineIntegrationParametricData
     {
 
@@ -604,7 +615,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         private ParameterDataType dataTypeField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string name
         {
             get
@@ -618,7 +629,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string value
         {
             get
@@ -632,7 +643,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public ParameterDataType dataType
         {
             get
@@ -647,8 +658,8 @@ namespace Catl.WebServices.DataCollectForResourceFAI
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.sap.com/me/datacollection")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [XmlType(Namespace = "http://www.sap.com/me/datacollection")]
     public enum ParameterDataType
     {
 
@@ -666,9 +677,9 @@ namespace Catl.WebServices.DataCollectForResourceFAI
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForResourceFAIRequest
     {
 
@@ -699,7 +710,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         private machineIntegrationParametricData[] parametricDataArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -713,7 +724,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string dcGroup
         {
             get
@@ -727,7 +738,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcMode
         {
             get
@@ -741,7 +752,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string sfc
         {
             get
@@ -755,7 +766,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string material
         {
             get
@@ -769,7 +780,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string materialRevision
         {
             get
@@ -783,7 +794,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string dcGroupRevision
         {
             get
@@ -797,7 +808,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string resource
         {
             get
@@ -811,7 +822,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string operation
         {
             get
@@ -825,7 +836,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 9)]
         public string operationRevision
         {
             get
@@ -839,7 +850,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 10)]
         public string dcGroupSequence
         {
             get
@@ -853,7 +864,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 11)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 11)]
         public string user
         {
             get
@@ -867,7 +878,7 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 12)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 12)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -882,16 +893,16 @@ namespace Catl.WebServices.DataCollectForResourceFAI
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForResourceFAI
     {
 
         private dataCollectForResourceFAIRequest resourceRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public dataCollectForResourceFAIRequest resourceRequest
         {
             get
@@ -905,43 +916,43 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
     }
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://machine.ws.atlmes.com/", ConfigurationName = "DataCollectForResourceFAIService")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [ServiceContract(Namespace = "http://machine.ws.atlmes.com/", ConfigurationName = "DataCollectForResourceFAIService")]
     public interface DataCollectForModuleTestService
     {
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(getCustomDataValueExResponse))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(getCustomDataValueEx))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(baseObject))]
-        System.Threading.Tasks.Task<dataCollectForResourceFAIResponse1> dataCollectForResourceFAIAsync(dataCollectForResourceFAIRequest1 request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        [ServiceKnownType(typeof(getCustomDataValueExResponse))]
+        [ServiceKnownType(typeof(getCustomDataValueEx))]
+        [ServiceKnownType(typeof(baseObject))]
+        Task<dataCollectForResourceFAIResponse1> dataCollectForResourceFAIAsync(dataCollectForResourceFAIRequest1 request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.FaultContractAttribute(typeof(BusinessException), Action = "", Name = "BusinessException")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(getCustomDataValueExResponse))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(getCustomDataValueEx))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(baseObject))]
-        System.Threading.Tasks.Task<erroAvoidResponse1> erroAvoidAsync(erroAvoidRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [FaultContract(typeof(BusinessException), Action = "", Name = "BusinessException")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        [ServiceKnownType(typeof(getCustomDataValueExResponse))]
+        [ServiceKnownType(typeof(getCustomDataValueEx))]
+        [ServiceKnownType(typeof(baseObject))]
+        Task<erroAvoidResponse1> erroAvoidAsync(erroAvoidRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.FaultContractAttribute(typeof(BusinessException), Action = "", Name = "BusinessException")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(getCustomDataValueExResponse))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(getCustomDataValueEx))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(baseObject))]
-        System.Threading.Tasks.Task<getCustomDataValueExResponse1> getCustomDataValueExAsync(getCustomDataValueExRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [FaultContract(typeof(BusinessException), Action = "", Name = "BusinessException")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        [ServiceKnownType(typeof(getCustomDataValueExResponse))]
+        [ServiceKnownType(typeof(getCustomDataValueEx))]
+        [ServiceKnownType(typeof(baseObject))]
+        Task<getCustomDataValueExResponse1> getCustomDataValueExAsync(getCustomDataValueExRequest request);
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForResourceFAIRequest1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForResourceFAI dataCollectForResourceFAI;
 
         public dataCollectForResourceFAIRequest1()
@@ -954,14 +965,14 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForResourceFAIResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForResourceFAIResponse dataCollectForResourceFAIResponse;
 
         public dataCollectForResourceFAIResponse1()
@@ -974,14 +985,14 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class erroAvoidRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public erroAvoid erroAvoid;
 
         public erroAvoidRequest()
@@ -994,14 +1005,14 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class erroAvoidResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public erroAvoidResponse erroAvoidResponse;
 
         public erroAvoidResponse1()
@@ -1014,14 +1025,14 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class getCustomDataValueExRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public getCustomDataValueEx getCustomDataValueEx;
 
         public getCustomDataValueExRequest()
@@ -1034,14 +1045,14 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class getCustomDataValueExResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public getCustomDataValueExResponse getCustomDataValueExResponse;
 
         public getCustomDataValueExResponse1()
@@ -1054,14 +1065,14 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         }
     }
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    public interface DataCollectForResourceFAIServiceChannel : DataCollectForModuleTestService, System.ServiceModel.IClientChannel
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    public interface DataCollectForResourceFAIServiceChannel : DataCollectForModuleTestService, IClientChannel
     {
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    public partial class DataCollectForResourceFAIServiceClient : System.ServiceModel.ClientBase<DataCollectForModuleTestService>, DataCollectForModuleTestService
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    public partial class DataCollectForResourceFAIServiceClient : ClientBase<DataCollectForModuleTestService>, DataCollectForModuleTestService
     {
 
         /// <summary>
@@ -1069,122 +1080,122 @@ namespace Catl.WebServices.DataCollectForResourceFAI
         /// </summary>
         /// <param name="serviceEndpoint">要配置的终结点</param>
         /// <param name="clientCredentials">客户端凭据</param>
-        static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
+        static partial void ConfigureEndpoint(ServiceEndpoint serviceEndpoint, ClientCredentials clientCredentials);
 
         public DataCollectForResourceFAIServiceClient() :
-                base(DataCollectForResourceFAIServiceClient.GetDefaultBinding(), DataCollectForResourceFAIServiceClient.GetDefaultEndpointAddress())
+                base(GetDefaultBinding(), GetDefaultEndpointAddress())
         {
             this.Endpoint.Name = EndpointConfiguration.DataCollectForResourceFAIServicePort.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
         public DataCollectForResourceFAIServiceClient(EndpointConfiguration endpointConfiguration) :
-                base(DataCollectForResourceFAIServiceClient.GetBindingForEndpoint(endpointConfiguration), DataCollectForResourceFAIServiceClient.GetEndpointAddress(endpointConfiguration))
+                base(GetBindingForEndpoint(endpointConfiguration), GetEndpointAddress(endpointConfiguration))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
         public DataCollectForResourceFAIServiceClient(EndpointConfiguration endpointConfiguration, string remoteAddress) :
-                base(DataCollectForResourceFAIServiceClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
+                base(GetBindingForEndpoint(endpointConfiguration), new EndpointAddress(remoteAddress))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
-        public DataCollectForResourceFAIServiceClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(DataCollectForResourceFAIServiceClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
+        public DataCollectForResourceFAIServiceClient(EndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress) :
+                base(GetBindingForEndpoint(endpointConfiguration), remoteAddress)
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
-        public DataCollectForResourceFAIServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+        public DataCollectForResourceFAIServiceClient(Binding binding, EndpointAddress remoteAddress) :
                 base(binding, remoteAddress)
         {
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<dataCollectForResourceFAIResponse1> DataCollectForModuleTestService.dataCollectForResourceFAIAsync(dataCollectForResourceFAIRequest1 request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<dataCollectForResourceFAIResponse1> DataCollectForModuleTestService.dataCollectForResourceFAIAsync(dataCollectForResourceFAIRequest1 request)
         {
             return base.Channel.dataCollectForResourceFAIAsync(request);
         }
 
-        public System.Threading.Tasks.Task<dataCollectForResourceFAIResponse1> dataCollectForResourceFAIAsync(dataCollectForResourceFAI dataCollectForResourceFAI)
+        public Task<dataCollectForResourceFAIResponse1> dataCollectForResourceFAIAsync(dataCollectForResourceFAI dataCollectForResourceFAI)
         {
             dataCollectForResourceFAIRequest1 inValue = new dataCollectForResourceFAIRequest1();
             inValue.dataCollectForResourceFAI = dataCollectForResourceFAI;
             return ((DataCollectForModuleTestService)(this)).dataCollectForResourceFAIAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<erroAvoidResponse1> DataCollectForModuleTestService.erroAvoidAsync(erroAvoidRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<erroAvoidResponse1> DataCollectForModuleTestService.erroAvoidAsync(erroAvoidRequest request)
         {
             return base.Channel.erroAvoidAsync(request);
         }
 
-        public System.Threading.Tasks.Task<erroAvoidResponse1> erroAvoidAsync(erroAvoid erroAvoid)
+        public Task<erroAvoidResponse1> erroAvoidAsync(erroAvoid erroAvoid)
         {
             erroAvoidRequest inValue = new erroAvoidRequest();
             inValue.erroAvoid = erroAvoid;
             return ((DataCollectForModuleTestService)(this)).erroAvoidAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<getCustomDataValueExResponse1> DataCollectForModuleTestService.getCustomDataValueExAsync(getCustomDataValueExRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<getCustomDataValueExResponse1> DataCollectForModuleTestService.getCustomDataValueExAsync(getCustomDataValueExRequest request)
         {
             return base.Channel.getCustomDataValueExAsync(request);
         }
 
-        public System.Threading.Tasks.Task<getCustomDataValueExResponse1> getCustomDataValueExAsync(getCustomDataValueEx getCustomDataValueEx)
+        public Task<getCustomDataValueExResponse1> getCustomDataValueExAsync(getCustomDataValueEx getCustomDataValueEx)
         {
             getCustomDataValueExRequest inValue = new getCustomDataValueExRequest();
             inValue.getCustomDataValueEx = getCustomDataValueEx;
             return ((DataCollectForModuleTestService)(this)).getCustomDataValueExAsync(inValue);
         }
 
-        public virtual System.Threading.Tasks.Task OpenAsync()
+        public virtual Task OpenAsync()
         {
-            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
+            return Task.Factory.FromAsync(((ICommunicationObject)(this)).BeginOpen(null, null), new Action<IAsyncResult>(((ICommunicationObject)(this)).EndOpen));
         }
 
-        public virtual System.Threading.Tasks.Task CloseAsync()
+        public virtual Task CloseAsync()
         {
-            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginClose(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndClose));
+            return Task.Factory.FromAsync(((ICommunicationObject)(this)).BeginClose(null, null), new Action<IAsyncResult>(((ICommunicationObject)(this)).EndClose));
         }
 
-        private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
+        private static Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
             if ((endpointConfiguration == EndpointConfiguration.DataCollectForResourceFAIServicePort))
             {
-                System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
+                BasicHttpBinding result = new BasicHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
-                result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
+                result.ReaderQuotas = XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
                 result.AllowCookies = true;
                 return result;
             }
-            throw new System.InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
+            throw new InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
         }
 
-        private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
+        private static EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
             if ((endpointConfiguration == EndpointConfiguration.DataCollectForResourceFAIServicePort))
             {
-                return new System.ServiceModel.EndpointAddress("http://ndmesd093.catlbattery.com:50000/atlmeswebservice/DataCollectForResourceFAI" +
-                        "ServiceService");
+                return new EndpointAddress("http://ndmesd093.catlbattery.com:50000/atlmeswebservice/DataCollectForResourceFAI" +
+                                           "ServiceService");
             }
-            throw new System.InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
+            throw new InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
         }
 
-        private static System.ServiceModel.Channels.Binding GetDefaultBinding()
+        private static Binding GetDefaultBinding()
         {
-            return DataCollectForResourceFAIServiceClient.GetBindingForEndpoint(EndpointConfiguration.DataCollectForResourceFAIServicePort);
+            return GetBindingForEndpoint(EndpointConfiguration.DataCollectForResourceFAIServicePort);
         }
 
-        private static System.ServiceModel.EndpointAddress GetDefaultEndpointAddress()
+        private static EndpointAddress GetDefaultEndpointAddress()
         {
-            return DataCollectForResourceFAIServiceClient.GetEndpointAddress(EndpointConfiguration.DataCollectForResourceFAIServicePort);
+            return GetEndpointAddress(EndpointConfiguration.DataCollectForResourceFAIServicePort);
         }
 
         public enum EndpointConfiguration

@@ -2,6 +2,7 @@
 using MPAssmebleRecipe.Logger.Interfaces;
 //using MPAssmebleRecipe.Service.IService;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using RogerTech.Common;
@@ -26,7 +27,17 @@ namespace MPAssmebleRecipe.Apps.ViewModels.ModuleManage
         private readonly ILoggerHelper _logger;
 
         public string Title => "维护Module";
-
+        private readonly IEventAggregator _eventAggregator;
+        private SubscriptionToken _closeToken;
+        public void Dispose()
+        {
+            // 取消订阅
+            if (_closeToken != null)
+            {
+                _eventAggregator.GetEvent<CloseAllDialogsEvent>().Unsubscribe(_closeToken);
+                _closeToken = null;
+            }
+        }
         private ObservableCollection<Template_Module> _moduleItems;
         public ObservableCollection<Template_Module> ModuleItems
         {
@@ -53,12 +64,14 @@ namespace MPAssmebleRecipe.Apps.ViewModels.ModuleManage
         }
         public void OnDialogClosed()
         {
-
+            Dispose();
         }
 
-        public UcModuleEditViewModel(ILoggerHelper logger)
+        public UcModuleEditViewModel(ILoggerHelper logger, IEventAggregator eventAggregator)
         {
-          //  _blockService = blockService;
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
+
             _logger = logger;
             SaveCommand = new DelegateCommand(ExecuteSave, CanExecuteSave);
             CancelCommand = new DelegateCommand(ExecuteCancel);

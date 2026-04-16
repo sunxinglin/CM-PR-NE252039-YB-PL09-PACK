@@ -4,6 +4,7 @@ using OfficeOpenXml.VBA;
 
 //using MPAssmebleRecipe.Service.IService;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using RogerTech.Common;
@@ -24,7 +25,17 @@ namespace MPAssmebleRecipe.Apps.ViewModels.BlockManage
     {
        // private readonly IBlockService _blockService;
         private readonly ILoggerHelper _logger;
-
+        private readonly IEventAggregator _eventAggregator;
+        private SubscriptionToken _closeToken;
+        public void Dispose()
+        {
+            // 取消订阅
+            if (_closeToken != null)
+            {
+                _eventAggregator.GetEvent<CloseAllDialogsEvent>().Unsubscribe(_closeToken);
+                _closeToken = null;
+            }
+        }
         #region Properties
         public string Title => "添加Block";
 
@@ -167,12 +178,15 @@ namespace MPAssmebleRecipe.Apps.ViewModels.BlockManage
         }
         public void OnDialogClosed()
         {
-
+            Dispose();
         }
 
-        public UcBlockAddViewModel(ILoggerHelper logger)
+        public UcBlockAddViewModel(ILoggerHelper logger, IEventAggregator eventAggregator)
         {
-          //  _blockService = blockService;
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
+
+            //  _blockService = blockService;
             _logger = logger;
             ConfirmCommand = new DelegateCommand(ExecuteConfirm, CanExecuteConfirm)
                 .ObservesProperty(() => BlockName)

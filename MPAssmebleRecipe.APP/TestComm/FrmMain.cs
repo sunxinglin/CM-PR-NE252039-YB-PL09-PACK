@@ -18,7 +18,7 @@ namespace TestComm
         UcDataCollect dataCollect;
         UcReleaseSfc releaseSfc;
         UcReleaseSfc ucReleaseCheckSfc;
-        Server plc = Server.GetInstace();
+        Server plc = Server.GetInstance();
         public FrmMain()
         {
             InitializeComponent();

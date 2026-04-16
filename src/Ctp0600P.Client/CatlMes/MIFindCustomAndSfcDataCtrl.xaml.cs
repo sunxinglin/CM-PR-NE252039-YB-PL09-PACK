@@ -1,13 +1,17 @@
-﻿using Ctp0600P.Shared.CatlMes;
-using Ctp0600P.Client.Apis;
-using Reactive.Bindings;
-using System;
-using System.Windows;
+﻿using System;
 using System.Windows.Controls;
-using MediatR;
-using Ctp0600P.Client.Command.NoticeHelp.Handle;
-using Ctp0600P.Client.Command.NoticeHelp.Enum;
+
 using Catl.WebServices.MIFindCustomAndSfcData;
+
+using Ctp0600P.Client.Apis;
+using Ctp0600P.Client.Command.NoticeHelp.Enum;
+using Ctp0600P.Client.Command.NoticeHelp.Handle;
+using Ctp0600P.Shared.CatlMes;
+
+using MediatR;
+
+using Reactive.Bindings;
+
 using Yee.Services.CatlMesInvoker;
 
 namespace Ctp0600P.Client.CatlMes

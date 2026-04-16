@@ -1,10 +1,7 @@
-﻿using Ctp0600P.Client.CommonEntity;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Ctp0600P.Client.CommonEntity;
 
 namespace Ctp0600P.Client.CommonHelper
 {

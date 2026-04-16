@@ -56,7 +56,7 @@
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     Margin="8,0" Width="250"/>
 
-            <Button Margin="10,0" Name="ReflashBtn" Style="{StaticResource MaterialDesignRaisedButton}"  Width="140" Height="35"
+            <Button Margin="10,0"  Style="{StaticResource MaterialDesignRaisedButton}"  Width="140" Height="35" IsEnabled="True"
                 Command="{Binding RefreshCommand}">
                     <StackPanel Orientation="Horizontal">
                         <MaterialDesign:PackIcon Kind="Search" 
@@ -65,7 +65,7 @@
                          Margin="0,0,0,0"/>
                     </StackPanel>
                 </Button>
-            <Button Margin="30,0" Name="LocalReflashBtn" Style="{StaticResource MaterialDesignRaisedButton}"  Width="120" Height="35"
+            <Button Margin="30,0"  Style="{StaticResource MaterialDesignRaisedButton}"  Width="120" Height="35" IsEnabled="True"
               Command="{Binding LocalRefreshCommand}">
                         <StackPanel Orientation="Horizontal">
                             <MaterialDesign:PackIcon Kind="Search" 
@@ -74,7 +74,7 @@
                        Margin="4,0,0,0"/>
                         </StackPanel>
             </Button>
-            <Button Margin="20,0" Name="UpLoadBtn" Style="{StaticResource MaterialDesignRaisedButton}"  Width="120" Height="35"
+            <Button Margin="20,0" Name="重新上传" Style="{StaticResource MaterialDesignRaisedButton}"  Width="120" Height="35" IsEnabled="False" Click="UpLoadBtn_Click"
                  >
                 <StackPanel Orientation="Horizontal">
                     <MaterialDesign:PackIcon Kind="Upload" 
@@ -91,8 +91,7 @@
               AutoGenerateColumns="False" CanUserAddRows="False"  VerticalContentAlignment="Center"
               CanUserDeleteRows="False"  IsReadOnly="True" 
               MaterialDesign:DataGridAssist.CellPadding="5 2 2 2"
-              MaterialDesign:DataGridAssist.ColumnHeaderPadding="4"
-              MouseDoubleClick="DataGrid_MouseDoubleClick">
+              MaterialDesign:DataGridAssist.ColumnHeaderPadding="4">
                 <!--<DataGrid.RowStyle>
                     <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
                         <Style.Triggers>

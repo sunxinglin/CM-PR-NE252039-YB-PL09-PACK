@@ -1,94 +1,94 @@
-﻿using Ctp0600P.Client.Apis;
-using Ctp0600P.Client.Protocols;
-using Ctp0600P.Client.ViewModels;
-using Ctp0600P.Shared;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.ObjectModel;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
+using Ctp0600P.Client.Apis;
+using Ctp0600P.Client.Protocols;
+using Ctp0600P.Client.ViewModels;
+using Ctp0600P.Shared;
+
+using MediatR;
+
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+
 using Yee.Entitys.AlarmMgmt;
 using Yee.Entitys.DTOS;
 
-namespace Ctp0600P.Client.MessageHandler
+namespace Ctp0600P.Client.MessageHandler;
+
+internal class AlarmNotificationHandler : INotificationHandler<AlarmSYSNotification>
 {
-    internal class AlarmNotificationHandler : INotificationHandler<AlarmSYSNotification>
+    private readonly ILogger<AlarmNotificationHandler> _logger;
+    private readonly APIHelper _apiHelper;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly StepStationSetting _stationSetting;
+
+    public AlarmNotificationHandler(ILogger<AlarmNotificationHandler> logger, APIHelper apiHelper,
+        IServiceProvider serviceProvider, IOptionsMonitor<StepStationSetting> stationSetting)
     {
-        private readonly ILogger<AlarmNotificationHandler> _logger;
-        private readonly APIHelper _apiHelper;
-        private readonly IServiceProvider _sp;
-        private readonly StepStationSetting stationSetting;
+        _logger = logger;
+        _apiHelper = apiHelper;
+        _serviceProvider = serviceProvider;
+        _stationSetting = stationSetting.CurrentValue;
+    }
 
-        public AlarmNotificationHandler(ILogger<AlarmNotificationHandler> logger, APIHelper apiHelper, IServiceProvider sp, IOptionsMonitor<StepStationSetting> stationSetting)
+    public Task Handle(AlarmSYSNotification notification, CancellationToken cancellationToken)
+    {
+        try
         {
-            this._logger = logger;
-            _apiHelper = apiHelper;
-            _sp = sp;
-            this.stationSetting = stationSetting.CurrentValue;
-        }
-
-        public Task Handle(AlarmSYSNotification notification, CancellationToken cancellationToken)
-        {
-            try
+            var scope = _serviceProvider.CreateScope();
+            var serviceProvider = scope.ServiceProvider;
+            var realtimePageViewModel = serviceProvider.GetRequiredService<RealtimePageViewModel>();
+            var alarms = realtimePageViewModel.Alarms;
+            var alarmMessage = notification;
+            // 在当前报警列表中找一条“未处理”的同类报警
+            var alarm = alarms
+                .FirstOrDefault(o => !o.IsFinish
+                                     && o.Module == alarmMessage.Module
+                                     && o.Code == alarmMessage.Code
+                                     && o.DeviceNo == alarmMessage.DeviceNo);
+            switch (notification.action)
             {
-                var scope = this._sp.CreateScope();
-                var sp = scope.ServiceProvider;
-                var _realtimeManualvm = sp.GetRequiredService<RealtimePageViewModel>();
-                ObservableCollection<Alarm> alarms;
-                alarms = _realtimeManualvm.Alarms;
-                var alarmmessage = notification;
-                var alarm = alarms
-                    .Where(o => !o.IsFinish
-                        && o.Module == alarmmessage.Module
-                        && o.Code == alarmmessage.Code
-                        && o.DeviceNo == alarmmessage.DeviceNo
-                    )
-                    .FirstOrDefault();
-                if (notification.action == AlarmAction.Occur)
-                {
-                    if (alarm != null)
+                // 如果一个错误反复发生，不要无限新增报警，而是更新原报警的发生时间
+                case AlarmAction.Occur when alarm != null:
+                    alarm.OccurTime = DateTime.Now;
+                    break;
+                case AlarmAction.Occur:
+                    alarm = new Alarm
                     {
-                        alarm.OccurTime = DateTime.Now;
-                    }
-                    else
-                    {
-                        alarm = new Alarm()
-                        {
-                            Code = alarmmessage.Code,
-                            Name = alarmmessage.Name,
-                            Description = alarmmessage.Description,
-                            Module = alarmmessage.Module,
-                            OccurTime = DateTime.Now,
-                            DeviceNo = alarmmessage.DeviceNo,
-                            TightenNGExtra = alarmmessage.TightenNGExtra,
-                        };
-                    }
-                }
-
-                if (notification.action == AlarmAction.Clear && alarm != null)
-                {
+                        Code = alarmMessage.Code,
+                        Name = alarmMessage.Name,
+                        Description = alarmMessage.Description,
+                        Module = alarmMessage.Module,
+                        OccurTime = DateTime.Now,
+                        DeviceNo = alarmMessage.DeviceNo,
+                        TightenNGExtra = alarmMessage.TightenNGExtra,
+                    };
+                    break;
+                case AlarmAction.Clear when alarm != null:
                     alarm.IsFinish = true;
-                }
-
-                UIHelper.RunInUIThread(pl =>
-                {
-                    using var scope = this._sp.CreateScope();
-                    var sp = scope.ServiceProvider;
-                    var _realtimeManualvm = sp.GetRequiredService<RealtimePageViewModel>();
-
-                    _realtimeManualvm.UpdateAlarms?.Execute(alarm);
-                });
+                    break;
+                default:
+                    throw new Exception();
             }
-            catch (Exception ex)
+
+            UIHelper.RunInUIThread(pl =>
             {
-                Console.WriteLine(ex.Message);
-            }
-            return Task.CompletedTask;
+                using var serviceScope = _serviceProvider.CreateScope();
+                var scopeServiceProvider = serviceScope.ServiceProvider;
+                var realtimeManualVm = scopeServiceProvider.GetRequiredService<RealtimePageViewModel>();
 
+                realtimeManualVm.UpdateAlarms?.Execute(alarm);
+            });
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message);
+        }
+
+        return Task.CompletedTask;
     }
 }

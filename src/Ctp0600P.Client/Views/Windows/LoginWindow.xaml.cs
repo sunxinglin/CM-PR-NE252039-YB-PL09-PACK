@@ -1,18 +1,12 @@
-﻿using Ctp0600P.Client.ViewModels;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
+using Ctp0600P.Client.ViewModels;
+
+using Application = System.Windows.Forms.Application;
 
 namespace Ctp0600P.Client.Views
 {
@@ -21,18 +15,18 @@ namespace Ctp0600P.Client.Views
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private System.Timers.Timer timer;
+        private Timer timer;
         public LoginWindow(LoginPageViewModel vm)
         {
             InitializeComponent();
             //this.Password.Password = "123456";
             this.DataContext = vm;
-            timer = new System.Timers.Timer(500);
+            timer = new Timer(500);
             timer.AutoReset = true;
             timer.Elapsed += Timer_Elapsed;
         }
 
-        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Dispatcher.BeginInvoke(new Action(() => CardNo.Clear()));
             timer.Stop();
@@ -47,8 +41,8 @@ namespace Ctp0600P.Client.Views
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             //Application.Current.Shutdown();
-            System.Windows.Forms.Application.ExitThread();
-            System.Windows.Forms.Application.Exit();
+            Application.ExitThread();
+            Application.Exit();
             Process.GetCurrentProcess().Kill();
             Environment.Exit(0);
         }

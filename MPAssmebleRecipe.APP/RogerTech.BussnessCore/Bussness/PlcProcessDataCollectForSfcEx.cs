@@ -1,59 +1,57 @@
-﻿using dataCollectForSfcEx.dataCollectForSfcEx;
-using RogerTech.Common.Models;
-using RogerTech.Common;
-using RogerTech.Tool;
-using SqlSugar;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.NetworkInformation;
-using CatlMesBase;
-using System.Configuration;
+using dataCollectForSfcEx.dataCollectForSfcEx;
+using RogerTech.Common;
+using RogerTech.Common.Models;
+using RogerTech.Tool;
+using ParameterDataType = dataCollectForSfcEx.dataCollectForSfcEx.ParameterDataType;
+
 namespace RogerTech.BussnessCore.Bussness
 {
+    /// <summary>
+    /// 收数
+    /// </summary>
     public class PlcProcessDataCollectForSfcEx : PlcInProgressBase
     {
-        MesInterface MesInterface;
-        protected string StationName = ConfigurationManager.AppSettings["StationName"];
+        private readonly MesInterface _mesInterface;
+
         public PlcProcessDataCollectForSfcEx(string groupName, MesInterface mesInterface) : base(groupName, mesInterface)
         {
-            this.MesInterface = mesInterface;
+            _mesInterface = mesInterface;
         }
 
-        public override void Excute(Group group)
+        public override void Execute(Group group)
         {
-         
-            base.Excute(group);
+            base.Execute(group);
             Task.Run(() => { DbContext.Info("", $"收到plc请求值StartSignal：[0->1]", 0, PlcGroup.GroupName); });
             WriteFinishSignal(true);
             StringBuilder message = new StringBuilder();
             string sfc = string.Empty;
-            //  var dbData = DbContext.GetInstance();
-            BussnessUtility bussness = BussnessUtility.GetInstanse();
-            string productId = " ";
-            List<string> cellsns = new List<string>();
+            var db = DbContext.GetInstance();
+            BussnessUtility business = BussnessUtility.GetInstance();
             int resultCode = 30001;
             try
             {
                 #region Tag获取和数据校验
-                Tag sfcT = group.GetTag("SFC");
-                if (sfcT == null) OnTagNullError("SFC", group.GroupName);
-                sfc = sfcT.Result.Value.ToString();
-                if (sfc == null)
+
+                if (!TryGetRequiredStringTagValue(
+                        group,
+                        "SFC",
+                        message,
+                        ref resultCode,
+                        30001,
+                        30001,
+                        "SFC变量读取异常",
+                        "数据收集失败:传输的PACK码为空",
+                        out sfc))
                 {
-                    message.Append($"绑定出站失败:传输的模组码为空");
                     WriteResult(resultCode);
                     return;
                 }
-                List<object> inputs = new List<object>();
-                //不从PLC获取的数据，从上位机计算后写入DB
-                //Tag test1 = group.GetTag("test1");
-                //test1.WriteValue("从数据库获取值、从PLC获取后进行计算");
-                inputs = new List<object>();
-                inputs.Add(sfc);
+
+                List<object> inputs = new List<object> { sfc };
                 List<machineIntegrationParametricData> datas = new List<machineIntegrationParametricData>();
                 List<UploadData> uploadDatas = new List<UploadData>();
                 List<UploadData> localDatas = new List<UploadData>();
@@ -66,7 +64,6 @@ namespace RogerTech.BussnessCore.Bussness
                         {
                             if (float.TryParse(item.Result.Value.ToString(), out float value))
                             {
-                                // 修复逻辑：正确检查超出范围
                                 if (value < item.LowerLimit || value > item.UpperLimit)
                                 {
                                     message.Append($"上传失败:[{item.TagName}]超出上下限限制[{item.LowerLimit}-{item.UpperLimit}]");
@@ -81,17 +78,20 @@ namespace RogerTech.BussnessCore.Bussness
                                 return;
                             }
                         }
+                        // 根据 是否上传至工厂MES 执行 本地数据存储
                         if (item.IsUpload)
                         {
-                            datas.Add(new machineIntegrationParametricData()
+                            // 打包工厂MES上传数据
+                            datas.Add(new machineIntegrationParametricData
                             {
                                 name = item.MesName,
                                 value = item.Result.Value.ToString(),
-                                dataType = (dataCollectForSfcEx.dataCollectForSfcEx.ParameterDataType)item.MesDataType
+                                dataType = (ParameterDataType)item.MesDataType
                             });
-                            uploadDatas.Add(new UploadData()
+                            // 存储数据至uploadDatas表
+                            uploadDatas.Add(new UploadData
                             {
-                                InterfaceName = MesInterface.ToString(),
+                                InterfaceName = _mesInterface.ToString(),
                                 StationName = StationName,
                                 UploadDataName = item.MesName,
                                 UploadDataType = item.MesDataType,
@@ -103,9 +103,10 @@ namespace RogerTech.BussnessCore.Bussness
                         }
                         else
                         {
-                            localDatas.Add(new UploadData()
+                            // 存储数据至localDatas表
+                            localDatas.Add(new UploadData
                             {
-                                InterfaceName = MesInterface.ToString(),
+                                InterfaceName = _mesInterface.ToString(),
                                 StationName = StationName,
                                 UploadDataName = item.MesName,
                                 UploadDataType = item.MesDataType,
@@ -115,7 +116,6 @@ namespace RogerTech.BussnessCore.Bussness
                                 SFC = sfc
                             });
                         }
-
                     }
                     else
                     {
@@ -123,35 +123,41 @@ namespace RogerTech.BussnessCore.Bussness
                         WriteResult(30001);
                         return;
                     }
-
-
                 }
                 inputs.Add(datas);
-                List<object> output = bussness.MesInvoke(inputs, MesInterface);
 
-
-                if (DbContext.GetInstance().Queryable<UploadData>().AS("UploadData").Where(p => p.SFC.Contains(productId)).Count() > 0)
+                //空循环模式
+                if (business.bMesSimulation)
                 {
-                    DbContext.GetInstance().Updateable<UploadData>()
-                                           .AS("UploadData")
-                                           .SetColumns(u => u.IsReupload == true)
-                                           .Where(u => u.SFC == sfc)
-                                           .ExecuteCommand();
+                    resultCode = 0;
+                    return;
                 }
 
-                DbContext.GetInstance().Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
-                DbContext.GetInstance().Insertable(localDatas).AS("LocalData").ExecuteCommand();
-                if ((int)(output[0]) == 0)
+                List<object> output = business.MesInvoke(inputs, _mesInterface);
+
+                // 若数据已存在，则标记为已被重新上传
+                if (db.Queryable<UploadData>().AS("UploadData").Where(p => p.SFC == sfc).Any())
+                {
+                    db.Updateable<UploadData>()
+                        .AS("UploadData")
+                        .SetColumns(u => u.IsReupload == true)
+                        .Where(u => u.SFC == sfc)
+                        .ExecuteCommand();
+                }
+
+                db.Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
+                db.Insertable(localDatas).AS("LocalData").ExecuteCommand();
+                if ((int)output[0] == 0)
                 {
                     resultCode = (int)output[0];
-                    message.Append("调用mes接口[DataCollectForSfcEx]上传数据成功");
+                    message.Append("调用mes接口[DataCollectForCleanData]上传数据成功");
                 }
                 else
                 {
                     resultCode = (int)output[0];
-                    message.Append($"调用mes接口[DataCollectForSfcEx]上传数据失败MES代码[{output[0]}] MES信息[{output[1]}]");
-                    return;
+                    message.Append($"调用mes接口[datacollectForsfcEx]上传清洗数据失败MES代码[{output[0]}] MES信息[{output[1]}]");
                 }
+
                 #endregion
             }
             catch (Exception ex)
@@ -162,7 +168,7 @@ namespace RogerTech.BussnessCore.Bussness
             {
                 WriteResult(resultCode);
                 WriteFinishSignal(false);
-                Task.Run(() => { DbContext.Info(productId, message.ToString(), resultCode, PlcGroup.GroupName); });
+                Task.Run(() => { DbContext.Info(sfc, message.ToString(), resultCode, PlcGroup.GroupName); });
             }
         }
     }

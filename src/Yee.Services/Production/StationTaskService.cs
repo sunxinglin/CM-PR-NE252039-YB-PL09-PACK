@@ -2,17 +2,12 @@
 using AsZero.Core.Services.Repos;
 using AsZero.Core.Services.Sys_Logs;
 using AsZero.DbContexts;
+
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Yee.Common.Library.CommonEnum;
-using Yee.Entitys.DBEntity;
 using Yee.Entitys.DTOS;
 using Yee.Entitys.Production;
-using Yee.Services.Request;
 
 namespace Yee.Services.Production
 {
@@ -61,7 +56,7 @@ namespace Yee.Services.Production
                     if (!string.IsNullOrEmpty(DeviceNos))
                     {
                         DeviceNosList = DeviceNos.Split(",").ToList();
-                        mapping.ListResource = _dbContext.Base_ProResources.Where(r => r.StationCode == stationCode && r.ProResourceType == Common.Library.CommonEnum.ProResourceTypeEnum.拧紧枪 && DeviceNosList.Contains(r.DeviceNo) && !r.IsDeleted).ToList();
+                        mapping.ListResource = _dbContext.Base_ProResources.Where(r => r.StationCode == stationCode && r.ProResourceType == ProResourceTypeEnum.拧紧枪 && DeviceNosList.Contains(r.DeviceNo) && !r.IsDeleted).ToList();
                     }
 
                     var bomList = await _dbContext.Base_StationTaskBoms.Include(s => s.StationTask).Where(d => d.IsDeleted == false && d.StationTaskId == mapping.Id).ToListAsync();
@@ -131,7 +126,7 @@ namespace Yee.Services.Production
                     if (!string.IsNullOrEmpty(DeviceNos))
                     {
                         DeviceNosList = DeviceNos.Split(",").ToList();
-                        mapping.ListResource = _dbContext.Base_ProResources.Where(r => r.StationCode == stationCode && r.ProResourceType == Common.Library.CommonEnum.ProResourceTypeEnum.拧紧枪 && DeviceNosList.Contains(r.DeviceNo) && !r.IsDeleted).ToList();
+                        mapping.ListResource = _dbContext.Base_ProResources.Where(r => r.StationCode == stationCode && r.ProResourceType == ProResourceTypeEnum.拧紧枪 && DeviceNosList.Contains(r.DeviceNo) && !r.IsDeleted).ToList();
                     }
 
                     var bomList = await _dbContext.Base_StationTaskBoms.Include(s => s.StationTask).Where(d => d.IsDeleted == false && d.StationTaskId == mapping.Id).ToListAsync();
@@ -234,7 +229,7 @@ namespace Yee.Services.Production
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
@@ -266,7 +261,7 @@ namespace Yee.Services.Production
             await _dbContext.SaveChangesAsync();
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
@@ -322,7 +317,7 @@ namespace Yee.Services.Production
                 var DeviceNos = String.Join(",", DeviceNosList.ToArray());
                 DeviceNosList = DeviceNos.Split(",").ToList();
                 mapping.ListResource = _dbContext.Base_ProResources.Where(r => r.StationCode == stationCode
-                && r.ProResourceType == Common.Library.CommonEnum.ProResourceTypeEnum.拧紧枪 && DeviceNosList.Contains(r.DeviceNo) && !r.IsDeleted).ToList();
+                && r.ProResourceType == ProResourceTypeEnum.拧紧枪 && DeviceNosList.Contains(r.DeviceNo) && !r.IsDeleted).ToList();
 
                 var bomList = await _dbContext.Base_StationTaskBoms.Include(s => s.StationTask).Where(d => d.IsDeleted == false && d.StationTaskId == mapping.Id).ToListAsync();
                 listResult.Add(new StationTaskDTO
@@ -456,6 +451,12 @@ namespace Yee.Services.Production
 
                 return (false, ex.Message + "\r\n" + ex.StackTrace);
             }
+        }
+
+        public async Task<bool> CheckStationTaskExistByStepId(int stepId)
+        {
+            Base_StationTask? stationTask = await _dbContext.Base_StationTasks.FirstOrDefaultAsync(task => task.StepId == stepId);
+            return stationTask != null;
         }
     }
 }

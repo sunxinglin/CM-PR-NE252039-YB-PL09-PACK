@@ -14,16 +14,16 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
                 <ResourceDictionary>
+                    <!-- 应用基础信息（可在关于页/标题等处通过 StaticResource 引用） -->
                     <sys:String x:Key="AppName">CATL 宁德时代</sys:String>
                     <sys:String x:Key="AppVersion">1.1.0.0</sys:String>
                     <sys:String x:Key="Manufacturer">Mentechs+</sys:String>
+                    <!-- 行号转换器（常用于 DataGrid/List 的序号列展示） -->
                     <az:RowNumberConverter x:Key="RowNumberConverter" />
-
                 </ResourceDictionary>
-
             </ResourceDictionary.MergedDictionaries>
 
-            <!--  移除默认选中的阴影(通过绑定ItemContainerStyle来使用)  -->
+            <!-- ListBoxItem：移除默认焦点/选中阴影（通过绑定 ItemContainerStyle 使用） -->
             <Style x:Key="ListItemNullFocusContainerStyle" TargetType="ListBoxItem">
                 <Setter Property="SnapsToDevicePixels" Value="true" />
                 <Setter Property="Margin" Value="5,0,5,0" />
@@ -31,6 +31,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListBoxItem">
+                            <!-- 透明容器 + ContentPresenter：保持点击命中区域，同时不渲染默认选中外观 -->
                             <Border Name="Border"
                                     Background="Transparent"
                                     SnapsToDevicePixels="True">
@@ -40,6 +41,8 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <!-- 输入提示水印：当 TextBox 为空时作为 Background 展示 -->
             <VisualBrush x:Key="HintText"
                          AlignmentX="Left"
                          Opacity="0.5"
@@ -51,8 +54,11 @@
                                Text="请输入" />
                 </VisualBrush.Visual>
             </VisualBrush>
+
+            <!-- TextBox：空值时显示水印（通过 Background 叠加） -->
             <Style x:Key="DefaultTextBoxStyle" TargetType="TextBox">
                 <Style.Triggers>
+                    <!-- Text 为 null/空字符串：显示 HintText -->
                     <Trigger Property="Text" Value="{x:Null}">
                         <Setter Property="Background" Value="{StaticResource HintText}" />
                     </Trigger>
@@ -61,6 +67,8 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
+            <!-- ComboBox：统一基础外观（尺寸、对齐、边框、滚动条、去焦点样式） -->
             <Style x:Key="DefaultComboBoxStyle"
                    BasedOn="{x:Null}"
                    TargetType="ComboBox">
@@ -69,7 +77,7 @@
                 <Setter Property="Height" Value="40" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
-                <Setter Property="BorderBrush" Value="#FFFFFFFF" />
+                <Setter Property="BorderBrush" Value="#FFF" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
@@ -77,14 +85,18 @@
                 <Setter Property="Padding" Value="4,3" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
+
+            <!-- TextBox：带校验提示（空值水印 + 校验失败显示 ToolTip） -->
             <Style x:Key="ValidationTextBoxStyle" TargetType="{x:Type TextBox}">
                 <Style.Triggers>
+                    <!-- Text 为 null/空字符串：显示 HintText -->
                     <Trigger Property="Text" Value="{x:Null}">
                         <Setter Property="Background" Value="{StaticResource HintText}" />
                     </Trigger>
                     <Trigger Property="Text" Value="">
                         <Setter Property="Background" Value="{StaticResource HintText}" />
                     </Trigger>
+                    <!-- 校验失败：ToolTip 显示第一个 ValidationError 的提示内容 -->
                     <Trigger Property="Validation.HasError" Value="true">
                         <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
                     </Trigger>

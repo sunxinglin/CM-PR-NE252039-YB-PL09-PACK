@@ -1,12 +1,10 @@
 ﻿using AsZero.Core.Entities;
 using AsZero.Core.Services.Sys_Logs;
 using AsZero.DbContexts;
-using Azure;
 
 using Microsoft.EntityFrameworkCore;
 
 using Yee.Entitys.DBEntity.Production;
-using Yee.Entitys.Production;
 
 namespace Yee.Services.Production
 {

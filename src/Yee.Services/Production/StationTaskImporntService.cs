@@ -1,9 +1,12 @@
 ﻿using AsZero.Core.Entities;
 using AsZero.Core.Services.Sys_Logs;
 using AsZero.DbContexts;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+
 using OfficeOpenXml;
+
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.DBEntity.Production;
 using Yee.Entitys.DTOS;
@@ -251,6 +254,24 @@ namespace Yee.Services.Production
                                         };
                                         await dbContext.AddAsync(screwRe);
                                         break;
+                                    case StationTaskTypeEnum.图示拧紧:
+                                        // 网页端配方导入导出
+                                        var tightenByImage = new Base_StationTask_TightenByImage
+                                        {
+                                            StationTaskId = baseTask.Id,
+                                            TaskName = task.TaskDetailName ?? baseTask.Name ?? "",
+                                            ScrewNum = task.UseNum ?? 1,
+                                            ProgramNo = task.TaskScrew_ProgramNo ?? 1,
+                                            UpMesCode = task.UpMesCode ?? "",
+                                            DevicesNos = task.TaskScrew_DeviceNos ?? "1",
+                                            MinTorque = task.TaskScrew_TorqueMinLimit ?? 0,
+                                            MaxTorque = task.TaskScrew_TorqueMaxLimit ?? 99,
+                                            MinAngle = task.TaskScrew_AngleMinLimit ?? 0,
+                                            MaxAngle = task.TaskScrew_AngleMaxLimit ?? 999,
+                                            FloatFactor = Convert.ToDecimal(0.4f),
+                                        };
+                                        await dbContext.AddAsync(tightenByImage);
+                                        break;
                                     case StationTaskTypeEnum.放行:
                                         break;
                                     case StationTaskTypeEnum.涂胶检测:
@@ -326,7 +347,7 @@ namespace Yee.Services.Production
                             }
                         }
                     }
-                    await sys_LogService.AddLog(new SysLog() { LogType = Sys_LogType.导入配方, Message = $"导入配方，时间{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", Operator = op });
+                    await sys_LogService.AddLog(new SysLog { LogType = Sys_LogType.导入配方, Message = $"导入配方，时间{DateTime.Now:yyyy-MM-dd HH:mm:ss}", Operator = op });
                     await dbContextTransaction.CommitAsync();
                 }
 
@@ -347,9 +368,9 @@ namespace Yee.Services.Production
         public async Task<(Boolean, string)> ExportStationTask(int[] stepIds, int productId)
         {
             string filepath = Directory.GetCurrentDirectory() + @"\工位配方导入导出.xls";
-            if (System.IO.File.Exists(filepath))
+            if (File.Exists(filepath))
             {
-                System.IO.File.Delete(filepath);
+                File.Delete(filepath);
             }
             var stream = new FileStream(filepath, FileMode.OpenOrCreate);
             try
@@ -369,7 +390,7 @@ namespace Yee.Services.Production
                 }
 
                 var steps = await dbContext.Base_Steps.Where(w => !w.IsDeleted && stepIds.Contains(w.Id)).ToListAsync();
-                ///只导出存在的工序，忽略不存在的工序
+                // 只导出存在的工序，忽略不存在的工序
                 var totalExcelList = new List<StationTaskExcel>();
                 foreach (var step in steps)
                 {
@@ -544,7 +565,31 @@ namespace Yee.Services.Production
                                 if (screwR != null)
                                     excelList.Add(screwR);
                                 break;
-
+                            case StationTaskTypeEnum.图示拧紧:
+                                var tightenByImage = await dbContext.Base_StationTask_TightenByImages
+                                    .Where(f => !f.IsDeleted && f.StationTaskId == stationTask.Id)
+                                    .Select(s => new StationTaskExcel
+                                    {
+                                        FlowCode = flow.Code,
+                                        ProductCode = product.Code ?? "",
+                                        StepCode = step.Code ?? "",
+                                        Sequence = stationTask.Sequence,
+                                        Type = stationTask.Type,
+                                        TaskName = stationTask.Name ?? "",
+                                        TaskDetailName = s.TaskName,
+                                        UseNum = s.ScrewNum,
+                                        UpMesCode = s.UpMesCode,
+                                        TaskScrew_ProgramNo = s.ProgramNo,
+                                        TaskScrew_DeviceNos = s.DevicesNos,
+                                        TaskScrew_TorqueMinLimit = s.MinTorque,
+                                        TaskScrew_TorqueMaxLimit = s.MaxTorque,
+                                        TaskScrew_AngleMinLimit = s.MinAngle,
+                                        TaskScrew_AngleMaxLimit = s.MaxAngle,
+                                    })
+                                    .FirstOrDefaultAsync();
+                                if (tightenByImage != null)
+                                    excelList.Add(tightenByImage);
+                                break;
                             case StationTaskTypeEnum.放行:
                                 var letgo = new StationTaskExcel
                                 {

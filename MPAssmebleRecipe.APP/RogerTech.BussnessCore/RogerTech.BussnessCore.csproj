@@ -38,6 +38,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=8.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.1\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\lib\MySql.Data.dll</HintPath>
     </Reference>
@@ -51,6 +57,9 @@
     </Reference>
     <Reference Include="Prism.DryIoc.Wpf">
       <HintPath>..\lib\Prism.DryIoc.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Events">
+      <HintPath>..\lib\Prism.Events.dll</HintPath>
     </Reference>
     <Reference Include="Prism.Wpf">
       <HintPath>..\lib\Prism.Wpf.dll</HintPath>
@@ -68,6 +77,12 @@
       <HintPath>..\lib\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -84,11 +99,14 @@
     <Compile Include="Bussness\PlcProcessAssembleComponentToSfc.cs" />
     <Compile Include="Bussness\PlcProcessCheckBOMInventory.cs" />
     <Compile Include="Bussness\PlcProcessDataCollectForResourceInspectTask.cs" />
-    <Compile Include="Bussness\PlcProcessDataCollectForSfcEx.cs" />
     <Compile Include="Bussness\PlcProcessFindSfcByInventory.cs" />
+    <Compile Include="Bussness\PlcProcessGetMHRUsers.cs" />
+    <Compile Include="Bussness\PlcProcessDataCollectForSfcEx.cs" />
     <Compile Include="Bussness\PlcProcessGetParametricValue.cs" />
+    <Compile Include="Bussness\PlcProcessMiCheckBOMInventory.cs" />
     <Compile Include="Bussness\PlcProcessMiFindCustomAndSfcData.cs" />
     <Compile Include="Bussness\PlcProcessReleaseSfcByShopOrder.cs" />
+    <Compile Include="Bussness\PlcProcessTighteningDataCollectForSfcEx.cs" />
     <Compile Include="PlcCommArgs.cs" />
     <Compile Include="PlcCommucation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,6 +136,10 @@
       <Project>{86b293aa-951b-4f50-9f61-d0847d186340}</Project>
       <Name>MachineClose</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MHRGetUser\GetMHRUser.csproj">
+      <Project>{84d5d581-9a9f-4055-85e0-c2022604378e}</Project>
+      <Name>GetMHRUser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MiAssembleAndCollectDataForSfc\MiAssembleAndCollectDataForSfc.csproj">
       <Project>{d6dbad26-db30-4432-be39-f01653a011dc}</Project>
       <Name>MiAssembleAndCollectDataForSfc</Name>
@@ -146,6 +168,10 @@
       <Project>{16bd31f8-dee5-468c-8f1f-5d2eac69084c}</Project>
       <Name>miFindCustomAndSfcData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MiGetPrintContent\MiGetPrintContent.csproj">
+      <Project>{44847cf1-166d-487e-b6d8-3483dac66841}</Project>
+      <Name>MiGetPrintContent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\miReleaseSfcByOrder\miReleaseSfcByOrder.csproj">
       <Project>{45b0caa6-d3b5-422b-be62-868f5d022794}</Project>
       <Name>miReleaseSfcByOrder</Name>
@@ -166,6 +192,10 @@
       <Project>{e4362e13-5fef-4622-9ed4-60c837b10eff}</Project>
       <Name>RogerTech.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RogerTech.Share\RogerTech.Share.csproj">
+      <Project>{56A1AE6F-8DC9-46D2-AAF4-2B7028417BCA}</Project>
+      <Name>RogerTech.Share</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RogerTech.Tool\RogerTech.Tool.csproj">
       <Project>{58ECD4C7-B30C-4ED6-8E48-F63EF3E37A2A}</Project>
       <Name>RogerTech.Tool</Name>
@@ -176,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

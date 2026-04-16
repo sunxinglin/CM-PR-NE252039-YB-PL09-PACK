@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 using Yee.Common.Library.CommonEnum;
 
@@ -30,9 +25,10 @@ namespace Yee.Entitys
         public int Id { get; set; }
 
         public string WorkName { get; set; } = string.Empty;
-
+        public int OrderNo { get; set; }
         public int CurNo { get; set; }
         public List<int>? ReworkNums { get; set; }
+        public IList<ScrewDatas>? ScrewDatas { get; set; }
 
         public int ReworkNum { get; set; } = 1;
 
@@ -53,4 +49,29 @@ namespace Yee.Entitys
 
         public event PropertyChangedEventHandler? PropertyChanged;
     }
+    
+    public class ScrewDatas : INotifyPropertyChanged
+    {
+        private bool _IsChecked = false;
+        public bool IsChecked
+        {
+            get => _IsChecked;
+            set
+            {
+                _IsChecked = value;
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsChecked)));
+            }
+        }
+
+        public bool NeedDel { get; set; } = false;
+        public int Id { get; set; }
+        public int OrderNo { get; set; }
+        public bool ResultOk { get; set; }
+
+        public string Torque { get; set; } = "0N";
+        public string Angle { get; set; } = "0°";
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+    }
+    
 }

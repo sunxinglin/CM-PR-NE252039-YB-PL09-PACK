@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yee.Entitys.DBEntity.ProductionRecords;
+﻿using Yee.Entitys.DBEntity.ProductionRecords;
 
 namespace Yee.Services.Request
 {

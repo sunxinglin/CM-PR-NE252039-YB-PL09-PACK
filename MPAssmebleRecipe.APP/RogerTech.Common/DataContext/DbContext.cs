@@ -1,16 +1,10 @@
-using SqlSugar;
-using RogerTech.AuthService.Models;
-using System.Reflection;
-using System.Configuration;
-using RogerTech.Common.AuthService.Model;
-using System.Threading.Tasks;
-using System;
 using log4net;
-using System.Collections.Generic;
+using RogerTech.AuthService.Models;
+using RogerTech.Common.AuthService.Model;
 using RogerTech.Common.Models;
-using System.Net.Sockets;
-using RogerTech.Tool;
-using MPAssmebleRecipe.Models.Entities.Issues;
+using SqlSugar;
+using System;
+using System.Configuration;
 
 namespace RogerTech.Common
 {
@@ -18,9 +12,9 @@ namespace RogerTech.Common
     {
         private static SqlSugarScope _instance;
 
-        ILog logger = LogManager.GetLogger("");
+        private static readonly ILog _logger = LogManager.GetLogger(nameof(DbContext));
 
-        public static readonly Object locker = new object();
+        private static readonly Object locker = new object();
 
 
         public static SqlSugarScope GetInstance()
@@ -35,13 +29,13 @@ namespace RogerTech.Common
                         throw new ConfigurationErrorsException("未找到数据库连接字符串配置");
                     }
 
-                    _instance = new SqlSugarScope(new ConnectionConfig()
+                    _instance = new SqlSugarScope(new ConnectionConfig
                     {
-                        DbType = SqlSugar.DbType.PostgreSQL,
+                        DbType = DbType.PostgreSQL,
                         ConnectionString = connStr,
                         IsAutoCloseConnection = true,
                         InitKeyType = InitKeyType.Attribute, //从实体特性中读取主键自增配置
-                        MoreSettings = new ConnMoreSettings()
+                        MoreSettings = new ConnMoreSettings
                         {
                             IsAutoRemoveDataCache = true //自动清理缓存
                         },
@@ -49,7 +43,7 @@ namespace RogerTech.Common
                         {
                             OnLogExecuting = (sql, param) =>
                             {
-                                //_logger.Debug($"SQL执行: {sql}");
+                                // _logger.Debug($"SQL执行: {sql}");
                             },
                             OnLogExecuted = (sql, param) =>
                             {
@@ -69,7 +63,7 @@ namespace RogerTech.Common
             }
             catch (Exception ex)
             {
-                //_logger.Error(ex, "初始化数据库连接失败");
+                // _logger.Error(ex, new Exception("初始化数据库连接失败"));
                 throw new Exception("初始化数据库连接失败", ex);
             }
         }
@@ -77,7 +71,7 @@ namespace RogerTech.Common
         {
             try
             {
-                //_logger.Info("开始初始化数据库和表");
+                // _logger.Info("开始初始化数据库和表");
 
                 // 创建数据库
                 _instance.DbMaintenance.CreateDatabase();
@@ -102,7 +96,7 @@ namespace RogerTech.Common
 
                 //新增
 
-
+                _instance.CodeFirst.InitTables<MHRUser>();
                 //  _instance.CodeFirst.InitTables<Recipe_Temp>();
                 _instance.CodeFirst.InitTables<Production_Recipe>();
                 _instance.CodeFirst.InitTables<TemplateDto>();
@@ -111,110 +105,145 @@ namespace RogerTech.Common
                 _instance.CodeFirst.InitTables<Template_Block>();
                 _instance.CodeFirst.InitTables<Template_Pack>();
 
+				//// 配方记录表
+				//_instance.MappingTables.Add("RecipeItem", "recipe_record");
+				//_instance.CodeFirst.SetStringDefaultLength(200).InitTables<RecipeItem>();
+				//_instance.MappingTables.Clear();
+
+				//// 配方临时表
+				//_instance.MappingTables.Add("RecipeItem", "recipe_temp");
+				//_instance.CodeFirst.SetStringDefaultLength(200).InitTables<RecipeItem>();
+				//_instance.MappingTables.Clear();
 
 
-
-
-                //// 配方记录表
-                //_instance.MappingTables.Add("RecipeItem", "recipe_record");
-                //_instance.CodeFirst.SetStringDefaultLength(200).InitTables<RecipeItem>();
-                //_instance.MappingTables.Clear();
-
-                //// 配方临时表
-                //_instance.MappingTables.Add("RecipeItem", "recipe_temp");
-                //_instance.CodeFirst.SetStringDefaultLength(200).InitTables<RecipeItem>();
-                //_instance.MappingTables.Clear();
-
+				CreateSeedUsers(_instance);
+                
             }
             catch (Exception ex)
             {
                 //_logger.Error(ex, "初始化数据库表失败");
                 throw new Exception("初始化数据库表失败", ex);
             }
-            finally
+		}
+
+        #region 开发环境初始化超管用户
+
+        private static void CreateSeedUsers(SqlSugarScope db)
+        {
+            if (ConfigurationManager.AppSettings["Environment"] != "dev")
             {
-                // 检查是否存在记录
-                var userExists = GetInstance().Queryable<User>().Any(u => u.UserName == "SystemAdmin" && u.EmployeeId == "000000");
+                return;
+            }
 
-                if (!userExists)
+            var superRole = db.Queryable<Role>().Where(r => r.RoleName == "SuperAdmin").First();
+            if (superRole == null)
+            {
+                superRole = new Role
                 {
-                    // 插入新记录
-                    var newUser = new User
-                    {
-                        UserName = "SystemAdmin",
-                        EmployeeId = "000000",
-                        PasswordHash = "password",    
-                        RoleName="",
-                        IsActive = true,
-                        CreatedTime = DateTime.Now
-                    };
+                    RoleName = "SuperAdmin",
+                    Description = "测试环境最高权限角色",
+                };
+                db.Insertable(superRole).ExecuteCommand();
+            }
+            
+            var user = db.Queryable<User>().Where(u => u.EmployeeId == "000000").First();
+            if (user == null)
+            {
+                user = new User
+                {
+                    UserName = "SystemAdmin",
+                    EmployeeId = "000000",
+                    PasswordHash = "password",
+                    RoleName = superRole.RoleName
+                };
+                db.Insertable(user).ExecuteCommand();
+            }
+            
+            user = db.Queryable<User>().Where(u => u.EmployeeId == "000001").First();
+            if (user == null)
+            {
+                user = new User
+                {
+                    UserName = "SuperAdmin01",
+                    EmployeeId = "000001",
+                    PasswordHash = "123",
+                    RoleName = superRole.RoleName
+                };
+                db.Insertable(user).ExecuteCommand();
+            }
 
-                    GetInstance().Insertable(newUser).ExecuteCommand();
-                }
+            user = db.Queryable<User>().Where(u => u.EmployeeId == "000002").First();
+            if (user == null)
+            {
+                user = new User
+                {
+                    UserName = "SuperAdmin02",
+                    EmployeeId = "000002",
+                    PasswordHash = "123456",
+                    RoleName = superRole.RoleName
+                };
+                db.Insertable(user).ExecuteCommand();
             }
 
         }
 
-
+        #endregion
 
         
         public static Action ProgressInfoChange;
 
         public static Action<string> ProgressErrorChange;
 
-        public static void Info(string proudctID, string message, int code, string  GroupName)
+        public static void Info(string productID, string message, int code, string  groupName)
         {
             lock (locker)
             {
-                LogModel logModel = new LogModel()
+                LogModel logModel = new LogModel
                 {
-                    InterfaceName = GroupName,
+                    InterfaceName = groupName,
                     LogType = "INFO",
                     RecordTime = DateTime.Now,
                     Result = code.ToString(),
-                    ProductID = proudctID,
+                    ProductID = productID,
                     Message = message
                 };
                 try
                 {
-                    _instance.Insertable<LogModel>(logModel).ExecuteCommand();
+                    // ToOptimize:如果没人调用过GetInstance()方法，会抛出空引用异常
+                    _instance.Insertable(logModel).ExecuteCommand();
                     ProgressInfoChange?.Invoke();
                 }
                 catch (Exception ex)
                 {
-                    Error(proudctID, message, 9999, GroupName);
+                    Error(productID, message, 9999, groupName);
                 }
             }
 
         }
 
-        public static void Error(string proudctID, string message, int code, string GroupName)
+        public static void Error(string productID, string message, int code, string groupName)
         {
 
             lock (locker)
             {
                 try
                 {
-                    LogModel logModel = new LogModel()
+                    LogModel logModel = new LogModel
                     {
-                        InterfaceName = GroupName,
+                        InterfaceName = groupName,
                         LogType = "ERROR",
                         RecordTime = DateTime.Now,
-                        ProductID = proudctID,
+                        ProductID = productID,
                         Result = code.ToString(),
                         Message = message,
                     };
-                    _instance.Insertable<LogModel>(logModel).ExecuteCommand();
+                    // ToOptimize:如果没人调用过GetInstance()方法，会抛出空引用异常
+                    _instance.Insertable(logModel).ExecuteCommand();
                     ProgressErrorChange?.Invoke("");
                 }
                 catch (Exception ex)
                 {
                     ProgressErrorChange?.Invoke(ex.Message);
-                }
-
-                finally
-                {
-
                 }
             }
         }

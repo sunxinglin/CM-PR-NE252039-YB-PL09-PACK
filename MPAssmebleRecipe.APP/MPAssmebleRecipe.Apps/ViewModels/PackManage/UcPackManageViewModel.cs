@@ -351,19 +351,19 @@ namespace MPAssmebleRecipe.Apps.ViewModels.PackManage
                 if (MessageBox.Show("确定要删除选中的Block吗？", "确认", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
                     return;
 
-                DbContext.GetInstance().DeleteNav<Template_Block>(x => x.Id == SelectedBlock.Id)
+                DbContext.GetInstance().DeleteNav<Template_Block>(x => x.BlockSequence == SelectedBlock.BlockSequence)
                     .Include(m => m.ModuleItems)
                     .ThenInclude(c => c.CellItems)
                     .ExecuteCommand();
                 //重新排序
-                var blocks = DbContext.GetInstance().Queryable<Template_Block>().Where(x => x.PackId == SelectedPack.Id).OrderBy(r => r.BlockIndex).ToList();
-                int i = 1;
-                foreach (var block in blocks)
-                {
-                    block.BlockIndex = i;
-                    i++;
-                }
-                DbContext.GetInstance().Updateable<Template_Block>(blocks).UpdateColumns(x => x.BlockIndex).ExecuteCommand();
+                //var blocks = DbContext.GetInstance().Queryable<Template_Block>().Where(x => x.PackId == SelectedPack.Id).OrderBy(r => r.BlockIndex).ToList();
+                //int i = 1;
+                //foreach (var block in blocks)
+                //{
+                //    block.BlockIndex = i;
+                //    i++;
+                //}
+            //    DbContext.GetInstance().Updateable<Template_Block>(blocks).UpdateColumns(x => x.BlockIndex).ExecuteCommand();
                 OperationService.OperationRecord(RogerTech.Common.AuthService.Model.Operation.Add, $"用户删除Block,BlockPn[{SelectedBlock.BlockPn}]");
                 LoadBlocks();
             }

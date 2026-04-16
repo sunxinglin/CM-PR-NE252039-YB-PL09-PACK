@@ -1,13 +1,18 @@
-﻿using Ctp0600P.Client.Apis;
-using Ctp0600P.Client.Protocols;
-using Ctp0600P.Client.Protocols.ScanCode.Models;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using Reactive.Bindings;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Ctp0600P.Client.Apis;
+using Ctp0600P.Client.Protocols;
+using Ctp0600P.Client.Protocols.ScanCode.Models;
+
+using MediatR;
+
+using Microsoft.Extensions.DependencyInjection;
+
+using Reactive.Bindings;
+
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys;
 using Yee.Entitys.AlarmMgmt;
@@ -53,6 +58,38 @@ namespace Ctp0600P.Client.ViewModels
                 {
                     workRecords.AddRange(item.WorkRecords.Where(w => w.IsChecked).ToList());
                 }
+                
+                
+                try
+                {
+                    var imageTasks = ReWorkDatas.Value
+                        .Where(d => d.StationTaskType == StationTaskTypeEnum.图示拧紧)
+                        .ToList();
+
+                    var selectedImage = imageTasks
+                        .SelectMany(d => d.WorkRecords.Select(w => (data: d, record: w)))
+                        .Where(x => x.record.IsChecked && x.record.OrderNo > 0)
+                        .ToList();
+
+                    if (selectedImage.Count > 0)
+                    {
+                        var target = selectedImage.OrderBy(x => x.record.OrderNo).First();
+                        App.ReworkLocateTightenByImageStationTaskId = target.data.StationTaskId;
+                        App.ReworkLocateTightenByImageOrderNo = target.record.OrderNo;
+                    }
+                    else
+                    {
+                        App.ReworkLocateTightenByImageStationTaskId = null;
+                        App.ReworkLocateTightenByImageOrderNo = null;
+                    }
+                }
+                catch
+                {
+                    App.ReworkLocateTightenByImageStationTaskId = null;
+                    App.ReworkLocateTightenByImageOrderNo = null;
+                }
+
+                
                 var result = await _apiHelper.MakeRework(workRecords);
                 if (result.Code != 200)
                 {
@@ -69,6 +106,7 @@ namespace Ctp0600P.Client.ViewModels
                 using var scope = serviceProvider.CreateScope();
                 var sp = scope.ServiceProvider;
                 var realViewModel = sp.GetRequiredService<RealtimePageViewModel>();
+                realViewModel.HasReWork = true;
                 realViewModel.InitEmpty_TaskData(false);
                 await Task.Delay(100);
                 App.ScanCodeGunRequestSubject.OnNext(request);
@@ -93,6 +131,7 @@ namespace Ctp0600P.Client.ViewModels
                 using var scope = serviceProvider.CreateScope();
                 var sp = scope.ServiceProvider;
                 var realViewModel = sp.GetRequiredService<RealtimePageViewModel>();
+                realViewModel.HasReWork = true;
                 realViewModel.InitEmpty_TaskData(false);
                 await Task.Delay(100);
                 App.ScanCodeGunRequestSubject.OnNext(request);

@@ -104,7 +104,7 @@
             <MaterialDesign:DrawerHost IsLeftDrawerOpen="{Binding IsMenuOpen}">
                 <MaterialDesign:DrawerHost.LeftDrawerContent>
                     <DockPanel MinWidth="220">
-                        <MaterialDesign:TreeListView ItemsSource="{Binding MenuItems}"  SelectedItem="{Binding SelectedMenuItem}">
+                        <MaterialDesign:TreeListView ItemsSource="{Binding MenuItems}" SelectedIndex="{Binding SelectedIndex}" SelectedItem="{Binding SelectedMenuItem}">
                             <MaterialDesign:TreeListView.ItemTemplate>
                                 <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                                     <StackPanel Orientation="Horizontal" Height="30" >

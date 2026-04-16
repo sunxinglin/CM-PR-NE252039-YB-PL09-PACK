@@ -1,19 +1,26 @@
-﻿using Prism.Commands;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
-using RogerTech.AuthService.Models;
-using RogerTech.Common;
-using RogerTech.Common.AuthService;
-using RogerTech.Common.AuthService.Services;
-using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using System.Windows;
+using RogerTech.AuthService.Models;
+using RogerTech.Common.AuthService;
+using RogerTech.Common.AuthService.Services;
+using System.ComponentModel;
+using System.Windows.Controls;
+using MPAssmebleRecipe.Apps.Views;
+using System.Configuration;
+using RogerTech.Common;
+using RogerTech.Common.AuthService.Model;
 
 namespace MPAssmebleRecipe.Apps.ViewModels
 {
@@ -25,11 +32,13 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         private readonly IDialogService _dialogService;
         private readonly DispatcherTimer _autoLogoutTimer;
         private int _autoLogoutCountdown = 180;
+        private int _LogoutSettingTime = 180;
         private string _softwareVersion = "v1.0.0";
         private string _additionalInfo = "正常运行中";
         private ObservableCollection<DeviceStatus> _deviceStatuses;
         private UserInfo _currentUser;
-
+        private bool _showPrinterMenu;
+        private int _selectedIndex;
         public string Title
         {
             get => _title;
@@ -40,6 +49,11 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         {
             get => _isMenuOpen;
             set => SetProperty(ref _isMenuOpen, value);
+        }
+        public int SelectedIndex
+        {
+            get => _selectedIndex;
+            set => SetProperty(ref _selectedIndex, value);
         }
 
         public DelegateCommand ToggleMenuCommand { get; }
@@ -64,6 +78,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
             SwitchUserCommand = new DelegateCommand(SwitchUser);
             LogoutCommand = new DelegateCommand(Logout);
             ShowLoginCommand = new DelegateCommand(ShowLoginDialog);
+
             InitializeMenu();
 
             // 初始化设备状态
@@ -72,12 +87,13 @@ namespace MPAssmebleRecipe.Apps.ViewModels
             AppManager appManager = AppManager.GetInstance();
             if (appManager.bussness.BussnessDic.PlcServer.Connections != null)
             {
-                foreach (var deviceStatus in appManager.bussness.BussnessDic.PlcServer.Connections.Select(item => new DeviceStatus()
-                         {
-                             DeviceName = item.IP,
-                             IsConnected = item.Connected
-                         }))
+                foreach (var item in appManager.bussness.BussnessDic.PlcServer.Connections)
                 {
+                    DeviceStatus deviceStatus = new DeviceStatus()
+                    {
+                        DeviceName = item.IP,
+                        IsConnected = item.Connected
+                    };
                     DeviceStatuses.Add(deviceStatus);
                 }
             }
@@ -91,7 +107,13 @@ namespace MPAssmebleRecipe.Apps.ViewModels
             _autoLogoutTimer.Start();
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<UserInfoEvent>().Publish(CurrentUser);
-            GetOperationUserInfo();
+            GetOpreationUserInfo();
+            string LoginTimeString = ConfigurationManager.AppSettings["LoginTime"] ?? "180";
+            if (!int.TryParse(LoginTimeString, out _LogoutSettingTime))
+            {
+                _LogoutSettingTime = 180;
+            }
+
         }
 
         public ObservableCollection<DeviceStatus> DeviceStatuses
@@ -115,7 +137,10 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         public UserInfo CurrentUser
         {
             get => _currentUser;
-            set => SetProperty(ref _currentUser, value);
+            set
+            {
+                SetProperty(ref _currentUser, value);
+            }
         }
 
         public string AutoLogoutCountdown
@@ -161,8 +186,11 @@ namespace MPAssmebleRecipe.Apps.ViewModels
 
         public void ResetAutoLogoutTimer()
         {
-            _autoLogoutCountdown = 180;
-            RaisePropertyChanged(nameof(AutoLogoutCountdown));
+            if (CurrentUser != null)
+            {
+                _autoLogoutCountdown = _LogoutSettingTime;
+                RaisePropertyChanged(nameof(AutoLogoutCountdown));
+            }
         }
 
         // 设备状态类
@@ -186,7 +214,8 @@ namespace MPAssmebleRecipe.Apps.ViewModels
 
         private void NavigateToHome()
         {
-            _regionManager.RequestNavigate("ContentRegion", "LogView");
+            // _regionManager.RequestNavigate("ContentRegion", "LogView");
+            SelectedIndex = 0;
             IsMenuOpen = false;
         }
 
@@ -203,7 +232,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
                 var result = MessageBox.Show("是否退出程序", "", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
-                    OperationService.OperationRecord(RogerTech.Common.AuthService.Model.Operation.CloseApp, "用户关闭软件");
+                    OperationService.OperationRecord(Operation.CloseApp, "用户关闭软件");
                     Application.Current.Shutdown();
                 }
                 else
@@ -222,6 +251,8 @@ namespace MPAssmebleRecipe.Apps.ViewModels
 
         private void Logout()
         {
+            _eventAggregator.GetEvent<CloseAllDialogsEvent>().Publish();
+
             // 实现注销逻辑
             OperationService.OperationRecord(RogerTech.Common.AuthService.Model.Operation.OutLogin, "用户退出");
             CurrentUser = null;
@@ -230,15 +261,15 @@ namespace MPAssmebleRecipe.Apps.ViewModels
             _eventAggregator.GetEvent<UserInfoEvent>().Publish(CurrentUser);
         }
 
-        private bool _loginFlag = true;
+        private bool LoginFlag = true;
         private void ShowLoginDialog()
         {
-            if (!_loginFlag)
+            if (!LoginFlag)
             {
-                _loginFlag = true;
+                LoginFlag = true;
                 return;
             }
-            _loginFlag = false;
+            LoginFlag = false;
             var parameters = new DialogParameters();
             _dialogService.ShowDialog("CardLoginDialog", parameters, result =>
             {
@@ -254,7 +285,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
                     appManager.UserInfo = userService.Login(user.UserName, user.PasswordHash);
                     CurrentUser = appManager.UserInfo;
                     _eventAggregator.GetEvent<UserInfoEvent>().Publish(CurrentUser);
-                    OperationService.OperationRecord(RogerTech.Common.AuthService.Model.Operation.Login, "用户登录");
+                    OperationService.OperationRecord(Operation.Login, "用户登录");
                     ResetAutoLogoutTimer();
 
                     if (CurrentUser == null)
@@ -263,6 +294,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
                     }
                 }
             });
+            
 
         }
 
@@ -302,24 +334,24 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         private void InitializeMenu()
         {
             MenuItems = new ObservableCollection<MenuItem>
-        {
-            new MenuItem
             {
-                Title = "交互日志",Icon = "FileDocument",ViewName = "LogView",
-                Children = new ObservableCollection<MenuItem>
+                new MenuItem
                 {
-                    new MenuItem { Title = "电芯配方下发", Icon = "Battery", ViewName = "UcRecipeManageView" },
-                    new MenuItem { Title = "配方设置", Icon = "Settings", ViewName = "UcPackManageView" },
-                    new MenuItem { Title = "电芯管理", Icon = "Battery", ViewName = "UcCurrentCellOrderView" },
+                    Title = "交互日志",Icon = "FileDocument",ViewName = "LogView",
+                    Children = new ObservableCollection<MenuItem>
+                    {
+                        new MenuItem { Title = "电芯配方下发", Icon = "Battery", ViewName = "UcRecipeManageView" },
+                        new MenuItem { Title = "配方设置", Icon = "Settings", ViewName = "UcPackManageView" },
+                        new MenuItem { Title = "电芯管理", Icon = "Battery", ViewName = "UcCurrentCellOrderView" },
 
-                }
-            },
-            new MenuItem { Title = "MES设置", Icon = "ServerNetwork", ViewName = "MESCFGView" },
-            new MenuItem { Title = "数据查询", Icon = "DatabaseSearch", ViewName = "UploadDataView" },
-            new MenuItem { Title = "PLC变量监控", Icon = "PlcTagMonitor", ViewName = "PlcTagView" },
-            new MenuItem { Title = "操作记录", Icon = "History", ViewName = "UcOperationView" },
-            new MenuItem { Title = "用户管理", Icon = "AccountMultiple", ViewName = "AuthMainView" }
-        };
+                    }
+                },
+                new MenuItem { Title = "MES设置", Icon = "ServerNetwork", ViewName = "MESCFGView" },
+                new MenuItem { Title = "数据查询", Icon = "DatabaseSearch", ViewName = "UploadDataView" },
+                new MenuItem { Title = "PLC变量监控", Icon = "PlcTagMonitor", ViewName = "PlcTagView" },
+                new MenuItem { Title = "操作记录", Icon = "History", ViewName = "UcOperationView" },
+                new MenuItem { Title = "用户管理", Icon = "AccountMultiple", ViewName = "AuthMainView" }
+            };
         }
 
         private void NavigateToUserControl(string viewName)
@@ -351,7 +383,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
 
         // ... 其他导航方法 ...
 
-        public void GetOperationUserInfo()
+        public void GetOpreationUserInfo()
         {
             _eventAggregator.GetEvent<UserInfoEvent>().Subscribe(user =>
             {
@@ -360,4 +392,5 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         }
 
     }
+    public class CloseAllDialogsEvent : PubSubEvent { }
 }

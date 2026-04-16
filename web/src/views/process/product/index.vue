@@ -14,8 +14,6 @@
               </el-button>
               <el-button type="danger" icon="el-icon-delete" size="small" @click="handleDelete">删除
               </el-button>
-              <el-button type="primary" icon="el-icon-delete" size="small" @click="domainvisible">模组条码规则
-              </el-button>
             </el-col>
             <el-col :span="3">
               <el-input @keyup.enter.native="handleFilter" prefix-icon="el-icon-search" size="small"
@@ -29,7 +27,8 @@
 
     <div class="app-container fh">
       <el-table ref="mainTable" :data="productList" v-loading="productListLoading" row-key="id" style="width: 100%"
-        height="calc(100% - 52px)" @selection-change="handleSelectionChange" border fit stripe highlight-current-row
+        height="calc(100% - 52px)" @row-click="handleRowClick" @selection-change="handleSelectionChange" border fit
+        stripe highlight-current-row
         align="left">
         <el-table-column type="selection" min-width="20px" align="center"></el-table-column>
         <el-table-column prop="code" label="PN号"  sortable align="center"></el-table-column>
@@ -125,6 +124,7 @@ export default {
   },
   data() {
     return {
+      selectedProductRowId: null,
       productMultipleSelection: [], //勾选的数据表值
       productList: [], //数据表
       domainlist: [],
@@ -194,6 +194,28 @@ export default {
     //勾选框
     handleSelectionChange(val) {
       this.productMultipleSelection = val;
+      if (val.length === 1) {
+        this.selectedProductRowId = val[0].id;
+      } else if (val.length === 0) {
+        this.selectedProductRowId = null;
+      } else {
+        this.selectedProductRowId = null;
+      }
+    },
+    handleRowClick(row, column) {
+      if (column && column.type === "selection") return;
+
+      const table = this.$refs.mainTable;
+      if (!table) return;
+
+      const isSameRow = this.selectedProductRowId === row.id;
+      table.clearSelection();
+      if (isSameRow) {
+        this.selectedProductRowId = null;
+        return;
+      }
+      table.toggleRowSelection(row, true);
+      this.selectedProductRowId = row.id;
     },
     //关键字搜索
     handleFilter() {

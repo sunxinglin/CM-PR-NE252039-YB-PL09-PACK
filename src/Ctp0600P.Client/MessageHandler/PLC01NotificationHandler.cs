@@ -1,27 +1,30 @@
-﻿using Ctp0600P.Client.ObservableMonitor;
-using Ctp0600P.Client.PLC.PLC01;
-using Ctp0600P.Client.PLC.PLC01.Middlewares.Common.PublishNotification;
-using MediatR;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ctp0600P.Client.MessageHandler
+using Ctp0600P.Client.ObservableMonitor;
+using Ctp0600P.Client.PLC.PLC01;
+using Ctp0600P.Client.PLC.PLC01.Middlewares.Common.PublishNotification;
+
+using MediatR;
+
+namespace Ctp0600P.Client.MessageHandler;
+
+public class PLC01NotificationHandler : INotificationHandler<ScanContextNotification>
 {
-    public class PLC01NotificationHandler : INotificationHandler<ScanContextNotification>
+    private readonly PLC01ObservableMonitor _observableMonitor;
+
+    public PLC01NotificationHandler(PLC01ObservableMonitor observableMonitor)
     {
-        private readonly PLC01ObservableMonitor _ObservableMonitor;
+        _observableMonitor = observableMonitor;
+    }
 
-        public PLC01NotificationHandler(PLC01ObservableMonitor observableMonitor)
-        {
-            _ObservableMonitor = observableMonitor;
-        }
+    public Task Handle(ScanContextNotification notification, CancellationToken cancellationToken)
+    {
+        // notification是数据快照，因此要将其转换成系统业务逻辑中真正使用的上下文对象ScanContext
+        _observableMonitor.OnNextContext(
+            new ScanContext(null, notification.DevMsg, notification.MstMsg, notification.CreatedAt));
+        _observableMonitor.OnNextHearted(notification.CreatedAt);
 
-        public Task Handle(ScanContextNotification notification, CancellationToken cancellationToken)
-        {
-            _ObservableMonitor.OnNextContext(new ScanContext(null, notification.DevMsg, notification.MstMsg, notification.CreatedAt));
-            _ObservableMonitor.OnNextHearted(notification.CreatedAt);
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

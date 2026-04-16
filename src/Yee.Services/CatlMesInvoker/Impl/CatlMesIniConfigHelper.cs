@@ -1,16 +1,19 @@
-﻿using Catl.HostComputer.CommonServices;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Text;
-using Ctp0600P.Shared.CatlMes;
-using Catl.WebServices.MIFindCustomAndSfcData;
-using Catl.WebServices.AssembleAndCollectDataForSfc;
+﻿using System.Reflection;
+
+using Catl.HostComputer.CommonServices;
 using Catl.WebServices.MachineIntegrationServices;
-using System.Reflection.Emit;
+using Catl.WebServices.MICheckInventoryAttribute;
+using Catl.WebServices.MIFindCustomAndSfcData;
+using Catl.WebServices.MiFindCustomAndSfcDataServiceService;
+
 using Ctp0600P.Shared;
+using Ctp0600P.Shared.CatlMes;
+
+using Microsoft.Extensions.Options;
+
+using customDataInParametricData = Catl.WebServices.MiFindCustomAndSfcDataServiceService.customDataInParametricData;
+using dataCollectForSfcModeProcessSfc = Catl.WebServices.AssembleAndCollectDataForSfc.dataCollectForSfcModeProcessSfc;
+using ObjectAliasEnum = Catl.WebServices.MIFindCustomAndSfcData.ObjectAliasEnum;
 
 namespace Yee.Services.CatlMesInvoker
 {
@@ -56,7 +59,7 @@ namespace Yee.Services.CatlMesInvoker
             {
                 fname = "MESCFG.ini";
             }
-            return System.IO.Path.Combine(dir, fname);
+            return Path.Combine(dir, fname);
         }
 
         public IniSection GetSection(string sectionKey, string? opCode = "")
@@ -612,7 +615,7 @@ namespace Yee.Services.CatlMesInvoker
             var sfc = section.TryGetValue(nameof(MIAssembleAndCollectDataForSfcParams.sfc), out var sfcValue) ? sfcValue.GetString() : null;
             var partialAssembly = section.TryGetValue(nameof(MIAssembleAndCollectDataForSfcParams.partialAssembly), out var partialAssemblyValue) ? partialAssemblyValue.ToBool() : true;
             var ActivityId = section.TryGetValue(nameof(MIAssembleAndCollectDataForSfcParams.ActivityId), out var ActivityIdValue) ? ActivityIdValue.GetString() : null;
-            var modeProcessSFC = section.TryGetValue(nameof(MIAssembleAndCollectDataForSfcParams.modeProcessSFC), out var modeProcessSFCValue) ? (Catl.WebServices.AssembleAndCollectDataForSfc.dataCollectForSfcModeProcessSfc)modeProcessSFCValue.ToInt() : Catl.WebServices.AssembleAndCollectDataForSfc.dataCollectForSfcModeProcessSfc.MODE_NONE;
+            var modeProcessSFC = section.TryGetValue(nameof(MIAssembleAndCollectDataForSfcParams.modeProcessSFC), out var modeProcessSFCValue) ? (dataCollectForSfcModeProcessSfc)modeProcessSFCValue.ToInt() : dataCollectForSfcModeProcessSfc.MODE_NONE;
             var resource = section.TryGetValue(nameof(MIAssembleAndCollectDataForSfcParams.resource), out var resourceValue) ? resourceValue.GetString() : null;
             var user = section.TryGetValue(nameof(MIAssembleAndCollectDataForSfcParams.User), out var UserValue) ? UserValue.GetString() : null;
             var dcGroup = section.TryGetValue(nameof(MIAssembleAndCollectDataForSfcParams.dcGroup), out var dcGroupValue) ? dcGroupValue.GetString() : null;
@@ -704,7 +707,7 @@ namespace Yee.Services.CatlMesInvoker
             var sfc = section.TryGetValue(nameof(DataCollectForMoudleTestParams.sfc), out var sfcValue) ? sfcValue.GetString() : null;
             var Resource = section.TryGetValue(nameof(DataCollectForMoudleTestParams.Resource), out var ResourceValue) ? ResourceValue.GetString() : null;
             var ActivityId = section.TryGetValue(nameof(DataCollectForMoudleTestParams.ActivityId), out var ActivityIdValue) ? ActivityIdValue.GetString() : null;
-            var modeProcessSFC = section.TryGetValue(nameof(DataCollectForMoudleTestParams.modeProcessSFC), out var modeProcessSFCValue) ? (Catl.WebServices.MachineIntegrationServices.ModeProcessSfc)modeProcessSFCValue.ToInt() : Catl.WebServices.MachineIntegrationServices.ModeProcessSfc.MODE_NONE;
+            var modeProcessSFC = section.TryGetValue(nameof(DataCollectForMoudleTestParams.modeProcessSFC), out var modeProcessSFCValue) ? (ModeProcessSfc)modeProcessSFCValue.ToInt() : ModeProcessSfc.MODE_NONE;
             var dcGroup = section.TryGetValue(nameof(DataCollectForMoudleTestParams.dcGroup), out var dcGroupValue) ? dcGroupValue.GetString() : null;
             var dcGroupRevision = section.TryGetValue(nameof(DataCollectForMoudleTestParams.dcGroupRevision), out var dcGroupRevisionValue) ? dcGroupRevisionValue.GetString() : null;
             var user = section.TryGetValue(nameof(DataCollectForMoudleTestParams.User), out var UserValue) ? UserValue.GetString() : null;
@@ -745,7 +748,7 @@ namespace Yee.Services.CatlMesInvoker
             var findSfcByInventory = section.TryGetValue(nameof(MiFindCustomAndSfcDataParamers.FindSfcByInventory), out var findSfcByInventoryvalue) ? findSfcByInventoryvalue.ToBool() : false;
             var isGetXY = section.TryGetValue(nameof(MiFindCustomAndSfcDataParamers.IsGetXY), out var isGetXYvalue) ? isGetXYvalue.ToBool() : false;
             var isGetCSC = section.TryGetValue(nameof(MiFindCustomAndSfcDataParamers.IsGetCSC), out var isGetCSCvalue) ? isGetCSCvalue.ToBool() : false;
-            var mode = section.TryGetValue(nameof(MiFindCustomAndSfcDataParamers.Mode), out var modevalue) ? (Catl.WebServices.MiFindCustomAndSfcDataServiceService.FmodeProcessSFC)modevalue.ToInt() : Catl.WebServices.MiFindCustomAndSfcDataServiceService.FmodeProcessSFC.MODE_NONE;
+            var mode = section.TryGetValue(nameof(MiFindCustomAndSfcDataParamers.Mode), out var modevalue) ? (FmodeProcessSFC)modevalue.ToInt() : FmodeProcessSFC.MODE_NONE;
             var sfcOrder = section.TryGetValue(nameof(MiFindCustomAndSfcDataParamers.SfcOrder), out var sfcOrdervalue) ? sfcOrdervalue.GetString() : "";
             var targetOrder = section.TryGetValue(nameof(MiFindCustomAndSfcDataParamers.TargetOrder), out var targetOrdervalue) ? targetOrdervalue.GetString() : "";
             var checkInventoryAB = section.TryGetValue(nameof(MiFindCustomAndSfcDataParamers.CheckInventoryAB), out var checkInventoryABvalue) ? checkInventoryABvalue.GetString() : "";
@@ -771,7 +774,7 @@ namespace Yee.Services.CatlMesInvoker
                     CategoryData = categoryData,
                     DataField = dataField,
                     MasterDataArray = new Catl.WebServices.MiFindCustomAndSfcDataServiceService.ObjectAliasEnum[1] { masterData },
-                    CustomDataArray = new Catl.WebServices.MiFindCustomAndSfcDataServiceService.customDataInParametricData[1] { new Catl.WebServices.MiFindCustomAndSfcDataServiceService.customDataInParametricData { category = categoryData, dataField = dataField } },
+                    CustomDataArray = new customDataInParametricData[1] { new customDataInParametricData { category = categoryData, dataField = dataField } },
                     SfcOrder = sfcOrder,
                     TargetOrder = targetOrder,
                     CheckInventoryAB = checkInventoryAB,
@@ -963,7 +966,7 @@ namespace Yee.Services.CatlMesInvoker
             var operationRevision = section.TryGetValue(nameof(MiCheckInventoryAttributesParams.OperationRevision), out var operationRevisionValue) ? operationRevisionValue.GetString() : "#";
             var activityId = section.TryGetValue(nameof(MiCheckInventoryAttributesParams.ActivityId), out var activityIdValue) ? activityIdValue.GetString() : "EAP_WS";
             var recourse = section.TryGetValue(nameof(MiCheckInventoryAttributesParams.Resource), out var rescourseValue) ? rescourseValue.GetString() : null;
-            var modeCheckInventory = section.TryGetValue(nameof(MiCheckInventoryAttributesParams.modeCheckInventory), out var modeCheckInventoryValue) ? (Catl.WebServices.MICheckInventoryAttribute.modeCheckInventory)modeCheckInventoryValue.ToInt() : Catl.WebServices.MICheckInventoryAttribute.modeCheckInventory.MODE_NONE;
+            var modeCheckInventory = section.TryGetValue(nameof(MiCheckInventoryAttributesParams.modeCheckInventory), out var modeCheckInventoryValue) ? (modeCheckInventory)modeCheckInventoryValue.ToInt() : Catl.WebServices.MICheckInventoryAttribute.modeCheckInventory.MODE_NONE;
 
             return new MiCheckInventoryAttributesConfig
             {

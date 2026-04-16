@@ -1,12 +1,8 @@
 ﻿using AsZero.DbContexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yee.Entitys.BaseData;
-using Yee.Services.Request;
+
 using Microsoft.EntityFrameworkCore;
+
+using Yee.Entitys.BaseData;
 
 namespace Yee.Services.BaseData
 {

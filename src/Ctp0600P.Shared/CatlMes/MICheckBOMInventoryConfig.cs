@@ -1,6 +1,4 @@
-﻿
-using Catl.WebServices.MICheckBOMInventory;
-using Catl.WebServices.MICheckSFCStatusEx;
+﻿using Catl.WebServices.MICheckBOMInventory;
 
 namespace Ctp0600P.Shared.CatlMes
 {

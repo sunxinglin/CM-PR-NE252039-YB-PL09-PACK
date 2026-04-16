@@ -25,7 +25,8 @@
 		<div class="app-container fh">
 			
 				<el-table ref="mainTable" :key="tableKey" :data="list" v-loading="listLoading" row-key="id" border fit
-					stripe highlight-current-row style="width: 100%;" height="calc(100% - 1px)" @selection-change="handleSelectionChange"
+					stripe highlight-current-row style="width: 100%;" height="calc(100% - 1px)" @row-click="rowClick"
+					@selection-change="handleSelectionChange"
 					align="left">
 					<el-table-column type="selection" align="center" width="55"></el-table-column>
 
@@ -156,6 +157,7 @@
 		},
 		data() {
 			return {
+				selectedModuleRowId: null,
 				iconData: iconData,
 				normalizer(node) {
 					// treeselect定义字段
@@ -304,13 +306,30 @@
 			handleChangeMenuTempIcon(item) {
 				this.menuTemp.icon = item.font_class
 			},
-			rowClick(row) {
-				this.$refs.mainTable.clearSelection()
-				this.$refs.mainTable.toggleRowSelection(row)
+			rowClick(row, column) {
+				if (column && column.type === 'selection') return
+				const table = this.$refs.mainTable
+				if (!table) return
+
+				const isSameRow = this.selectedModuleRowId === row.id
+				table.clearSelection()
+				if (isSameRow) {
+					this.selectedModuleRowId = null
+					return
+				}
+				table.toggleRowSelection(row, true)
+				this.selectedModuleRowId = row.id
 			},
 
 			handleSelectionChange(val) {
 				this.multipleSelection = val;
+				if (val.length === 1) {
+					this.selectedModuleRowId = val[0].id
+				} else if (val.length === 0) {
+					this.selectedModuleRowId = null
+				} else {
+					this.selectedModuleRowId = null
+				}
 			},
 
 			onBtnClicked: function(domId) {

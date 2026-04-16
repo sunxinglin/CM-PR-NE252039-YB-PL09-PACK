@@ -21,13 +21,13 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Text="Pack码：" VerticalAlignment="Center" FontSize="30"> </TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding PackCode.Value}" Background="#0000" Width="400" VerticalAlignment="Center" FontSize="30" ></TextBox>
-        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Text="工位：" VerticalAlignment="Center" FontSize="30"></TextBlock>
-        <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding StationCode.Value}" Background="#0000" Width="400" VerticalAlignment="Center" FontSize="30" ></TextBox>
-        <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Text="启用过站：" VerticalAlignment="Center" FontSize="30"></TextBlock>
-        <ToggleButton Grid.Row="3" IsChecked="{Binding IsNeedChangeStatus.Value}" Grid.Column="1" Width="55" Height="45"  HorizontalAlignment="Left" VerticalAlignment="Center"></ToggleButton>
-        <StackPanel Orientation="Horizontal"  Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
+        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Text="Pack码：" VerticalAlignment="Center" FontSize="30" />
+        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding PackCode.Value}" Background="#0000" Width="400" VerticalAlignment="Center" FontSize="30" />
+        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Text="工位：" VerticalAlignment="Center" FontSize="30" />
+        <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding StationCode.Value}" Background="#0000" Width="400" VerticalAlignment="Center" FontSize="30" />
+        <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Text="启用过站：" VerticalAlignment="Center" FontSize="30" />
+        <ToggleButton Grid.Row="3" IsChecked="{Binding IsNeedChangeStatus.Value}" Grid.Column="1" Width="55" Height="45"  HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Center" >
             <Button Content="取消" Command="{Binding BtnCancel}" FontSize="25" Width="100" Height="40"/>
             <Button Content="确认" Command="{Binding BtnOk}" FontSize="25" Width="100" Height="40" Margin="40 0 0 0"/>
         </StackPanel>

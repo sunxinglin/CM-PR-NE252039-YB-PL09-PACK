@@ -1,10 +1,9 @@
 ﻿using System.Security.Claims;
 
-namespace AsZero.Core.Services.Auth
+namespace AsZero.Core.Services.Auth;
+
+public interface IPrincipalAccessor
 {
-    public interface IPrincipalAccessor
-    {
-        ClaimsPrincipal GetCurrentPrincipal();
-        void SetCurrentPrincipal(ClaimsPrincipal principal);
-    }
+    ClaimsPrincipal GetCurrentPrincipal();
+    void SetCurrentPrincipal(ClaimsPrincipal principal);
 }

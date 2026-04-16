@@ -9,13 +9,13 @@
     <StackPanel>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="250"></RowDefinition>
-                <RowDefinition Height="550"></RowDefinition>
+                <RowDefinition Height="250" />
+                <RowDefinition Height="550" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="280"></ColumnDefinition>
-                <ColumnDefinition Width="520"></ColumnDefinition>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="520" />
             </Grid.ColumnDefinitions>
             <GroupBox Grid.Row="0" Grid.Column="0" Header="DI(IO输入)" Style="{DynamicResource MaterialDesignGroupBox}" Margin="1" FontSize="16"
                             md:ColorZoneAssist.Mode="Custom"
@@ -23,16 +23,16 @@
                             md:ColorZoneAssist.Foreground="White">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="60" />
                     </Grid.ColumnDefinitions>
                     <md:Card Grid.Row="0" Grid.Column="0" Background="{DynamicResource PrimaryHueLightBrush}" 
                                     Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
@@ -94,20 +94,20 @@
                             md:ColorZoneAssist.Foreground="White">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="50" />
                     </Grid.ColumnDefinitions>
                     <md:Card Grid.Row="0" Grid.Column="0" Background="#81d4fa" 
                                     Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Left"
@@ -159,22 +159,22 @@
                     <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="3" Grid.Column="1" Height="40" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDO.Value.io.Do[6].doStatus}" />
                     <md:Card md:ShadowAssist.ShadowDepth="Depth4" Grid.Row="3" Grid.Column="5" Height="40" Width="50" HorizontalAlignment="Left" Padding="5" Content="{Binding MoxaDO.Value.io.Do[7].doStatus}" />
 
-                    <Button Grid.Row="0" Grid.Column="2" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo0}"></Button>
-                    <Button Grid.Row="0" Grid.Column="3" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo0}"></Button>
-                    <Button Grid.Row="0" Grid.Column="6" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo1}"></Button>
-                    <Button Grid.Row="0" Grid.Column="7" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo1}"></Button>
-                    <Button Grid.Row="1" Grid.Column="2" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo2}"></Button>
-                    <Button Grid.Row="1" Grid.Column="3" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo2}"></Button>
-                    <Button Grid.Row="1" Grid.Column="6" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo3}"></Button>
-                    <Button Grid.Row="1" Grid.Column="7" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo3}"></Button>
-                    <Button Grid.Row="2" Grid.Column="2" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo4}"></Button>
-                    <Button Grid.Row="2" Grid.Column="3" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo4}"></Button>
-                    <Button Grid.Row="2" Grid.Column="6" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo5}"></Button>
-                    <Button Grid.Row="2" Grid.Column="7" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo5}"></Button>
-                    <Button Grid.Row="3" Grid.Column="2" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo6}"></Button>
-                    <Button Grid.Row="3" Grid.Column="3" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo6}"></Button>
-                    <Button Grid.Row="3" Grid.Column="6" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo7}"></Button>
-                    <Button Grid.Row="3" Grid.Column="7" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo7}"></Button>
+                    <Button Grid.Row="0" Grid.Column="2" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo0}" />
+                    <Button Grid.Row="0" Grid.Column="3" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo0}" />
+                    <Button Grid.Row="0" Grid.Column="6" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo1}" />
+                    <Button Grid.Row="0" Grid.Column="7" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo1}" />
+                    <Button Grid.Row="1" Grid.Column="2" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo2}" />
+                    <Button Grid.Row="1" Grid.Column="3" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo2}" />
+                    <Button Grid.Row="1" Grid.Column="6" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo3}" />
+                    <Button Grid.Row="1" Grid.Column="7" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo3}" />
+                    <Button Grid.Row="2" Grid.Column="2" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo4}" />
+                    <Button Grid.Row="2" Grid.Column="3" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo4}" />
+                    <Button Grid.Row="2" Grid.Column="6" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo5}" />
+                    <Button Grid.Row="2" Grid.Column="7" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo5}" />
+                    <Button Grid.Row="3" Grid.Column="2" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo6}" />
+                    <Button Grid.Row="3" Grid.Column="3" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo6}" />
+                    <Button Grid.Row="3" Grid.Column="6" Height="40" Width="45" HorizontalAlignment="Left" Content="N" Background="#e1bee7"  Command="{Binding OnDo7}" />
+                    <Button Grid.Row="3" Grid.Column="7" Height="40" Width="45" HorizontalAlignment="Left" Content="F" Background="#b2ebf2" Command="{Binding OffDo7}" />
                 </Grid>
             </GroupBox>
             <GroupBox Grid.Row="1" Grid.Column="0" Header="DO(IO输出)" Style="{DynamicResource MaterialDesignGroupBox}" Margin="1" FontSize="16"
@@ -183,24 +183,24 @@
                             md:ColorZoneAssist.Foreground="White">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60*"></ColumnDefinition>
-                        <ColumnDefinition Width="60*"></ColumnDefinition>
-                        
+                        <ColumnDefinition Width="60*" />
+                        <ColumnDefinition Width="60*" />
+
                     </Grid.ColumnDefinitions>
-                    <Button  Grid.Row="0" Grid.Column="0" Height="40" Width="120" HorizontalAlignment="Left" Content="手动" Background="#e1bee7"  Command="{Binding 手动}"></Button>
-                    <Button Grid.Row="1" Grid.Column="0" Height="40" Width="120" HorizontalAlignment="Left" Content="自动" Background="#b2ebf2" Command="{Binding 自动}"></Button>
-                    <Button Grid.Row="2" Grid.Column="0" Height="40" Width="120" HorizontalAlignment="Left" Content="启动" Background="#e1bee7"  Command="{Binding 启动}"></Button>
-                    <Button Grid.Row="3" Grid.Column="0" Height="40" Width="120" HorizontalAlignment="Left" Content="复位" Background="#b2ebf2" Command="{Binding 复位}"></Button>
-                    <Button Grid.Row="0" Grid.Column="1" Height="40" Width="120" HorizontalAlignment="Left" Content="电源总开关" Background="#e1bee7"  Command="{Binding 电源总开关}"></Button>
-                    <Button Grid.Row="1" Grid.Column="1" Height="40" Width="120" HorizontalAlignment="Left" Content="24V电源 " Background="#b2ebf2" Command="{Binding 低压电源}"></Button>
-                    <Button Grid.Row="2" Grid.Column="1" Height="40" Width="120" HorizontalAlignment="Left" Content="照明电源空开" Background="#e1bee7"  Command="{Binding 照明电源空开}"></Button>
-                    <Button Grid.Row="3" Grid.Column="1" Height="40" Width="120" HorizontalAlignment="Left" Content="24V电源空开" Background="#b2ebf2" Command="{Binding 低压电源空开}" Cursor="Hand"></Button>
+                    <Button  Grid.Row="0" Grid.Column="0" Height="40" Width="120" HorizontalAlignment="Left" Content="手动" Background="#e1bee7"  Command="{Binding 手动}" />
+                    <Button Grid.Row="1" Grid.Column="0" Height="40" Width="120" HorizontalAlignment="Left" Content="自动" Background="#b2ebf2" Command="{Binding 自动}" />
+                    <Button Grid.Row="2" Grid.Column="0" Height="40" Width="120" HorizontalAlignment="Left" Content="启动" Background="#e1bee7"  Command="{Binding 启动}" />
+                    <Button Grid.Row="3" Grid.Column="0" Height="40" Width="120" HorizontalAlignment="Left" Content="复位" Background="#b2ebf2" Command="{Binding 复位}" />
+                    <Button Grid.Row="0" Grid.Column="1" Height="40" Width="120" HorizontalAlignment="Left" Content="电源总开关" Background="#e1bee7"  Command="{Binding 电源总开关}" />
+                    <Button Grid.Row="1" Grid.Column="1" Height="40" Width="120" HorizontalAlignment="Left" Content="24V电源 " Background="#b2ebf2" Command="{Binding 低压电源}" />
+                    <Button Grid.Row="2" Grid.Column="1" Height="40" Width="120" HorizontalAlignment="Left" Content="照明电源空开" Background="#e1bee7"  Command="{Binding 照明电源空开}" />
+                    <Button Grid.Row="3" Grid.Column="1" Height="40" Width="120" HorizontalAlignment="Left" Content="24V电源空开" Background="#b2ebf2" Command="{Binding 低压电源空开}" Cursor="Hand" />
                 </Grid>
             </GroupBox>
         </Grid>

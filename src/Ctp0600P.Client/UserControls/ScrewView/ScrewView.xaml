@@ -2,8 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Ctp0600P.Client.UserControls.ScrewView"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              x:Name="ScrewViewCtl"
              d:DesignHeight="50" d:DesignWidth="50">
@@ -37,9 +36,11 @@
 
         <Rectangle x:Name="bkImgOK"  Fill="SkyBlue"  Width="20" Height="20"   Margin="-20"/>
         <Ellipse x:Name ="bkImgNG" Stroke="Red" StrokeThickness="5"  Fill="#0000" Width="20" Height="20"   Margin="-20"/>
+        <Ellipse x:Name ="bkImgUndo" Stroke="Gray" StrokeThickness="5"  Fill="#0000" Width="20" Height="20"   Margin="-20"/>
+        <Ellipse x:Name ="bkImgWait" Stroke="SkyBlue" StrokeThickness="5"  Fill="#0000" Width="20" Height="20"   Margin="-20"/>
         <TextBlock x:Name="txb_OrderNo" Foreground="Red" Panel.ZIndex="999" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2" FontSize="16" RenderTransformOrigin="0.5 0.5">
             <TextBlock.RenderTransform>
-                <ScaleTransform ScaleX="{Binding ElementName=ScrewViewCtl, Path=TextScaleX}" ScaleY="{Binding ElementName=ScrewViewCtl, Path=TextScaleY}"></ScaleTransform>
+                <ScaleTransform ScaleX="{Binding ElementName=ScrewViewCtl, Path=TextScaleX}" ScaleY="{Binding ElementName=ScrewViewCtl, Path=TextScaleY}" />
             </TextBlock.RenderTransform>
         </TextBlock>
     </Grid>

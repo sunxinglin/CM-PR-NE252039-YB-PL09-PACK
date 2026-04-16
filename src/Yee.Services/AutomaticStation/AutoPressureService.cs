@@ -1,9 +1,13 @@
 ﻿using AsZero.Core.Services.Repos;
 using AsZero.DbContexts;
+
 using Itminus.FSharpExtensions;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.FSharp.Core;
+
 using Newtonsoft.Json;
+
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys;
 using Yee.Entitys.AutomaticStation;
@@ -77,7 +81,7 @@ namespace Yee.Services.AutomaticStation
                     return resp.ToError(ResponseErrorType.上位机错误, 500, $"工位{StationCode}未找到").ToErrResult<IList<DcParamValue>, ServiceErrResponse>();
                 }
 
-                var stationTask = await _dbContext.Base_StationTasks.FirstOrDefaultAsync(f => !f.IsDeleted && f.ProductId == product.Id && f.StepId == station.StepId && f.Type == Common.Library.CommonEnum.StationTaskTypeEnum.超时检测);
+                var stationTask = await _dbContext.Base_StationTasks.FirstOrDefaultAsync(f => !f.IsDeleted && f.ProductId == product.Id && f.StepId == station.StepId && f.Type == StationTaskTypeEnum.超时检测);
                 if (stationTask == null)
                 {
                     return new List<DcParamValue>().ToOkResult<IList<DcParamValue>, ServiceErrResponse>();
@@ -112,7 +116,6 @@ namespace Yee.Services.AutomaticStation
                         Proc_StationTask_MainId = mainId,
                         Base_StationTaskId = stationTask.Id,
                         TaskName = stationTask.Name ?? "",
-                        CreateTime = DateTime.Now,
                         Status = StationTaskStatusEnum.已完成,
                     };
                     await _dbContext.AddAsync(newRecord);
@@ -133,7 +136,6 @@ namespace Yee.Services.AutomaticStation
                     StationTaskId = stationTask.Id,
                     Status = StationTaskStatusEnum.已完成,
                     TimeName = stationTask.Name,
-                    CreateTime = DateTime.Now,
                     Pass = true,
                     UpMesCode = timeCheck.UpMesCode,
                     Time = Convert.ToDecimal(duration),
@@ -256,7 +258,7 @@ namespace Yee.Services.AutomaticStation
                     {
                         var pressureData = dto.PressureDatas[formu.PressureLocate - 1];
 
-                        var pressureValue = new Entitys.DBEntity.PressureData
+                        var pressureValue = new PressureData
                         {
                             ParamName = formu.ParameterName,
                             Locate = formu.PressureLocate,
@@ -398,7 +400,7 @@ namespace Yee.Services.AutomaticStation
                     resp.Message = $"记录未找到";
                     return resp;
                 }
-                var json = JsonConvert.DeserializeObject<IList<Yee.Entitys.DBEntity.PressureData>>(data.PressureDataJson);
+                var json = JsonConvert.DeserializeObject<IList<PressureData>>(data.PressureDataJson);
 
                 var dcparams = json.Select(s => new DcParamValue { DataType = ValueTypeEnum.NUMBER, ParamValue = s.Value.ToString(), UpMesCode = s.UpMesCode }).ToList();
                 var records = await _dbContext.Proc_StationTask_Records.Where(w => w.Proc_StationTask_MainId == main.Id).ToListAsync();

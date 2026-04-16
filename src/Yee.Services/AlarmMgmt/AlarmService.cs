@@ -1,14 +1,10 @@
 ﻿using AsZero.Core.Services.Repos;
 using AsZero.DbContexts;
+
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Yee.Entitys.AlarmMgmt;
 using Yee.Entitys.DTOS;
-using Yee.Entitys.Production;
 using Yee.Entitys.Request;
 using Yee.Services.Request;
 

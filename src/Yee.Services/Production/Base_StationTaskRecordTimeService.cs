@@ -5,10 +5,7 @@ using AsZero.DbContexts;
 
 using Microsoft.EntityFrameworkCore;
 
-using System.Threading.Tasks;
-
 using Yee.Entitys.DBEntity.Production;
-using Yee.Entitys.Production;
 
 namespace Yee.Services.Production
 {

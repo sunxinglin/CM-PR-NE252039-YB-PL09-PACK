@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace RogerTech.Tool
 {
@@ -39,11 +38,11 @@ namespace RogerTech.Tool
         public bool IsUpload { get; set; }
         public TagResult Result { get; private set; }
 
-        public Tag(Connection connection, string tagName, int dbNr, int startAddress, int dateLength, DataType datatype, byte dateBit, string mesName,ParameterDataType mesDataType, double lowerLimit, double upperLimit, bool isChecked = false, bool isUpload = false)
+        public Tag(Connection connection, string tagName, int dbNr, int startAddress, int dataLength, DataType datatype, byte dateBit, string mesName,ParameterDataType mesDataType, double lowerLimit, double upperLimit, bool isChecked = false, bool isUpload = false)
         {
             this.Connection = connection;
             this.Dbnr = dbNr;
-            this.DataLength = dateLength;
+            this.DataLength = dataLength;
             this.DataType = datatype;
             this.DataBit = dateBit;
             this.StartAddress = startAddress;
@@ -84,20 +83,19 @@ namespace RogerTech.Tool
                     DataLength = 8;
                     break;
                 case DataType.STRING:
-                    DataLength = dateLength;
+                    DataLength = dataLength;
                     break;
                 default:
                     break;
             }
             //init
             Result = new TagResult();
-            Result.SetAviliable(false);
+            Result.SetAvailable(false);
             Result.SetValue(new object());
         }
         public void WriteValue(object obj)
         {
             Connection.WriteTagValue(this, obj);
-
         }
 
 

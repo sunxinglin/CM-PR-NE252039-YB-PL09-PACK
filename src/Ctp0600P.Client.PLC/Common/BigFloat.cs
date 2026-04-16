@@ -1,5 +1,6 @@
-﻿using FutureTech.Protocols;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+
+using FutureTech.Protocols;
 
 namespace Ctp0600P.Client.PLC.Common
 {

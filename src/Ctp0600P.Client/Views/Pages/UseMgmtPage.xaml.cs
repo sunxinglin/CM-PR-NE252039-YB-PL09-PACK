@@ -1,26 +1,15 @@
-﻿using AsZero.Core.Services.Messages;
-using AsZero.DbContexts;
-using Ctp0600P.Client;
-using Ctp0600P.Client.Command.NoticeHelp.Enum;
-using Ctp0600P.Client.Command.NoticeHelp.Handle;
-using Ctp0600P.Client.ViewModels;
-using Ctp0600P.Client.Views;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+using Ctp0600P.Client.Command.NoticeHelp.Enum;
+using Ctp0600P.Client.Command.NoticeHelp.Handle;
+using Ctp0600P.Client.ViewModels;
+
+using MediatR;
+
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Ctp0600P.Client.Views.Pages
 {

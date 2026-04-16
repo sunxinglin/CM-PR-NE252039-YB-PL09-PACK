@@ -23,7 +23,7 @@ namespace TestComm
         public Form1()
         {
             InitializeComponent();
-            plc = Server.GetInstace();
+            plc = Server.GetInstance();
 
             string path = Path.Combine(Directory.GetCurrentDirectory(), "Config");
             DirectoryInfo di = new DirectoryInfo(path);

@@ -1,13 +1,9 @@
-﻿using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using SqlSugar;
 
 namespace RogerTech.Common.Models
 {
-    [SugarIndex("index_codetable1_name", nameof(LogModel.RecordTime), OrderByType.Desc)]
+    [SugarIndex("index_codetable1_name", nameof(RecordTime), OrderByType.Desc)]
     public class LogModel
     {
         [SugarColumn(IsPrimaryKey = true, IsIdentity =true)]

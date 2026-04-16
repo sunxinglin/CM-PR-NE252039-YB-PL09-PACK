@@ -1,7 +1,5 @@
-
 using AsZero.DbContexts;
 using AsZero.WebApi;
-using Yee.Entitys.Production;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureKestrel(serverOptions =>

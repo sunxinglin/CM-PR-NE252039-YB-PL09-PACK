@@ -1,9 +1,16 @@
 ﻿using AsZero.DbContexts;
+
+using Catl.WebServices.MIFindCustomAndSfcData;
+
 using Ctp0600P.Shared;
+
 using Itminus.FSharpExtensions;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.FSharp.Core;
+
+using Yee.Common.Library.CommonEnum;
 using Yee.Entitys;
 using Yee.Entitys.AutomaticStation;
 using Yee.Entitys.CATL;
@@ -93,7 +100,7 @@ namespace Yee.Services.AutomaticStation
                     return resp.ToError(ResponseErrorType.载具绑定错误, 500, ErrorMessage).ToErrResult<ServiceErrResponse, ServiceErrResponse>();
                 }
 
-                var main = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(f => !f.IsDeleted && f.StepId == prevStep.StepId && f.Status == Common.Library.CommonEnum.StationTaskStatusEnum.已完成 && f.PackCode == packCode);
+                var main = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(f => !f.IsDeleted && f.StepId == prevStep.StepId && f.Status == StationTaskStatusEnum.已完成 && f.PackCode == packCode);
                 if (main == null)
                 {
                     var ErrorMessage = $"前置工序未完成";
@@ -155,7 +162,7 @@ namespace Yee.Services.AutomaticStation
                     return resp.ToSuccess().ToOkResult<ServiceErrResponse, ServiceErrResponse>();
                 }
 
-                var main = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(f => !f.IsDeleted && f.StepId == prevStep.StepId && f.Status == Common.Library.CommonEnum.StationTaskStatusEnum.已完成 && f.PackCode == packCode);
+                var main = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(f => !f.IsDeleted && f.StepId == prevStep.StepId && f.Status == StationTaskStatusEnum.已完成 && f.PackCode == packCode);
                 if (main == null)
                 {
                     var ErrorMessage = $"前置工序未完成";
@@ -197,14 +204,14 @@ namespace Yee.Services.AutomaticStation
                         StationId = station.Id,
                         StepId = station.StepId,
                         StationCode = dto.StationCode,
-                        Status = Common.Library.CommonEnum.StationTaskStatusEnum.进行中,
+                        Status = StationTaskStatusEnum.进行中,
                         ProductId = product.Id,
                     };
                     await _dbContext.AddAsync(main);
                     await _dbContext.SaveChangesAsync();
                     return main.ToOkResult<Proc_StationTask_Main, ServiceErrResponse>();
                 }
-                main.Status = Common.Library.CommonEnum.StationTaskStatusEnum.进行中;
+                main.Status = StationTaskStatusEnum.进行中;
                 _dbContext.Update(main);
                 await _dbContext.SaveChangesAsync();
                 return main.ToOkResult<Proc_StationTask_Main, ServiceErrResponse>();
@@ -224,7 +231,7 @@ namespace Yee.Services.AutomaticStation
                 return new CatlMESReponse { code = 0, BarCode_GoodsPN = "00000" }.ToOkResult<CatlMESReponse, ServiceErrResponse>();
             }
 
-            var catlResp = await _catlMesInvoker.MiFindCustomAndSfcData(packCode, Catl.WebServices.MIFindCustomAndSfcData.modeProcessSFC.MODE_NONE, stationCode);
+            var catlResp = await _catlMesInvoker.MiFindCustomAndSfcData(packCode, modeProcessSFC.MODE_NONE, stationCode);
             if (catlResp.code != 0)
             {
                 return new ServiceErrResponse() { ErrorCode = catlResp.code, ErrorMessage = catlResp.message, ErrorType = ResponseErrorType.CatlMes错误, IsError = true }.ToErrResult<CatlMESReponse, ServiceErrResponse>();
@@ -258,7 +265,7 @@ namespace Yee.Services.AutomaticStation
                 var ErrorMessage = $"PACK码{packCode}没有在工位{stationCode}的开始记录";
                 return resp.ToError(ResponseErrorType.上位机错误, 500, ErrorMessage).ToErrResult<Proc_StationTask_Main, ServiceErrResponse>();
             }
-            if (main.Status == Common.Library.CommonEnum.StationTaskStatusEnum.已完成)
+            if (main.Status == StationTaskStatusEnum.已完成)
             {
                 var ErrorMessage = $"PACK码{packCode}在工位{stationCode}已完工，请勿重复发起请求";
                 return resp.ToError(ResponseErrorType.上位机错误, 500, ErrorMessage).ToErrResult<Proc_StationTask_Main, ServiceErrResponse>();
@@ -276,7 +283,7 @@ namespace Yee.Services.AutomaticStation
                     var resp = new ServiceErrResponse();
                     return resp.ToError(ResponseErrorType.上位机错误, 500, "未查询到主记录").ToErrResult<Proc_StationTask_Main, ServiceErrResponse>();
                 }
-                main.Status = Common.Library.CommonEnum.StationTaskStatusEnum.已完成;
+                main.Status = StationTaskStatusEnum.已完成;
                 _dbContext.Update(main);
                 await _dbContext.SaveChangesAsync();
                 return main.ToOkResult<Proc_StationTask_Main, ServiceErrResponse>();
@@ -308,7 +315,7 @@ namespace Yee.Services.AutomaticStation
                         continue;
                     }
                     var main = mains.FirstOrDefault(f => f.StationId == station.Id);
-                    if (main == null || main.Status != Common.Library.CommonEnum.StationTaskStatusEnum.已完成)
+                    if (main == null || main.Status != StationTaskStatusEnum.已完成)
                     {
                         return (item.StationCode ?? "", item.StationLevel);
                     }

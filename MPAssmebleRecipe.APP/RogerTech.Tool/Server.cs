@@ -12,7 +12,7 @@ namespace RogerTech.Tool
             
         }
         private static Server instance = new Server();
-        public static Server GetInstace()
+        public static Server GetInstance()
         {
             return instance;
         }

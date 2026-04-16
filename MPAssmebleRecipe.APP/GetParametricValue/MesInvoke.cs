@@ -1,14 +1,13 @@
-﻿using CatlMesBase;
-using GetParametricValue.GetParametricValue;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Services.Description;
+using CatlMesBase;
+using GetParametricValue.GetParametricValue;
+using System.Net;
+using System.Configuration;
+using System.Data;
 
 namespace GetParametricValue
 {
@@ -25,30 +24,19 @@ namespace GetParametricValue
         {
             StringBuilder Strb_Log = new StringBuilder();
             string sfc = string.Empty;
-            var uploadCode = string.Empty;
             List<GetParametricValueRequestData> datas = new List<GetParametricValueRequestData>();
-
-            if (objs != null && objs.Count >= 1)
+            if (objs != null && objs.Count >= 2)
             {
                 sfc = (string)objs[0];
-
-                //datas = (List<GetParametricValueRequestData>)objs[1];
+                datas = (List<GetParametricValueRequestData>)objs[1];
             }
             else
             {
                 txtFile.WriteFile(SectionNamePath, "Invalid input params");
                 return null;
             }
-
-
-            
             List<object> ReturnResult = new List<object>();
             MesDataModel model = (MesDataModel)Model;
-            uploadCode=model.UploadCode;
-            for (int i = 1; i < 109; i++)
-            {
-                datas.Add(new GetParametricValueRequestData() { parameter = uploadCode + i, parameterDec = string.Empty });
-            }
             GetParametricValueServiceService webservice = new GetParametricValueServiceService();
             ICredentials credentials = new NetworkCredential(model.UserName, model.PassWord);
             webservice.Url = model.Url;
@@ -57,15 +45,14 @@ namespace GetParametricValue
             webservice.PreAuthenticate = true;
             GetParametricValueRequest Requst = new GetParametricValueRequest();
             Requst.site = model.SiteField;
-            Requst.sfc = sfc;
+            Requst.sfc = sfc;   
             Requst.user = model.UserField;
             getParametricValue Requst1 = new getParametricValue();
             Requst1.GetParametricValueRequest = Requst;
             Requst.parametricDataArray = datas.ToArray();
+            List<GetParametricValueData> returnData = new List<GetParametricValueData>();
             int retCode = 111;
             string errMsg = string.Empty;
-            GetParametricValueData[] dataArray = { };
-
             try
             {
                 DateTime dtStartTime = DateTime.Now;
@@ -75,7 +62,7 @@ namespace GetParametricValue
                 getParametricValueResponse response = webservice.getParametricValue(Requst1);
                 Strb_Log.Append("返回参数:").Append(",").Append(Newtonsoft.Json.JsonConvert.SerializeObject(response).Replace(",", ";")).Append("\r\n");
 
-
+                
                 DateTime dtEndTime = DateTime.Now;
                 TimeSpan span = dtEndTime - dtStartTime;
                 string WasteTime = span.TotalMilliseconds.ToString();
@@ -99,12 +86,12 @@ namespace GetParametricValue
                                 //将中英文均显示
                                 errMsg += "\r\n";
                                 errMsg += response.@return.message;
-                                dataArray = response.@return.parametricDataArray;
                             }
                         }
                         else
                         {
                             errMsg = "校验成功";
+                            returnData = response.@return.parametricDataArray.ToList();
                         }
 
                     }//end if (response.@return)
@@ -136,7 +123,7 @@ namespace GetParametricValue
                 ReturnResult.Add(retCode);
                 ReturnResult.Add(errMsg);
                 ReturnResult.Add(sfc);
-                ReturnResult.Add(dataArray);
+                ReturnResult.Add(returnData);
             }
             try
             {
@@ -149,6 +136,6 @@ namespace GetParametricValue
             return ReturnResult;
         }
 
-
+       
     }
 }

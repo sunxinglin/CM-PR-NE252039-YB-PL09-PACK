@@ -1,10 +1,11 @@
-﻿using FutureTech.Mvvm;
-using Microsoft.Extensions.DependencyInjection;
-using Reactive.Bindings;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
+
+using FutureTech.Mvvm;
+
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Ctp0600P.Client.UserControls.DataCollectForResourceInspect
 {

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Collections;
 
@@ -17,7 +14,7 @@ namespace RogerTech.Tool
         int rack = 0;
         int slot = 1;
         int Port = 102;
-        //300-400 solt=2, 1200/1500 slot=1;
+        //300-400 slot=2, 1200/1500 slot=1;
 
         private static object locker = new object();
 

@@ -1,7 +1,10 @@
-﻿using AsZero.Core.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+using AsZero.Core.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.ComponentModel.DataAnnotations.Schema;
+
 using Yee.Entitys.DBEntity.Common;
 using Yee.Entitys.Production;
 

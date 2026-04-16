@@ -1,7 +1,9 @@
-﻿using AsZero.Core.Entities;
+﻿using System.Security.Claims;
+
+using AsZero.Core.Entities;
 using AsZero.Core.Services.Auth;
+
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace AsZero.WebApi.Controllers
 {

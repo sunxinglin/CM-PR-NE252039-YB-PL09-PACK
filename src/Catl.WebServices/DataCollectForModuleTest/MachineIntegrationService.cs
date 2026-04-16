@@ -1,6 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.ServiceModel.Description;
+using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
 
 namespace Catl.WebServices.MachineIntegrationServices
 {
@@ -16,16 +27,16 @@ namespace Catl.WebServices.MachineIntegrationServices
 
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class MachineIntegrationException
     {
 
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string message
         {
             get
@@ -40,9 +51,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class machineIntegrationResourceDcResponse
     {
 
@@ -53,7 +64,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -67,7 +78,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -81,7 +92,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -96,16 +107,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForResourceResponse
     {
 
         private machineIntegrationResourceDcResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public machineIntegrationResourceDcResponse @return
         {
             get
@@ -120,9 +131,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class machineIntegrationParametricData
     {
 
@@ -133,7 +144,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private ParameterDataType dataTypeField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string name
         {
             get
@@ -147,7 +158,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string value
         {
             get
@@ -161,7 +172,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public ParameterDataType dataType
         {
             get
@@ -176,8 +187,8 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.sap.com/me/datacollection")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [XmlType(Namespace = "http://www.sap.com/me/datacollection")]
     public enum ParameterDataType
     {
 
@@ -195,9 +206,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class machineIntegrationResourceDcRequest
     {
 
@@ -214,7 +225,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private machineIntegrationParametricData[] parametricDataArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -228,7 +239,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string dcGroup
         {
             get
@@ -242,7 +253,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcGroupRevision
         {
             get
@@ -256,7 +267,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string resource
         {
             get
@@ -270,7 +281,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string user
         {
             get
@@ -284,7 +295,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 5)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -299,16 +310,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForResource
     {
 
         private machineIntegrationResourceDcRequest resourceRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public machineIntegrationResourceDcRequest resourceRequest
         {
             get
@@ -323,9 +334,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class BusinessException
     {
 
@@ -336,7 +347,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("details", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement("details", Form = XmlSchemaForm.Unqualified, Order = 0)]
         public object[] details
         {
             get
@@ -350,7 +361,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public int errorCode
         {
             get
@@ -364,7 +375,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string message
         {
             get
@@ -378,174 +389,174 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://machine.ws.atlmes.com/", ConfigurationName = "MachineIntegrationService")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [ServiceContract(Namespace = "http://machine.ws.atlmes.com/", ConfigurationName = "MachineIntegrationService")]
     public interface MachineIntegrationService
     {
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<dataCollectForResourceResponse1> dataCollectForResourceAsync(dataCollectForResourceRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [FaultContract(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<dataCollectForResourceResponse1> dataCollectForResourceAsync(dataCollectForResourceRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<dataCollectForSfcResponse1> dataCollectForSfcAsync(dataCollectForSfcRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [FaultContract(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<dataCollectForSfcResponse1> dataCollectForSfcAsync(dataCollectForSfcRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<dataCollectForProcessLotResponse1> dataCollectForProcessLotAsync(dataCollectForProcessLotRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [FaultContract(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<dataCollectForProcessLotResponse1> dataCollectForProcessLotAsync(dataCollectForProcessLotRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<resourceStatusChangeResponse1> resourceStatusChangeAsync(resourceStatusChangeRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<resourceStatusChangeResponse1> resourceStatusChangeAsync(resourceStatusChangeRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<nonConformanceForSfcResponse1> nonConformanceForSfcAsync(nonConformanceForSfcRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [FaultContract(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<nonConformanceForSfcResponse1> nonConformanceForSfcAsync(nonConformanceForSfcRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<dataCollectForProcessLotExResponse1> dataCollectForProcessLotExAsync(dataCollectForProcessLotExRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [FaultContract(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<dataCollectForProcessLotExResponse1> dataCollectForProcessLotExAsync(dataCollectForProcessLotExRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<dataCollectForProcessLotLocalReworkResponse1> dataCollectForProcessLotLocalReworkAsync(dataCollectForProcessLotLocalReworkRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [FaultContract(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<dataCollectForProcessLotLocalReworkResponse1> dataCollectForProcessLotLocalReworkAsync(dataCollectForProcessLotLocalReworkRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<nonConformanceForProcessLotResponse1> nonConformanceForProcessLotAsync(nonConformanceForProcessLotRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<nonConformanceForProcessLotResponse1> nonConformanceForProcessLotAsync(nonConformanceForProcessLotRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<dataCollectForSfcExResponse1> dataCollectForSfcExAsync(dataCollectForSfcExRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [FaultContract(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<dataCollectForSfcExResponse1> dataCollectForSfcExAsync(dataCollectForSfcExRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<dataCollectForModuleTestResponse1> dataCollectForModuleTestAsync(dataCollectForModuleTestRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [FaultContract(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<dataCollectForModuleTestResponse1> dataCollectForModuleTestAsync(dataCollectForModuleTestRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<dataCollectForSfcLocalReworkResponse1> dataCollectForSfcLocalReworkAsync(dataCollectForSfcLocalReworkRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [FaultContract(typeof(MachineIntegrationException), Action = "", Name = "MachineIntegrationException")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<dataCollectForSfcLocalReworkResponse1> dataCollectForSfcLocalReworkAsync(dataCollectForSfcLocalReworkRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<isBakingReadyResponse1> isBakingReadyAsync(isBakingReadyRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<isBakingReadyResponse1> isBakingReadyAsync(isBakingReadyRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<processLotStartResponse1> processLotStartAsync(processLotStartRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<processLotStartResponse1> processLotStartAsync(processLotStartRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<sfcStartResponse1> sfcStartAsync(sfcStartRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<sfcStartResponse1> sfcStartAsync(sfcStartRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<sfcCompleteResponse1> sfcCompleteAsync(sfcCompleteRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<sfcCompleteResponse1> sfcCompleteAsync(sfcCompleteRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<createSfcAndDataCollectResponse1> createSfcAndDataCollectAsync(createSfcAndDataCollectRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<createSfcAndDataCollectResponse1> createSfcAndDataCollectAsync(createSfcAndDataCollectRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<processLotCompleteResponse1> processLotCompleteAsync(processLotCompleteRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<processLotCompleteResponse1> processLotCompleteAsync(processLotCompleteRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<cellInboxAssemblyResponse1> cellInboxAssemblyAsync(cellInboxAssemblyRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<cellInboxAssemblyResponse1> cellInboxAssemblyAsync(cellInboxAssemblyRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<cellInboxCompleteAndBindTrayResponse1> cellInboxCompleteAndBindTrayAsync(cellInboxCompleteAndBindTrayRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<cellInboxCompleteAndBindTrayResponse1> cellInboxCompleteAndBindTrayAsync(cellInboxCompleteAndBindTrayRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<sfcBindPostCompleteResponse1> sfcBindPostCompleteAsync(sfcBindPostCompleteRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<sfcBindPostCompleteResponse1> sfcBindPostCompleteAsync(sfcBindPostCompleteRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<checkBomInventoryResponse1> checkBomInventoryAsync(checkBomInventoryRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<checkBomInventoryResponse1> checkBomInventoryAsync(checkBomInventoryRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<assemblyAndDataCollectionResponse1> assemblyAndDataCollectionAsync(assemblyAndDataCollectionRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<assemblyAndDataCollectionResponse1> assemblyAndDataCollectionAsync(assemblyAndDataCollectionRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<assembleProcessLotAndDataCollectExResponse1> assembleProcessLotAndDataCollectExAsync(assembleProcessLotAndDataCollectExRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<assembleProcessLotAndDataCollectExResponse1> assembleProcessLotAndDataCollectExAsync(assembleProcessLotAndDataCollectExRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<startHeadWeldingResponse1> startHeadWeldingAsync(startHeadWeldingRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<startHeadWeldingResponse1> startHeadWeldingAsync(startHeadWeldingRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<assemblyComponentResponse1> assemblyComponentAsync(assemblyComponentRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<assemblyComponentResponse1> assemblyComponentAsync(assemblyComponentRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<heartbeatValidationResponse1> heartbeatValidationAsync(heartbeatValidationRequest1 request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<heartbeatValidationResponse1> heartbeatValidationAsync(heartbeatValidationRequest1 request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<start2ndInjectionResponse1> start2ndInjectionAsync(start2ndInjectionRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<start2ndInjectionResponse1> start2ndInjectionAsync(start2ndInjectionRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<dataCollectForHotPressResponse1> dataCollectForHotPressAsync(dataCollectForHotPressRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<dataCollectForHotPressResponse1> dataCollectForHotPressAsync(dataCollectForHotPressRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<getCellOCVValueResponse1> getCellOCVValueAsync(getCellOCVValueRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<getCellOCVValueResponse1> getCellOCVValueAsync(getCellOCVValueRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<getShopOrderReleaseByResourceResponse1> getShopOrderReleaseByResourceAsync(getShopOrderReleaseByResourceRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<getShopOrderReleaseByResourceResponse1> getShopOrderReleaseByResourceAsync(getShopOrderReleaseByResourceRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<startCompleteRelabeledSFCResponse1> startCompleteRelabeledSFCAsync(startCompleteRelabeledSFCRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<startCompleteRelabeledSFCResponse1> startCompleteRelabeledSFCAsync(startCompleteRelabeledSFCRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<inProcessLotPreCheckResponse1> inProcessLotPreCheckAsync(inProcessLotPreCheckRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<inProcessLotPreCheckResponse1> inProcessLotPreCheckAsync(inProcessLotPreCheckRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<dataCollectForCoatingScaleResponse1> dataCollectForCoatingScaleAsync(dataCollectForCoatingScaleRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<dataCollectForCoatingScaleResponse1> dataCollectForCoatingScaleAsync(dataCollectForCoatingScaleRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.FaultContractAttribute(typeof(BusinessException), Action = "", Name = "BusinessException")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<getItemAndQtyResponse> getItemAndQtyAsync(getItemAndQtyRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [FaultContract(typeof(BusinessException), Action = "", Name = "BusinessException")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<getItemAndQtyResponse> getItemAndQtyAsync(getItemAndQtyRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<dataCollectForSfcBYResouceResponse1> dataCollectForSfcBYResouceAsync(dataCollectForSfcBYResouceRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<dataCollectForSfcBYResouceResponse1> dataCollectForSfcBYResouceAsync(dataCollectForSfcBYResouceRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
-        System.Threading.Tasks.Task<processLotStartForSfcResponse1> processLotStartForSfcAsync(processLotStartForSfcRequest request);
+        [OperationContract(Action = "", ReplyAction = "*")]
+        [XmlSerializerFormat(SupportFaults = true)]
+        Task<processLotStartForSfcResponse1> processLotStartForSfcAsync(processLotStartForSfcRequest request);
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForResourceRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForResource dataCollectForResource;
 
         public dataCollectForResourceRequest()
@@ -558,14 +569,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForResourceResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForResourceResponse dataCollectForResourceResponse;
 
         public dataCollectForResourceResponse1()
@@ -579,16 +590,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForSfc
     {
 
         private machineIntegrationSfcDcRequest sfcDcRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public machineIntegrationSfcDcRequest SfcDcRequest
         {
             get
@@ -603,10 +614,10 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(assemblyAndDataCollectionRequestExt))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [XmlInclude(typeof(assemblyAndDataCollectionRequestExt))]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class machineIntegrationSfcDcRequest
     {
 
@@ -633,7 +644,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private ModeProcessSfc modeProcessSfcField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -647,7 +658,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string sfc
         {
             get
@@ -661,7 +672,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcGroup
         {
             get
@@ -675,7 +686,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string dcGroupRevision
         {
             get
@@ -689,7 +700,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string operation
         {
             get
@@ -703,7 +714,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string operationRevision
         {
             get
@@ -717,7 +728,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string resource
         {
             get
@@ -731,7 +742,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string user
         {
             get
@@ -745,7 +756,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string activityId
         {
             get
@@ -759,7 +770,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 9)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -773,7 +784,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
         [JsonConverter(typeof(StringEnumConverter))]
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 10)]
         public ModeProcessSfc modeProcessSfc
         {
             get
@@ -790,8 +801,8 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public enum ModeProcessSfc
     {
 
@@ -812,16 +823,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class assemblyAndDataCollectionRequestExt : machineIntegrationSfcDcRequest
     {
 
         private string[] componentArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("componentArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement("componentArray", Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string[] componentArray
         {
             get
@@ -836,16 +847,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForSfcResponse
     {
 
         private machineIntegrationSfcDcResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public machineIntegrationSfcDcResponse @return
         {
             get
@@ -860,9 +871,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class machineIntegrationSfcDcResponse
     {
 
@@ -873,7 +884,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -887,7 +898,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -901,7 +912,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -915,14 +926,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForSfcRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForSfc dataCollectForSfc;
 
         public dataCollectForSfcRequest()
@@ -935,14 +946,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForSfcResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForSfcResponse dataCollectForSfcResponse;
 
         public dataCollectForSfcResponse1()
@@ -956,16 +967,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForProcessLot
     {
 
         private machineIntegrationProcessLotDcRequest processLotDcRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public machineIntegrationProcessLotDcRequest ProcessLotDcRequest
         {
             get
@@ -980,9 +991,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class machineIntegrationProcessLotDcRequest
     {
 
@@ -1009,7 +1020,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private ModeProcessSfc modeProcessSfcField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -1023,7 +1034,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string processLot
         {
             get
@@ -1037,7 +1048,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcGroup
         {
             get
@@ -1051,7 +1062,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string dcGroupRevision
         {
             get
@@ -1065,7 +1076,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string operation
         {
             get
@@ -1079,7 +1090,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string operationRevision
         {
             get
@@ -1093,7 +1104,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string resource
         {
             get
@@ -1107,7 +1118,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string user
         {
             get
@@ -1121,7 +1132,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string activityId
         {
             get
@@ -1135,7 +1146,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 9)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -1150,7 +1161,7 @@ namespace Catl.WebServices.MachineIntegrationServices
 
         [JsonConverter(typeof(StringEnumConverter))]
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 10)]
         public ModeProcessSfc modeProcessSfc
         {
             get
@@ -1165,16 +1176,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForProcessLotResponse
     {
 
         private machineIntegrationProcessLotDcResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public machineIntegrationProcessLotDcResponse @return
         {
             get
@@ -1189,9 +1200,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class machineIntegrationProcessLotDcResponse
     {
 
@@ -1202,7 +1213,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -1216,7 +1227,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -1230,7 +1241,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -1244,14 +1255,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForProcessLotRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForProcessLot dataCollectForProcessLot;
 
         public dataCollectForProcessLotRequest()
@@ -1264,14 +1275,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForProcessLotResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForProcessLotResponse dataCollectForProcessLotResponse;
 
         public dataCollectForProcessLotResponse1()
@@ -1285,16 +1296,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class resourceStatusChange
     {
 
         private resChgRequest resChgRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public resChgRequest ResChgRequest
         {
             get
@@ -1309,9 +1320,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class resChgRequest
     {
 
@@ -1326,7 +1337,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string activityIdField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -1340,7 +1351,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string resource
         {
             get
@@ -1354,7 +1365,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public int statusCode
         {
             get
@@ -1368,7 +1379,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string user
         {
             get
@@ -1382,7 +1393,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string activityId
         {
             get
@@ -1397,16 +1408,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class resourceStatusChangeResponse
     {
 
         private resChgResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public resChgResponse @return
         {
             get
@@ -1421,29 +1432,29 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class resChgResponse : baseResponse
     {
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(startProcessLotForSfcResponse))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(cellOcvValueResponse))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(componentAssemblyResponse))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(headWeldingStartResponse))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(assemblyAndDataCollectionResponseExt))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(checkBomInventoryResponseExt))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(completeSfcResponse))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(startSfcResponse))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(startProcessLotResponse))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(bakingReadyResponse))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(sfcDcExResponse))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(resChgResponse))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [XmlInclude(typeof(startProcessLotForSfcResponse))]
+    [XmlInclude(typeof(cellOcvValueResponse))]
+    [XmlInclude(typeof(componentAssemblyResponse))]
+    [XmlInclude(typeof(headWeldingStartResponse))]
+    [XmlInclude(typeof(assemblyAndDataCollectionResponseExt))]
+    [XmlInclude(typeof(checkBomInventoryResponseExt))]
+    [XmlInclude(typeof(completeSfcResponse))]
+    [XmlInclude(typeof(startSfcResponse))]
+    [XmlInclude(typeof(startProcessLotResponse))]
+    [XmlInclude(typeof(bakingReadyResponse))]
+    [XmlInclude(typeof(sfcDcExResponse))]
+    [XmlInclude(typeof(resChgResponse))]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class baseResponse
     {
 
@@ -1454,7 +1465,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -1468,7 +1479,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -1482,7 +1493,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -1497,16 +1508,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startProcessLotForSfcResponse : baseResponse
     {
 
         private processLotSfcEntity[] sfcEntityField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("sfcEntity", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement("sfcEntity", Form = XmlSchemaForm.Unqualified, Order = 0)]
         public processLotSfcEntity[] sfcEntity
         {
             get
@@ -1521,9 +1532,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class processLotSfcEntity
     {
 
@@ -1532,7 +1543,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private sfcLocationEntity[] sfcEntitysField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string headSfc
         {
             get
@@ -1546,7 +1557,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("sfcEntitys", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement("sfcEntitys", Form = XmlSchemaForm.Unqualified, Order = 1)]
         public sfcLocationEntity[] sfcEntitys
         {
             get
@@ -1561,9 +1572,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcLocationEntity
     {
 
@@ -1572,7 +1583,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string locationField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string sfc
         {
             get
@@ -1586,7 +1597,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string location
         {
             get
@@ -1601,16 +1612,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class cellOcvValueResponse : baseResponse
     {
 
         private cellSfcData[] cellSfcsDataField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("cellSfcsData", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement("cellSfcsData", Form = XmlSchemaForm.Unqualified, Order = 0)]
         public cellSfcData[] cellSfcsData
         {
             get
@@ -1625,9 +1636,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class cellSfcData
     {
 
@@ -1638,7 +1649,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string cellOcvDateField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string sfc
         {
             get
@@ -1652,7 +1663,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string cellOCV
         {
             get
@@ -1666,7 +1677,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string cellOcvDate
         {
             get
@@ -1681,24 +1692,24 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class componentAssemblyResponse : baseResponse
     {
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class headWeldingStartResponse : baseResponse
     {
 
         private int workStationField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int workStation
         {
             get
@@ -1713,16 +1724,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class assemblyAndDataCollectionResponseExt : baseResponse
     {
 
         private int resultField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int result
         {
             get
@@ -1737,25 +1748,25 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class checkBomInventoryResponseExt : baseResponse
     {
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class completeSfcResponse : baseResponse
     {
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startSfcResponse : baseResponse
     {
 
@@ -1770,7 +1781,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private startSfcOperationData[] userOptionsListField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("code", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement("code", Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code1
         {
             get
@@ -1784,7 +1795,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool code1Specified
         {
             get
@@ -1798,7 +1809,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("message", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement("message", Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message1
         {
             get
@@ -1812,7 +1823,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("itemList", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement("itemList", Form = XmlSchemaForm.Unqualified, Order = 2)]
         public startSfcItemData[] itemList
         {
             get
@@ -1826,7 +1837,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("userOptionsList", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement("userOptionsList", Form = XmlSchemaForm.Unqualified, Order = 3)]
         public startSfcOperationData[] userOptionsList
         {
             get
@@ -1841,9 +1852,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startSfcItemData
     {
 
@@ -1856,7 +1867,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private bool qtyFieldSpecified;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string item
         {
             get
@@ -1870,7 +1881,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string revision
         {
             get
@@ -1884,7 +1895,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public decimal qty
         {
             get
@@ -1898,7 +1909,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool qtySpecified
         {
             get
@@ -1913,9 +1924,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startSfcOperationData
     {
 
@@ -1924,7 +1935,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string valueField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string name
         {
             get
@@ -1938,7 +1949,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string value
         {
             get
@@ -1953,37 +1964,37 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startProcessLotResponse : baseResponse
     {
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class bakingReadyResponse : baseResponse
     {
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcDcExResponse : baseResponse
     {
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class resourceStatusChangeRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public resourceStatusChange resourceStatusChange;
 
         public resourceStatusChangeRequest()
@@ -1996,14 +2007,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class resourceStatusChangeResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public resourceStatusChangeResponse resourceStatusChangeResponse;
 
         public resourceStatusChangeResponse1()
@@ -2017,16 +2028,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class nonConformanceForSfc
     {
 
         private machineIntegrationSfcNcLogRequest ncLogRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public machineIntegrationSfcNcLogRequest ncLogRequest
         {
             get
@@ -2041,9 +2052,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class machineIntegrationSfcNcLogRequest
     {
 
@@ -2062,7 +2073,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private ncSfcParametricData[] parametricDataArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string operation
         {
             get
@@ -2076,7 +2087,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string site
         {
             get
@@ -2090,7 +2101,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string sfc
         {
             get
@@ -2104,7 +2115,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string ncGroup
         {
             get
@@ -2118,7 +2129,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string user
         {
             get
@@ -2132,7 +2143,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string activityId
         {
             get
@@ -2146,7 +2157,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 6)]
         public ncSfcParametricData[] parametricDataArray
         {
             get
@@ -2161,9 +2172,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class ncSfcParametricData
     {
 
@@ -2172,7 +2183,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private bool isNcField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string ncCode
         {
             get
@@ -2186,7 +2197,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public bool isNc
         {
             get
@@ -2201,16 +2212,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class nonConformanceForSfcResponse
     {
 
         private machineIntegrationSfcNcLogResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public machineIntegrationSfcNcLogResponse @return
         {
             get
@@ -2225,9 +2236,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class machineIntegrationSfcNcLogResponse
     {
 
@@ -2238,7 +2249,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -2252,7 +2263,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -2266,7 +2277,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -2280,14 +2291,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nonConformanceForSfcRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public nonConformanceForSfc nonConformanceForSfc;
 
         public nonConformanceForSfcRequest()
@@ -2300,14 +2311,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nonConformanceForSfcResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public nonConformanceForSfcResponse nonConformanceForSfcResponse;
 
         public nonConformanceForSfcResponse1()
@@ -2321,16 +2332,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForProcessLotEx
     {
 
         private processLotDcRequestEx processLotDcRequestExField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public processLotDcRequestEx ProcessLotDcRequestEx
         {
             get
@@ -2345,9 +2356,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class processLotDcRequestEx
     {
 
@@ -2378,7 +2389,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private ModeProcessSfc modeProcessSfcField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -2392,7 +2403,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string processLot
         {
             get
@@ -2406,7 +2417,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcGroup
         {
             get
@@ -2420,7 +2431,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string dcGroupRevision
         {
             get
@@ -2434,7 +2445,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string ncGroup
         {
             get
@@ -2448,7 +2459,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string operation
         {
             get
@@ -2462,7 +2473,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string operationRevision
         {
             get
@@ -2476,7 +2487,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string resource
         {
             get
@@ -2490,7 +2501,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string user
         {
             get
@@ -2504,7 +2515,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 9)]
         public string activityId
         {
             get
@@ -2518,7 +2529,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 10)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -2532,7 +2543,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ncCodeArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 11)]
+        [XmlElement("ncCodeArray", Form = XmlSchemaForm.Unqualified, Order = 11)]
         public ncSfcParametricData[] ncCodeArray
         {
             get
@@ -2546,7 +2557,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 12)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 12)]
         public ModeProcessSfc modeProcessSfc
         {
             get
@@ -2561,16 +2572,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForProcessLotExResponse
     {
 
         private processLotDcResponseEx returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public processLotDcResponseEx @return
         {
             get
@@ -2585,9 +2596,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class processLotDcResponseEx
     {
 
@@ -2598,7 +2609,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -2612,7 +2623,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -2626,7 +2637,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -2640,14 +2651,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForProcessLotExRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForProcessLotEx dataCollectForProcessLotEx;
 
         public dataCollectForProcessLotExRequest()
@@ -2660,14 +2671,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForProcessLotExResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForProcessLotExResponse dataCollectForProcessLotExResponse;
 
         public dataCollectForProcessLotExResponse1()
@@ -2681,16 +2692,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForProcessLotLocalRework
     {
 
         private dcPlLocalReworkRequest dcPlLocalReworkRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public dcPlLocalReworkRequest DcPlLocalReworkRequest
         {
             get
@@ -2705,9 +2716,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dcPlLocalReworkRequest
     {
 
@@ -2736,7 +2747,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private ModeProcessSfc modeProcessSfcField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -2750,7 +2761,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string processLot
         {
             get
@@ -2764,7 +2775,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcGroup
         {
             get
@@ -2778,7 +2789,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string dcGroupRevision
         {
             get
@@ -2792,7 +2803,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string operation
         {
             get
@@ -2806,7 +2817,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string operationRevision
         {
             get
@@ -2820,7 +2831,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string resource
         {
             get
@@ -2834,7 +2845,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string user
         {
             get
@@ -2848,7 +2859,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string activityId
         {
             get
@@ -2862,7 +2873,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 9)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -2876,7 +2887,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ncCodeArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement("ncCodeArray", Form = XmlSchemaForm.Unqualified, Order = 10)]
         public ncSfcParametricData[] ncCodeArray
         {
             get
@@ -2890,7 +2901,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 11)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 11)]
         public ModeProcessSfc modeProcessSfc
         {
             get
@@ -2905,16 +2916,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForProcessLotLocalReworkResponse
     {
 
         private dcPlLocalReworkResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public dcPlLocalReworkResponse @return
         {
             get
@@ -2929,9 +2940,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dcPlLocalReworkResponse
     {
 
@@ -2942,7 +2953,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -2956,7 +2967,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -2970,7 +2981,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -2984,14 +2995,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForProcessLotLocalReworkRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForProcessLotLocalRework dataCollectForProcessLotLocalRework;
 
         public dataCollectForProcessLotLocalReworkRequest()
@@ -3004,14 +3015,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForProcessLotLocalReworkResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForProcessLotLocalReworkResponse dataCollectForProcessLotLocalReworkResponse;
 
         public dataCollectForProcessLotLocalReworkResponse1()
@@ -3025,16 +3036,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class nonConformanceForProcessLot
     {
 
         private processLotNcLogRequest nonConformanceForProcessLotField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public processLotNcLogRequest NonConformanceForProcessLot
         {
             get
@@ -3049,9 +3060,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class processLotNcLogRequest
     {
 
@@ -3070,7 +3081,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private ncSfcParametricData[] parametricDataArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -3084,7 +3095,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string operation
         {
             get
@@ -3098,7 +3109,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string processLot
         {
             get
@@ -3112,7 +3123,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string ncGroup
         {
             get
@@ -3126,7 +3137,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string user
         {
             get
@@ -3140,7 +3151,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string activityId
         {
             get
@@ -3154,7 +3165,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 6)]
         public ncSfcParametricData[] parametricDataArray
         {
             get
@@ -3169,16 +3180,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class nonConformanceForProcessLotResponse
     {
 
         private processLotNcLogResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public processLotNcLogResponse @return
         {
             get
@@ -3193,9 +3204,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class processLotNcLogResponse
     {
 
@@ -3204,7 +3215,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -3218,7 +3229,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -3232,14 +3243,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nonConformanceForProcessLotRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public nonConformanceForProcessLot nonConformanceForProcessLot;
 
         public nonConformanceForProcessLotRequest()
@@ -3252,14 +3263,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nonConformanceForProcessLotResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public nonConformanceForProcessLotResponse nonConformanceForProcessLotResponse;
 
         public nonConformanceForProcessLotResponse1()
@@ -3273,16 +3284,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForSfcEx
     {
 
         private sfcDcExRequest sfcDcExRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public sfcDcExRequest SfcDcExRequest
         {
             get
@@ -3297,9 +3308,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcDcExRequest
     {
 
@@ -3336,7 +3347,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string checkSFCStatusField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -3350,7 +3361,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string sfc
         {
             get
@@ -3364,7 +3375,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcGroup
         {
             get
@@ -3378,7 +3389,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string dcGroupRevision
         {
             get
@@ -3392,7 +3403,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string operation
         {
             get
@@ -3406,7 +3417,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string operationRevision
         {
             get
@@ -3420,7 +3431,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string resource
         {
             get
@@ -3434,7 +3445,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string user
         {
             get
@@ -3448,7 +3459,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string activityId
         {
             get
@@ -3462,7 +3473,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 9)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -3476,7 +3487,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 10)]
         public ModeProcessSfc modeProcessSfc
         {
             get
@@ -3490,7 +3501,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ncCodeArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 11)]
+        [XmlElement("ncCodeArray", Form = XmlSchemaForm.Unqualified, Order = 11)]
         public nonConfirmCodeArray[] ncCodeArray
         {
             get
@@ -3504,7 +3515,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 12)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 12)]
         public bool isDispositionRequired
         {
             get
@@ -3518,7 +3529,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool isDispositionRequiredSpecified
         {
             get
@@ -3532,7 +3543,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 13)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 13)]
         public string isGetSFCFromCustomerBarcode
         {
             get
@@ -3546,7 +3557,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 14)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 14)]
         public string checkSFCStatus
         {
             get
@@ -3561,9 +3572,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class nonConfirmCodeArray
     {
 
@@ -3572,7 +3583,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private bool hasNcField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string ncCode
         {
             get
@@ -3586,7 +3597,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public bool hasNc
         {
             get
@@ -3601,16 +3612,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForSfcExResponse
     {
 
         private sfcDcExResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public sfcDcExResponse @return
         {
             get
@@ -3624,14 +3635,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForSfcExRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForSfcEx dataCollectForSfcEx;
 
         public dataCollectForSfcExRequest()
@@ -3644,14 +3655,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForSfcExResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForSfcExResponse dataCollectForSfcExResponse;
 
         public dataCollectForSfcExResponse1()
@@ -3665,16 +3676,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForModuleTest
     {
 
         private dcForModuleTestRequest dcForModuleTestRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public dcForModuleTestRequest DcForModuleTestRequest
         {
             get
@@ -3689,9 +3700,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dcForModuleTestRequest
     {
 
@@ -3720,7 +3731,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private nonConfirmCodeArray[] ncCodeArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -3734,7 +3745,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string sfc
         {
             get
@@ -3748,7 +3759,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcGroup
         {
             get
@@ -3762,7 +3773,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string dcGroupRevision
         {
             get
@@ -3776,7 +3787,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string operation
         {
             get
@@ -3790,7 +3801,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string operationRevision
         {
             get
@@ -3804,7 +3815,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string resource
         {
             get
@@ -3818,7 +3829,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string user
         {
             get
@@ -3832,7 +3843,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string activityId
         {
             get
@@ -3846,7 +3857,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 9)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -3861,7 +3872,7 @@ namespace Catl.WebServices.MachineIntegrationServices
 
         [JsonConverter(typeof(StringEnumConverter))]
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 10)]
         public dataCollectForSfcModeProcessSfc modeProcessSfc
         {
             get
@@ -3875,7 +3886,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ncCodeArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 11)]
+        [XmlElement("ncCodeArray", Form = XmlSchemaForm.Unqualified, Order = 11)]
         public nonConfirmCodeArray[] ncCodeArray
         {
             get
@@ -3890,8 +3901,8 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public enum dataCollectForSfcModeProcessSfc
     {
 
@@ -3915,16 +3926,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForModuleTestResponse
     {
 
         private dcForModuleTestResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public dcForModuleTestResponse @return
         {
             get
@@ -3939,9 +3950,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dcForModuleTestResponse
     {
 
@@ -3952,7 +3963,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -3966,7 +3977,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -3980,7 +3991,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -3994,14 +4005,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForModuleTestRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForModuleTest dataCollectForModuleTest;
 
         public dataCollectForModuleTestRequest()
@@ -4014,14 +4025,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForModuleTestResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForModuleTestResponse dataCollectForModuleTestResponse;
 
         public dataCollectForModuleTestResponse1()
@@ -4035,16 +4046,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForSfcLocalRework
     {
 
         private dcSfcLocalReworkRequest dcSfcLocalReworkRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public dcSfcLocalReworkRequest DcSfcLocalReworkRequest
         {
             get
@@ -4059,9 +4070,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dcSfcLocalReworkRequest
     {
 
@@ -4090,7 +4101,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private nonConfirmCodeArray[] ncCodeArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -4104,7 +4115,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string sfc
         {
             get
@@ -4118,7 +4129,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcGroup
         {
             get
@@ -4132,7 +4143,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string dcGroupRevision
         {
             get
@@ -4146,7 +4157,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string operation
         {
             get
@@ -4160,7 +4171,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string operationRevision
         {
             get
@@ -4174,7 +4185,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string resource
         {
             get
@@ -4188,7 +4199,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string user
         {
             get
@@ -4202,7 +4213,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string activityId
         {
             get
@@ -4216,7 +4227,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 9)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -4231,7 +4242,7 @@ namespace Catl.WebServices.MachineIntegrationServices
 
         [JsonConverter(typeof(StringEnumConverter))]
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 10)]
         public dataCollectForSfcModeProcessSfc modeProcessSfc
         {
             get
@@ -4245,7 +4256,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ncCodeArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 11)]
+        [XmlElement("ncCodeArray", Form = XmlSchemaForm.Unqualified, Order = 11)]
         public nonConfirmCodeArray[] ncCodeArray
         {
             get
@@ -4260,16 +4271,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForSfcLocalReworkResponse
     {
 
         private dcSfcLocalReworkResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public dcSfcLocalReworkResponse @return
         {
             get
@@ -4284,9 +4295,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dcSfcLocalReworkResponse
     {
 
@@ -4297,7 +4308,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -4311,7 +4322,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -4325,7 +4336,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -4339,14 +4350,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForSfcLocalReworkRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForSfcLocalRework dataCollectForSfcLocalRework;
 
         public dataCollectForSfcLocalReworkRequest()
@@ -4359,14 +4370,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForSfcLocalReworkResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForSfcLocalReworkResponse dataCollectForSfcLocalReworkResponse;
 
         public dataCollectForSfcLocalReworkResponse1()
@@ -4380,16 +4391,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class isBakingReady
     {
 
         private bakingReadyRequest requestBakingReadyField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public bakingReadyRequest RequestBakingReady
         {
             get
@@ -4404,9 +4415,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class bakingReadyRequest
     {
 
@@ -4421,7 +4432,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string[] processLotArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -4435,7 +4446,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string operation
         {
             get
@@ -4449,7 +4460,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operationRevision
         {
             get
@@ -4463,7 +4474,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string resource
         {
             get
@@ -4477,7 +4488,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("processLotArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement("processLotArray", Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string[] processLotArray
         {
             get
@@ -4492,16 +4503,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class isBakingReadyResponse
     {
 
         private bakingReadyResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public bakingReadyResponse @return
         {
             get
@@ -4515,14 +4526,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class isBakingReadyRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public isBakingReady isBakingReady;
 
         public isBakingReadyRequest()
@@ -4535,14 +4546,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class isBakingReadyResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public isBakingReadyResponse isBakingReadyResponse;
 
         public isBakingReadyResponse1()
@@ -4556,16 +4567,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class processLotStart
     {
 
         private startProcessLotRequest startProcessLotRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public startProcessLotRequest StartProcessLotRequest
         {
             get
@@ -4580,9 +4591,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startProcessLotRequest
     {
 
@@ -4599,7 +4610,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string[] processLotArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -4613,7 +4624,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string user
         {
             get
@@ -4627,7 +4638,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -4641,7 +4652,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -4655,7 +4666,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string resource
         {
             get
@@ -4669,7 +4680,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("processLotArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement("processLotArray", Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string[] processLotArray
         {
             get
@@ -4684,16 +4695,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class processLotStartResponse
     {
 
         private startProcessLotResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public startProcessLotResponse @return
         {
             get
@@ -4707,14 +4718,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class processLotStartRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public processLotStart processLotStart;
 
         public processLotStartRequest()
@@ -4727,14 +4738,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class processLotStartResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public processLotStartResponse processLotStartResponse;
 
         public processLotStartResponse1()
@@ -4748,16 +4759,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcStart
     {
 
         private startSfcRequest startSfcRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public startSfcRequest StartSfcRequest
         {
             get
@@ -4772,9 +4783,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startSfcRequest
     {
 
@@ -4795,7 +4806,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string returnUserOptionsField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -4809,7 +4820,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string user
         {
             get
@@ -4823,7 +4834,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -4837,7 +4848,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -4851,7 +4862,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string resource
         {
             get
@@ -4865,7 +4876,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("sfcArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement("sfcArray", Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string[] sfcArray
         {
             get
@@ -4879,7 +4890,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string returnItem
         {
             get
@@ -4893,7 +4904,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string returnUserOptions
         {
             get
@@ -4908,16 +4919,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcStartResponse
     {
 
         private startSfcResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public startSfcResponse @return
         {
             get
@@ -4931,14 +4942,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class sfcStartRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public sfcStart sfcStart;
 
         public sfcStartRequest()
@@ -4951,14 +4962,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class sfcStartResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public sfcStartResponse sfcStartResponse;
 
         public sfcStartResponse1()
@@ -4972,16 +4983,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcComplete
     {
 
         private completeSfcRequest completeSfcRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public completeSfcRequest CompleteSfcRequest
         {
             get
@@ -4996,9 +5007,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class completeSfcRequest
     {
 
@@ -5015,7 +5026,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string[] sfcArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -5029,7 +5040,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string user
         {
             get
@@ -5043,7 +5054,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -5057,7 +5068,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -5071,7 +5082,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string resource
         {
             get
@@ -5085,7 +5096,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("sfcArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement("sfcArray", Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string[] sfcArray
         {
             get
@@ -5100,16 +5111,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcCompleteResponse
     {
 
         private completeSfcResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public completeSfcResponse @return
         {
             get
@@ -5123,14 +5134,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class sfcCompleteRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public sfcComplete sfcComplete;
 
         public sfcCompleteRequest()
@@ -5143,14 +5154,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class sfcCompleteResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public sfcCompleteResponse sfcCompleteResponse;
 
         public sfcCompleteResponse1()
@@ -5164,16 +5175,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class createSfcAndDataCollect
     {
 
         private sfcCreationAndDcRequest sfcCreationAndDcRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public sfcCreationAndDcRequest SfcCreationAndDcRequest
         {
             get
@@ -5188,9 +5199,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcCreationAndDcRequest
     {
 
@@ -5217,7 +5228,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private ModeProcessSfc modeProcessSfcField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -5231,7 +5242,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string sfc
         {
             get
@@ -5245,7 +5256,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcGroup
         {
             get
@@ -5259,7 +5270,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string dcGroupRevision
         {
             get
@@ -5273,7 +5284,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string operation
         {
             get
@@ -5287,7 +5298,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string operationRevision
         {
             get
@@ -5301,7 +5312,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string resource
         {
             get
@@ -5315,7 +5326,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string user
         {
             get
@@ -5329,7 +5340,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string activityId
         {
             get
@@ -5343,7 +5354,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 9)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -5357,7 +5368,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 10)]
         public ModeProcessSfc modeProcessSfc
         {
             get
@@ -5372,16 +5383,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class createSfcAndDataCollectResponse
     {
 
         private sfcCreationAndDcResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public sfcCreationAndDcResponse @return
         {
             get
@@ -5396,9 +5407,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcCreationAndDcResponse
     {
 
@@ -5409,7 +5420,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -5423,7 +5434,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -5437,7 +5448,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -5451,14 +5462,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class createSfcAndDataCollectRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public createSfcAndDataCollect createSfcAndDataCollect;
 
         public createSfcAndDataCollectRequest()
@@ -5471,14 +5482,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class createSfcAndDataCollectResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public createSfcAndDataCollectResponse createSfcAndDataCollectResponse;
 
         public createSfcAndDataCollectResponse1()
@@ -5492,16 +5503,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class processLotComplete
     {
 
         private completeProcessLotRequest completeProcessLotRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public completeProcessLotRequest CompleteProcessLotRequest
         {
             get
@@ -5516,9 +5527,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class completeProcessLotRequest
     {
 
@@ -5535,7 +5546,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string[] processLotArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -5549,7 +5560,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string user
         {
             get
@@ -5563,7 +5574,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -5577,7 +5588,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -5591,7 +5602,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string resource
         {
             get
@@ -5605,7 +5616,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("processLotArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement("processLotArray", Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string[] processLotArray
         {
             get
@@ -5620,16 +5631,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class processLotCompleteResponse
     {
 
         private completeProcessLotResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public completeProcessLotResponse @return
         {
             get
@@ -5644,9 +5655,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class completeProcessLotResponse
     {
 
@@ -5657,7 +5668,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -5671,7 +5682,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -5685,7 +5696,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -5699,14 +5710,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class processLotCompleteRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public processLotComplete processLotComplete;
 
         public processLotCompleteRequest()
@@ -5719,14 +5730,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class processLotCompleteResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public processLotCompleteResponse processLotCompleteResponse;
 
         public processLotCompleteResponse1()
@@ -5740,16 +5751,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class cellInboxAssembly
     {
 
         private inboxAssemblyRequest inboxAssemblyRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public inboxAssemblyRequest InboxAssemblyRequest
         {
             get
@@ -5764,9 +5775,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class inboxAssemblyRequest
     {
 
@@ -5783,7 +5794,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string externalSerialField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -5797,7 +5808,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string resource
         {
             get
@@ -5811,7 +5822,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -5825,7 +5836,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -5839,7 +5850,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string sfc
         {
             get
@@ -5853,7 +5864,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string externalSerial
         {
             get
@@ -5868,16 +5879,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class cellInboxAssemblyResponse
     {
 
         private inboxAssemblyResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public inboxAssemblyResponse @return
         {
             get
@@ -5892,9 +5903,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class inboxAssemblyResponse
     {
 
@@ -5905,7 +5916,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -5919,7 +5930,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -5933,7 +5944,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -5947,14 +5958,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class cellInboxAssemblyRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public cellInboxAssembly cellInboxAssembly;
 
         public cellInboxAssemblyRequest()
@@ -5967,14 +5978,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class cellInboxAssemblyResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public cellInboxAssemblyResponse cellInboxAssemblyResponse;
 
         public cellInboxAssemblyResponse1()
@@ -5988,16 +5999,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class cellInboxCompleteAndBindTray
     {
 
         private inboxCompleteAndBindTrayRequest inboxCompleteAndBindTrayRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public inboxCompleteAndBindTrayRequest InboxCompleteAndBindTrayRequest
         {
             get
@@ -6012,9 +6023,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class inboxCompleteAndBindTrayRequest
     {
 
@@ -6055,7 +6066,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private int ncLevelField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -6069,7 +6080,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string resource
         {
             get
@@ -6083,7 +6094,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -6097,7 +6108,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -6111,7 +6122,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string sfc
         {
             get
@@ -6125,7 +6136,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string carrier
         {
             get
@@ -6139,7 +6150,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string dcGroup
         {
             get
@@ -6153,7 +6164,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string dcGroupRevision
         {
             get
@@ -6167,7 +6178,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string ncGroup
         {
             get
@@ -6181,7 +6192,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 9)]
         public string user
         {
             get
@@ -6195,7 +6206,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 10)]
         public string activityId
         {
             get
@@ -6209,7 +6220,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 11)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 11)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -6223,7 +6234,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ncCodeArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 12)]
+        [XmlElement("ncCodeArray", Form = XmlSchemaForm.Unqualified, Order = 12)]
         public nonConfirmCodeArray[] ncCodeArray
         {
             get
@@ -6237,7 +6248,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 13)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 13)]
         public string externalSerial
         {
             get
@@ -6251,7 +6262,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 14)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 14)]
         public ModeProcessSfc modeProcessSfc
         {
             get
@@ -6265,7 +6276,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 15)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 15)]
         public int sfcLocation
         {
             get
@@ -6279,7 +6290,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 16)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 16)]
         public string ncReplace
         {
             get
@@ -6293,7 +6304,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 17)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 17)]
         public int ncLevel
         {
             get
@@ -6308,16 +6319,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class cellInboxCompleteAndBindTrayResponse
     {
 
         private inboxCompleteAndBindTrayResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public inboxCompleteAndBindTrayResponse @return
         {
             get
@@ -6332,9 +6343,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class inboxCompleteAndBindTrayResponse
     {
 
@@ -6345,7 +6356,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -6359,7 +6370,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -6373,7 +6384,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -6387,14 +6398,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class cellInboxCompleteAndBindTrayRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public cellInboxCompleteAndBindTray cellInboxCompleteAndBindTray;
 
         public cellInboxCompleteAndBindTrayRequest()
@@ -6407,14 +6418,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class cellInboxCompleteAndBindTrayResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public cellInboxCompleteAndBindTrayResponse cellInboxCompleteAndBindTrayResponse;
 
         public cellInboxCompleteAndBindTrayResponse1()
@@ -6428,16 +6439,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcBindPostComplete
     {
 
         private bindSfcRequest bindSfcRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public bindSfcRequest BindSfcRequest
         {
             get
@@ -6452,9 +6463,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class bindSfcRequest
     {
 
@@ -6479,7 +6490,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string[] sfcArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -6493,7 +6504,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string user
         {
             get
@@ -6507,7 +6518,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -6521,7 +6532,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -6535,7 +6546,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string resource
         {
             get
@@ -6549,7 +6560,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string carrier
         {
             get
@@ -6563,7 +6574,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public ModeTrayMatrix carrierMode
         {
             get
@@ -6577,7 +6588,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string activityID
         {
             get
@@ -6592,7 +6603,7 @@ namespace Catl.WebServices.MachineIntegrationServices
 
         [JsonConverter(typeof(StringEnumConverter))]
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public dataCollectForSfcModeProcessSfc modeProcessSfc
         {
             get
@@ -6606,7 +6617,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("sfcArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement("sfcArray", Form = XmlSchemaForm.Unqualified, Order = 9)]
         public string[] sfcArray
         {
             get
@@ -6621,31 +6632,31 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public enum ModeTrayMatrix
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("ROW-FIRST")]
+        [XmlEnum("ROW-FIRST")]
         ROWFIRST,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("COLUMN-FIRST")]
+        [XmlEnum("COLUMN-FIRST")]
         COLUMNFIRST,
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcBindPostCompleteResponse
     {
 
         private bindSfcResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public bindSfcResponse @return
         {
             get
@@ -6660,9 +6671,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class bindSfcResponse
     {
 
@@ -6673,7 +6684,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -6687,7 +6698,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -6701,7 +6712,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -6715,14 +6726,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class sfcBindPostCompleteRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public sfcBindPostComplete sfcBindPostComplete;
 
         public sfcBindPostCompleteRequest()
@@ -6735,14 +6746,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class sfcBindPostCompleteResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public sfcBindPostCompleteResponse sfcBindPostCompleteResponse;
 
         public sfcBindPostCompleteResponse1()
@@ -6756,16 +6767,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class checkBomInventory
     {
 
         private checkBomInventoryRequestExt bomInventoryCheckRequestExtField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public checkBomInventoryRequestExt BomInventoryCheckRequestExt
         {
             get
@@ -6780,9 +6791,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class checkBomInventoryRequestExt
     {
 
@@ -6793,7 +6804,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string[] inventoryArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -6807,7 +6818,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string resource
         {
             get
@@ -6821,7 +6832,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("inventoryArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement("inventoryArray", Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string[] inventoryArray
         {
             get
@@ -6836,16 +6847,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class checkBomInventoryResponse
     {
 
         private checkBomInventoryResponseExt returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public checkBomInventoryResponseExt @return
         {
             get
@@ -6859,14 +6870,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class checkBomInventoryRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public checkBomInventory checkBomInventory;
 
         public checkBomInventoryRequest()
@@ -6879,14 +6890,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class checkBomInventoryResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public checkBomInventoryResponse checkBomInventoryResponse;
 
         public checkBomInventoryResponse1()
@@ -6900,16 +6911,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class assemblyAndDataCollection
     {
 
         private assemblyAndDataCollectionRequestExt assemblyAndDataCollectionRequestExtParaField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public assemblyAndDataCollectionRequestExt AssemblyAndDataCollectionRequestExtPara
         {
             get
@@ -6924,16 +6935,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class assemblyAndDataCollectionResponse
     {
 
         private assemblyAndDataCollectionResponseExt returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public assemblyAndDataCollectionResponseExt @return
         {
             get
@@ -6947,14 +6958,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class assemblyAndDataCollectionRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public assemblyAndDataCollection assemblyAndDataCollection;
 
         public assemblyAndDataCollectionRequest()
@@ -6967,14 +6978,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class assemblyAndDataCollectionResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public assemblyAndDataCollectionResponse assemblyAndDataCollectionResponse;
 
         public assemblyAndDataCollectionResponse1()
@@ -6988,16 +6999,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class assembleProcessLotAndDataCollectEx
     {
 
         private assemblePlAndDcExRequest assemblePlAndDcExRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public assemblePlAndDcExRequest AssemblePlAndDcExRequest
         {
             get
@@ -7012,9 +7023,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class assemblePlAndDcExRequest
     {
 
@@ -7045,7 +7056,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private ModeProcessSfc modeProcessSfcField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -7059,7 +7070,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string sfc
         {
             get
@@ -7073,7 +7084,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcGroup
         {
             get
@@ -7087,7 +7098,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string dcGroupRevision
         {
             get
@@ -7101,7 +7112,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string operation
         {
             get
@@ -7115,7 +7126,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string operationRevision
         {
             get
@@ -7129,7 +7140,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string resource
         {
             get
@@ -7143,7 +7154,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string user
         {
             get
@@ -7157,7 +7168,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string activityId
         {
             get
@@ -7171,7 +7182,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 9)]
         public machineIntegrationParametricData[] parametricDataArray
         {
             get
@@ -7185,7 +7196,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ncCodeArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement("ncCodeArray", Form = XmlSchemaForm.Unqualified, Order = 10)]
         public nonConfirmCodeArray[] ncCodeArray
         {
             get
@@ -7199,7 +7210,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("processLotArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 11)]
+        [XmlElement("processLotArray", Form = XmlSchemaForm.Unqualified, Order = 11)]
         public string[] processLotArray
         {
             get
@@ -7213,7 +7224,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 12)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 12)]
         public ModeProcessSfc modeProcessSfc
         {
             get
@@ -7228,16 +7239,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class assembleProcessLotAndDataCollectExResponse
     {
 
         private assemblePlAndDcExResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public assemblePlAndDcExResponse @return
         {
             get
@@ -7252,9 +7263,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class assemblePlAndDcExResponse
     {
 
@@ -7265,7 +7276,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -7279,7 +7290,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -7293,7 +7304,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -7307,14 +7318,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class assembleProcessLotAndDataCollectExRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public assembleProcessLotAndDataCollectEx assembleProcessLotAndDataCollectEx;
 
         public assembleProcessLotAndDataCollectExRequest()
@@ -7327,14 +7338,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class assembleProcessLotAndDataCollectExResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public assembleProcessLotAndDataCollectExResponse assembleProcessLotAndDataCollectExResponse;
 
         public assembleProcessLotAndDataCollectExResponse1()
@@ -7348,16 +7359,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startHeadWelding
     {
 
         private headWeldingStartRequest headWeldingStartRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public headWeldingStartRequest HeadWeldingStartRequest
         {
             get
@@ -7372,9 +7383,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class headWeldingStartRequest
     {
 
@@ -7395,7 +7406,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private int workStationField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -7409,7 +7420,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string sfc
         {
             get
@@ -7423,7 +7434,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -7437,7 +7448,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -7451,7 +7462,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string resource
         {
             get
@@ -7465,7 +7476,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string user
         {
             get
@@ -7479,7 +7490,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string activityId
         {
             get
@@ -7493,7 +7504,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public int workStation
         {
             get
@@ -7508,16 +7519,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startHeadWeldingResponse
     {
 
         private headWeldingStartResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public headWeldingStartResponse @return
         {
             get
@@ -7531,14 +7542,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class startHeadWeldingRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public startHeadWelding startHeadWelding;
 
         public startHeadWeldingRequest()
@@ -7551,14 +7562,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class startHeadWeldingResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public startHeadWeldingResponse startHeadWeldingResponse;
 
         public startHeadWeldingResponse1()
@@ -7572,16 +7583,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class assemblyComponent
     {
 
         private componentAssemblyRequest requestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public componentAssemblyRequest Request
         {
             get
@@ -7596,9 +7607,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class componentAssemblyRequest
     {
 
@@ -7617,7 +7628,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string activityIDField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -7631,7 +7642,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string sfc
         {
             get
@@ -7645,7 +7656,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -7659,7 +7670,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -7673,7 +7684,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string resource
         {
             get
@@ -7687,7 +7698,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string inventoryID
         {
             get
@@ -7701,7 +7712,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string activityID
         {
             get
@@ -7716,16 +7727,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class assemblyComponentResponse
     {
 
         private componentAssemblyResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public componentAssemblyResponse @return
         {
             get
@@ -7739,14 +7750,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class assemblyComponentRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public assemblyComponent assemblyComponent;
 
         public assemblyComponentRequest()
@@ -7759,14 +7770,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class assemblyComponentResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public assemblyComponentResponse assemblyComponentResponse;
 
         public assemblyComponentResponse1()
@@ -7780,16 +7791,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class heartbeatValidation
     {
 
         private heartbeatValidationRequest heartbeatValidationRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public heartbeatValidationRequest HeartbeatValidationRequest
         {
             get
@@ -7804,16 +7815,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class heartbeatValidationRequest
     {
 
         private string siteField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -7828,16 +7839,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class heartbeatValidationResponse
     {
 
         private int returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int @return
         {
             get
@@ -7851,14 +7862,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class heartbeatValidationRequest1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public heartbeatValidation heartbeatValidation;
 
         public heartbeatValidationRequest1()
@@ -7871,14 +7882,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class heartbeatValidationResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public heartbeatValidationResponse heartbeatValidationResponse;
 
         public heartbeatValidationResponse1()
@@ -7892,16 +7903,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class start2ndInjection
     {
 
         private injectionRequest injectionRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public injectionRequest InjectionRequest
         {
             get
@@ -7916,9 +7927,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class injectionRequest
     {
 
@@ -7945,7 +7956,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string[] parametricDataNameField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -7959,7 +7970,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string processLot
         {
             get
@@ -7973,7 +7984,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string sfc
         {
             get
@@ -7987,7 +7998,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string dcGroup
         {
             get
@@ -8001,7 +8012,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string dcGroupRevision
         {
             get
@@ -8015,7 +8026,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string operation
         {
             get
@@ -8029,7 +8040,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string operationRevision
         {
             get
@@ -8043,7 +8054,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string resource
         {
             get
@@ -8057,7 +8068,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string user
         {
             get
@@ -8071,7 +8082,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 9)]
         public string activityID
         {
             get
@@ -8085,7 +8096,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataName", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement("parametricDataName", Form = XmlSchemaForm.Unqualified, Order = 10)]
         public string[] parametricDataName
         {
             get
@@ -8100,16 +8111,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class start2ndInjectionResponse
     {
 
         private injectionResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public injectionResponse @return
         {
             get
@@ -8124,9 +8135,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class injectionResponse
     {
 
@@ -8139,7 +8150,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private start2NdInjectionParametricData[] parametricDatasField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -8153,7 +8164,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -8167,7 +8178,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public int result
         {
             get
@@ -8181,7 +8192,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDatas", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement("parametricDatas", Form = XmlSchemaForm.Unqualified, Order = 3)]
         public start2NdInjectionParametricData[] parametricDatas
         {
             get
@@ -8196,9 +8207,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class start2NdInjectionParametricData
     {
 
@@ -8207,7 +8218,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string valueField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string name
         {
             get
@@ -8221,7 +8232,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string value
         {
             get
@@ -8235,14 +8246,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class start2ndInjectionRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public start2ndInjection start2ndInjection;
 
         public start2ndInjectionRequest()
@@ -8255,14 +8266,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class start2ndInjectionResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public start2ndInjectionResponse start2ndInjectionResponse;
 
         public start2ndInjectionResponse1()
@@ -8276,16 +8287,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForHotPress
     {
 
         private hotPressDcRequest hotPressDcRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public hotPressDcRequest HotPressDcRequest
         {
             get
@@ -8300,9 +8311,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class hotPressDcRequest
     {
 
@@ -8335,7 +8346,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private hotPressNcCodeArray[] ncCodeArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -8349,7 +8360,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string trayAProcessLot
         {
             get
@@ -8363,7 +8374,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string trayBProcessLot
         {
             get
@@ -8377,7 +8388,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string dcGroup
         {
             get
@@ -8391,7 +8402,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string dcGroupRevision
         {
             get
@@ -8405,7 +8416,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string ncGroup
         {
             get
@@ -8419,7 +8430,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string operation
         {
             get
@@ -8433,7 +8444,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string operationRevision
         {
             get
@@ -8447,7 +8458,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 8)]
         public string resource
         {
             get
@@ -8461,7 +8472,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 9)]
         public string user
         {
             get
@@ -8475,7 +8486,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 10)]
         public string activityId
         {
             get
@@ -8489,7 +8500,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 11)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 11)]
         public hotPressParametricData[] parametricDataArray
         {
             get
@@ -8503,7 +8514,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 12)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 12)]
         public ModeProcessSfc modeProcessSfc
         {
             get
@@ -8517,7 +8528,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ncCodeArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 13)]
+        [XmlElement("ncCodeArray", Form = XmlSchemaForm.Unqualified, Order = 13)]
         public hotPressNcCodeArray[] ncCodeArray
         {
             get
@@ -8532,9 +8543,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class hotPressParametricData
     {
 
@@ -8547,7 +8558,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private ParameterDataType dataTypeField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string name
         {
             get
@@ -8561,7 +8572,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string trayAValue
         {
             get
@@ -8575,7 +8586,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string trayBValue
         {
             get
@@ -8589,7 +8600,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public ParameterDataType dataType
         {
             get
@@ -8604,9 +8615,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class hotPressNcCodeArray
     {
 
@@ -8617,7 +8628,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private bool trayBHasNcField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string ncCode
         {
             get
@@ -8631,7 +8642,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public bool trayAHasNc
         {
             get
@@ -8645,7 +8656,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public bool trayBHasNc
         {
             get
@@ -8660,16 +8671,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForHotPressResponse
     {
 
         private hotPressDcResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public hotPressDcResponse @return
         {
             get
@@ -8684,9 +8695,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class hotPressDcResponse
     {
 
@@ -8707,7 +8718,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private bool returnCodeFieldSpecified;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int codeA
         {
             get
@@ -8721,7 +8732,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeASpecified
         {
             get
@@ -8735,7 +8746,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string messageA
         {
             get
@@ -8749,7 +8760,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public int codeB
         {
             get
@@ -8763,7 +8774,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeBSpecified
         {
             get
@@ -8777,7 +8788,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string messageB
         {
             get
@@ -8791,7 +8802,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public int returnCode
         {
             get
@@ -8805,7 +8816,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool returnCodeSpecified
         {
             get
@@ -8819,14 +8830,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForHotPressRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForHotPress dataCollectForHotPress;
 
         public dataCollectForHotPressRequest()
@@ -8839,14 +8850,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForHotPressResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForHotPressResponse dataCollectForHotPressResponse;
 
         public dataCollectForHotPressResponse1()
@@ -8860,16 +8871,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class getCellOCVValue
     {
 
         private cellOcvValueRequest cellOcvValueRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public cellOcvValueRequest CellOcvValueRequest
         {
             get
@@ -8884,9 +8895,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class cellOcvValueRequest
     {
 
@@ -8901,7 +8912,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string userField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -8915,7 +8926,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string moudleSfc
         {
             get
@@ -8929,7 +8940,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("cellSfcs", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement("cellSfcs", Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string[] cellSfcs
         {
             get
@@ -8943,7 +8954,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string parameter
         {
             get
@@ -8957,7 +8968,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string user
         {
             get
@@ -8972,16 +8983,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class getCellOCVValueResponse
     {
 
         private cellOcvValueResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public cellOcvValueResponse @return
         {
             get
@@ -8995,14 +9006,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class getCellOCVValueRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public getCellOCVValue getCellOCVValue;
 
         public getCellOCVValueRequest()
@@ -9015,14 +9026,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class getCellOCVValueResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public getCellOCVValueResponse getCellOCVValueResponse;
 
         public getCellOCVValueResponse1()
@@ -9036,16 +9047,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class getShopOrderReleaseByResource
     {
 
         private shopOrderReleaseByResourceRequest requestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public shopOrderReleaseByResourceRequest Request
         {
             get
@@ -9060,9 +9071,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class shopOrderReleaseByResourceRequest
     {
 
@@ -9079,7 +9090,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string activityField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -9093,7 +9104,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string resource
         {
             get
@@ -9107,7 +9118,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -9121,7 +9132,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -9135,7 +9146,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string mode
         {
             get
@@ -9149,7 +9160,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string activity
         {
             get
@@ -9164,16 +9175,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class getShopOrderReleaseByResourceResponse
     {
 
         private shopOrderReleaseByResourceResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public shopOrderReleaseByResourceResponse @return
         {
             get
@@ -9188,9 +9199,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class shopOrderReleaseByResourceResponse
     {
 
@@ -9205,7 +9216,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string sfcbField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -9219,7 +9230,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -9233,7 +9244,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -9247,7 +9258,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string sfca
         {
             get
@@ -9261,7 +9272,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string sfcb
         {
             get
@@ -9275,14 +9286,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class getShopOrderReleaseByResourceRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public getShopOrderReleaseByResource getShopOrderReleaseByResource;
 
         public getShopOrderReleaseByResourceRequest()
@@ -9295,14 +9306,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class getShopOrderReleaseByResourceResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public getShopOrderReleaseByResourceResponse getShopOrderReleaseByResourceResponse;
 
         public getShopOrderReleaseByResourceResponse1()
@@ -9316,16 +9327,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startCompleteRelabeledSFC
     {
 
         private startRelabelCompleteSFCRequest startRelabelCompleteSFCRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public startRelabelCompleteSFCRequest StartRelabelCompleteSFCRequest
         {
             get
@@ -9340,9 +9351,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startRelabelCompleteSFCRequest
     {
 
@@ -9361,7 +9372,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string activityIDField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -9375,7 +9386,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string user
         {
             get
@@ -9389,7 +9400,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -9403,7 +9414,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -9417,7 +9428,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string resource
         {
             get
@@ -9431,7 +9442,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string sfc
         {
             get
@@ -9445,7 +9456,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string activityID
         {
             get
@@ -9460,16 +9471,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startCompleteRelabeledSFCResponse
     {
 
         private startRelabelCompleteSFCResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public startRelabelCompleteSFCResponse @return
         {
             get
@@ -9484,9 +9495,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startRelabelCompleteSFCResponse
     {
 
@@ -9499,7 +9510,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string relabeledSFC
         {
             get
@@ -9513,7 +9524,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public int code
         {
             get
@@ -9527,7 +9538,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -9541,7 +9552,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string message
         {
             get
@@ -9555,14 +9566,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class startCompleteRelabeledSFCRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public startCompleteRelabeledSFC startCompleteRelabeledSFC;
 
         public startCompleteRelabeledSFCRequest()
@@ -9575,14 +9586,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class startCompleteRelabeledSFCResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public startCompleteRelabeledSFCResponse startCompleteRelabeledSFCResponse;
 
         public startCompleteRelabeledSFCResponse1()
@@ -9596,16 +9607,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class inProcessLotPreCheck
     {
 
         private checkPreSfcBindProcessLotRequest checkPreSfcBindProcessLotRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public checkPreSfcBindProcessLotRequest CheckPreSfcBindProcessLotRequest
         {
             get
@@ -9620,9 +9631,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class checkPreSfcBindProcessLotRequest
     {
 
@@ -9643,7 +9654,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private ModeProcessSfc modeProcessSfcField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -9657,7 +9668,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string user
         {
             get
@@ -9671,7 +9682,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -9685,7 +9696,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -9699,7 +9710,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string resource
         {
             get
@@ -9713,7 +9724,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string sfc
         {
             get
@@ -9727,7 +9738,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string activityID
         {
             get
@@ -9741,7 +9752,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public ModeProcessSfc modeProcessSfc
         {
             get
@@ -9756,16 +9767,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class inProcessLotPreCheckResponse
     {
 
         private checkPreSfcBindProcessLotResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public checkPreSfcBindProcessLotResponse @return
         {
             get
@@ -9780,9 +9791,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class checkPreSfcBindProcessLotResponse
     {
 
@@ -9793,7 +9804,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -9807,7 +9818,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -9821,7 +9832,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -9835,14 +9846,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class inProcessLotPreCheckRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public inProcessLotPreCheck inProcessLotPreCheck;
 
         public inProcessLotPreCheckRequest()
@@ -9855,14 +9866,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class inProcessLotPreCheckResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public inProcessLotPreCheckResponse inProcessLotPreCheckResponse;
 
         public inProcessLotPreCheckResponse1()
@@ -9876,16 +9887,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForCoatingScale
     {
 
         private sfcDcCoatingScaleRequest sfcDcCoatingScaleRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public sfcDcCoatingScaleRequest SfcDcCoatingScaleRequest
         {
             get
@@ -9900,9 +9911,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcDcCoatingScaleRequest
     {
 
@@ -9919,7 +9930,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private float[] valueListField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -9933,7 +9944,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string sfc
         {
             get
@@ -9947,7 +9958,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string user
         {
             get
@@ -9961,7 +9972,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public dcTypeEnum type
         {
             get
@@ -9975,7 +9986,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string parameter
         {
             get
@@ -9989,7 +10000,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("valueList", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement("valueList", Form = XmlSchemaForm.Unqualified, Order = 5)]
         public float[] valueList
         {
             get
@@ -10004,8 +10015,8 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public enum dcTypeEnum
     {
 
@@ -10017,16 +10028,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForCoatingScaleResponse
     {
 
         private sfcDcCoatingScaleResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public sfcDcCoatingScaleResponse @return
         {
             get
@@ -10041,9 +10052,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class sfcDcCoatingScaleResponse
     {
 
@@ -10052,7 +10063,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -10066,7 +10077,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -10080,14 +10091,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForCoatingScaleRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForCoatingScale dataCollectForCoatingScale;
 
         public dataCollectForCoatingScaleRequest()
@@ -10100,14 +10111,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForCoatingScaleResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForCoatingScaleResponse dataCollectForCoatingScaleResponse;
 
         public dataCollectForCoatingScaleResponse1()
@@ -10121,9 +10132,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class getItemAndQty
     {
 
@@ -10136,7 +10147,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string arg3Field;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public startSfcResponse arg0
         {
             get
@@ -10150,7 +10161,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("arg1", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement("arg1", Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string[] arg1
         {
             get
@@ -10164,7 +10175,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string arg2
         {
             get
@@ -10178,7 +10189,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string arg3
         {
             get
@@ -10192,14 +10203,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class getItemAndQtyRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public getItemAndQty getItemAndQty;
 
         public getItemAndQtyRequest()
@@ -10212,15 +10223,15 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class getItemAndQtyResponse
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Name = "getItemAndQtyResponse", Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("return", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = false)]
+        [MessageBodyMember(Name = "getItemAndQtyResponse", Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [XmlArrayItem("return", Form = XmlSchemaForm.Unqualified, IsNullable = false)]
         public startSfcItemData[] getItemAndQtyResponse1;
 
         public getItemAndQtyResponse()
@@ -10234,16 +10245,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForSfcBYResouce
     {
 
         private dataCollectForSfcProRequest dataCollectForSfcProRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public dataCollectForSfcProRequest DataCollectForSfcProRequest
         {
             get
@@ -10258,9 +10269,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForSfcProRequest
     {
 
@@ -10287,7 +10298,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private nonConfirmCodeResrceArray[] ncCodeArrayField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -10301,7 +10312,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string dcGroup
         {
             get
@@ -10315,7 +10326,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string dcGroupRevision
         {
             get
@@ -10329,7 +10340,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operation
         {
             get
@@ -10343,7 +10354,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string operationRevision
         {
             get
@@ -10357,7 +10368,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string resource
         {
             get
@@ -10371,7 +10382,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public string user
         {
             get
@@ -10385,7 +10396,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 7)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 7)]
         public string activityId
         {
             get
@@ -10399,7 +10410,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parametricDataArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 8)]
+        [XmlElement("parametricDataArray", Form = XmlSchemaForm.Unqualified, Order = 8)]
         public machineIntegrationParametricResrceData[] parametricDataArray
         {
             get
@@ -10413,7 +10424,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 9)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 9)]
         public string modeProcessSfc
         {
             get
@@ -10427,7 +10438,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ncCodeArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 10)]
+        [XmlElement("ncCodeArray", Form = XmlSchemaForm.Unqualified, Order = 10)]
         public nonConfirmCodeResrceArray[] ncCodeArray
         {
             get
@@ -10442,9 +10453,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class machineIntegrationParametricResrceData
     {
 
@@ -10457,7 +10468,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private bool dataTypeFieldSpecified;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string name
         {
             get
@@ -10471,7 +10482,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string value
         {
             get
@@ -10485,7 +10496,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public ParameterDataType dataType
         {
             get
@@ -10499,7 +10510,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool dataTypeSpecified
         {
             get
@@ -10514,9 +10525,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class nonConfirmCodeResrceArray
     {
 
@@ -10527,7 +10538,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private bool hasNcFieldSpecified;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string ncCode
         {
             get
@@ -10541,7 +10552,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public bool hasNc
         {
             get
@@ -10555,7 +10566,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool hasNcSpecified
         {
             get
@@ -10570,16 +10581,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForSfcBYResouceResponse
     {
 
         private dataCollectForSfcProResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public dataCollectForSfcProResponse @return
         {
             get
@@ -10594,9 +10605,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class dataCollectForSfcProResponse
     {
 
@@ -10607,7 +10618,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public int code
         {
             get
@@ -10621,7 +10632,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool codeSpecified
         {
             get
@@ -10635,7 +10646,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string message
         {
             get
@@ -10649,14 +10660,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForSfcBYResouceRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForSfcBYResouce dataCollectForSfcBYResouce;
 
         public dataCollectForSfcBYResouceRequest()
@@ -10669,14 +10680,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class dataCollectForSfcBYResouceResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public dataCollectForSfcBYResouceResponse dataCollectForSfcBYResouceResponse;
 
         public dataCollectForSfcBYResouceResponse1()
@@ -10690,16 +10701,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class processLotStartForSfc
     {
 
         private startProcessLotForSfcRequest startProcessLotForSfcRequestField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public startProcessLotForSfcRequest StartProcessLotForSfcRequest
         {
             get
@@ -10714,9 +10725,9 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class startProcessLotForSfcRequest
     {
 
@@ -10737,7 +10748,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         private bool columnOrRowFirstFieldSpecified;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public string site
         {
             get
@@ -10751,7 +10762,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 1)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 1)]
         public string user
         {
             get
@@ -10765,7 +10776,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 2)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 2)]
         public string operation
         {
             get
@@ -10779,7 +10790,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 3)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 3)]
         public string operationRevision
         {
             get
@@ -10793,7 +10804,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 4)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 4)]
         public string resource
         {
             get
@@ -10807,7 +10818,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("processLotArray", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 5)]
+        [XmlElement("processLotArray", Form = XmlSchemaForm.Unqualified, Order = 5)]
         public string[] processLotArray
         {
             get
@@ -10821,7 +10832,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 6)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 6)]
         public ColumnOrRowFirstEnum columnOrRowFirst
         {
             get
@@ -10835,7 +10846,7 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool columnOrRowFirstSpecified
         {
             get
@@ -10850,8 +10861,8 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public enum ColumnOrRowFirstEnum
     {
 
@@ -10881,16 +10892,16 @@ namespace Catl.WebServices.MachineIntegrationServices
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://machine.ws.atlmes.com/")]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [DebuggerStepThrough()]
+    [XmlType(Namespace = "http://machine.ws.atlmes.com/")]
     public partial class processLotStartForSfcResponse
     {
 
         private startProcessLotForSfcResponse returnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, Order = 0)]
+        [XmlElement(Form = XmlSchemaForm.Unqualified, Order = 0)]
         public startProcessLotForSfcResponse @return
         {
             get
@@ -10904,14 +10915,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class processLotStartForSfcRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public processLotStartForSfc processLotStartForSfc;
 
         public processLotStartForSfcRequest()
@@ -10924,14 +10935,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class processLotStartForSfcResponse1
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
+        [MessageBodyMember(Namespace = "http://machine.ws.atlmes.com/", Order = 0)]
         public processLotStartForSfcResponse processLotStartForSfcResponse;
 
         public processLotStartForSfcResponse1()
@@ -10944,14 +10955,14 @@ namespace Catl.WebServices.MachineIntegrationServices
         }
     }
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    public interface MachineIntegrationServiceChannel : MachineIntegrationService, System.ServiceModel.IClientChannel
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    public interface MachineIntegrationServiceChannel : MachineIntegrationService, IClientChannel
     {
     }
 
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
-    public partial class MachineIntegrationServiceClient : System.ServiceModel.ClientBase<MachineIntegrationService>, MachineIntegrationService
+    [DebuggerStepThrough()]
+    [GeneratedCode("Microsoft.Tools.ServiceModel.Svcutil", "2.0.3")]
+    public partial class MachineIntegrationServiceClient : ClientBase<MachineIntegrationService>, MachineIntegrationService
     {
 
         /// <summary>
@@ -10959,551 +10970,551 @@ namespace Catl.WebServices.MachineIntegrationServices
         /// </summary>
         /// <param name="serviceEndpoint">要配置的终结点</param>
         /// <param name="clientCredentials">客户端凭据</param>
-        static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
+        static partial void ConfigureEndpoint(ServiceEndpoint serviceEndpoint, ClientCredentials clientCredentials);
 
         public MachineIntegrationServiceClient() :
-                base(MachineIntegrationServiceClient.GetDefaultBinding(), MachineIntegrationServiceClient.GetDefaultEndpointAddress())
+                base(GetDefaultBinding(), GetDefaultEndpointAddress())
         {
             this.Endpoint.Name = EndpointConfiguration.MachineIntegrationServicePort.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
         public MachineIntegrationServiceClient(EndpointConfiguration endpointConfiguration) :
-                base(MachineIntegrationServiceClient.GetBindingForEndpoint(endpointConfiguration), MachineIntegrationServiceClient.GetEndpointAddress(endpointConfiguration))
+                base(GetBindingForEndpoint(endpointConfiguration), GetEndpointAddress(endpointConfiguration))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
         public MachineIntegrationServiceClient(EndpointConfiguration endpointConfiguration, string remoteAddress) :
-                base(MachineIntegrationServiceClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
+                base(GetBindingForEndpoint(endpointConfiguration), new EndpointAddress(remoteAddress))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
-        public MachineIntegrationServiceClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(MachineIntegrationServiceClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
+        public MachineIntegrationServiceClient(EndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress) :
+                base(GetBindingForEndpoint(endpointConfiguration), remoteAddress)
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
 
-        public MachineIntegrationServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+        public MachineIntegrationServiceClient(Binding binding, EndpointAddress remoteAddress) :
                 base(binding, remoteAddress)
         {
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<dataCollectForResourceResponse1> MachineIntegrationService.dataCollectForResourceAsync(dataCollectForResourceRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<dataCollectForResourceResponse1> MachineIntegrationService.dataCollectForResourceAsync(dataCollectForResourceRequest request)
         {
             return base.Channel.dataCollectForResourceAsync(request);
         }
 
-        public System.Threading.Tasks.Task<dataCollectForResourceResponse1> dataCollectForResourceAsync(dataCollectForResource dataCollectForResource)
+        public Task<dataCollectForResourceResponse1> dataCollectForResourceAsync(dataCollectForResource dataCollectForResource)
         {
             dataCollectForResourceRequest inValue = new dataCollectForResourceRequest();
             inValue.dataCollectForResource = dataCollectForResource;
             return ((MachineIntegrationService)(this)).dataCollectForResourceAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<dataCollectForSfcResponse1> MachineIntegrationService.dataCollectForSfcAsync(dataCollectForSfcRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<dataCollectForSfcResponse1> MachineIntegrationService.dataCollectForSfcAsync(dataCollectForSfcRequest request)
         {
             return base.Channel.dataCollectForSfcAsync(request);
         }
 
-        public System.Threading.Tasks.Task<dataCollectForSfcResponse1> dataCollectForSfcAsync(dataCollectForSfc dataCollectForSfc)
+        public Task<dataCollectForSfcResponse1> dataCollectForSfcAsync(dataCollectForSfc dataCollectForSfc)
         {
             dataCollectForSfcRequest inValue = new dataCollectForSfcRequest();
             inValue.dataCollectForSfc = dataCollectForSfc;
             return ((MachineIntegrationService)(this)).dataCollectForSfcAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<dataCollectForProcessLotResponse1> MachineIntegrationService.dataCollectForProcessLotAsync(dataCollectForProcessLotRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<dataCollectForProcessLotResponse1> MachineIntegrationService.dataCollectForProcessLotAsync(dataCollectForProcessLotRequest request)
         {
             return base.Channel.dataCollectForProcessLotAsync(request);
         }
 
-        public System.Threading.Tasks.Task<dataCollectForProcessLotResponse1> dataCollectForProcessLotAsync(dataCollectForProcessLot dataCollectForProcessLot)
+        public Task<dataCollectForProcessLotResponse1> dataCollectForProcessLotAsync(dataCollectForProcessLot dataCollectForProcessLot)
         {
             dataCollectForProcessLotRequest inValue = new dataCollectForProcessLotRequest();
             inValue.dataCollectForProcessLot = dataCollectForProcessLot;
             return ((MachineIntegrationService)(this)).dataCollectForProcessLotAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<resourceStatusChangeResponse1> MachineIntegrationService.resourceStatusChangeAsync(resourceStatusChangeRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<resourceStatusChangeResponse1> MachineIntegrationService.resourceStatusChangeAsync(resourceStatusChangeRequest request)
         {
             return base.Channel.resourceStatusChangeAsync(request);
         }
 
-        public System.Threading.Tasks.Task<resourceStatusChangeResponse1> resourceStatusChangeAsync(resourceStatusChange resourceStatusChange)
+        public Task<resourceStatusChangeResponse1> resourceStatusChangeAsync(resourceStatusChange resourceStatusChange)
         {
             resourceStatusChangeRequest inValue = new resourceStatusChangeRequest();
             inValue.resourceStatusChange = resourceStatusChange;
             return ((MachineIntegrationService)(this)).resourceStatusChangeAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<nonConformanceForSfcResponse1> MachineIntegrationService.nonConformanceForSfcAsync(nonConformanceForSfcRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<nonConformanceForSfcResponse1> MachineIntegrationService.nonConformanceForSfcAsync(nonConformanceForSfcRequest request)
         {
             return base.Channel.nonConformanceForSfcAsync(request);
         }
 
-        public System.Threading.Tasks.Task<nonConformanceForSfcResponse1> nonConformanceForSfcAsync(nonConformanceForSfc nonConformanceForSfc)
+        public Task<nonConformanceForSfcResponse1> nonConformanceForSfcAsync(nonConformanceForSfc nonConformanceForSfc)
         {
             nonConformanceForSfcRequest inValue = new nonConformanceForSfcRequest();
             inValue.nonConformanceForSfc = nonConformanceForSfc;
             return ((MachineIntegrationService)(this)).nonConformanceForSfcAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<dataCollectForProcessLotExResponse1> MachineIntegrationService.dataCollectForProcessLotExAsync(dataCollectForProcessLotExRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<dataCollectForProcessLotExResponse1> MachineIntegrationService.dataCollectForProcessLotExAsync(dataCollectForProcessLotExRequest request)
         {
             return base.Channel.dataCollectForProcessLotExAsync(request);
         }
 
-        public System.Threading.Tasks.Task<dataCollectForProcessLotExResponse1> dataCollectForProcessLotExAsync(dataCollectForProcessLotEx dataCollectForProcessLotEx)
+        public Task<dataCollectForProcessLotExResponse1> dataCollectForProcessLotExAsync(dataCollectForProcessLotEx dataCollectForProcessLotEx)
         {
             dataCollectForProcessLotExRequest inValue = new dataCollectForProcessLotExRequest();
             inValue.dataCollectForProcessLotEx = dataCollectForProcessLotEx;
             return ((MachineIntegrationService)(this)).dataCollectForProcessLotExAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<dataCollectForProcessLotLocalReworkResponse1> MachineIntegrationService.dataCollectForProcessLotLocalReworkAsync(dataCollectForProcessLotLocalReworkRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<dataCollectForProcessLotLocalReworkResponse1> MachineIntegrationService.dataCollectForProcessLotLocalReworkAsync(dataCollectForProcessLotLocalReworkRequest request)
         {
             return base.Channel.dataCollectForProcessLotLocalReworkAsync(request);
         }
 
-        public System.Threading.Tasks.Task<dataCollectForProcessLotLocalReworkResponse1> dataCollectForProcessLotLocalReworkAsync(dataCollectForProcessLotLocalRework dataCollectForProcessLotLocalRework)
+        public Task<dataCollectForProcessLotLocalReworkResponse1> dataCollectForProcessLotLocalReworkAsync(dataCollectForProcessLotLocalRework dataCollectForProcessLotLocalRework)
         {
             dataCollectForProcessLotLocalReworkRequest inValue = new dataCollectForProcessLotLocalReworkRequest();
             inValue.dataCollectForProcessLotLocalRework = dataCollectForProcessLotLocalRework;
             return ((MachineIntegrationService)(this)).dataCollectForProcessLotLocalReworkAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<nonConformanceForProcessLotResponse1> MachineIntegrationService.nonConformanceForProcessLotAsync(nonConformanceForProcessLotRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<nonConformanceForProcessLotResponse1> MachineIntegrationService.nonConformanceForProcessLotAsync(nonConformanceForProcessLotRequest request)
         {
             return base.Channel.nonConformanceForProcessLotAsync(request);
         }
 
-        public System.Threading.Tasks.Task<nonConformanceForProcessLotResponse1> nonConformanceForProcessLotAsync(nonConformanceForProcessLot nonConformanceForProcessLot)
+        public Task<nonConformanceForProcessLotResponse1> nonConformanceForProcessLotAsync(nonConformanceForProcessLot nonConformanceForProcessLot)
         {
             nonConformanceForProcessLotRequest inValue = new nonConformanceForProcessLotRequest();
             inValue.nonConformanceForProcessLot = nonConformanceForProcessLot;
             return ((MachineIntegrationService)(this)).nonConformanceForProcessLotAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<dataCollectForSfcExResponse1> MachineIntegrationService.dataCollectForSfcExAsync(dataCollectForSfcExRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<dataCollectForSfcExResponse1> MachineIntegrationService.dataCollectForSfcExAsync(dataCollectForSfcExRequest request)
         {
             return base.Channel.dataCollectForSfcExAsync(request);
         }
 
-        public System.Threading.Tasks.Task<dataCollectForSfcExResponse1> dataCollectForSfcExAsync(dataCollectForSfcEx dataCollectForSfcEx)
+        public Task<dataCollectForSfcExResponse1> dataCollectForSfcExAsync(dataCollectForSfcEx dataCollectForSfcEx)
         {
             dataCollectForSfcExRequest inValue = new dataCollectForSfcExRequest();
             inValue.dataCollectForSfcEx = dataCollectForSfcEx;
             return ((MachineIntegrationService)(this)).dataCollectForSfcExAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<dataCollectForModuleTestResponse1> MachineIntegrationService.dataCollectForModuleTestAsync(dataCollectForModuleTestRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<dataCollectForModuleTestResponse1> MachineIntegrationService.dataCollectForModuleTestAsync(dataCollectForModuleTestRequest request)
         {
             return base.Channel.dataCollectForModuleTestAsync(request);
         }
 
-        public System.Threading.Tasks.Task<dataCollectForModuleTestResponse1> dataCollectForModuleTestAsync(dataCollectForModuleTest dataCollectForModuleTest)
+        public Task<dataCollectForModuleTestResponse1> dataCollectForModuleTestAsync(dataCollectForModuleTest dataCollectForModuleTest)
         {
             dataCollectForModuleTestRequest inValue = new dataCollectForModuleTestRequest();
             inValue.dataCollectForModuleTest = dataCollectForModuleTest;
             return ((MachineIntegrationService)(this)).dataCollectForModuleTestAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<dataCollectForSfcLocalReworkResponse1> MachineIntegrationService.dataCollectForSfcLocalReworkAsync(dataCollectForSfcLocalReworkRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<dataCollectForSfcLocalReworkResponse1> MachineIntegrationService.dataCollectForSfcLocalReworkAsync(dataCollectForSfcLocalReworkRequest request)
         {
             return base.Channel.dataCollectForSfcLocalReworkAsync(request);
         }
 
-        public System.Threading.Tasks.Task<dataCollectForSfcLocalReworkResponse1> dataCollectForSfcLocalReworkAsync(dataCollectForSfcLocalRework dataCollectForSfcLocalRework)
+        public Task<dataCollectForSfcLocalReworkResponse1> dataCollectForSfcLocalReworkAsync(dataCollectForSfcLocalRework dataCollectForSfcLocalRework)
         {
             dataCollectForSfcLocalReworkRequest inValue = new dataCollectForSfcLocalReworkRequest();
             inValue.dataCollectForSfcLocalRework = dataCollectForSfcLocalRework;
             return ((MachineIntegrationService)(this)).dataCollectForSfcLocalReworkAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<isBakingReadyResponse1> MachineIntegrationService.isBakingReadyAsync(isBakingReadyRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<isBakingReadyResponse1> MachineIntegrationService.isBakingReadyAsync(isBakingReadyRequest request)
         {
             return base.Channel.isBakingReadyAsync(request);
         }
 
-        public System.Threading.Tasks.Task<isBakingReadyResponse1> isBakingReadyAsync(isBakingReady isBakingReady)
+        public Task<isBakingReadyResponse1> isBakingReadyAsync(isBakingReady isBakingReady)
         {
             isBakingReadyRequest inValue = new isBakingReadyRequest();
             inValue.isBakingReady = isBakingReady;
             return ((MachineIntegrationService)(this)).isBakingReadyAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<processLotStartResponse1> MachineIntegrationService.processLotStartAsync(processLotStartRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<processLotStartResponse1> MachineIntegrationService.processLotStartAsync(processLotStartRequest request)
         {
             return base.Channel.processLotStartAsync(request);
         }
 
-        public System.Threading.Tasks.Task<processLotStartResponse1> processLotStartAsync(processLotStart processLotStart)
+        public Task<processLotStartResponse1> processLotStartAsync(processLotStart processLotStart)
         {
             processLotStartRequest inValue = new processLotStartRequest();
             inValue.processLotStart = processLotStart;
             return ((MachineIntegrationService)(this)).processLotStartAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<sfcStartResponse1> MachineIntegrationService.sfcStartAsync(sfcStartRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<sfcStartResponse1> MachineIntegrationService.sfcStartAsync(sfcStartRequest request)
         {
             return base.Channel.sfcStartAsync(request);
         }
 
-        public System.Threading.Tasks.Task<sfcStartResponse1> sfcStartAsync(sfcStart sfcStart)
+        public Task<sfcStartResponse1> sfcStartAsync(sfcStart sfcStart)
         {
             sfcStartRequest inValue = new sfcStartRequest();
             inValue.sfcStart = sfcStart;
             return ((MachineIntegrationService)(this)).sfcStartAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<sfcCompleteResponse1> MachineIntegrationService.sfcCompleteAsync(sfcCompleteRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<sfcCompleteResponse1> MachineIntegrationService.sfcCompleteAsync(sfcCompleteRequest request)
         {
             return base.Channel.sfcCompleteAsync(request);
         }
 
-        public System.Threading.Tasks.Task<sfcCompleteResponse1> sfcCompleteAsync(sfcComplete sfcComplete)
+        public Task<sfcCompleteResponse1> sfcCompleteAsync(sfcComplete sfcComplete)
         {
             sfcCompleteRequest inValue = new sfcCompleteRequest();
             inValue.sfcComplete = sfcComplete;
             return ((MachineIntegrationService)(this)).sfcCompleteAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<createSfcAndDataCollectResponse1> MachineIntegrationService.createSfcAndDataCollectAsync(createSfcAndDataCollectRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<createSfcAndDataCollectResponse1> MachineIntegrationService.createSfcAndDataCollectAsync(createSfcAndDataCollectRequest request)
         {
             return base.Channel.createSfcAndDataCollectAsync(request);
         }
 
-        public System.Threading.Tasks.Task<createSfcAndDataCollectResponse1> createSfcAndDataCollectAsync(createSfcAndDataCollect createSfcAndDataCollect)
+        public Task<createSfcAndDataCollectResponse1> createSfcAndDataCollectAsync(createSfcAndDataCollect createSfcAndDataCollect)
         {
             createSfcAndDataCollectRequest inValue = new createSfcAndDataCollectRequest();
             inValue.createSfcAndDataCollect = createSfcAndDataCollect;
             return ((MachineIntegrationService)(this)).createSfcAndDataCollectAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<processLotCompleteResponse1> MachineIntegrationService.processLotCompleteAsync(processLotCompleteRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<processLotCompleteResponse1> MachineIntegrationService.processLotCompleteAsync(processLotCompleteRequest request)
         {
             return base.Channel.processLotCompleteAsync(request);
         }
 
-        public System.Threading.Tasks.Task<processLotCompleteResponse1> processLotCompleteAsync(processLotComplete processLotComplete)
+        public Task<processLotCompleteResponse1> processLotCompleteAsync(processLotComplete processLotComplete)
         {
             processLotCompleteRequest inValue = new processLotCompleteRequest();
             inValue.processLotComplete = processLotComplete;
             return ((MachineIntegrationService)(this)).processLotCompleteAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<cellInboxAssemblyResponse1> MachineIntegrationService.cellInboxAssemblyAsync(cellInboxAssemblyRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<cellInboxAssemblyResponse1> MachineIntegrationService.cellInboxAssemblyAsync(cellInboxAssemblyRequest request)
         {
             return base.Channel.cellInboxAssemblyAsync(request);
         }
 
-        public System.Threading.Tasks.Task<cellInboxAssemblyResponse1> cellInboxAssemblyAsync(cellInboxAssembly cellInboxAssembly)
+        public Task<cellInboxAssemblyResponse1> cellInboxAssemblyAsync(cellInboxAssembly cellInboxAssembly)
         {
             cellInboxAssemblyRequest inValue = new cellInboxAssemblyRequest();
             inValue.cellInboxAssembly = cellInboxAssembly;
             return ((MachineIntegrationService)(this)).cellInboxAssemblyAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<cellInboxCompleteAndBindTrayResponse1> MachineIntegrationService.cellInboxCompleteAndBindTrayAsync(cellInboxCompleteAndBindTrayRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<cellInboxCompleteAndBindTrayResponse1> MachineIntegrationService.cellInboxCompleteAndBindTrayAsync(cellInboxCompleteAndBindTrayRequest request)
         {
             return base.Channel.cellInboxCompleteAndBindTrayAsync(request);
         }
 
-        public System.Threading.Tasks.Task<cellInboxCompleteAndBindTrayResponse1> cellInboxCompleteAndBindTrayAsync(cellInboxCompleteAndBindTray cellInboxCompleteAndBindTray)
+        public Task<cellInboxCompleteAndBindTrayResponse1> cellInboxCompleteAndBindTrayAsync(cellInboxCompleteAndBindTray cellInboxCompleteAndBindTray)
         {
             cellInboxCompleteAndBindTrayRequest inValue = new cellInboxCompleteAndBindTrayRequest();
             inValue.cellInboxCompleteAndBindTray = cellInboxCompleteAndBindTray;
             return ((MachineIntegrationService)(this)).cellInboxCompleteAndBindTrayAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<sfcBindPostCompleteResponse1> MachineIntegrationService.sfcBindPostCompleteAsync(sfcBindPostCompleteRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<sfcBindPostCompleteResponse1> MachineIntegrationService.sfcBindPostCompleteAsync(sfcBindPostCompleteRequest request)
         {
             return base.Channel.sfcBindPostCompleteAsync(request);
         }
 
-        public System.Threading.Tasks.Task<sfcBindPostCompleteResponse1> sfcBindPostCompleteAsync(sfcBindPostComplete sfcBindPostComplete)
+        public Task<sfcBindPostCompleteResponse1> sfcBindPostCompleteAsync(sfcBindPostComplete sfcBindPostComplete)
         {
             sfcBindPostCompleteRequest inValue = new sfcBindPostCompleteRequest();
             inValue.sfcBindPostComplete = sfcBindPostComplete;
             return ((MachineIntegrationService)(this)).sfcBindPostCompleteAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<checkBomInventoryResponse1> MachineIntegrationService.checkBomInventoryAsync(checkBomInventoryRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<checkBomInventoryResponse1> MachineIntegrationService.checkBomInventoryAsync(checkBomInventoryRequest request)
         {
             return base.Channel.checkBomInventoryAsync(request);
         }
 
-        public System.Threading.Tasks.Task<checkBomInventoryResponse1> checkBomInventoryAsync(checkBomInventory checkBomInventory)
+        public Task<checkBomInventoryResponse1> checkBomInventoryAsync(checkBomInventory checkBomInventory)
         {
             checkBomInventoryRequest inValue = new checkBomInventoryRequest();
             inValue.checkBomInventory = checkBomInventory;
             return ((MachineIntegrationService)(this)).checkBomInventoryAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<assemblyAndDataCollectionResponse1> MachineIntegrationService.assemblyAndDataCollectionAsync(assemblyAndDataCollectionRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<assemblyAndDataCollectionResponse1> MachineIntegrationService.assemblyAndDataCollectionAsync(assemblyAndDataCollectionRequest request)
         {
             return base.Channel.assemblyAndDataCollectionAsync(request);
         }
 
-        public System.Threading.Tasks.Task<assemblyAndDataCollectionResponse1> assemblyAndDataCollectionAsync(assemblyAndDataCollection assemblyAndDataCollection)
+        public Task<assemblyAndDataCollectionResponse1> assemblyAndDataCollectionAsync(assemblyAndDataCollection assemblyAndDataCollection)
         {
             assemblyAndDataCollectionRequest inValue = new assemblyAndDataCollectionRequest();
             inValue.assemblyAndDataCollection = assemblyAndDataCollection;
             return ((MachineIntegrationService)(this)).assemblyAndDataCollectionAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<assembleProcessLotAndDataCollectExResponse1> MachineIntegrationService.assembleProcessLotAndDataCollectExAsync(assembleProcessLotAndDataCollectExRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<assembleProcessLotAndDataCollectExResponse1> MachineIntegrationService.assembleProcessLotAndDataCollectExAsync(assembleProcessLotAndDataCollectExRequest request)
         {
             return base.Channel.assembleProcessLotAndDataCollectExAsync(request);
         }
 
-        public System.Threading.Tasks.Task<assembleProcessLotAndDataCollectExResponse1> assembleProcessLotAndDataCollectExAsync(assembleProcessLotAndDataCollectEx assembleProcessLotAndDataCollectEx)
+        public Task<assembleProcessLotAndDataCollectExResponse1> assembleProcessLotAndDataCollectExAsync(assembleProcessLotAndDataCollectEx assembleProcessLotAndDataCollectEx)
         {
             assembleProcessLotAndDataCollectExRequest inValue = new assembleProcessLotAndDataCollectExRequest();
             inValue.assembleProcessLotAndDataCollectEx = assembleProcessLotAndDataCollectEx;
             return ((MachineIntegrationService)(this)).assembleProcessLotAndDataCollectExAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<startHeadWeldingResponse1> MachineIntegrationService.startHeadWeldingAsync(startHeadWeldingRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<startHeadWeldingResponse1> MachineIntegrationService.startHeadWeldingAsync(startHeadWeldingRequest request)
         {
             return base.Channel.startHeadWeldingAsync(request);
         }
 
-        public System.Threading.Tasks.Task<startHeadWeldingResponse1> startHeadWeldingAsync(startHeadWelding startHeadWelding)
+        public Task<startHeadWeldingResponse1> startHeadWeldingAsync(startHeadWelding startHeadWelding)
         {
             startHeadWeldingRequest inValue = new startHeadWeldingRequest();
             inValue.startHeadWelding = startHeadWelding;
             return ((MachineIntegrationService)(this)).startHeadWeldingAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<assemblyComponentResponse1> MachineIntegrationService.assemblyComponentAsync(assemblyComponentRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<assemblyComponentResponse1> MachineIntegrationService.assemblyComponentAsync(assemblyComponentRequest request)
         {
             return base.Channel.assemblyComponentAsync(request);
         }
 
-        public System.Threading.Tasks.Task<assemblyComponentResponse1> assemblyComponentAsync(assemblyComponent assemblyComponent)
+        public Task<assemblyComponentResponse1> assemblyComponentAsync(assemblyComponent assemblyComponent)
         {
             assemblyComponentRequest inValue = new assemblyComponentRequest();
             inValue.assemblyComponent = assemblyComponent;
             return ((MachineIntegrationService)(this)).assemblyComponentAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<heartbeatValidationResponse1> MachineIntegrationService.heartbeatValidationAsync(heartbeatValidationRequest1 request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<heartbeatValidationResponse1> MachineIntegrationService.heartbeatValidationAsync(heartbeatValidationRequest1 request)
         {
             return base.Channel.heartbeatValidationAsync(request);
         }
 
-        public System.Threading.Tasks.Task<heartbeatValidationResponse1> heartbeatValidationAsync(heartbeatValidation heartbeatValidation)
+        public Task<heartbeatValidationResponse1> heartbeatValidationAsync(heartbeatValidation heartbeatValidation)
         {
             heartbeatValidationRequest1 inValue = new heartbeatValidationRequest1();
             inValue.heartbeatValidation = heartbeatValidation;
             return ((MachineIntegrationService)(this)).heartbeatValidationAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<start2ndInjectionResponse1> MachineIntegrationService.start2ndInjectionAsync(start2ndInjectionRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<start2ndInjectionResponse1> MachineIntegrationService.start2ndInjectionAsync(start2ndInjectionRequest request)
         {
             return base.Channel.start2ndInjectionAsync(request);
         }
 
-        public System.Threading.Tasks.Task<start2ndInjectionResponse1> start2ndInjectionAsync(start2ndInjection start2ndInjection)
+        public Task<start2ndInjectionResponse1> start2ndInjectionAsync(start2ndInjection start2ndInjection)
         {
             start2ndInjectionRequest inValue = new start2ndInjectionRequest();
             inValue.start2ndInjection = start2ndInjection;
             return ((MachineIntegrationService)(this)).start2ndInjectionAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<dataCollectForHotPressResponse1> MachineIntegrationService.dataCollectForHotPressAsync(dataCollectForHotPressRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<dataCollectForHotPressResponse1> MachineIntegrationService.dataCollectForHotPressAsync(dataCollectForHotPressRequest request)
         {
             return base.Channel.dataCollectForHotPressAsync(request);
         }
 
-        public System.Threading.Tasks.Task<dataCollectForHotPressResponse1> dataCollectForHotPressAsync(dataCollectForHotPress dataCollectForHotPress)
+        public Task<dataCollectForHotPressResponse1> dataCollectForHotPressAsync(dataCollectForHotPress dataCollectForHotPress)
         {
             dataCollectForHotPressRequest inValue = new dataCollectForHotPressRequest();
             inValue.dataCollectForHotPress = dataCollectForHotPress;
             return ((MachineIntegrationService)(this)).dataCollectForHotPressAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<getCellOCVValueResponse1> MachineIntegrationService.getCellOCVValueAsync(getCellOCVValueRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<getCellOCVValueResponse1> MachineIntegrationService.getCellOCVValueAsync(getCellOCVValueRequest request)
         {
             return base.Channel.getCellOCVValueAsync(request);
         }
 
-        public System.Threading.Tasks.Task<getCellOCVValueResponse1> getCellOCVValueAsync(getCellOCVValue getCellOCVValue)
+        public Task<getCellOCVValueResponse1> getCellOCVValueAsync(getCellOCVValue getCellOCVValue)
         {
             getCellOCVValueRequest inValue = new getCellOCVValueRequest();
             inValue.getCellOCVValue = getCellOCVValue;
             return ((MachineIntegrationService)(this)).getCellOCVValueAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<getShopOrderReleaseByResourceResponse1> MachineIntegrationService.getShopOrderReleaseByResourceAsync(getShopOrderReleaseByResourceRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<getShopOrderReleaseByResourceResponse1> MachineIntegrationService.getShopOrderReleaseByResourceAsync(getShopOrderReleaseByResourceRequest request)
         {
             return base.Channel.getShopOrderReleaseByResourceAsync(request);
         }
 
-        public System.Threading.Tasks.Task<getShopOrderReleaseByResourceResponse1> getShopOrderReleaseByResourceAsync(getShopOrderReleaseByResource getShopOrderReleaseByResource)
+        public Task<getShopOrderReleaseByResourceResponse1> getShopOrderReleaseByResourceAsync(getShopOrderReleaseByResource getShopOrderReleaseByResource)
         {
             getShopOrderReleaseByResourceRequest inValue = new getShopOrderReleaseByResourceRequest();
             inValue.getShopOrderReleaseByResource = getShopOrderReleaseByResource;
             return ((MachineIntegrationService)(this)).getShopOrderReleaseByResourceAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<startCompleteRelabeledSFCResponse1> MachineIntegrationService.startCompleteRelabeledSFCAsync(startCompleteRelabeledSFCRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<startCompleteRelabeledSFCResponse1> MachineIntegrationService.startCompleteRelabeledSFCAsync(startCompleteRelabeledSFCRequest request)
         {
             return base.Channel.startCompleteRelabeledSFCAsync(request);
         }
 
-        public System.Threading.Tasks.Task<startCompleteRelabeledSFCResponse1> startCompleteRelabeledSFCAsync(startCompleteRelabeledSFC startCompleteRelabeledSFC)
+        public Task<startCompleteRelabeledSFCResponse1> startCompleteRelabeledSFCAsync(startCompleteRelabeledSFC startCompleteRelabeledSFC)
         {
             startCompleteRelabeledSFCRequest inValue = new startCompleteRelabeledSFCRequest();
             inValue.startCompleteRelabeledSFC = startCompleteRelabeledSFC;
             return ((MachineIntegrationService)(this)).startCompleteRelabeledSFCAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<inProcessLotPreCheckResponse1> MachineIntegrationService.inProcessLotPreCheckAsync(inProcessLotPreCheckRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<inProcessLotPreCheckResponse1> MachineIntegrationService.inProcessLotPreCheckAsync(inProcessLotPreCheckRequest request)
         {
             return base.Channel.inProcessLotPreCheckAsync(request);
         }
 
-        public System.Threading.Tasks.Task<inProcessLotPreCheckResponse1> inProcessLotPreCheckAsync(inProcessLotPreCheck inProcessLotPreCheck)
+        public Task<inProcessLotPreCheckResponse1> inProcessLotPreCheckAsync(inProcessLotPreCheck inProcessLotPreCheck)
         {
             inProcessLotPreCheckRequest inValue = new inProcessLotPreCheckRequest();
             inValue.inProcessLotPreCheck = inProcessLotPreCheck;
             return ((MachineIntegrationService)(this)).inProcessLotPreCheckAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<dataCollectForCoatingScaleResponse1> MachineIntegrationService.dataCollectForCoatingScaleAsync(dataCollectForCoatingScaleRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<dataCollectForCoatingScaleResponse1> MachineIntegrationService.dataCollectForCoatingScaleAsync(dataCollectForCoatingScaleRequest request)
         {
             return base.Channel.dataCollectForCoatingScaleAsync(request);
         }
 
-        public System.Threading.Tasks.Task<dataCollectForCoatingScaleResponse1> dataCollectForCoatingScaleAsync(dataCollectForCoatingScale dataCollectForCoatingScale)
+        public Task<dataCollectForCoatingScaleResponse1> dataCollectForCoatingScaleAsync(dataCollectForCoatingScale dataCollectForCoatingScale)
         {
             dataCollectForCoatingScaleRequest inValue = new dataCollectForCoatingScaleRequest();
             inValue.dataCollectForCoatingScale = dataCollectForCoatingScale;
             return ((MachineIntegrationService)(this)).dataCollectForCoatingScaleAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<getItemAndQtyResponse> MachineIntegrationService.getItemAndQtyAsync(getItemAndQtyRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<getItemAndQtyResponse> MachineIntegrationService.getItemAndQtyAsync(getItemAndQtyRequest request)
         {
             return base.Channel.getItemAndQtyAsync(request);
         }
 
-        public System.Threading.Tasks.Task<getItemAndQtyResponse> getItemAndQtyAsync(getItemAndQty getItemAndQty)
+        public Task<getItemAndQtyResponse> getItemAndQtyAsync(getItemAndQty getItemAndQty)
         {
             getItemAndQtyRequest inValue = new getItemAndQtyRequest();
             inValue.getItemAndQty = getItemAndQty;
             return ((MachineIntegrationService)(this)).getItemAndQtyAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<dataCollectForSfcBYResouceResponse1> MachineIntegrationService.dataCollectForSfcBYResouceAsync(dataCollectForSfcBYResouceRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<dataCollectForSfcBYResouceResponse1> MachineIntegrationService.dataCollectForSfcBYResouceAsync(dataCollectForSfcBYResouceRequest request)
         {
             return base.Channel.dataCollectForSfcBYResouceAsync(request);
         }
 
-        public System.Threading.Tasks.Task<dataCollectForSfcBYResouceResponse1> dataCollectForSfcBYResouceAsync(dataCollectForSfcBYResouce dataCollectForSfcBYResouce)
+        public Task<dataCollectForSfcBYResouceResponse1> dataCollectForSfcBYResouceAsync(dataCollectForSfcBYResouce dataCollectForSfcBYResouce)
         {
             dataCollectForSfcBYResouceRequest inValue = new dataCollectForSfcBYResouceRequest();
             inValue.dataCollectForSfcBYResouce = dataCollectForSfcBYResouce;
             return ((MachineIntegrationService)(this)).dataCollectForSfcBYResouceAsync(inValue);
         }
 
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<processLotStartForSfcResponse1> MachineIntegrationService.processLotStartForSfcAsync(processLotStartForSfcRequest request)
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        Task<processLotStartForSfcResponse1> MachineIntegrationService.processLotStartForSfcAsync(processLotStartForSfcRequest request)
         {
             return base.Channel.processLotStartForSfcAsync(request);
         }
 
-        public System.Threading.Tasks.Task<processLotStartForSfcResponse1> processLotStartForSfcAsync(processLotStartForSfc processLotStartForSfc)
+        public Task<processLotStartForSfcResponse1> processLotStartForSfcAsync(processLotStartForSfc processLotStartForSfc)
         {
             processLotStartForSfcRequest inValue = new processLotStartForSfcRequest();
             inValue.processLotStartForSfc = processLotStartForSfc;
             return ((MachineIntegrationService)(this)).processLotStartForSfcAsync(inValue);
         }
 
-        public virtual System.Threading.Tasks.Task OpenAsync()
+        public virtual Task OpenAsync()
         {
-            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
+            return Task.Factory.FromAsync(((ICommunicationObject)(this)).BeginOpen(null, null), new Action<IAsyncResult>(((ICommunicationObject)(this)).EndOpen));
         }
 
-        public virtual System.Threading.Tasks.Task CloseAsync()
+        public virtual Task CloseAsync()
         {
-            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginClose(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndClose));
+            return Task.Factory.FromAsync(((ICommunicationObject)(this)).BeginClose(null, null), new Action<IAsyncResult>(((ICommunicationObject)(this)).EndClose));
         }
 
-        private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
+        private static Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
             if ((endpointConfiguration == EndpointConfiguration.MachineIntegrationServicePort))
             {
-                System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
+                BasicHttpBinding result = new BasicHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
-                result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
+                result.ReaderQuotas = XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
                 result.AllowCookies = true;
                 return result;
             }
-            throw new System.InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
+            throw new InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
         }
 
-        private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
+        private static EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
             if ((endpointConfiguration == EndpointConfiguration.MachineIntegrationServicePort))
             {
-                return new System.ServiceModel.EndpointAddress("http://ndmesd093.catlbattery.com:50000/atlmeswebservice/MachineIntegrationService" +
-                        "Service");
+                return new EndpointAddress("http://ndmesd093.catlbattery.com:50000/atlmeswebservice/MachineIntegrationService" +
+                                           "Service");
             }
-            throw new System.InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
+            throw new InvalidOperationException(string.Format("找不到名称为“{0}”的终结点。", endpointConfiguration));
         }
 
-        private static System.ServiceModel.Channels.Binding GetDefaultBinding()
+        private static Binding GetDefaultBinding()
         {
-            return MachineIntegrationServiceClient.GetBindingForEndpoint(EndpointConfiguration.MachineIntegrationServicePort);
+            return GetBindingForEndpoint(EndpointConfiguration.MachineIntegrationServicePort);
         }
 
-        private static System.ServiceModel.EndpointAddress GetDefaultEndpointAddress()
+        private static EndpointAddress GetDefaultEndpointAddress()
         {
-            return MachineIntegrationServiceClient.GetEndpointAddress(EndpointConfiguration.MachineIntegrationServicePort);
+            return GetEndpointAddress(EndpointConfiguration.MachineIntegrationServicePort);
         }
 
         public enum EndpointConfiguration

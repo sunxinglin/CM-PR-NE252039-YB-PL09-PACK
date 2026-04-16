@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ctp0600P.Shared.Helper
+﻿namespace Ctp0600P.Shared.Helper
 {
     public class ModuleCodeHelper
     {

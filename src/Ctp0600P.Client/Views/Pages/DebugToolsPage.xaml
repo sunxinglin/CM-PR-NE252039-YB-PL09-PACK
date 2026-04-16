@@ -3,11 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:io1="clr-namespace:Ctp0600P.Client.UserControls.DebugTools"     
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
-      xmlns:local="clr-namespace:Ctp0600P.Client.Views.Pages"
-      xmlns:awc="clr-namespace:AsZero.Wpf.Common.UserControls;assembly=AsZero.Wpf.Common" 
+      xmlns:io1="clr-namespace:Ctp0600P.Client.UserControls.DebugTools"
       xmlns:viewmodels="clr-namespace:Ctp0600P.Client.ViewModels" 
       d:DataContext="{ d:DesignInstance Type=viewmodels:DebugToolsPageViewModel}"
       mc:Ignorable="d" 
@@ -31,8 +27,8 @@
                                     </Trigger>
                                     <MultiTrigger>
                                         <MultiTrigger.Conditions>
-                                            <Condition Property="IsSelected" Value="False"></Condition>
-                                            <Condition Property="IsEnabled" Value="True"></Condition>
+                                            <Condition Property="IsSelected" Value="False" />
+                                            <Condition Property="IsEnabled" Value="True" />
                                         </MultiTrigger.Conditions>
                                         <MultiTrigger.Setters>
                                             <Setter TargetName="Panel" Property="Background" Value="White" />
@@ -40,11 +36,11 @@
                                     </MultiTrigger>
                                     <MultiTrigger>
                                         <MultiTrigger.Conditions>
-                                            <Condition Property="IsSelected" Value="False"></Condition>
-                                            <Condition Property="IsEnabled" Value="False"></Condition>
+                                            <Condition Property="IsSelected" Value="False" />
+                                            <Condition Property="IsEnabled" Value="False" />
                                         </MultiTrigger.Conditions>
                                         <MultiTrigger.Setters>
-                                            <Setter Property="Foreground" Value="Gray"></Setter>
+                                            <Setter Property="Foreground" Value="Gray" />
                                             <Setter TargetName="Panel" Property="Background" Value="White" />
                                         </MultiTrigger.Setters>
                                     </MultiTrigger>
@@ -82,13 +78,13 @@
                 <TabItem.Content>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*" />
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition ></ColumnDefinition>
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <io1:ElectricScrewDriverUserControl DataContext="{Binding ElectricScrewDriverUserControlVM.Value}"></io1:ElectricScrewDriverUserControl>
+                        <io1:ElectricScrewDriverUserControl DataContext="{Binding ElectricScrewDriverUserControlVM.Value}" />
                     </Grid>
                 </TabItem.Content>
             </TabItem>
@@ -102,18 +98,18 @@
                 <TabItem.Content>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="条码内容:"  FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <TextBox Width="400" FontSize="18" FontWeight="Bold" Text="{Binding ScanCodeText.Value}" VerticalAlignment="Center"></TextBox>
+                            <TextBox Width="400" FontSize="18" FontWeight="Bold" Text="{Binding ScanCodeText.Value}" VerticalAlignment="Center" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
                             <Label Content="条码长度:"  FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <TextBox Width="400" FontSize="18" FontWeight="Bold" Text="{Binding ScanCodeTextLength.Value}" VerticalAlignment="Center"></TextBox>
+                            <TextBox Width="400" FontSize="18" FontWeight="Bold" Text="{Binding ScanCodeTextLength.Value}" VerticalAlignment="Center" />
                         </StackPanel>
                     </Grid>
                 </TabItem.Content>

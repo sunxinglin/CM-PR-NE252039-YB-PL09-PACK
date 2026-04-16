@@ -1,25 +1,23 @@
-﻿using Ctp0600P.Client.Apis;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
+
+using Ctp0600P.Client.Apis;
 using Ctp0600P.Client.Command.NoticeHelp.Enum;
 using Ctp0600P.Client.Command.NoticeHelp.Handle;
 using Ctp0600P.Client.CommonEntity;
 using Ctp0600P.Client.CommonHelper;
 using Ctp0600P.Client.Protocols;
+
 using FutureTech.Mvvm;
+
 using MediatR;
+
 using Microsoft.Xaml.Behaviors.Core;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.AlarmMgmt;
-using Yee.Entitys.DBEntity;
-using Yee.Entitys.DTOS;
 using Yee.Entitys.Production;
 
 namespace Ctp0600P.Client.ViewModels.StationTaskViewModels

@@ -1,10 +1,9 @@
-﻿using FutureTech.OpResults;
-using System.Threading.Tasks;
-using System.Security.Claims;
+﻿using System.Security.Claims;
+
 using AsZero.Core.Entities;
 using AsZero.Core.Services.Repos;
-using Microsoft.FSharp.Core;
 
+using FutureTech.OpResults;
 
 namespace AsZero.Core.Services.Auth
 {
@@ -25,6 +24,8 @@ namespace AsZero.Core.Services.Auth
         /// <param name="name"></param>
         /// <returns></returns>
         Task<OpResult<User>> CreateUserAsync(string account, string password, string name,  string workId, int status = 0);
+        
+        Task<OpResult<User>> CreateUserAsync(string account, string password, string name,  string workId, int status, string salt);
 
         Task<OpResult<User>> UpdateUserAsync(int Id,string account, string password, string name, string workId, int status = 0);
 

@@ -88,7 +88,7 @@
 
             <!-- 工具栏 -->
             <StackPanel Orientation="Horizontal" Margin="8">
-                <Button x:Name="AddTag" Style="{StaticResource MaterialDesignRaisedButton}"
+                <Button x:Name="添加Tag" Style="{StaticResource MaterialDesignRaisedButton}"
                         Command="{Binding AddTagCommand}"
                         Margin="0,0,8,0">
                     <StackPanel Orientation="Horizontal">
@@ -97,7 +97,7 @@
                     </StackPanel>
                 </Button>
 
-                <Button x:Name="EditTag" Style="{StaticResource MaterialDesignRaisedButton}"
+                <Button x:Name="编辑Tag" Style="{StaticResource MaterialDesignRaisedButton}"
                         Command="{Binding EditTagCommand}"
                         CommandParameter="{Binding SelectedTag}"    Margin="0,0,8,0">
                     <StackPanel Orientation="Horizontal">
@@ -106,7 +106,7 @@
                     </StackPanel>
                 </Button>
 
-                <Button x:Name="SaveTag" Style="{StaticResource MaterialDesignRaisedButton}"
+                <Button x:Name="保存Tag" Style="{StaticResource MaterialDesignRaisedButton}"
                      Command="{Binding SaveTagCommand}" Click="SaveTag_Click" Margin="0,0,8,0">
                     <StackPanel Orientation="Horizontal">
                         <MaterialDesign:PackIcon Kind="ContentSave"/>
@@ -216,7 +216,7 @@ Width="95"/>
                                     <Button x:Name="Btn_WriteTag" Style="{StaticResource MaterialDesignIconButton}"
                                             Height="15"
                                             Width="15"
-                                            IsEnabled="False"
+                                       
                                             Command="{Binding DataContext.WriteValueCommand, 
                                                       RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                             CommandParameter="{Binding}">

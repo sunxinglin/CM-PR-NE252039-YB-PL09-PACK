@@ -1,23 +1,15 @@
-﻿using Ctp0600P.Client.Apis;
+﻿using System;
+using System.Windows.Controls;
+
+using Ctp0600P.Client.Apis;
 using Ctp0600P.Client.Command.NoticeHelp.Enum;
 using Ctp0600P.Client.Command.NoticeHelp.Handle;
 using Ctp0600P.Shared.CatlMes;
+
 using MediatR;
+
 using Reactive.Bindings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 using Yee.Services.CatlMesInvoker;
 
 namespace Ctp0600P.Client.CatlMes

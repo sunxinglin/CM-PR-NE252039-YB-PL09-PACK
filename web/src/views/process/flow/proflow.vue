@@ -27,7 +27,8 @@
 
     <div class="app-container fh">
       <el-table ref="mainTable" :data="list" v-loading="listLoading" row-key="id" border fit stripe
-        highlight-current-row style="width: 100%" height="calc(100% - 52px)" @selection-change="handleSelectionChange"
+        highlight-current-row style="width: 100%" height="calc(100% - 52px)" @row-click="handleRowClick"
+        @selection-change="handleSelectionChange"
         align="left">
         <el-table-column type="selection" align="center" width="55"></el-table-column>
         <el-table-column min-width="20px" :label="'工艺编码'" prop="code" sortable align="center">
@@ -199,6 +200,7 @@ export default {
   },
   data() {
     return {
+      selectedFlowRowId: null,
       multipleSelection: [], //勾选的数据表值
       list: [], //数据表
       total: 0, //数据条数
@@ -268,6 +270,28 @@ export default {
     //勾选框
     handleSelectionChange(val) {
       this.multipleSelection = val;
+      if (val.length === 1) {
+        this.selectedFlowRowId = val[0].id;
+      } else if (val.length === 0) {
+        this.selectedFlowRowId = null;
+      } else {
+        this.selectedFlowRowId = null;
+      }
+    },
+    handleRowClick(row, column) {
+      if (column && column.type === "selection") return;
+
+      const table = this.$refs.mainTable;
+      if (!table) return;
+
+      const isSameRow = this.selectedFlowRowId === row.id;
+      table.clearSelection();
+      if (isSameRow) {
+        this.selectedFlowRowId = null;
+        return;
+      }
+      table.toggleRowSelection(row, true);
+      this.selectedFlowRowId = row.id;
     },
     //关键字搜索
     handleFilter() {

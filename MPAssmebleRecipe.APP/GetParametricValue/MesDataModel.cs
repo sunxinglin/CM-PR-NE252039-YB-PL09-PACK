@@ -32,7 +32,6 @@ namespace GetParametricValue
             {
                 timeOut = 30000;
             }
-            UploadCode = IniFileHelper.ReadValue(SectionName, "UploadCode", FileName);
 
         }
 
@@ -42,7 +41,6 @@ namespace GetParametricValue
         private string passWord;
         private string siteField;
         private string userField;
-        private string uploadCode;
 
 
         public string UserName
@@ -127,19 +125,6 @@ namespace GetParametricValue
             set
             {
                 timeOut = value;
-            }
-        }
-
-        public string UploadCode
-        {
-            get
-            {
-                return uploadCode;
-            }
-
-            set
-            {
-                uploadCode = value;
             }
         }
 

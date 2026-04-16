@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using RogerTech.AuthService.Models;
@@ -20,6 +21,17 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         private string _employeeId;
         private ObservableCollection<Role> _roles;
         private Role _selectedRole;
+        private readonly IEventAggregator _eventAggregator;
+        private SubscriptionToken _closeToken;
+        public void Dispose()
+        {
+            // 取消订阅
+            if (_closeToken != null)
+            {
+                _eventAggregator.GetEvent<CloseAllDialogsEvent>().Unsubscribe(_closeToken);
+                _closeToken = null;
+            }
+        }
 
         public string UserName
         {
@@ -52,8 +64,11 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         public DelegateCommand<PasswordBox> SaveCommand { get; }
         public DelegateCommand CancelCommand { get; }
 
-        public AddUserDialogViewModel(RogerTech.AuthService.AuthService authService)
+        public AddUserDialogViewModel(RogerTech.AuthService.AuthService authService,IEventAggregator eventAggregator)   
         {
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
+         
             _authService = authService;
             SaveCommand = new DelegateCommand<PasswordBox>(Save);
             CancelCommand = new DelegateCommand(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
@@ -104,7 +119,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
 
         public void OnDialogClosed()
         {
-
+            Dispose();
         }
 
         public void OnDialogOpened(IDialogParameters parameters)

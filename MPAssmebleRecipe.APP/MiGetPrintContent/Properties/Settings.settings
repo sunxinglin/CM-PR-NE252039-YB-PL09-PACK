@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MiGetPrintContent.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MiGetPrintContent_MiGetPrintContent_MiGetPrintContentServiceService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://xmmesp026.catlbattery.com:50600/atlmeswebservice/MiGetPrintContentServiceService</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

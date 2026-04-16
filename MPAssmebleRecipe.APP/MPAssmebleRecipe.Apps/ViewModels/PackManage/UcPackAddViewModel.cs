@@ -10,19 +10,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using RogerTech.Common;
+using Prism.Events;
 
 namespace MPAssmebleRecipe.Apps.ViewModels.PackManage
 {
-    public class UcPackAddViewModel : BindableBase, IDialogAware
+    public class UcPackAddViewModel : BindableBase, IDialogAware,IDisposable
     {
 
-        private readonly ILoggerHelper _logger;
+      //  private readonly ILoggerHelper _logger;
         private string _packname;
         private string _packpn;
         private int _layertotal;
 
         public string Title => "添加Pack";
-
+        private readonly IEventAggregator _eventAggregator;
+        private SubscriptionToken _closeToken;
+        public void Dispose()
+        {
+            // 取消订阅
+            if (_closeToken != null)
+            {
+                _eventAggregator.GetEvent<CloseAllDialogsEvent>().Unsubscribe(_closeToken);
+                _closeToken = null;
+            }
+        }
         public string PackName
         {
             get => _packname;
@@ -50,9 +61,14 @@ namespace MPAssmebleRecipe.Apps.ViewModels.PackManage
 
         public event Action<IDialogResult> RequestClose;
 
-        public UcPackAddViewModel(ILoggerHelper logger)
+        public UcPackAddViewModel(IEventAggregator eventAggregator)
         {
-            _logger = logger;
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
+
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
+
             ConfirmCommand = new DelegateCommand(ExecuteConfirm, CanExecuteConfirm)
                 .ObservesProperty(() => PackName)
                 .ObservesProperty(() => PackPn)
@@ -103,6 +119,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels.PackManage
 
         public void OnDialogClosed()
         {
+            Dispose();
         }
 
         public void OnDialogOpened(IDialogParameters parameters)

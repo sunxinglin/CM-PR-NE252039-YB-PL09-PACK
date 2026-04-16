@@ -1,7 +1,9 @@
-﻿using AsZero.Core.Entities;
+﻿using System.Security.Claims;
+
+using AsZero.Core.Entities;
+
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 
 namespace AsZero.Services.Auth
 {

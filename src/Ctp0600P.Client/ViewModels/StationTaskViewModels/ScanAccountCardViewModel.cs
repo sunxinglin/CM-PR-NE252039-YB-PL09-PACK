@@ -1,47 +1,34 @@
-﻿using Yee.Entitys.DTOS;
-using FutureTech.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Yee.Entitys.Production;
-using System.Collections.ObjectModel;
-using Yee.Entitys.DBEntity;
-using Yee.Common.Library.CommonEnum;
 using System.Windows.Input;
-using Ctp0600P.Client.DTOS;
-using Newtonsoft.Json;
-using Ctp0600P.Client.Protocols.ScanCode.Models;
-using Yee.Common.Library;
-using System.Windows;
-using Ctp0600P.Client.Views.StationTaskPages;
-using Ctp0600P.Client.CommonEntity;
+
 using Ctp0600P.Client.Apis;
-using AsZero.Core.Services.Messages;
-using MediatR;
 using Ctp0600P.Client.Protocols;
+using Ctp0600P.Client.Protocols.ScanCode.Models;
+
+using MediatR;
+
+using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.AlarmMgmt;
-using System.Windows.Controls;
-using Microsoft.Extensions.Logging;
-using Ctp0600P.Client.Command.NoticeHelp.Handle;
-using System.Reactive.Linq;
+using Yee.Entitys.DBEntity;
+using Yee.Entitys.DTOS;
+using Yee.Entitys.Production;
 
 namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
 {
     public class ScanAccountCardViewModel : TaskViewModelBase
     {
-        public readonly APIHelper _APIHepler;
-        private readonly IMediator mediator;
+        private readonly APIHelper _apiHelper;
+        private readonly IMediator _mediator;
         public Base_StationTaskScanAccountCard TaskScanAccountCard { get; }
 
         public StationTaskDTO _StationTaskDTO { get; }
 
-        public ScanAccountCardViewModel(StationTaskDTO stationTaskDTO, APIHelper apiHepler, IMediator mediator)
+        public ScanAccountCardViewModel(StationTaskDTO stationTaskDTO, APIHelper apiHelper, IMediator mediator)
         {
-            _APIHepler = apiHepler;
-            this.mediator = mediator;
+            _apiHelper = apiHelper;
+            _mediator = mediator;
             _StationTaskDTO = stationTaskDTO;
             TaskScanAccountCard = _StationTaskDTO.StationTaskScanAccountCard;
 
@@ -82,10 +69,10 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
         /// <param name="request"></param>
         public async void CatchScanCodeMessage(ScanCodeGunRequest request)
         {
-            var checkResult = await _APIHepler.Check_CreateAccountCardAsync(request.ScanCodeContext);
+            var checkResult = await _apiHelper.Check_CreateAccountCardAsync(request.ScanCodeContext);
             if (checkResult.Code != 200)
             {
-                await mediator.Publish(new AlarmSYSNotification { Code = AlarmCode.扫码枪错误, Name = AlarmCode.扫码枪错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"[扫描员工卡]{checkResult.Message}" });
+                await _mediator.Publish(new AlarmSYSNotification { Code = AlarmCode.扫码枪错误, Name = AlarmCode.扫码枪错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"[扫描员工卡]{checkResult.Message}" });
                 AccountCardValue = String.Empty;
                 return;
             }
@@ -99,7 +86,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
                     bool saveOK = await SaveAccountCardData();
                     if (!saveOK)
                     {
-                        await mediator.Publish(new AlarmSYSNotification() { Code = AlarmCode.系统运行错误, Name = AlarmCode.系统运行错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"当前任务数据保存失败，请联系管理员！" });
+                        await _mediator.Publish(new AlarmSYSNotification() { Code = AlarmCode.系统运行错误, Name = AlarmCode.系统运行错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"当前任务数据保存失败，请联系管理员！" });
                         return;
                     }
                     _StationTaskDTO.HasFinish = true;
@@ -109,7 +96,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
                 }
                 catch (Exception ex)
                 {
-                    await mediator.Publish(new AlarmSYSNotification { Code = AlarmCode.系统运行错误, Name = AlarmCode.系统运行错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"[扫描员工卡]{ex.Message}\r\n{ex.StackTrace}" });
+                    await _mediator.Publish(new AlarmSYSNotification { Code = AlarmCode.系统运行错误, Name = AlarmCode.系统运行错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"[扫描员工卡]{ex.Message}\r\n{ex.StackTrace}" });
                 }
             }));
         }

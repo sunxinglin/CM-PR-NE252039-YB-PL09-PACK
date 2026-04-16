@@ -1,6 +1,3 @@
-using System;
-
-
 namespace RogerTech.Tool
 {
     public class TagResult
@@ -9,12 +6,11 @@ namespace RogerTech.Tool
         public bool Available { get; private set; }
         internal void SetValue(object value)
         {
-
             this.Value = value; 
         }
-        internal void SetAviliable(bool aviliabled)
+        internal void SetAvailable(bool available)
         {
-            this.Available = aviliabled;
+            this.Available = available;
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using AsZero.DbContexts;
+
 using FutureTech.Dal.Entities;
 using FutureTech.Dal.Repository;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AsZero.Core.Services.Repos
 {

@@ -27,51 +27,28 @@ namespace MPAssmebleRecipe.Apps.Views.Recipe
     /// </summary>
     public partial class UcRecipeManageView : UserControl
     {
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            // 注册当前页面的所有按钮
+            PermissionController.RegisterPageControls(this);
+            AppManager appManager = AppManager.GetInstance();
+            PermissionController.UpdatePagePermissions(this, appManager.UserInfo);
+        }
         public IEventAggregator EventAggregator { get; }
         public UcRecipeManageView(ILoggerHelper logger, IEventAggregator eventAggregator)
         {
             InitializeComponent();
-
+            Loaded += OnPageLoaded;
             this.EventAggregator = eventAggregator;
             AppManager appManager = AppManager.GetInstance();
-            ChangUser(appManager.UserInfo);
+        
             EventAggregator.GetEvent<UserInfoEvent>().Subscribe(user =>
             {
-                ChangUser(user);
+                PermissionController.UpdatePagePermissions(this, user);
             });
 
-            RegistMenus();
         }
 
-        private void RegistMenus()
-        {
-            List<RogerTech.AuthService.Models.Menu> menuList = new List<RogerTech.AuthService.Models.Menu>()
-            {
-                new RogerTech.AuthService.Models.Menu() { Page = "UcRecipeManageView", SubPage = "",ElementName="配方下发" },
-                new RogerTech.AuthService.Models.Menu() { Page = "UcRecipeManageView", SubPage = "",ElementName="选中行下方插入" },
-                new RogerTech.AuthService.Models.Menu() { Page = "UcRecipeManageView", SubPage = "",ElementName="配方清空" },
-            };
-            RogerTech.AuthService.AuthService authService = new RogerTech.AuthService.AuthService();
-            foreach (var item in menuList)
-            {
-                authService.AddMenu(item);
-            }
-        }
-        private void ChangUser(UserInfo user)
-        {
-            if (user == null)
-            {
-                配方下发.IsEnabled = false;
-                选中行下方插入.IsEnabled = false;
-                配方清空.IsEnabled = false;
-                return;
-            }
-            var addUser = user.UserMenus.Where(x => x.Page == "UcRecipeManageView" && x.ElementName == "配方下发").FirstOrDefault();
-            配方下发.IsEnabled = addUser != null ? true : false;
-            addUser = user.UserMenus.Where(x => x.Page == "UcRecipeManageView" && x.ElementName == "选中行下方插入").FirstOrDefault();
-            选中行下方插入.IsEnabled = addUser != null ? true : false;
-            addUser = user.UserMenus.Where(x => x.Page == "UcRecipeManageView" && x.ElementName == "配方清空").FirstOrDefault();
-            配方清空.IsEnabled = addUser != null ? true : false;
-        }
+      
     }
 }

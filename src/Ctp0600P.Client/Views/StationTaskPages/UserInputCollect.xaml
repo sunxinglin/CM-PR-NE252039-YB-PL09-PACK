@@ -11,19 +11,19 @@
 
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="260"></RowDefinition>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="260" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"></ColumnDefinition>
-            <ColumnDefinition Width="80"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="100"></ColumnDefinition>
-            <ColumnDefinition Width="80"></ColumnDefinition>
-            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
 
         <!--<Button  Grid.Column="1" Width="100" Content="获取重量" Click="Btn_Test" Margin="100 0 0 0"></Button>-->
@@ -60,12 +60,12 @@
         <TextBlock Grid.Row="1" Grid.Column="5"  Text="{Binding TaskUserScan.Status}"  VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
-                    <Setter Property="Foreground" Value="Black"></Setter>
-                    <Setter Property="FontSize" Value="26"></Setter>
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="FontSize" Value="26" />
                     <Style.Triggers>
                         <Trigger Property="Text" Value="已完成">
-                            <Setter Property="Foreground" Value="DarkGreen"></Setter>
-                            <Setter Property="FontWeight" Value="Bold"></Setter>
+                            <Setter Property="Foreground" Value="DarkGreen" />
+                            <Setter Property="FontWeight" Value="Bold" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -73,44 +73,42 @@
         </TextBlock>
 
 
-        <TextBlock Visibility="{Binding NgTips}"  Grid.Row="3" Grid.Column="1" FontSize="24" Grid.ColumnSpan="3"  Foreground="Red" Text="NG 输入值必须在合理范围内！"  VerticalAlignment="Center" HorizontalAlignment="Center">
-           
-        </TextBlock>
+        <TextBlock Visibility="{Binding NgTips}"  Grid.Row="3" Grid.Column="1" FontSize="24" Grid.ColumnSpan="3"  Foreground="Red" Text="NG 输入值必须在合理范围内！"  VerticalAlignment="Center" HorizontalAlignment="Center" />
 
 
         <Grid Grid.Row="4"  Grid.Column="1" Grid.ColumnSpan="3">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="2" Grid.Column="0" Content="1" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="2" Grid.Column="1" Content="2" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="2" Grid.Column="2" Content="3" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="1" Grid.Column="0" Content="4" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="1" Grid.Column="1" Content="5" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="1" Grid.Column="2" Content="6" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="0" Grid.Column="0" Content="7" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="0" Grid.Column="1" Content="8" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="0" Grid.Column="2" Content="9" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="0" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="3" Grid.Column="2" Content="." FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="0" Grid.Column="3" Content="清除" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="1" Grid.Column="3"   Content="退格" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
-                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="2" Grid.RowSpan="2"  Grid.Column="3" Content="确定" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" ></Button>
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="2" Grid.Column="0" Content="1" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="2" Grid.Column="1" Content="2" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="2" Grid.Column="2" Content="3" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="1" Grid.Column="0" Content="4" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="1" Grid.Column="1" Content="5" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="1" Grid.Column="2" Content="6" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="0" Grid.Column="0" Content="7" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="0" Grid.Column="1" Content="8" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="0" Grid.Column="2" Content="9" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="0" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="3" Grid.Column="2" Content="." FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="0" Grid.Column="3" Content="清除" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="1" Grid.Column="3"   Content="退格" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                <Button Style="{Binding defaultBtnStyle}"  Grid.Row="2" Grid.RowSpan="2"  Grid.Column="3" Content="确定" FontSize="24" Margin="5" Command="{Binding NumerClick}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
             </Grid>
         </Grid>
 

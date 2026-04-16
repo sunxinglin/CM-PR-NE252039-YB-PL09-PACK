@@ -2,8 +2,6 @@
 
 using Microsoft.AspNetCore.Mvc;
 
-using System.Threading.Tasks;
-
 using Yee.Entitys.Production;
 using Yee.Services.Production;
 

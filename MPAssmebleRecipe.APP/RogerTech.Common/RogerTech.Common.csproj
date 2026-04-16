@@ -35,6 +35,18 @@
     <Reference Include="log4net">
       <HintPath>..\lib\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="NPOI.Core">
+      <HintPath>..\lib\NPOI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\lib\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\lib\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\lib\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
     <Reference Include="Prism">
       <HintPath>..\lib\Prism.dll</HintPath>
     </Reference>
@@ -44,6 +56,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,7 +78,12 @@
     <Compile Include="AuthService\Services\OperationService.cs" />
     <Compile Include="AuthService\UserInfo.cs" />
     <Compile Include="AuthService\UserService.cs" />
+    <Compile Include="Common\CommonHelper.cs" />
+    <Compile Include="Common\ConvertHelper.cs" />
+    <Compile Include="Common\ListToDataTableHelper.cs" />
+    <Compile Include="Common\NPOI\NPOIHelper.cs" />
     <Compile Include="Models\AppConfig.cs" />
+    <Compile Include="Models\MHRUser.cs" />
     <Compile Include="Models\Recipes\CellAndSfcRecord.cs" />
     <Compile Include="Models\Recipes\CellTemplate.cs" />
     <Compile Include="Models\Recipes\Enums.cs" />
@@ -82,6 +100,7 @@
     <Compile Include="Models\Recipes\Template_Cell.cs" />
     <Compile Include="Models\Recipes\Template_Module.cs" />
     <Compile Include="Models\Recipes\Template_Pack.cs" />
+    <Compile Include="Models\TighteningDataDto.cs" />
     <Compile Include="Models\UploadData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -89,6 +108,10 @@
     <ProjectReference Include="..\dataCollectForSfcEx\dataCollectForSfcEx.csproj">
       <Project>{7db95261-66b1-4630-a1c2-67260a27f6d0}</Project>
       <Name>dataCollectForSfcEx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MPAssmebleRecipe.Logger\MPAssmebleRecipe.Logger.csproj">
+      <Project>{18DF3162-33FF-4356-8FD3-88A08A86DA40}</Project>
+      <Name>MPAssmebleRecipe.Logger</Name>
     </ProjectReference>
     <ProjectReference Include="..\RogerTech.Tool\RogerTech.Tool.csproj">
       <Project>{58ecd4c7-b30c-4ed6-8e48-f63ef3e37a2a}</Project>
@@ -98,6 +121,8 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

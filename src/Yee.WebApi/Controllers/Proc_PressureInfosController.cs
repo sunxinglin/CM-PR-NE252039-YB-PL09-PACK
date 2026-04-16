@@ -1,11 +1,10 @@
 ﻿using AsZero.Core.Services.Repos;
-using Microsoft.AspNetCore.Http;
+
 using Microsoft.AspNetCore.Mvc;
+
 using Yee.Entitys.DBEntity;
 using Yee.Entitys.DTOS;
-using Yee.Entitys.Request;
 using Yee.Services.ProductionRecord;
-using Yee.Services.Request;
 
 namespace Yee.WebApi.Controllers
 {

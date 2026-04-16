@@ -1,10 +1,6 @@
-﻿using FutureTech.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
+using FutureTech.Mvvm;
 
 namespace Ctp0600P.Client.CommonEntity
 {

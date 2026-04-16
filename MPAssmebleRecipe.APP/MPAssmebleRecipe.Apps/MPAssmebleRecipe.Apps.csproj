@@ -45,6 +45,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\EPPlus.dll</HintPath>
     </Reference>
+    <None Include="..\lib\libnodave.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Reference Include="libnodave.net, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\libnodave.net.dll</HintPath>
@@ -66,11 +69,14 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MPAssmebleRecipe.Model\bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Npgsql, Version=5.0.18.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.Core">
+      <HintPath>..\lib\NPOI.Core.dll</HintPath>
     </Reference>
     <Reference Include="Prism">
       <HintPath>..\lib\Prism.dll</HintPath>
@@ -119,7 +125,6 @@
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\UserInfoEvent.cs" />
     <Compile Include="ViewModels\AddPlcTagDialogViewModel.cs" />
-    <Compile Include="ViewModels\BlockManage\UcAddtionBlockDialogViewModel.cs" />
     <Compile Include="ViewModels\BlockManage\UcBlockAddViewModel.cs" />
     <Compile Include="ViewModels\BlockManage\UcBlockEditViewModel.cs" />
     <Compile Include="ViewModels\CellManage\UcCellEditViewModel.cs" />
@@ -136,6 +141,7 @@
     <Compile Include="ViewModels\PackManage\UcPackManageViewModel.cs" />
     <Compile Include="ViewModels\PlcTagViewModel.cs" />
     <Compile Include="Converters\BoolToColorConverter.cs" />
+    <Compile Include="Converters\NotEqualToZeroConverter.cs" />
     <Compile Include="ViewModels\Recipe\CellRecipeReplaceViewModel.cs" />
     <Compile Include="ViewModels\Recipe\CellRecipeViewModel.cs" />
     <Compile Include="ViewModels\Recipe\UcRecipeAddViewModel.cs" />
@@ -153,9 +159,7 @@
     <Compile Include="ViewModels\User\RoleManagerViewModel.cs" />
     <Compile Include="ViewModels\User\RoleViewModel.cs" />
     <Compile Include="ViewModels\User\UserViewModel.cs" />
-    <Compile Include="Views\BlockManage\UcAddtionBlockDialog.xaml.cs">
-      <DependentUpon>UcAddtionBlockDialog.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModels\WriteValueDialogViewModel.cs" />
     <Compile Include="Views\BlockManage\UcBlockAddView.xaml.cs">
       <DependentUpon>UcBlockAddView.xaml</DependentUpon>
     </Compile>
@@ -252,6 +256,9 @@
     <Compile Include="Views\User\UserView.xaml.cs">
       <DependentUpon>UserView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WriteValueDialog.xaml.cs">
+      <DependentUpon>WriteValueDialog.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -278,7 +285,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CatlMesBase\CatlMesBase.csproj">
@@ -297,16 +306,20 @@
       <Project>{e4362e13-5fef-4622-9ed4-60c837b10eff}</Project>
       <Name>RogerTech.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RogerTech.Services\RogerTech.Services.csproj">
+      <Project>{aff2ceb9-0bc5-4201-82f1-b246957f2e23}</Project>
+      <Name>RogerTech.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RogerTech.Share\RogerTech.Share.csproj">
+      <Project>{56A1AE6F-8DC9-46D2-AAF4-2B7028417BCA}</Project>
+      <Name>RogerTech.Share</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RogerTech.Tool\RogerTech.Tool.csproj">
       <Project>{58ECD4C7-B30C-4ED6-8E48-F63EF3E37A2A}</Project>
       <Name>RogerTech.Tool</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\BlockManage\UcAddtionBlockDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\BlockManage\UcBlockAddView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -435,6 +448,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\WriteValueDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\CATL.jpg" />
@@ -443,7 +460,11 @@
     <Resource Include="Logo_256x256.ico" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
+    <Folder Include="Connected Services\" />
   </ItemGroup>
+  <!-- 复制HoneywellPrint.dll到输出目录 -->
+  <Target Name="CopyHoneywellDll" AfterTargets="Build">
+    <Copy SourceFiles="..\lib\HoneywellPrint.dll" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="true" />
+  </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

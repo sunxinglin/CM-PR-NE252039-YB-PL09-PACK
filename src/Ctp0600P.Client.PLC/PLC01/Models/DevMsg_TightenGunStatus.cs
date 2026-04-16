@@ -1,5 +1,6 @@
-﻿using Ctp0600P.Client.PLC.PLC01.Models.Flags;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+
+using Ctp0600P.Client.PLC.PLC01.Models.Flags;
 
 namespace Ctp0600P.Client.PLC.PLC01.Models
 {

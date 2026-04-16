@@ -1,8 +1,11 @@
-﻿using FutureTech.Mvvm;
-using MediatR;
-using Microsoft.Xaml.Behaviors.Core;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+
+using FutureTech.Mvvm;
+
+using MediatR;
+
+using Microsoft.Xaml.Behaviors.Core;
 
 namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
 {

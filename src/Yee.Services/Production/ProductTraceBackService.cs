@@ -1,6 +1,10 @@
 ﻿using AsZero.DbContexts;
+
 using Microsoft.EntityFrameworkCore;
+
 using OfficeOpenXml;
+
+using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.DBEntity;
 using Yee.Entitys.DBEntity.Production;
 using Yee.Entitys.DTOS;
@@ -93,11 +97,11 @@ namespace Yee.Services.Production
 
                     var step = await this.dbcontext.Base_Steps.Where(o => o.Id == maintask.StepId).FirstOrDefaultAsync();
 
-                    if (step != null && step.Steptype == Common.Library.CommonEnum.StepTypeEnum.自动站 && step.Name == "模组入箱")
+                    if (step != null && step.StepType == StepTypeEnum.自动站 && step.Name == "模组入箱")
                     {
                     }
 
-                    if (step != null && step.Steptype == Common.Library.CommonEnum.StepTypeEnum.自动站 && step.Name == "上盖拧紧")
+                    if (step != null && step.StepType == StepTypeEnum.自动站 && step.Name == "上盖拧紧")
                     {
                         var autoBoltList = await this.dbcontext.Proc_AutoBoltInfo_Details.Where(o => o.Proc_StationTask_MainId == maintask.Id && !o.IsDeleted).ToListAsync();
                         maintask.AutoBoltList = autoBoltList;
@@ -119,9 +123,9 @@ namespace Yee.Services.Production
         public async Task<(Boolean, string)> ExportStationTask(string packCode)
         {
             string filepath = Directory.GetCurrentDirectory() + @"\Pack数据导出.xls";
-            if (System.IO.File.Exists(filepath))
+            if (File.Exists(filepath))
             {
-                System.IO.File.Delete(filepath);
+                File.Delete(filepath);
             }
             var stream = new FileStream(filepath, FileMode.OpenOrCreate);
             try
@@ -136,31 +140,31 @@ namespace Yee.Services.Production
                     {
                         switch (record.Base_StationTask!.Type)
                         {
-                            case Common.Library.CommonEnum.StationTaskTypeEnum.扫描员工卡:
+                            case StationTaskTypeEnum.扫描员工卡:
                                 packExcellist.AddRange(await GetScanAccountData(main, record));
                                 break;
-                            case Common.Library.CommonEnum.StationTaskTypeEnum.扫码:
+                            case StationTaskTypeEnum.扫码:
                                 packExcellist.AddRange(await GetScanData(main, record));
                                 break;
-                            case Common.Library.CommonEnum.StationTaskTypeEnum.人工拧螺丝:
+                            case StationTaskTypeEnum.人工拧螺丝:
                                 packExcellist.AddRange(await GetBlotData(main, record));
                                 break;
-                            case Common.Library.CommonEnum.StationTaskTypeEnum.扫码输入:
+                            case StationTaskTypeEnum.扫码输入:
                                 packExcellist.AddRange(await GetScanInputData(main, record));
                                 break;
-                            case Common.Library.CommonEnum.StationTaskTypeEnum.用户输入:
+                            case StationTaskTypeEnum.用户输入:
                                 packExcellist.AddRange(await GetUserInputData(main, record));
                                 break;
-                            case Common.Library.CommonEnum.StationTaskTypeEnum.称重:
+                            case StationTaskTypeEnum.称重:
                                 packExcellist.AddRange(await GetAnyLoadData(main, record));
                                 break;
-                            case Common.Library.CommonEnum.StationTaskTypeEnum.时间记录:
+                            case StationTaskTypeEnum.时间记录:
                                 packExcellist.AddRange(await GetTimeRecordData(main, record));
                                 break;
-                            case Common.Library.CommonEnum.StationTaskTypeEnum.超时检测:
+                            case StationTaskTypeEnum.超时检测:
                                 packExcellist.AddRange(await GetTimeCheckData(main, record));
                                 break;
-                            case Common.Library.CommonEnum.StationTaskTypeEnum.补拧:
+                            case StationTaskTypeEnum.补拧:
                                 packExcellist.AddRange(await GetRepairData(main, record));
                                 break;
                         }
@@ -213,7 +217,7 @@ namespace Yee.Services.Production
                 TaskName = record.TaskName,
                 TaskType = record.Base_StationTask!.Type.ToString(),
                 任务时间 = s.CreateTime.ToString(),
-                内部码 = s.TracingType == Common.Library.CommonEnum.TracingTypeEnum.扫库存 ? s.UniBarCode : s.BatchBarCode,
+                内部码 = s.TracingType == TracingTypeEnum.扫库存 ? s.UniBarCode : s.BatchBarCode,
                 外部码 = s.GoodsOuterCode
             }).ToList();
         }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AsZero.Core.Services.Repos
+﻿namespace AsZero.Core.Services.Repos
 {
     public class CommonRequest
     { 

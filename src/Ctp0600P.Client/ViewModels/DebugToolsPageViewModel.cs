@@ -1,13 +1,9 @@
-﻿using Ctp0600P.Client.UserControls.DebugTools;
-using Newtonsoft.Json.Linq;
-using Reactive.Bindings;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Ctp0600P.Client.UserControls.DebugTools;
+
+using Reactive.Bindings;
 
 namespace Ctp0600P.Client.ViewModels
 {

@@ -1,45 +1,39 @@
-﻿using miFindCustomAndSfcData.miFindCustomAndSfcData;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 using RogerTech.Common;
 using RogerTech.Common.Models;
 using RogerTech.Tool;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RogerTech.BussnessCore.Bussness
 {
     public class PlcProcessFindSfcByInventory : PlcInProgressBase
     {
-        MesInterface MesInterface;
-        protected string StationName = ConfigurationManager.AppSettings["StationName"];
+        private readonly MesInterface _mesInterface;
 
         public PlcProcessFindSfcByInventory(string groupName, MesInterface mesInterface) : base(groupName, mesInterface)
         {
-            this.MesInterface = mesInterface;
+            _mesInterface = mesInterface;
         }
 
-        public override void Excute(Group group)
+        public override void Execute(Group group)
         {
-
-            base.Excute(group);
+            base.Execute(group);
             Task.Run(() => { DbContext.Info("", $"收到plc请求值StartSignal：[0->1]", 0, PlcGroup.GroupName); });
             WriteFinishSignal(true);
             StringBuilder message = new StringBuilder();
             string sfc = string.Empty;
-            //  var dbData = DbContext.GetInstance();
-            BussnessUtility bussness = BussnessUtility.GetInstanse();
-            string productId = " ";
-            List<string> cellsns = new List<string>();
+            var db = DbContext.GetInstance();
+            BussnessUtility business = BussnessUtility.GetInstance();
             int resultCode = 30001;
+            string ModuleCode = string.Empty;
+            string ModulePN = string.Empty;
             try
             {
                 #region Tag获取和数据校验
           
                 List<object> inputs = new List<object>();
-
                 List<UploadData> uploadDatas = new List<UploadData>();
                 List<UploadData> localDatas = new List<UploadData>();
                 foreach (var item in group.Tags)
@@ -51,7 +45,6 @@ namespace RogerTech.BussnessCore.Bussness
                         {
                             if (float.TryParse(item.Result.Value.ToString(), out float value))
                             {
-                                // 修复逻辑：正确检查超出范围
                                 if (value < item.LowerLimit || value > item.UpperLimit)
                                 {
                                     message.Append($"上传失败:[{item.TagName}]超出上下限限制[{item.LowerLimit}-{item.UpperLimit}]");
@@ -69,9 +62,9 @@ namespace RogerTech.BussnessCore.Bussness
                         if (item.IsUpload)
                         {
                             inputs.Add(item.Result.Value.ToString());
-                            uploadDatas.Add(new UploadData()
+                            uploadDatas.Add(new UploadData
                             {
-                                InterfaceName = MesInterface.ToString(),
+                                InterfaceName = _mesInterface.ToString(),
                                 StationName = StationName,
                                 UploadDataName = item.MesName,
                                 UploadDataType = item.MesDataType,
@@ -83,9 +76,9 @@ namespace RogerTech.BussnessCore.Bussness
                         }
                         else
                         {
-                            localDatas.Add(new UploadData()
+                            localDatas.Add(new UploadData
                             {
-                                InterfaceName = MesInterface.ToString(),
+                                InterfaceName = _mesInterface.ToString(),
                                 StationName = StationName,
                                 UploadDataName = item.MesName,
                                 UploadDataType = item.MesDataType,
@@ -103,26 +96,33 @@ namespace RogerTech.BussnessCore.Bussness
                         WriteResult(30001);
                         return;
                     }
-
-
                 }
-                List<object> output = bussness.MesInvoke(inputs, MesInterface);
 
-
-                if (DbContext.GetInstance().Queryable<UploadData>().AS("UploadData").Where(p => p.SFC.Contains(productId)).Count() > 0)
+                //空循环模式
+                if (business.bMesSimulation)
                 {
-                    DbContext.GetInstance().Updateable<UploadData>()
+                    resultCode = 0;
+                    return;
+                }
+
+                List<object> output = business.MesInvoke(inputs, _mesInterface);
+
+                if (db.Queryable<UploadData>().AS("UploadData").Where(p => p.SFC.Contains(sfc)).Any())
+                {
+                    db.Updateable<UploadData>()
                                            .AS("UploadData")
                                            .SetColumns(u => u.IsReupload == true)
                                            .Where(u => u.SFC == sfc)
                                            .ExecuteCommand();
                 }
 
-                DbContext.GetInstance().Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
-                DbContext.GetInstance().Insertable(localDatas).AS("LocalData").ExecuteCommand();
-                if ((int)(output[0]) == 0)
+                db.Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
+                db.Insertable(localDatas).AS("LocalData").ExecuteCommand();
+                if ((int)output[0] == 0)
                 {
                     resultCode = (int)output[0];
+                    ModuleCode = output[3].ToString();
+                    ModulePN = output[4].ToString();
                     WriteResult(output[2].ToString());
                     message.Append("调用mes接口[FindSfcByInventory]获取物料数据成功");
                 }
@@ -130,7 +130,6 @@ namespace RogerTech.BussnessCore.Bussness
                 {
                     resultCode = (int)output[0];
                     message.Append($"调用mes接口[FindSfcByInventory]获取物料数据失败MES代码[{output[0]}] MES信息[{output[1]}]");
-                    return;
                 }
                 #endregion
             }
@@ -140,9 +139,11 @@ namespace RogerTech.BussnessCore.Bussness
             }
             finally
             {
+                PlcGroup.GetTag("ModuleCode").WriteValue(ModuleCode);
+                PlcGroup.GetTag("ModulePN").WriteValue(ModulePN);
                 WriteResult(resultCode);
                 WriteFinishSignal(false);
-                Task.Run(() => { DbContext.Info(productId, message.ToString(), resultCode, PlcGroup.GroupName); });
+                Task.Run(() => { DbContext.Info(sfc, message.ToString(), resultCode, PlcGroup.GroupName); });
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NPOI.SS.Formula.Functions;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -25,6 +26,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         private readonly IDialogService _dialogService;
         private Role _selectedRole;
         private ObservableCollection<Menu> _menus;
+        private ObservableCollection<Role> _roles;
         private readonly AuthService _authService;
 
         public Role SelectedRole
@@ -38,7 +40,12 @@ namespace MPAssmebleRecipe.Apps.ViewModels
                 }
             }
         }
-        public ObservableCollection<Role> Roles { get; private set; }
+        public ObservableCollection<Role> Roles
+        {
+            get => _roles;
+            set => SetProperty(ref _roles, value);
+
+        }
 
         public ObservableCollection<Menu> Menus
         {
@@ -145,7 +152,11 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         private void LoadRoles()
         {
             var roles = _authService.GetAllRoles();
-            Roles = new ObservableCollection<Role>(roles);
+            Roles = new ObservableCollection<Role>();
+            foreach (var item in roles)
+            {
+                Roles.Add(item);
+            }
         }
 
         private bool CanDeleteRole(Role role)

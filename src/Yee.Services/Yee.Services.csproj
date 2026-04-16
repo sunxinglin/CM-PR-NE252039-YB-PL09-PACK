@@ -6,9 +6,6 @@
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
   </PropertyGroup>
-  <!--<ItemGroup>
-    <PackageReference Include="EPPlus" Version="6.0.6" />
-  </ItemGroup>-->
   <ItemGroup>
     <ProjectReference Include="..\AsZero.Core.Services\AsZero.Core.Services.csproj" />
     <ProjectReference Include="..\AsZero.DbContexts\AsZero.DbContexts.csproj" />
@@ -16,10 +13,5 @@
     <ProjectReference Include="..\TimedTask\TimedTask.csproj" />
     <ProjectReference Include="..\Yee.Entitys\Yee.Entitys.csproj" />
   </ItemGroup>
-  <!--<ItemGroup>
-    <Reference Include="EPPlus">
-      <HintPath>..\packages\packages\epplus\4.5.3.3\lib\netstandard2.1\EPPlus.dll</HintPath>
-    </Reference>
-  </ItemGroup>-->
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

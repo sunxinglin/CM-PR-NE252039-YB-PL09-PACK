@@ -25,7 +25,7 @@
 						<div class="app-container fh" style=" padding: 0px;">
 							<el-table ref="mainTable" :data="dictionaryList" v-loading="dictionaryListLoading" row-key="id" border fit
 							 stripe highlight-current-row style="width: 100%;" height="calc(100% - 150px)" 
-							 @current-change="handleDictionarycurrentChange" @selection-change="handleDictionarySelectionChange" align="left">
+							 @row-click="dictionaryRowClick" @selection-change="handleDictionarySelectionChange" align="left">
 								<el-table-column type="selection" mini-width="100px" align="center"></el-table-column>
 								<el-table-column prop="code" label="编号" mini-width="100px" sortable align="center"></el-table-column>
 								<el-table-column prop="name" label="名称" mini-width="100px" sortable align="center"></el-table-column>
@@ -60,6 +60,7 @@
 						<div class="app-container fh" style=" padding: 0px;">
 							<el-table ref="subTables" :data="dictionaryDetailList" v-loading="dictionaryDetailListLoading" row-key="id"
 							 border fit stripe highlight-current-row style="width: 100%;" height="calc(100% - 150px)" @selection-change="handleDictionaryDetailSelectionChange"
+							 @row-click="dictionaryDetailRowClick"
 							 align="left">
 								<el-table-column type="selection" mini-width="100px" align="center"></el-table-column>
 								<el-table-column prop="code" label="编号" mini-width="100px" sortable align="center"></el-table-column>
@@ -153,6 +154,8 @@ export default {
       dictionaryList: [], // 列表
       dictionaryTotal: 0, //列表数据数目
       dictionaryListLoading: true, //主表加载特效
+      selectedDictionaryRowId: null,
+      selectedDictionaryDetailRowId: null,
 dictionarytemp:{},
       dictionaryDetailMultipleSelection: [], //子表复选框
       dictionaryDetailList: [], // 列表
@@ -246,13 +249,41 @@ dictionarytemp:{},
   methods: {
     handleDictionarySelectionChange(val){
       this.dictionaryMultipleSelection=val
+      if (val.length === 1) {
+        this.selectedDictionaryRowId = val[0].id
+      } else if (val.length === 0) {
+        this.selectedDictionaryRowId = null
+      } else {
+        this.selectedDictionaryRowId = null
+      }
     },
-    //主表点击
-    handleDictionarycurrentChange(val) {
-		console.log(1111);
-		this.dictionarytemp=val
-		this.loadDictionaryDetail()
-	},
+    dictionaryRowClick(row, column) {
+      if (column && column.type === "selection") return
+
+      const table = this.$refs.mainTable
+      if (!table) return
+
+      const isSameRow = this.selectedDictionaryRowId === row.id
+      table.clearSelection()
+
+      if (isSameRow) {
+        this.selectedDictionaryRowId = null
+        this.dictionarytemp = {}
+        this.dictionaryDetailList = []
+        this.dictionaryDetailTotal = 0
+        this.dictionaryDetailMultipleSelection = []
+        this.selectedDictionaryDetailRowId = null
+        if (this.$refs.subTables) {
+          this.$refs.subTables.clearSelection()
+        }
+        return
+      }
+
+      table.toggleRowSelection(row, true)
+      this.selectedDictionaryRowId = row.id
+      this.dictionarytemp = row
+      this.loadDictionaryDetail()
+    },
     //主表关键字搜索
     handleDictionaryFilter() {
       this.loadDictionary(); //主表加载
@@ -275,6 +306,28 @@ dictionarytemp:{},
     //子表复选框
     handleDictionaryDetailSelectionChange(val) {
       this.dictionaryDetailMultipleSelection = val;
+      if (val.length === 1) {
+        this.selectedDictionaryDetailRowId = val[0].id
+      } else if (val.length === 0) {
+        this.selectedDictionaryDetailRowId = null
+      } else {
+        this.selectedDictionaryDetailRowId = null
+      }
+    },
+    dictionaryDetailRowClick(row, column) {
+      if (column && column.type === "selection") return
+
+      const table = this.$refs.subTables
+      if (!table) return
+
+      const isSameRow = this.selectedDictionaryDetailRowId === row.id
+      table.clearSelection()
+      if (isSameRow) {
+        this.selectedDictionaryDetailRowId = null
+        return
+      }
+      table.toggleRowSelection(row, true)
+      this.selectedDictionaryDetailRowId = row.id
     },
     //子表关键字搜索
     handleDictionaryDetailFilter() {
@@ -288,6 +341,12 @@ dictionarytemp:{},
     },
     //子表加载
     loadDictionaryDetail() {
+      if (!this.dictionarytemp || !this.dictionarytemp.id) {
+        this.dictionaryDetailList = []
+        this.dictionaryDetailTotal = 0
+        this.dictionaryDetailListLoading = false
+        return
+      }
       this.dictionaryDetailListLoading = true;
 	  this.dictionaryDetailListQuery.key=this.dictionarytemp.id
       dictionaryDetails

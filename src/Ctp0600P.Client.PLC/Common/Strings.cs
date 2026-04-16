@@ -1,6 +1,5 @@
 ﻿using System.Runtime.InteropServices;
 
-
 namespace Ctp0600P.Client.PLC.Common
 {
 

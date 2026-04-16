@@ -35,33 +35,13 @@ namespace RogerTech.Tool
                 for (int i = 0; i < properties.Length; i++)
                 {
                     var value = properties[i].GetValue(item, null);
-                    sb.Append(Convert.ToString(value, CultureInfo.InvariantCulture));
-                    //// 特殊处理：字符串类型添加引号
-                    //if (value is string strValue)
-                    //{
-                    //    sb.Append($"\"{EscapeQuotes(strValue)}\"");
-                    //}
-                    //// 特殊处理：空值
-                    //else if (value == null)
-                    //{
-                    //    sb.Append("");
-                    //}
-                    //// 默认处理
-                    //else
-                    //{
-                    //    sb.Append(Convert.ToString(value, CultureInfo.InvariantCulture));
-                    //}
-
+                    sb.Append(Convert.ToString(value, CultureInfo.InvariantCulture));   
                     if (i < properties.Length - 1) sb.Append(",");
                 }
                 sb.AppendLine();
             }
-
-            // 确保目录存在
             var dir = Path.GetDirectoryName(filePath);
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-
-            // 写入文件（覆盖模式）
             File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8);
         }
 

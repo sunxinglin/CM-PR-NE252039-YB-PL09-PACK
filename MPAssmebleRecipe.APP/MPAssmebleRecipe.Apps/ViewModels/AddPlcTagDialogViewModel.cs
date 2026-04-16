@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using OfficeOpenXml.FormulaParsing.FormulaExpressions;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using RogerTech.AuthService;
@@ -13,7 +14,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
-
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,9 +22,11 @@ using System.Windows.Media;
 
 namespace MPAssmebleRecipe.Apps.ViewModels
 {
-    public class AddPlcTagDialogViewModel : BindableBase, IDialogAware
+    public class AddPlcTagDialogViewModel : BindableBase, IDialogAware,IDisposable
     {
         private readonly RogerTech.AuthService.AuthService _authService;
+        private readonly IEventAggregator _eventAggregator;
+        private SubscriptionToken _closeToken;
         Group group;
         Tag tag;
 
@@ -138,29 +140,36 @@ namespace MPAssmebleRecipe.Apps.ViewModels
         public DelegateCommand SaveCommand { get; }
         public DelegateCommand CancelCommand { get; }
 
-        public AddPlcTagDialogViewModel(AuthService authService)
+        public void Dispose()
         {
-            _authService = authService;
+            // 取消订阅
+            if (_closeToken != null)
+            {
+                _eventAggregator.GetEvent<CloseAllDialogsEvent>().Unsubscribe(_closeToken);
+                _closeToken = null;
+            }
+        }
+
+
+        public AddPlcTagDialogViewModel(IEventAggregator eventAggregator)
+        {
+            _eventAggregator = eventAggregator;
+            _closeToken = _eventAggregator.GetEvent<CloseAllDialogsEvent>().Subscribe(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
+
+          
             SaveCommand = new DelegateCommand(Save);
             CancelCommand = new DelegateCommand(() => RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel)));
             lsDateType = Enum.GetValues(typeof(RogerTech.Tool.DataType));
             MesDataTypes = Enum.GetValues(typeof(ParameterDataType));
         }
-        private bool IsValidIP(string ip)
-        {
-            // 正则表达式验证 IP 地址
-            string pattern = @"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
-            return System.Text.RegularExpressions.Regex.IsMatch(ip, pattern);
-        }
+       
         private void Save()
         {
-            if (string.IsNullOrWhiteSpace(TagName) || string.IsNullOrWhiteSpace(IP) || Dbnr < 0 || StartAddress < 0 || DataLength <= 0 || DataBit < 0)
+            if (string.IsNullOrWhiteSpace(TagName) ||  Dbnr <= 0 || StartAddress < 0 || DataLength <= 0 || DataBit < 0)
             {
-                if (!IsValidIP(IP))
-                {
-                    MessageBox.Show("请输入正确的IP地址！");
-                    return;
-                }
+                
+               MessageBox.Show("请输入正确的信息！");
+                
                 // TODO: 显示错误提示
                 return;
             }
@@ -189,7 +198,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
 
         public void OnDialogClosed()
         {
-
+            Dispose();
         }
 
         public void OnDialogOpened(IDialogParameters parameters)

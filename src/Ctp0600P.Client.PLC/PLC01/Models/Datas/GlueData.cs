@@ -1,6 +1,8 @@
-﻿using FutureTech.Protocols;
+﻿using System.Runtime.InteropServices;
+
+using FutureTech.Protocols;
+
 using MediatR;
-using System.Runtime.InteropServices;
 
 namespace Ctp0600P.Client.PLC.PLC01.Models.Datas
 {

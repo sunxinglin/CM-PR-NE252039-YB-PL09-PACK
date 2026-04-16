@@ -1,6 +1,5 @@
 ﻿using AsZero.Core.Services.Repos;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
 using Yee.Entitys.DTOS;
 using Yee.Entitys.Production;
 

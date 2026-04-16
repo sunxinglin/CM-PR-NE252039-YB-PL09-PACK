@@ -1,64 +1,51 @@
-﻿using RogerTech.Common;
-using RogerTech.Common.Models;
-using RogerTech.Tool;
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Text;
 using System.Threading.Tasks;
+using RogerTech.Common;
+using RogerTech.Tool;
 
 namespace RogerTech.BussnessCore.Bussness
 {
     public class PlcProcessReleaseSfcByShopOrder : PlcInProgressBase
     {
-        MesInterface MesInterface;
-        protected string StationName = ConfigurationManager.AppSettings["StationName"];
+        private readonly MesInterface _mesInterface;
         public PlcProcessReleaseSfcByShopOrder(string groupName, MesInterface mesInterface) : base(groupName, mesInterface)
         {
-            this.MesInterface= mesInterface;
+            _mesInterface= mesInterface;
         }
-        public override void Excute(Group group)
+        public override void Execute(Group group)
         {
-
-            base.Excute(group);
+            base.Execute(group);
             Task.Run(() => { DbContext.Info("", $"收到plc请求值StartSignal：[0->1]", 0, PlcGroup.GroupName); });
             WriteFinishSignal(true);
             StringBuilder message = new StringBuilder();
             string sfc = string.Empty;
-            //  var dbData = DbContext.GetInstance();
-            BussnessUtility bussness = BussnessUtility.GetInstanse();
-            string productId = " ";
-            List<string> cellsns = new List<string>();
+            var db = DbContext.GetInstance();
+            BussnessUtility business = BussnessUtility.GetInstance();
             int resultCode = 30001;
             try
             {
                 #region Tag获取和数据校验
-                
-                List<object> inputs = new List<object>();
-       
-                List<UploadData> uploadDatas = new List<UploadData>();
-                List<UploadData> localDatas = new List<UploadData>();
 
-                List<object> output = bussness.MesInvoke(inputs, MesInterface);
-
-
-                if (DbContext.GetInstance().Queryable<UploadData>().AS("UploadData").Where(p => p.SFC.Contains(productId)).Count() > 0)
+                //空循环模式
+                if (business.bMesSimulation)
                 {
-                    DbContext.GetInstance().Updateable<UploadData>()
-                                           .AS("UploadData")
-                                           .SetColumns(u => u.IsReupload == true)
-                                           .Where(u => u.SFC == sfc)
-                                           .ExecuteCommand();
+                    resultCode = 0;
+                    return;
                 }
 
-                DbContext.GetInstance().Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
-                DbContext.GetInstance().Insertable(localDatas).AS("LocalData").ExecuteCommand();
-                if ((int)(output[0]) == 0)
+                List<object> inputs = new List<object>();
+
+                List<object> output = business.MesInvoke(inputs, _mesInterface);
+
+                if ((int)output[0] == 0)
                 {
                     resultCode = (int)output[0];
-                    if (output[2] as System.Collections.IEnumerable != null)
+                    if (output[2] is IEnumerable)
                     {
-                        foreach (var item in output[2] as System.Collections.IEnumerable)
+                        foreach (var item in output[2] as IEnumerable)
                         {
                             WriteResult(item.ToString());
                             message.Append($"调用mes接口[ReleaseSfcByShopOrder]释放条码[{item}]成功");
@@ -68,8 +55,7 @@ namespace RogerTech.BussnessCore.Bussness
                 else
                 {
                     resultCode = (int)output[0];
-                    message.Append($"调用mes接口[ReleaseSfcByShopOrder]释放条码失败MES代码[{output[0]}] MES信息[{output[1]}]");
-                    return;
+                    message.Append($"调用mes接口[ReleaseSfcByShopOrder]释放条码失败！MES代码：[{output[0]}] MES信息[{output[1]}]");
                 }
                 #endregion
             }
@@ -81,7 +67,7 @@ namespace RogerTech.BussnessCore.Bussness
             {
                 WriteResult(resultCode);
                 WriteFinishSignal(false);
-                Task.Run(() => { DbContext.Info(productId, message.ToString(), resultCode, PlcGroup.GroupName); });
+                Task.Run(() => { DbContext.Info(sfc, message.ToString(), resultCode, PlcGroup.GroupName); });
             }
         }
     }

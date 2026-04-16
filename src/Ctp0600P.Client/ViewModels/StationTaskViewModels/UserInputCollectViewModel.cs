@@ -1,25 +1,18 @@
-﻿using Ctp0600P.Client.Apis;
-using Ctp0600P.Client.Command.NoticeHelp.Enum;
-using Ctp0600P.Client.Command.NoticeHelp.Handle;
-using Ctp0600P.Client.CommonEntity;
-using Ctp0600P.Client.Protocols;
-using Ctp0600P.Client.Protocols.AnyLoad;
-
-using Ctp0600P.Client.Protocols.ScanCode.Models;
-using FutureTech.Mvvm;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
+using Ctp0600P.Client.Apis;
+using Ctp0600P.Client.Protocols;
+
+using FutureTech.Mvvm;
+
+using MediatR;
+
 using Yee.Common.Library.CommonEnum;
-using Yee.Common.Library.LogHelper;
 using Yee.Entitys.AlarmMgmt;
 using Yee.Entitys.DBEntity;
 using Yee.Entitys.DTOS;
@@ -271,7 +264,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
         {
             TaskUserInput.CreateUserID = App._RealtimePage.WorkingUserId;
             TaskUserInput.CreateTime = DateTime.Now;
-            return await App._RealtimePage.SaveUserScanData(TaskUserInput,StationTaskDTO.StationTaskId);
+            return await App._RealtimePage.SaveUserInputData(TaskUserInput,StationTaskDTO.StationTaskId);
         }
 
 

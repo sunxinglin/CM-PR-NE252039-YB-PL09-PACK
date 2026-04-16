@@ -5,7 +5,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-	  <!--<AspNetCoreHostingModel>outofprocess</AspNetCoreHostingModel>-->
   </PropertyGroup>
   <ItemGroup>
     <None Update="log4net.config">
@@ -21,8 +20,5 @@
     <ProjectReference Include="..\Yee.Services\Yee.Services.csproj" />
     <ProjectReference Include="..\Yee.WebApi\Yee.WebApi.csproj" />
   </ItemGroup>
-  <ProjectExtensions>
-    <VisualStudio><UserProperties appsettings_1json__JsonSchema="" properties_4launchsettings_1json__JsonSchema="" /></VisualStudio>
-  </ProjectExtensions>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

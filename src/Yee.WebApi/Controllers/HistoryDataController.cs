@@ -1,20 +1,11 @@
 ﻿using AsZero.Core.Services.Repos;
 using AsZero.DbContexts;
-using Ctp0600P.Shared.NotificationDTO;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Yee.Common.Library.CommonEnum;
-using Yee.Entitys.CommonEntity;
-using Yee.Entitys.DBEntity;
-using Yee.Entitys.DTOS;
-using Yee.Services.AGV;
+
 using Yee.Services.HistoryData;
-using Yee.Services.Production;
-using Yee.Services.ProductionRecord;
-using Yee.Services.Request;
-using Yee.WebApi.MessageHandlers;
 
 namespace Yee.WebApi.Controllers.BaseData
 {

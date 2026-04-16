@@ -1,11 +1,9 @@
 ﻿using AsZero.Core.Services.Repos;
+
 using Microsoft.AspNetCore.Mvc;
-using Yee.Entitys.DBEntity;
+
 using Yee.Entitys.DBEntity.ProductionRecords;
-using Yee.Entitys.DTOS;
-using Yee.Entitys.Production;
 using Yee.Services.Production;
-using Yee.Services.Request;
 
 namespace Yee.WebApi.Controllers.BaseData
 {

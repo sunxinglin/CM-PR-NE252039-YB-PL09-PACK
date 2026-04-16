@@ -1,7 +1,9 @@
-﻿using FutureTech.Dal.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+using FutureTech.Dal.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AsZero.Core.Entities
 {

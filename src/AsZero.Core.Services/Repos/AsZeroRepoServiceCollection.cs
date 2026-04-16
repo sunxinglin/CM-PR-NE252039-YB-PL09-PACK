@@ -1,5 +1,6 @@
 ﻿using FutureTech.Dal;
 using FutureTech.Dal.Repository;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AsZero.Core.Services.Repos

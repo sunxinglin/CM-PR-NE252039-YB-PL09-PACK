@@ -1,6 +1,8 @@
 ﻿using AsZero.Core.Services.Repos;
 using AsZero.DbContexts;
+
 using Microsoft.AspNetCore.Mvc;
+
 using Yee.Entitys.Production;
 using Yee.Services.BaseData;
 using Yee.Services.Production;
@@ -77,7 +79,7 @@ namespace Yee.WebApi.Controllers.BaseData
             {
                 if (!await _stepService.HasCode(obj.Code))
                 {
-                    var user = Request.Cookies.Where(p => p.Key == "SET_NAME").First().Value.ToString();
+                    var user = Request.Cookies.First(p => p.Key == "SET_NAME").Value.ToString();
                     var newObj = await _stepService.Add(obj, user);
 
                     result.Result = newObj;
@@ -110,7 +112,7 @@ namespace Yee.WebApi.Controllers.BaseData
             var result = new Response<Base_Step>();
             try
             {
-                var user = Request.Cookies.Where(p => p.Key == "SET_NAME").First().Value.ToString();
+                var user = Request.Cookies.First(p => p.Key == "SET_NAME").Value.ToString();
                 var res = await _stepService.Update(obj, user);
                 result.Result = res;
             }
@@ -134,7 +136,7 @@ namespace Yee.WebApi.Controllers.BaseData
             {
                 foreach (var Id in input.Ids)
                 {
-                    var user = Request.Cookies.Where(p => p.Key == "SET_NAME").First().Value.ToString();
+                    var user = Request.Cookies.First(p => p.Key == "SET_NAME").Value.ToString();
                     var step = await _stepService.GetById(Id);
                     if (step != null)
                     {
@@ -153,16 +155,6 @@ namespace Yee.WebApi.Controllers.BaseData
                             result.Message = $"当前工序{step.Code},存在关联工位,请先删除工位!";
                             return result;
                         }
-                        //else
-                        //{
-                        //    var resource = await this._proResourceService.GetProResourceByStepId(Id);
-                        //    if (resource.Count > 0)
-                        //    {
-                        //        result.Code = 500;
-                        //        result.Message = $"当前工序{step.Code},存在设备资源,请先删除资源!";
-                        //        return result;
-                        //    }
-                        //}
 
                         await _stepService.Delete(step, user);
                     }

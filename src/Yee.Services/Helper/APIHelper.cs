@@ -1,22 +1,12 @@
 ﻿using AsZero.Core.Services.Repos;
+
 using Ctp0600P.Shared;
-using Microsoft.Extensions.Logging;
+
 using Microsoft.Extensions.Options;
+
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Yee.Common.Library.CommonEnum;
-using Yee.Entitys.CommonEntity;
-using Yee.Entitys.DBEntity;
+
 using Yee.Entitys.DTOS;
-using Yee.Entitys.Production;
 
 namespace Yee.Services.Helper
 {
@@ -33,7 +23,7 @@ namespace Yee.Services.Helper
             this.configuration = configuration;
         }
 
-        public async Task<BingagvResponse> BindAgv(BingAgvDTO agv)
+        public async Task<BindAgvResponse> BindAgv(BindAgvDTO agv)
         {
             var ip = configuration.GetConnectionString("AGVServiceUrl");
             string content = HttpHelper.PostJson($"{ip}/api/AgvMES/MesBind", JsonConvert.SerializeObject(
@@ -46,12 +36,15 @@ namespace Yee.Services.Helper
                      HolderBarCode = string.IsNullOrEmpty(agv.HolderBarCode) ? agv.PackPN : agv.HolderBarCode
                  }
                 ));
-            if (string.IsNullOrEmpty(content)) return null;
-            var result = JsonConvert.DeserializeObject<BingagvResponse>(content);
+            if (string.IsNullOrEmpty(content))
+            {
+                return null;
+            }
+            var result = JsonConvert.DeserializeObject<BindAgvResponse>(content);
             return result;
         }
 
-        public async Task<BingagvResponse> BindAgv_JT(BingAgvDTO agv)
+        public async Task<BindAgvResponse> BindAgv_JT(BindAgvDTO agv)
         {
             var ip = configuration.GetConnectionString("AGVServiceUrl");
             //string content = HttpHelper.PostJson($"{ip}/IDataInterface/AGVMaterialBindingToAGV", JsonConvert.SerializeObject(
@@ -75,7 +68,7 @@ namespace Yee.Services.Helper
                  }
                 ));
             if (string.IsNullOrEmpty(content)) return null;
-            var result = JsonConvert.DeserializeObject<BingagvResponse>(content);
+            var result = JsonConvert.DeserializeObject<BindAgvResponse>(content);
             if (result.Message == agv.PackPN)
                 result.Success = true;
             if(agv.State == BingAgvStateEnum.解绑)
@@ -83,7 +76,7 @@ namespace Yee.Services.Helper
             return result;
         }
 
-        public async Task<BingagvResponse> RunAgv(string agvCode, int releaseType)
+        public async Task<BindAgvResponse> RunAgv(string agvCode, int releaseType)
         {
             var ip = configuration.GetConnectionString("AGVServiceUrl");
             string content = HttpHelper.PostJson($"{ip}/api/AgvMES/ReleaseAGV", JsonConvert.SerializeObject(
@@ -95,7 +88,7 @@ namespace Yee.Services.Helper
                 ));
             if (string.IsNullOrEmpty(content)) return null;
 
-            var result = JsonConvert.DeserializeObject<BingagvResponse>(content);
+            var result = JsonConvert.DeserializeObject<BindAgvResponse>(content);
             _logger.LogInformation($"放行AGV返回{content}");
             return result;
         }

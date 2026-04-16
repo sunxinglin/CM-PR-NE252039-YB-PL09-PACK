@@ -1,5 +1,4 @@
 ﻿using AsZero.Core.Services.Messages;
-using System.Threading.Tasks;
 
 namespace Yee.Services.Hubs
 {

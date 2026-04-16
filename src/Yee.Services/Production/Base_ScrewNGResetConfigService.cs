@@ -1,6 +1,8 @@
 ﻿using AsZero.Core.Services.Repos;
 using AsZero.DbContexts;
+
 using Microsoft.EntityFrameworkCore;
+
 using Yee.Entitys.DBEntity.Production;
 using Yee.Entitys.Request;
 using Yee.Entitys.Response;
@@ -66,8 +68,6 @@ namespace Yee.Services.ProductionRecord
                 StepId = request.StepId,
                 SingleScrewResetNum = request.SingleScrewResetNum,
                 RoleIds = string.Join(",", request.RoleIdArray),
-                CreateTime = DateTime.Now,
-                IsDeleted = false
             };
 
             await _dbContext.AddAsync(item);

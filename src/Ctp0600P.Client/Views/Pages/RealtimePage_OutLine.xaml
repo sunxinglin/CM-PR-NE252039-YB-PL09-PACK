@@ -1,32 +1,54 @@
-﻿<local:RealTimeCommonPage x:Class="Ctp0600P.Client.Views.Pages.RealtimePage_OutLine"
-                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                          xmlns:app="clr-namespace:Ctp0600P.Client"
-                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                          xmlns:local="clr-namespace:Ctp0600P.Client.Views.Pages"
-                          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                          xmlns:uc="clr-namespace:Ctp0600P.Client.UserControls"
-                          xmlns:viewmodels="clr-namespace:Ctp0600P.Client.ViewModels"
-                          xmlns:wcu="clr-namespace:AsZero.Wpf.Common.UserControls;assembly=AsZero.Wpf.Common"
-                          Title="RealtimePage"
-                          d:DataContext="{d:DesignInstance Type=viewmodels:RealtimePageViewModel}"
-                          d:DesignHeight="850"
-                          d:DesignWidth="1000"
-                          Background="#FFFFFF"
-                          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-                          mc:Ignorable="d">
+<local:RealTimeCommonPage
+    x:Class="Ctp0600P.Client.Views.Pages.RealtimePage_OutLine"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="clr-namespace:Ctp0600P.Client"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Ctp0600P.Client.Views.Pages"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rwc="clr-namespace:Ctp0600P.Client.UserControls"
+    xmlns:uc="clr-namespace:Ctp0600P.Client.UserControls"
+    xmlns:viewmodels="clr-namespace:Ctp0600P.Client.ViewModels"
+    xmlns:wcu="clr-namespace:AsZero.Wpf.Common.UserControls;assembly=AsZero.Wpf.Common"
+    Title="RealtimePage"
+    d:DataContext="{d:DesignInstance Type=viewmodels:RealtimePageViewModel}"
+    d:DesignHeight="850"
+    d:DesignWidth="1000"
+    Background="#FFF"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d">
+
+    <local:RealTimeCommonPage.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </local:RealTimeCommonPage.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
+            <!--  主要操作区  -->
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="250" />
+            <!--  日志报警区  -->
+            <ColumnDefinition Width="275" />
         </Grid.ColumnDefinitions>
 
         <Grid>
             <Grid.RowDefinitions>
+                <!--  PLC监控区  -->
+                <RowDefinition Height="50" />
+                <!--  工作面板  -->
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <!--  PLC监控区  -->
+            <StackPanel Grid.Row="0" Grid.RowSpan="2">
+                <Expander Background="AliceBlue">
+                    <Expander.Header>
+                        <rwc:PLC01MonitorHeaderView DataContext="{Binding PLC01MonitorViewModel.Value}" />
+                    </Expander.Header>
+                    <Expander.Content>
+                        <rwc:PLC01MonitorView DataContext="{Binding PLC01MonitorViewModel.Value}" />
+                    </Expander.Content>
+                </Expander>
+            </StackPanel>
 
             <!--  工作面板  -->
             <Grid Grid.Row="1">
@@ -37,11 +59,12 @@
                 </Grid.ColumnDefinitions>
 
                 <ScrollViewer x:Name="leftScroll">
-                    <ListBox Margin="0"
-                             HorizontalContentAlignment="Stretch"
-                             VerticalContentAlignment="Top"
-                             ItemContainerStyle="{StaticResource ListItemNullFocusContainerStyle}"
-                             ItemsSource="{Binding Path=StationTaskLeftTagDataList}">
+                    <ListBox
+                        Margin="0"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Top"
+                        ItemContainerStyle="{StaticResource ListItemNullFocusContainerStyle}"
+                        ItemsSource="{Binding Path=StationTaskLeftTagDataList}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -49,42 +72,44 @@
                                         <RowDefinition Height="40" />
                                         <RowDefinition Height="5" />
                                     </Grid.RowDefinitions>
-                                    <Border Grid.Row="0"
-                                            Height="35"
-                                            Margin="0"
-                                            d:Background="AliceBlue"
-                                            Background="{Binding BackBrush}"
-                                            CornerRadius="3">
+                                    <Border
+                                        Grid.Row="0"
+                                        Height="35"
+                                        Margin="0"
+                                        d:Background="AliceBlue"
+                                        Background="{Binding BackBrush}"
+                                        CornerRadius="3">
                                         <Border.Effect>
-                                            <DropShadowEffect BlurRadius="10"
-                                                              Opacity="0.7"
-                                                              RenderingBias="Performance"
-                                                              ShadowDepth="4"
-                                                              Color="Black" />
+                                            <DropShadowEffect
+                                                BlurRadius="10"
+                                                Opacity="0.7"
+                                                RenderingBias="Performance"
+                                                ShadowDepth="4"
+                                                Color="Black" />
                                         </Border.Effect>
 
-                                        <TextBlock HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   FontSize="11"
-                                                   FontWeight="Bold"
-                                                   Text="{Binding Header}"
-                                                   TextWrapping="Wrap" />
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="11"
+                                            FontWeight="Bold"
+                                            Text="{Binding Header}"
+                                            TextWrapping="Wrap" />
                                     </Border>
-                                    <Path Grid.Row="1"
-                                          HorizontalAlignment="Center"
-                                          Fill="LightBlue"
-                                          Stroke="Black"
-                                          StrokeThickness="0"
-                                          Visibility="{Binding NeedShow}">
+                                    <Path
+                                        Grid.Row="1"
+                                        HorizontalAlignment="Center"
+                                        Fill="LightBlue"
+                                        Stroke="Black"
+                                        StrokeThickness="0"
+                                        Visibility="{Binding NeedShow}">
                                         <Path.Data>
                                             <PathGeometry>
                                                 <PathGeometry.Figures>
                                                     <PathFigure IsClosed="True">
                                                         <LineSegment Point="0,0" />
                                                         <LineSegment Point="20,0" />
-
                                                         <LineSegment Point="10,5" />
-
                                                     </PathFigure>
                                                 </PathGeometry.Figures>
                                             </PathGeometry>
@@ -115,103 +140,148 @@
                     <Grid Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="79*" />
+                            <ColumnDefinition Width="196*" />
                             <ColumnDefinition Width="120" />
                             <ColumnDefinition Width="60" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Margin="0,7,0,0"
-                                   VerticalAlignment="Center"
-                                   FontSize="18"
-                                   Text="条码："
-                                   TextAlignment="Right" />
-                        <TextBlock Grid.Column="1"
-                                   Margin="10,7,0,0"
-                                   VerticalAlignment="Center"
-                                   FontSize="18"
-                                   FontWeight="Bold"
-                                   Foreground="DarkGreen"
-                                   Text="{Binding Source={x:Static app:App.Current}, Path=PackBarCode, UpdateSourceTrigger=PropertyChanged}"
-                                   TextAlignment="Left" />
-                        <TextBlock Grid.Column="2"
-                                   Margin="0,0,0,0"
-                                   VerticalAlignment="Center"
-                                   FontSize="18"
-                                   FontWeight="Bold"
-                                   Foreground="Blue"
-                                   Text="耗时(S)："
-                                   TextAlignment="Right" />
-                        <TextBlock Name="timeUsed"
-                                   Grid.Column="3"
-                                   Margin="10,0,0,0"
-                                   VerticalAlignment="Center"
-                                   FontSize="18"
-                                   FontWeight="Bold"
-                                   Foreground="DarkGreen"
-                                   Text="{Binding CurrentPackUsedTime, UpdateSourceTrigger=PropertyChanged}"
-                                   TextAlignment="Left" />
+                        <TextBlock
+                            Margin="0,12,0,0"
+                            VerticalAlignment="Top"
+                            FontSize="18"
+                            Text="条码："
+                            TextAlignment="Right" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            Margin="10,12,0,0"
+                            VerticalAlignment="Top"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Foreground="DarkGreen"
+                            Text="{Binding Source={x:Static app:App.Current}, Path=PackBarCode, UpdateSourceTrigger=PropertyChanged}"
+                            TextAlignment="Left" />
+                        <TextBlock
+                            Grid.Column="3"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Foreground="Blue"
+                            Text="耗时(S)："
+                            TextAlignment="Right" />
+                        <TextBlock
+                            Name="timeUsed"
+                            Grid.Column="4"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Foreground="DarkGreen"
+                            Text="{Binding CurrentPackUsedTime, UpdateSourceTrigger=PropertyChanged}"
+                            TextAlignment="Left" />
                     </Grid>
 
 
-
-                    <StackPanel Grid.Row="2"
-                                Grid.ColumnSpan="2"
-                                HorizontalAlignment="Center"
-                                Orientation="Horizontal">
+                    <StackPanel
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
                         <StackPanel.Resources>
                             <Style BasedOn="{StaticResource MaterialDesignFlatMidBgButton}" TargetType="Button">
                                 <Setter Property="Margin" Value="20,0,0,0" />
                             </Style>
                         </StackPanel.Resources>
-                        <Button x:Name="rework"
-                                Width="90"
-                                Height="45"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Click="Button_Click_ReWork"
-                                Content="返工设置"
-                                Cursor="Hand" />
+                        <Button
+                            x:Name="rework"
+                            Width="90"
+                            Height="45"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Click="Button_Click_ReWork"
+                            Content="返工设置"
+                            Cursor="Hand" />
                         <!--<Button Name="bingagv" Content="AGV绑定" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="90" Height="45" Command="{Binding Bingagv}" Cursor="Hand" />-->
-                        <Button Name="pageInit"
-                                Width="90"
-                                Height="45"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Command="{Binding InitPage}"
-                                Content="初始化"
-                                Cursor="Hand" />
-                        <Button Name="skipStep"
-                                Width="90"
-                                Height="45"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Command="{Binding SkipStep}"
-                                Content="跳步"
-                                Cursor="Hand" />
-                        <Button Name="uploadAgain"
-                                Width="90"
-                                Height="45"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Command="{Binding UploadAgain}"
-                                Content="数据重传"
-                                Cursor="Hand" />
-                        <!--<Button Content="拧紧1" HorizontalAlignment="Center" Background="Black"  VerticalAlignment="Top" Width="80" Height="45" Click="Button_Click_Scan2" />-->
-                        <!--<Button Content="扫码1" HorizontalAlignment="Center"  Background="Black" VerticalAlignment="Top" Width="80" Height="45" Click="Button_Click_Scan4"/>-->
-                        <!--<Button Content="扫码4" HorizontalAlignment="Center"  Background="Black" VerticalAlignment="Top" Width="80" Height="45" Click="Button_Click_Scan1"/>-->
+                        <Button
+                            Name="pageInit"
+                            Width="90"
+                            Height="45"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Command="{Binding InitPage}"
+                            Content="初始化"
+                            Cursor="Hand" />
+                        <Button
+                            Name="skipStep"
+                            Width="90"
+                            Height="45"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Command="{Binding SkipStep}"
+                            Content="跳步"
+                            Cursor="Hand" />
+                        <Button
+                            Name="uploadAgain"
+                            Width="90"
+                            Height="45"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Command="{Binding UploadAgain}"
+                            Content="数据重传"
+                            Cursor="Hand" />
+                        <!--  测试用按钮（由 StepSetting:IsDebug 控制显示/隐藏）  -->
+                        <Button
+                            Width="80"
+                            Height="45"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Background="Black"
+                            Click="ScanCodeBtnTest"
+                            Content="扫码"
+                            Visibility="{Binding Source={x:Static app:App._StepStationSetting}, Path=IsDebug, Converter={StaticResource BoolToVis}}" />
+                        <Button
+                            Width="80"
+                            Height="45"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Background="Black"
+                            Click="ScrewBtnTest"
+                            Content="拧紧"
+                            Visibility="{Binding Source={x:Static app:App._StepStationSetting}, Path=IsDebug, Converter={StaticResource BoolToVis}}" />
+                        <Button
+                            Width="80"
+                            Height="45"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Background="Black"
+                            Click="ResetBtnTest"
+                            Content="复位"
+                            Visibility="{Binding Source={x:Static app:App._StepStationSetting}, Path=IsDebug, Converter={StaticResource BoolToVis}}" />
+                        <Button
+                            Width="80"
+                            Height="45"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Background="Black"
+                            Click="LetGoBtnTest"
+                            Content="放行"
+                            Visibility="{Binding Source={x:Static app:App._StepStationSetting}, Path=IsDebug, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
 
-                    <TabControl x:Name="tabcontrol"
-                                Grid.Row="1"
-                                Grid.ColumnSpan="2"
-                                Padding="0"
-                                BorderThickness="0"
-                                ItemsSource="{Binding StationTaskDataList}"
-                                SelectedIndex="{Binding SelectedIndex}">
+                    <TabControl
+                        x:Name="tabcontrol"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Padding="0"
+                        BorderThickness="0"
+                        ItemsSource="{Binding StationTaskDataList}"
+                        SelectedIndex="{Binding SelectedIndex}">
                         <TabControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Height="30"
-                                            Margin="0"
-                                            Orientation="Horizontal">
+                                <StackPanel
+                                    Height="30"
+                                    Margin="0"
+                                    Orientation="Horizontal">
                                     <TextBlock Margin="0" Text="{Binding Header}" />
                                 </StackPanel>
                             </DataTemplate>
@@ -239,22 +309,25 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <GroupBox Margin="0,5,5,5"
-                      materialDesign:ColorZoneAssist.Background="Black"
-                      materialDesign:ColorZoneAssist.Foreground="White"
-                      materialDesign:ColorZoneAssist.Mode="Custom"
-                      Style="{DynamicResource MaterialDesignGroupBox}">
+            <GroupBox
+                Margin="0,5,5,5"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                Style="{DynamicResource MaterialDesignGroupBox}">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Width="20"
-                                                     Height="20"
-                                                     VerticalAlignment="Center"
-                                                     Kind="TelevisionGuide" />
-                            <TextBlock Margin="8,0,0,0"
-                                       FontSize="20"
-                                       Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                       Text="报警日志" />
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
+                                VerticalAlignment="Center"
+                                Kind="TelevisionGuide" />
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                FontSize="20"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                Text="报警日志" />
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
@@ -273,34 +346,38 @@
                         <Setter Property="Width" Value="100" />
                     </Style>
                 </GroupBox.Resources>
-                <ScrollViewer Grid.Row="1"
-                              Grid.Column="1"
-                              wcu:Helper.AutoScroll="{Binding IsAlarmsChanged}"
-                              Background="Azure"
-                              HorizontalScrollBarVisibility="Auto"
-                              VerticalScrollBarVisibility="Auto">
+                <ScrollViewer
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    wcu:Helper.AutoScroll="{Binding IsAlarmsChanged}"
+                    Background="Azure"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
                     <!--<wcu:AlarmMessageUserControl DataContext="{Binding AlarmLogs}" ></wcu:AlarmMessageUserControl>-->
                     <uc:AlarmUserControl DataContext="{Binding Alarms}" />
                 </ScrollViewer>
             </GroupBox>
 
-            <GroupBox Grid.Row="1"
-                      Margin="0,5,5,5"
-                      materialDesign:ColorZoneAssist.Background="Black"
-                      materialDesign:ColorZoneAssist.Foreground="White"
-                      materialDesign:ColorZoneAssist.Mode="Custom"
-                      Style="{DynamicResource MaterialDesignGroupBox}">
+            <GroupBox
+                Grid.Row="1"
+                Margin="0,5,5,5"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                Style="{DynamicResource MaterialDesignGroupBox}">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Width="20"
-                                                     Height="20"
-                                                     VerticalAlignment="Center"
-                                                     Kind="TelevisionGuide" />
-                            <TextBlock Margin="8,0,0,0"
-                                       FontSize="20"
-                                       Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                       Text="日志消息" />
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
+                                VerticalAlignment="Center"
+                                Kind="TelevisionGuide" />
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                FontSize="20"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                Text="日志消息" />
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
@@ -319,12 +396,13 @@
                         <Setter Property="Width" Value="100" />
                     </Style>
                 </GroupBox.Resources>
-                <ScrollViewer Grid.Row="3"
-                              Grid.Column="1"
-                              wcu:Helper.AutoScroll="{Binding IsLogsChanged}"
-                              Background="Azure"
-                              HorizontalScrollBarVisibility="Auto"
-                              VerticalScrollBarVisibility="Auto">
+                <ScrollViewer
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    wcu:Helper.AutoScroll="{Binding IsLogsChanged}"
+                    Background="Azure"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
                     <wcu:LogMessageUserControl DataContext="{Binding Logs}" />
                 </ScrollViewer>
             </GroupBox>

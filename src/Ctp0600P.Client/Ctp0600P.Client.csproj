@@ -19,6 +19,9 @@
     <DebugType>portable</DebugType>
     <Optimize>True</Optimize>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+      <DefineConstants>DEBUG_MULTI_INSTANCE</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Converters\**" />
     <EmbeddedResource Remove="Converters\**" />
@@ -112,10 +115,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <!--<ItemGroup>
-    <PackageReference Include="System.Management" Version="6.0.0" />
-    <PackageReference Include="XamlAnimatedGif" Version="2.0.2" />
-  </ItemGroup>-->
   <ItemGroup>
     <ProjectReference Include="..\AsZero.Core.Services\AsZero.Core.Services.csproj" />
     <ProjectReference Include="..\AsZero.DbContexts\AsZero.DbContexts.csproj" />
@@ -206,10 +205,5 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties appsettings_1json__JsonSchema="" />
-    </VisualStudio>
-  </ProjectExtensions>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

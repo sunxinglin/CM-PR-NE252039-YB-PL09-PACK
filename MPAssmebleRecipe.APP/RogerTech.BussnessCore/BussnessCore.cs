@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-
-using RogerTech.Tool;
-using SqlSugar;
 using RogerTech.Common;
+
 namespace RogerTech.BussnessCore
 {
     public class BussnessCore
@@ -20,12 +14,12 @@ namespace RogerTech.BussnessCore
             //初始化数据库
             BussnessDic = new BussnessDic();
             this.PlcComm = new PlcCommucation(BussnessDic.PlcGroups, BussnessDic.PlcServer);
-            this.PlcComm.PlcTriggerChanged += new EventHandler<PlcCommArgs>(TriggerChanged);
-     
+            this.PlcComm.PlcTriggerChanged += TriggerChanged;
+            this.PlcComm.UserChanged += UserChanged;
 
-            DbContext.ProgressErrorChange += new Action<string>(ProgressErrorChange);
-            DbContext.ProgressInfoChange += new Action(ProgressInfoChange);
-      
+            DbContext.ProgressErrorChange += ProgressErrorChange;
+            DbContext.ProgressInfoChange += ProgressInfoChange;
+
         }
 
         private void ProgressInfoChange()
@@ -40,15 +34,59 @@ namespace RogerTech.BussnessCore
 
         public Action<string, string> InfoChanged;
         public Action<string, string> ErrorOccured;
- 
 
-        private void TriggerChanged(object sender, PlcCommArgs e)
-        {         
-            ThreadPool.QueueUserWorkItem(OnTriggerChange, e);
+
+        private void UserChanged(object sender, PlcCommArgs e)
+        {
+            ThreadPool.QueueUserWorkItem(OnUserChange, e);
         }
 
+        private void TriggerChanged(object sender, PlcCommArgs e)
+        {
+            ThreadPool.QueueUserWorkItem(OnTriggerChange, e);
+        }
+        private void OnUserChange(object obj)
+        {
+            PlcCommArgs e = (PlcCommArgs)obj;
+            if (BussnessDic.ProcessDics.ContainsKey(e.PlcGroup.GroupName))
+            {
+                string result = string.Empty;
+                try
+                {
+                    result = (string)e.TagValue;
+                }
+                catch (Exception)
+                {
+                    ErrorOccured(e.PlcGroup.GroupName, "无法将PLC请求值转换为string类型");
+                }
+                if (string.IsNullOrEmpty(result))
+                    return;
+                IPlcInProcess plcProgress = BussnessDic.ProcessDics[e.PlcGroup.GroupName];
+                if (plcProgress.ActionChanged?.GetInvocationList().Length > 0)
+                {
+
+                }
+                else
+                {
+                    plcProgress.ActionChanged += PlcActionChange;
+                }
+
+                if (plcProgress.ErrorOccured?.GetInvocationList().Length > 0)
+                {
+
+                }
+                else
+                {
+                    plcProgress.ErrorOccured += PlcErrorOccured;
+                }
+                plcProgress.Execute(e.PlcGroup);
+
+            }
+        }
+
+
         private void OnTriggerChange(object obj)
-        {         
+        {
             PlcCommArgs e = (PlcCommArgs)obj;
             if (BussnessDic.ProcessDics.ContainsKey(e.PlcGroup.GroupName))
             {
@@ -70,7 +108,7 @@ namespace RogerTech.BussnessCore
                 }
                 else
                 {
-                    plcProgress.ActionChanged += new Action<string, string>(PlcActionChange);
+                    plcProgress.ActionChanged += PlcActionChange;
                 }
 
                 if (plcProgress.ErrorOccured?.GetInvocationList().Length > 0)
@@ -79,9 +117,9 @@ namespace RogerTech.BussnessCore
                 }
                 else
                 {
-                    plcProgress.ErrorOccured += new Action<string, string>(PlcErrorOccured);
+                    plcProgress.ErrorOccured += PlcErrorOccured;
                 }
-                plcProgress.Excute(e.PlcGroup);
+                plcProgress.Execute(e.PlcGroup);
 
             }
         }

@@ -1,12 +1,7 @@
 ﻿using AsZero.Core.Entities;
 using AsZero.DbContexts;
+
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AsZero.Core.Services
 {

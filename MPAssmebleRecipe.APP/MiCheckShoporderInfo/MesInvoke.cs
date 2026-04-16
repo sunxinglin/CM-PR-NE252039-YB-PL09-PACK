@@ -33,13 +33,15 @@ namespace MiCheckShoporderInfo
             webservice.PreAuthenticate = true;
             miCheckShoporderInfoRequest Requst = new miCheckShoporderInfoRequest();
             Requst.site = model.SiteField;
-            Requst.resource = model.ResourceField;          
+            Requst.resource = model.ResourceField;
 
             miCheckShoporder Requst1 = new miCheckShoporder();
             Requst1.Request = Requst;
             int retCode = 111;
             string errMsg = string.Empty;
-        
+            string parentOrderField = string.Empty;
+            string plannedItemField = string.Empty;
+           List<subShopOrderDataArray> subShopOrderDataArrayField =new List<subShopOrderDataArray>();
             try
             {
 
@@ -72,6 +74,9 @@ namespace MiCheckShoporderInfo
                                 //将中英文均显示
                                 errMsg += "\r\n";
                                 errMsg += response.@return.message;
+                                parentOrderField = response.@return.parentOrder;
+                                plannedItemField = response.@return.plannedItem;
+                                subShopOrderDataArrayField = response.@return.subShopOrderDataArray.ToList();
                             }
                         }
                         else
@@ -106,7 +111,10 @@ namespace MiCheckShoporderInfo
             {
                 Strb_Log.Append("返回代码").Append(",").Append(retCode).Append(",").Append("返回信息").Append(",").Append(errMsg).Append(",").Append("\r\n");
                 ReturnResult.Add(retCode);
-                ReturnResult.Add(errMsg);            
+                ReturnResult.Add(errMsg);
+                ReturnResult.Add(plannedItemField);
+                ReturnResult.Add(parentOrderField);
+                ReturnResult.Add(subShopOrderDataArrayField);
             }
             try
             {

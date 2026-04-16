@@ -1,6 +1,4 @@
 ﻿
-using Catl.WebServices.MICheckSFCStatusEx;
-
 namespace Ctp0600P.Shared.CatlMes
 {
 

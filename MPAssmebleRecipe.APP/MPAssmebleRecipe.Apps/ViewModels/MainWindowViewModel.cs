@@ -67,7 +67,7 @@ namespace MPAssmebleRecipe.Apps.ViewModels
             }
         }
         public  BussnessCore BussnessCore;
-        Server plc = Server.GetInstace();
+        Server plc = Server.GetInstance();
         private void IniPlcConnet()
         {
 //            #region Plc添加

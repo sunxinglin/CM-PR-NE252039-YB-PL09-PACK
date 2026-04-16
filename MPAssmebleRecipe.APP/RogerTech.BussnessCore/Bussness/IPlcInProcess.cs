@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RogerTech.Tool;
 using log4net;
+using RogerTech.Tool;
 
 namespace RogerTech.BussnessCore
 {
@@ -17,6 +13,6 @@ namespace RogerTech.BussnessCore
         Action<string,string> ActionChanged { get; set; }
         Action<string,string> ErrorOccured { get; set; }
 
-        void Excute(Group group);
+        void Execute(Group group);
     }
 }

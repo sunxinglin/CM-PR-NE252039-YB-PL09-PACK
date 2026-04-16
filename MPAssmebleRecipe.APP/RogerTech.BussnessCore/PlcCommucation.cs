@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RogerTech.Tool;
 using System.Threading;
+using System.Threading.Tasks;
 using RogerTech.Common;
+using RogerTech.Tool;
 
 namespace RogerTech.BussnessCore
 {
@@ -13,7 +12,7 @@ namespace RogerTech.BussnessCore
     {
         //定义触发器变化事件
         public EventHandler<PlcCommArgs> PlcTriggerChanged;
-
+        public EventHandler<PlcCommArgs> UserChanged;
         public EventHandler ConnectedChangd;
 
         Dictionary<int, Group> GroupDic = new Dictionary<int, Group>();
@@ -29,6 +28,10 @@ namespace RogerTech.BussnessCore
             this.Groups = groups;
             triggersTemp = new List<object>();
             triggers = new List<Tag>();
+            CardIdTemp = new List<object>();
+            cardId = new List<Tag>();
+
+
             heartBeats = new List<Tag>();
             //一个线程刷新变量值
             foreach (var group in Groups)
@@ -46,6 +49,12 @@ namespace RogerTech.BussnessCore
                         heartBeats.Add(tag);
                         GroupDic.Add(tag.GetHashCode(), group);
                     }
+                    if (tag.TagName.Contains("UserCardId"))
+                    {
+                        cardId.Add(tag);
+                        CardIdTemp.Add(new object());
+                        GroupDic.Add(tag.GetHashCode(), group);
+                    }
 
                 }
             }
@@ -53,7 +62,7 @@ namespace RogerTech.BussnessCore
 
             Task.Run(() => PlcTagMonitor());
             Task.Run(() => PlcCommonTag());
-            
+
         }
         List<object> triggersTemp;
         List<Tag> triggers;
@@ -61,6 +70,9 @@ namespace RogerTech.BussnessCore
         bool isFirstCycle = true;
         bool heartBeatFlag;
         bool conntcted = false;
+
+        List<object> CardIdTemp;
+        List<Tag> cardId;
 
         public bool Connected
         {
@@ -79,11 +91,11 @@ namespace RogerTech.BussnessCore
         }
         public void PlcTagMonitor()
         {
-            DbContext.Info("心跳", $"系统连接中:PLC IP：{string.Join(",", PlcServer.Connections.Select(c => c.IP))}", 9999, "全部日志");
+            DbContext.Info("心跳", $"系统重启,连接中:PLC IP：{string.Join(",", PlcServer.Connections.Select(c => c.IP))}", 9999, "全部日志");
 
             while (true)
             {
-                
+
                 try
                 {
                     if (conntcted != Connected)
@@ -92,14 +104,12 @@ namespace RogerTech.BussnessCore
                         if (!conntcted)
                         {
                             DbContext.Error("心跳", $"系统连接失败：PLC IP：{string.Join(",", PlcServer.Connections.Select(c => c.IP))}", 9999, "全部日志");
-
                         }
                         else
                         {
                             DbContext.Info("心跳", $"系统已连接：PLC IP：{string.Join(",", PlcServer.Connections.Select(c => c.IP))}", 9999, "全部日志");
-
                         }
-                        ConnectedChangd?.Invoke(this, new EventArgs());
+                        ConnectedChangd?.Invoke(this, EventArgs.Empty);
                     }
                     if (!Connected)
                     {
@@ -123,10 +133,23 @@ namespace RogerTech.BussnessCore
                                 }
 
                             }
+                            for (int i = 0; i < cardId.Count; i++)
+                            {
+                                if (cardId[i].Result.Available)
+                                {
+                                    CardIdTemp[i] = cardId[i].Result.Value.ToString();
+                                }
+                                else
+                                {
+                                    isFirstCycle = true;
+                                    continue;
+                                }
+
+                            }
                         }
                         else
                         {
-                            ProcesTagChange();
+                            ProcessTagChange();
                         }
                     }
                 }
@@ -172,7 +195,7 @@ namespace RogerTech.BussnessCore
             }
         }
 
-        private void ProcesTagChange()
+        private void ProcessTagChange()
         {
             for (int i = 0; i < triggers.Count; i++)
             {
@@ -186,8 +209,22 @@ namespace RogerTech.BussnessCore
                 {
                     triggersTemp[i] = triggers[i].Result.Value.ToString();
                 }
-            }
 
+            }
+            for (int i = 0; i < cardId.Count; i++)
+            {
+                if (CardIdTemp[i].ToString() != cardId[i].Result.Value.ToString())
+                {
+                    CardIdTemp[i] = cardId[i].Result.Value.ToString();
+                    UserChanged?.Invoke(this, new PlcCommArgs(GroupDic[cardId[i].GetHashCode()], cardId[i].Result.Value));
+
+                }
+                else
+                {
+                    CardIdTemp[i] = cardId[i].Result.Value.ToString();
+                }
+
+            }
 
         }
     }
