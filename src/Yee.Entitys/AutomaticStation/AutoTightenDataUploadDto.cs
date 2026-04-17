@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.DBEntity;
 
@@ -24,6 +25,11 @@ public class AutoTightenDataUploadDto
     public IList<AutoBlotInfo> TightenDatas { get; set; } = null!;
 }
 
+public enum TighteningResultOkFlag : short
+{
+    Ok = 1,
+    Ng = 2
+}
 
 public class AutoTighteningDataDto
 {
@@ -43,6 +49,8 @@ public sealed class TighteningResult
     public short ProgramNo { get; set; }
     public MesMeasuredValue TorqueResult { get; set; }
     public MesMeasuredValue AngleResult { get; set; }
+    [JsonIgnore]
+    public bool IsOk => ResultOK == (short)TighteningResultOkFlag.Ok;
 }
 
 public sealed class MesMeasuredValue

@@ -613,18 +613,22 @@ public class SaveStationDataService
         try
         {
             var q = from blotGunDetail in _dbContext.Proc_StationTask_BlotGunDetails
-                join blotGun in _dbContext.Proc_StationTask_BlotGuns on blotGunDetail.Proc_StationTask_BlotGunId equals blotGun.Id
-                where blotGun.StationTask_RecordId == recordId && blotGunDetail.ResultIsOK && !blotGun.IsDeleted && !blotGunDetail.IsDeleted
-                select blotGunDetail;
+                    join blotGun in _dbContext.Proc_StationTask_BlotGuns on blotGunDetail.Proc_StationTask_BlotGunId equals blotGun.Id
+                    where blotGun.StationTask_RecordId == recordId && blotGunDetail.ResultIsOK && !blotGun.IsDeleted && !blotGunDetail.IsDeleted
+                    select blotGunDetail;
             var boltGunData = await q.ToListAsync();
 
             var torqueData = boltGunData.Select(s => new DcParamValue
             {
-                DataType = ValueTypeEnum.NUMBER, ParamValue = s.FinalTorque.ToString(CultureInfo.InvariantCulture), UpMesCode = s.UploadCode ?? ""
+                DataType = ValueTypeEnum.NUMBER,
+                ParamValue = s.FinalTorque.ToString(CultureInfo.InvariantCulture),
+                UpMesCode = s.UploadCode ?? ""
             });
             var angleData = boltGunData.Select(s => new DcParamValue
             {
-                DataType = ValueTypeEnum.NUMBER, ParamValue = s.FinalAngle.ToString(CultureInfo.InvariantCulture), UpMesCode = s.UploadCode_JD ?? ""
+                DataType = ValueTypeEnum.NUMBER,
+                ParamValue = s.FinalAngle.ToString(CultureInfo.InvariantCulture),
+                UpMesCode = s.UploadCode_JD ?? ""
             });
 
             return torqueData.Concat(angleData).ToList().ToOkResult<IList<DcParamValue>, string>();
@@ -642,7 +646,9 @@ public class SaveStationDataService
             var scanAccountData = await _dbContext.Proc_StationTask_ScanAccountCards
                 .Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).Select(s => new DcParamValue
                 {
-                    DataType = ValueTypeEnum.TEXT, ParamValue = s.AccountValue!.ToString(), UpMesCode = s.UpMesCode!
+                    DataType = ValueTypeEnum.TEXT,
+                    ParamValue = s.AccountValue!.ToString(),
+                    UpMesCode = s.UpMesCode!
                 }).ToListAsync();
 
             return scanAccountData.Where(w => !string.IsNullOrEmpty(w.UpMesCode)).ToList()
@@ -661,7 +667,9 @@ public class SaveStationDataService
             var weightData = await _dbContext.Proc_StationTask_AnyLoads
                 .Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).Select(s => new DcParamValue
                 {
-                    DataType = ValueTypeEnum.NUMBER, ParamValue = s.WeightData.ToString(CultureInfo.InvariantCulture), UpMesCode = s.UpMesCode ?? ""
+                    DataType = ValueTypeEnum.NUMBER,
+                    ParamValue = s.WeightData.ToString(CultureInfo.InvariantCulture),
+                    UpMesCode = s.UpMesCode ?? ""
                 }).ToListAsync();
             return weightData.ToOkResult<IList<DcParamValue>, string>();
         }
@@ -677,7 +685,7 @@ public class SaveStationDataService
         {
             var userInputData = await _dbContext.Proc_StationTask_UserInputs
                 .Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).Select(s => new DcParamValue
-                    { DataType = ValueTypeEnum.NUMBER, ParamValue = s.UserInputData, UpMesCode = s.UpMesCode })
+                { DataType = ValueTypeEnum.NUMBER, ParamValue = s.UserInputData, UpMesCode = s.UpMesCode })
                 .ToListAsync();
             return userInputData.ToOkResult<IList<DcParamValue>, string>();
         }
@@ -693,7 +701,7 @@ public class SaveStationDataService
         {
             var userInputData = await _dbContext.Proc_StationTask_ScanCollects
                 .Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).Select(s => new DcParamValue
-                    { DataType = ValueTypeEnum.NUMBER, ParamValue = s.ScanCollectData, UpMesCode = s.UpMesCode })
+                { DataType = ValueTypeEnum.NUMBER, ParamValue = s.ScanCollectData, UpMesCode = s.UpMesCode })
                 .ToListAsync();
             return userInputData.ToOkResult<IList<DcParamValue>, string>();
         }
@@ -709,7 +717,7 @@ public class SaveStationDataService
         {
             var timeRecord = await _dbContext.Proc_StationTask_TimeRecords
                 .Where(w => !w.IsDeleted && w.Proc_StationTask_RecordId == recordId).Select(s => new DcParamValue
-                    { DataType = ValueTypeEnum.TEXT, ParamValue = s.TimeValue, UpMesCode = s.UploadMesCode })
+                { DataType = ValueTypeEnum.TEXT, ParamValue = s.TimeValue, UpMesCode = s.UploadMesCode })
                 .ToListAsync();
             return timeRecord.ToOkResult<IList<DcParamValue>, string>();
         }
@@ -725,7 +733,7 @@ public class SaveStationDataService
         {
             var timeRecord = await _dbContext.Proc_StationTask_CheckTimeouts
                 .Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).Select(s => new DcParamValue
-                    { DataType = ValueTypeEnum.NUMBER, ParamValue = s.Time.ToString(CultureInfo.InvariantCulture), UpMesCode = s.UpMesCode! })
+                { DataType = ValueTypeEnum.NUMBER, ParamValue = s.Time.ToString(CultureInfo.InvariantCulture), UpMesCode = s.UpMesCode! })
                 .ToListAsync();
             return timeRecord.ToOkResult<IList<DcParamValue>, string>();
         }
@@ -762,12 +770,14 @@ public class SaveStationDataService
                 .Where(w => !w.IsDeleted && w.StationTaskRecordId == record.Id && w.ResultOk).ToListAsync();
             var dcParamsTorqueR = tightenRework.Select(s => new DcParamValue
             {
-                DataType = ValueTypeEnum.NUMBER, ParamValue = s.TorqueValue.ToString(CultureInfo.InvariantCulture),
+                DataType = ValueTypeEnum.NUMBER,
+                ParamValue = s.TorqueValue.ToString(CultureInfo.InvariantCulture),
                 UpMesCode = s.UpMesCode
             }).ToList();
             var dcParamsAngleR = tightenRework.Select(s => new DcParamValue
             {
-                DataType = ValueTypeEnum.NUMBER, ParamValue = s.AngleValue.ToString(CultureInfo.InvariantCulture),
+                DataType = ValueTypeEnum.NUMBER,
+                ParamValue = s.AngleValue.ToString(CultureInfo.InvariantCulture),
                 UpMesCode = s.UpMesCodeJD
             }).ToList();
             #endregion
@@ -785,7 +795,7 @@ public class SaveStationDataService
                     JsonConvert.DeserializeObject<List<TighteningResult>>(external.TighteningResultJson) ??
                     new List<TighteningResult>();
 
-                foreach (var item in tighteningResults.Where(w => w.ResultOK == 1).OrderBy(o => o.OrderNo))
+                foreach (var item in tighteningResults.Where(w => w.IsOk).OrderBy(o => o.OrderNo))
                 {
                     if (!TryParseDecimal(item.TorqueResult?.TagValue, out var torque))
                     {
@@ -1302,159 +1312,159 @@ public class SaveStationDataService
     }
 
     public async Task<Response> SaveTightenByImageData(ScrewDataDTO dto)
+    {
+        var result = new Response();
+        using var trans = await _dbContext.Database.BeginTransactionAsync();
+        try
         {
-            var result = new Response();
-            using var trans = await _dbContext.Database.BeginTransactionAsync();
-            try
+            var main = await GetMainData(dto.MainId);
+            if (main == null)
             {
-                var main = await GetMainData(dto.MainId);
-                if (main == null)
-                {
-                    result.Code = 500;
-                    result.Message = $"主记录未查询到";
-                    return result;
-                }
-                // 2、根据生产主记录查找任务主记录
-                var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.TaskName ?? "", main.CreateUserID);
-                if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
-                {
-                    await trans.RollbackAsync();
-                    result.Code = 500;
-                    result.Message = "此任务已完成！";
-                    return result;
-                }
-
-                _dbContext.Proc_StationTask_TightenByImages.Add(new Proc_StationTask_TightenByImage
-                {
-                    Proc_StationTask_RecordId = orgMainRecord.Id,
-                    CreateTime = DateTime.Now,
-                    FinalTorque = dto.FinalTorque,
-                    FinalAngle = dto.FinalAngle,
-                    SerialCode = main.PackCode,
-                    StationCode = dto.StationCode ?? main.StationCode,
-                    OrderNo = dto.OrderNo,
-                    ResultIsOK = true,
-                    UpMesCodeTor = $"{dto.UploadMesCode}{dto.OrderNo}",
-                    UpMesCodeAng = $"{dto.UploadMesCode}JD{dto.OrderNo}",
-                });
-
-                await _dbContext.SaveChangesAsync();
-                await trans.CommitAsync();
+                result.Code = 500;
+                result.Message = $"主记录未查询到";
+                return result;
             }
-            catch (Exception ex)
+            // 2、根据生产主记录查找任务主记录
+            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.TaskName ?? "", main.CreateUserID);
+            if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
             {
                 await trans.RollbackAsync();
                 result.Code = 500;
-                result.Message = "保存失败！";
-                _logger.LogError($"工位任务螺丝详情保存失败，参数为：{JsonConvert.SerializeObject(dto.ScrewData)}，异常消息为：{JsonConvert.SerializeObject(ex)}");
+                result.Message = "此任务已完成！";
+                return result;
             }
-            return result;
-        }
 
-
-        /// <summary>
-        /// 保存图示拧紧NG数据
-        /// </summary>
-        public async Task<Response> SaveNgData(ScrewDataDTO dto)
-        {
-            var result = new Response();
-            using var trans = await _dbContext.Database.BeginTransactionAsync();
-            try
+            _dbContext.Proc_StationTask_TightenByImages.Add(new Proc_StationTask_TightenByImage
             {
-                var main = await GetMainData(dto.MainId);
-                if (main == null)
-                {
-                    result.Code = 500;
-                    result.Message = $"主记录未查询到";
-                    return result;
-                }
-                var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.TaskName ?? "", main.CreateUserID);
-                if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
-                {
-                    await trans.RollbackAsync();
-                    result.Code = 500;
-                    result.Message = "此任务已完成！";
-                    return result;
-                }
+                Proc_StationTask_RecordId = orgMainRecord.Id,
+                CreateTime = DateTime.Now,
+                FinalTorque = dto.FinalTorque,
+                FinalAngle = dto.FinalAngle,
+                SerialCode = main.PackCode,
+                StationCode = dto.StationCode ?? main.StationCode,
+                OrderNo = dto.OrderNo,
+                ResultIsOK = true,
+                UpMesCodeTor = $"{dto.UploadMesCode}{dto.OrderNo}",
+                UpMesCodeAng = $"{dto.UploadMesCode}JD{dto.OrderNo}",
+            });
 
-                _dbContext.Proc_StationTask_TightenByImages.Add(new Proc_StationTask_TightenByImage
-                {
-                    Proc_StationTask_RecordId = orgMainRecord.Id,
-                    CreateTime = DateTime.Now,
-                    FinalTorque = dto.FinalTorque,
-                    FinalAngle = dto.FinalAngle,
-                    SerialCode = main.PackCode,
-                    StationCode = dto.StationCode ?? main.StationCode,
-                    OrderNo = dto.OrderNo,
-                    ResultIsOK = false,
-                    UpMesCodeTor = $"{dto.UploadMesCode}{dto.OrderNo}",
-                    UpMesCodeAng = $"{dto.UploadMesCode}JD{dto.OrderNo}",
-                });
+            await _dbContext.SaveChangesAsync();
+            await trans.CommitAsync();
+        }
+        catch (Exception ex)
+        {
+            await trans.RollbackAsync();
+            result.Code = 500;
+            result.Message = "保存失败！";
+            _logger.LogError($"工位任务螺丝详情保存失败，参数为：{JsonConvert.SerializeObject(dto.ScrewData)}，异常消息为：{JsonConvert.SerializeObject(ex)}");
+        }
+        return result;
+    }
 
-                await _dbContext.SaveChangesAsync();
-                await trans.CommitAsync();
+
+    /// <summary>
+    /// 保存图示拧紧NG数据
+    /// </summary>
+    public async Task<Response> SaveNgData(ScrewDataDTO dto)
+    {
+        var result = new Response();
+        using var trans = await _dbContext.Database.BeginTransactionAsync();
+        try
+        {
+            var main = await GetMainData(dto.MainId);
+            if (main == null)
+            {
+                result.Code = 500;
+                result.Message = $"主记录未查询到";
+                return result;
             }
-            catch (Exception ex)
+            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.TaskName ?? "", main.CreateUserID);
+            if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
             {
                 await trans.RollbackAsync();
                 result.Code = 500;
-                result.Message = "保存失败！";
-                _logger.LogError($"图示拧紧NG数据保存失败，参数为：{JsonConvert.SerializeObject(dto)}，异常：{ex.Message}");
+                result.Message = "此任务已完成！";
+                return result;
             }
-            return result;
-        }
 
-        /// <summary>
-        /// 保存图示拧紧反拧数据
-        /// </summary>
-        public async Task<Response> SaveReverseData(ScrewDataDTO dto)
-        {
-            var result = new Response();
-            using var trans = await _dbContext.Database.BeginTransactionAsync();
-            try
+            _dbContext.Proc_StationTask_TightenByImages.Add(new Proc_StationTask_TightenByImage
             {
-                var main = await GetMainData(dto.MainId);
-                if (main == null)
-                {
-                    result.Code = 500;
-                    result.Message = $"主记录未查询到";
-                    return result;
-                }
-                var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.TaskName ?? "", main.CreateUserID);
-                if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
-                {
-                    await trans.RollbackAsync();
-                    result.Code = 500;
-                    result.Message = "此任务已完成！";
-                    return result;
-                }
+                Proc_StationTask_RecordId = orgMainRecord.Id,
+                CreateTime = DateTime.Now,
+                FinalTorque = dto.FinalTorque,
+                FinalAngle = dto.FinalAngle,
+                SerialCode = main.PackCode,
+                StationCode = dto.StationCode ?? main.StationCode,
+                OrderNo = dto.OrderNo,
+                ResultIsOK = false,
+                UpMesCodeTor = $"{dto.UploadMesCode}{dto.OrderNo}",
+                UpMesCodeAng = $"{dto.UploadMesCode}JD{dto.OrderNo}",
+            });
 
-                _dbContext.Proc_StationTask_TightenByImages.Add(new Proc_StationTask_TightenByImage
-                {
-                    Proc_StationTask_RecordId = orgMainRecord.Id,
-                    CreateTime = DateTime.Now,
-                    FinalTorque = dto.FinalTorque,
-                    FinalAngle = dto.FinalAngle,
-                    SerialCode = main.PackCode,
-                    StationCode = dto.StationCode ?? main.StationCode,
-                    OrderNo = dto.OrderNo,
-                    ResultIsOK = true,
-                    UpMesCodeTor = $"{dto.UploadMesCode}{dto.OrderNo}",
-                    UpMesCodeAng = $"{dto.UploadMesCode}JD{dto.OrderNo}",
-                });
+            await _dbContext.SaveChangesAsync();
+            await trans.CommitAsync();
+        }
+        catch (Exception ex)
+        {
+            await trans.RollbackAsync();
+            result.Code = 500;
+            result.Message = "保存失败！";
+            _logger.LogError($"图示拧紧NG数据保存失败，参数为：{JsonConvert.SerializeObject(dto)}，异常：{ex.Message}");
+        }
+        return result;
+    }
 
-                await _dbContext.SaveChangesAsync();
-                await trans.CommitAsync();
+    /// <summary>
+    /// 保存图示拧紧反拧数据
+    /// </summary>
+    public async Task<Response> SaveReverseData(ScrewDataDTO dto)
+    {
+        var result = new Response();
+        using var trans = await _dbContext.Database.BeginTransactionAsync();
+        try
+        {
+            var main = await GetMainData(dto.MainId);
+            if (main == null)
+            {
+                result.Code = 500;
+                result.Message = $"主记录未查询到";
+                return result;
             }
-            catch (Exception ex)
+            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.TaskName ?? "", main.CreateUserID);
+            if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
             {
                 await trans.RollbackAsync();
                 result.Code = 500;
-                result.Message = "保存失败！";
-                _logger.LogError($"图示拧紧反拧数据保存失败，参数为：{JsonConvert.SerializeObject(dto)}，异常：{ex.Message}");
+                result.Message = "此任务已完成！";
+                return result;
             }
-            return result;
+
+            _dbContext.Proc_StationTask_TightenByImages.Add(new Proc_StationTask_TightenByImage
+            {
+                Proc_StationTask_RecordId = orgMainRecord.Id,
+                CreateTime = DateTime.Now,
+                FinalTorque = dto.FinalTorque,
+                FinalAngle = dto.FinalAngle,
+                SerialCode = main.PackCode,
+                StationCode = dto.StationCode ?? main.StationCode,
+                OrderNo = dto.OrderNo,
+                ResultIsOK = true,
+                UpMesCodeTor = $"{dto.UploadMesCode}{dto.OrderNo}",
+                UpMesCodeAng = $"{dto.UploadMesCode}JD{dto.OrderNo}",
+            });
+
+            await _dbContext.SaveChangesAsync();
+            await trans.CommitAsync();
         }
+        catch (Exception ex)
+        {
+            await trans.RollbackAsync();
+            result.Code = 500;
+            result.Message = "保存失败！";
+            _logger.LogError($"图示拧紧反拧数据保存失败，参数为：{JsonConvert.SerializeObject(dto)}，异常：{ex.Message}");
+        }
+        return result;
+    }
 
     public async Task<Proc_StationTask_Main?> GetMainData(int mainId)
     {

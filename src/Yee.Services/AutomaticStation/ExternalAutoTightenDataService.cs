@@ -72,12 +72,19 @@ public class ExternalAutoTightenDataService
             }
             
             var orderNoSet = new HashSet<short>();
-            foreach (var item in dto.TighteningResultList)
+            foreach (TighteningResult item in dto.TighteningResultList)
             {
                 if (item.OrderNo <= 0)
                 {
                     return new ServiceErrResponse()
                         .ToError(ResponseErrorType.数据异常, 400, $"OrderNo无效={item.OrderNo}")
+                        .ToErrResult<ServiceErrResponse, ServiceErrResponse>();
+                }
+
+                if (item.ProgramNo <= 0)
+                {
+                    return new ServiceErrResponse()
+                        .ToError(ResponseErrorType.数据异常, 400, $"ProgramNo无效={item.ProgramNo}")
                         .ToErrResult<ServiceErrResponse, ServiceErrResponse>();
                 }
 
@@ -388,8 +395,8 @@ public class ExternalAutoTightenDataService
             .ToList();
 
         dto.TotalCount = latestByOrderNo.Count;
-        dto.OkCount = latestByOrderNo.Count(x => x.ResultOK == 1);
-        dto.NgCount = latestByOrderNo.Count(x => x.ResultOK != 1);
+        dto.OkCount = latestByOrderNo.Count(x => x.IsOk);
+        dto.NgCount = latestByOrderNo.Count(x => !x.IsOk);
         return dto;
     }
 
