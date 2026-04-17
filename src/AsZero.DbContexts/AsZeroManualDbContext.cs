@@ -33,7 +33,7 @@ public sealed class AsZeroManualDbContext : AsZeroDbContext
         modelBuilder.Ignore<Base_AutoStationTaskPressure>();
         modelBuilder.Ignore<Base_StationTask_AutoModuleInBox>();
         modelBuilder.Ignore<Base_AutoStationTask_HeatingFilmPressurize>();
-        // modelBuilder.Ignore<Base_Pack>();
+        modelBuilder.Ignore<Base_Pack>();
         // modelBuilder.Ignore<Base_StationTaskStewingTime>();
         // modelBuilder.Ignore<Base_StationTask_RecordTime>();
         // modelBuilder.Ignore<Base_StationTaskCheckTimeOut>();

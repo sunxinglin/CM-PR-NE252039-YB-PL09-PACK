@@ -212,6 +212,8 @@ public partial class AsZeroDbContext : DbContext
         moduleEntityType.HasData(new FuncModule { Id = 1002, Name = "返工设置", ParentName = "根节点", IsSys = false, SortNo = 1, ParentId = null, Code = "ReWork" });
         moduleEntityType.HasData(new FuncModule { Id = 1003, Name = "NG下线", ParentName = "根节点", IsSys = false, SortNo = 1, ParentId = null, Code = "NGDown" });
         moduleEntityType.HasData(new FuncModule { Id = 1004, Name = "调试工具", ParentName = "根节点", IsSys = false, SortNo = 1, ParentId = null, Code = "DebugTool" });
+        moduleEntityType.HasData(new FuncModule { Id = 1005, Name = "跳步", ParentName = "根节点", IsSys = false, SortNo = 1, ParentId = null, Code = "跳步" });
+        moduleEntityType.HasData(new FuncModule { Id = 1006, Name = "拧紧NG复位", ParentName = "根节点", IsSys = false, SortNo = 1, ParentId = null, Code = "拧紧NG复位" });
 
         #endregion
 
@@ -247,6 +249,8 @@ public partial class AsZeroDbContext : DbContext
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 1002, FuncModuleId = 1002, RoleName = Defines.Claim_Admin });
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 1003, FuncModuleId = 1003, RoleName = Defines.Claim_Admin });
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 1004, FuncModuleId = 1004, RoleName = Defines.Claim_Admin });
+        funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 1005, FuncModuleId = 1005, RoleName = Defines.Claim_Admin });
+        funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 1006, FuncModuleId = 1006, RoleName = Defines.Claim_Admin });
 
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 10001, FuncModuleId = 1, RoleName = Defines.Claim_Engineer });
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 10002, FuncModuleId = 2, RoleName = Defines.Claim_Engineer });
@@ -277,6 +281,8 @@ public partial class AsZeroDbContext : DbContext
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 11002, FuncModuleId = 1002, RoleName = Defines.Claim_Engineer });
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 11003, FuncModuleId = 1003, RoleName = Defines.Claim_Engineer });
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 11004, FuncModuleId = 1004, RoleName = Defines.Claim_Engineer });
+        funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 11005, FuncModuleId = 1005, RoleName = Defines.Claim_Engineer });
+        funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 11006, FuncModuleId = 1006, RoleName = Defines.Claim_Engineer });
 
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 20209, FuncModuleId = 209, RoleName = Defines.Claim_Operator });
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 20225, FuncModuleId = 225, RoleName = Defines.Claim_Operator });
