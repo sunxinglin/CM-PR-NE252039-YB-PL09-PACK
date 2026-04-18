@@ -56,7 +56,7 @@ namespace miReleaseSfcByOrder
             Requst.modeProcessSFC = model.ReleaseSfcByOrderModeProcessSFCField;
 
             Requst.sfcQty = qty;
-            Requst.shopOrder = order;
+            Requst.shopOrder = model.ActivityField;
             miReleaseSfcWithActivityByShoporder.miReleaseSfcWithActivityByShoporder  Requst1 = new miReleaseSfcWithActivityByShoporder.miReleaseSfcWithActivityByShoporder();
             Requst1.ReleaseSfcWithActivityRequest = Requst;
             int retCode = 111;
