@@ -47,7 +47,7 @@ namespace RogerTech.BussnessCore.Bussness
                     {
                         foreach (var item in output[2] as IEnumerable)
                         {
-                            WriteResult(item.ToString());
+                            WriteResult(item.ToString(),"");
                             message.Append($"调用mes接口[ReleaseSfcByShopOrder]释放条码[{item}]成功");
                         }
                     }

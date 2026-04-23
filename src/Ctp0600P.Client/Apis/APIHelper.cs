@@ -288,6 +288,19 @@ public class APIHelper : IAPIHelper
         return resp.IsSuccessStatusCode ? resp.Content : new Response { Code = Convert.ToInt32(resp.Error.StatusCode), Message = resp.Error.Message };
     }
 
+    public async Task<Response> SaveLeakData(List<Base_StationTaskLeak> taskLeaks, int taskId)
+    {
+
+        var postData = new LeakDataDTO
+        {
+            LeakDatas = taskLeaks,
+            StationTaskId = taskId,
+            MainId = App.HisTaskData2.MainId,
+        };
+        var resp = await _traceApi.Save_StationLeak(postData);
+
+        return resp.IsSuccessStatusCode ? resp.Content : new Response { Code = Convert.ToInt32(resp.Error.StatusCode), Message = resp.Error.Message };
+    }
 
     /// <summary>
     /// 设置当前任务完成

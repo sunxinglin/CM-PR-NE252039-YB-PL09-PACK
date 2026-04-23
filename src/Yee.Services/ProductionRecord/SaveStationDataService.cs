@@ -30,7 +30,6 @@ namespace Yee.Services.Production;
 
 public class SaveStationDataService
 {
-
     private readonly HistoryData_APIService _HistoryData_APIService;
     private readonly ILogger<SaveStationDataService> _logger;
     public readonly AsZeroDbContext _dbContext;
@@ -43,8 +42,11 @@ public class SaveStationDataService
     private readonly Proc_StationTask_PeiFangService _PeiFangService;
 
     private readonly bool IsDebug = false;
-    public SaveStationDataService(AsZeroDbContext dBContext, IConfiguration configuration, StationService stationService, FlowService flowService, ProductService productService, Proc_Product_OffLineService proc_Product_OffLineService,
-        ILogger<SaveStationDataService> logger, SysLogService sysLogService, Proc_StationTask_PeiFangService peiFangService, HistoryData_APIService historyData_APIService)
+
+    public SaveStationDataService(AsZeroDbContext dBContext, IConfiguration configuration, StationService stationService,
+        FlowService flowService, ProductService productService, Proc_Product_OffLineService proc_Product_OffLineService,
+        ILogger<SaveStationDataService> logger, SysLogService sysLogService, Proc_StationTask_PeiFangService peiFangService,
+        HistoryData_APIService historyData_APIService)
     {
         _dbContext = dBContext;
         this._StationService = stationService;
@@ -98,6 +100,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = "当前pack未进行涂胶";
         }
+
         return result;
     }
 
@@ -117,7 +120,8 @@ public class SaveStationDataService
                 }
 
                 //假设有多条涂胶数据 默认查询最新的涂胶时间
-                var time = _dbContext.Proc_StationTask_Mains.OrderByDescending(ps => ps.Id).FirstOrDefault(ps => ps.PackCode == packPN && ps.IsDeleted == false && ps.StepId == step.Id && ps.Status == StationTaskStatusEnum.已完成);
+                var time = _dbContext.Proc_StationTask_Mains.OrderByDescending(ps => ps.Id).FirstOrDefault(ps =>
+                    ps.PackCode == packPN && ps.IsDeleted == false && ps.StepId == step.Id && ps.Status == StationTaskStatusEnum.已完成);
                 if (time == null)
                 {
                     result.Code = 500;
@@ -142,6 +146,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = ex.Message;
         }
+
         return result;
     }
 
@@ -194,6 +199,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = "当前pack未进行涂胶";
         }
+
         return result;
     }
 
@@ -205,7 +211,8 @@ public class SaveStationDataService
         {
             if (packPN != null)
             {
-                var moduleInBoxTaskMain = await _dbContext.Proc_StationTask_Mains.Include(m => m.Step).FirstOrDefaultAsync(ps => ps.IsDeleted == false && ps.Step.Code == stepCode && ps.PackCode == packPN && ps.Status == StationTaskStatusEnum.已完成);
+                var moduleInBoxTaskMain = await _dbContext.Proc_StationTask_Mains.Include(m => m.Step).FirstOrDefaultAsync(ps =>
+                    ps.IsDeleted == false && ps.Step.Code == stepCode && ps.PackCode == packPN && ps.Status == StationTaskStatusEnum.已完成);
                 if (moduleInBoxTaskMain != null)
                 {
                     result.Code = 200;
@@ -229,6 +236,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = "当前pack未进行模组拧紧";
         }
+
         return result;
     }
 
@@ -238,7 +246,8 @@ public class SaveStationDataService
         var result = new Response<Base_StationTaskBom>();
         try
         {
-            var taskId = await _dbContext.Base_StationTaskBoms.FirstOrDefaultAsync(t => t.StationTaskId == Convert.ToInt16(stationTaskId) && t.IsDeleted == false);
+            var taskId = await _dbContext.Base_StationTaskBoms.FirstOrDefaultAsync(t =>
+                t.StationTaskId == Convert.ToInt16(stationTaskId) && t.IsDeleted == false);
 
             result.Code = 200;
             result.Result = taskId;
@@ -248,6 +257,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = "未配置扫码任务";
         }
+
         return result;
     }
 
@@ -260,10 +270,13 @@ public class SaveStationDataService
             result.Code = 200;
             result.Message = "保存成功";
             // 1、 查找生产主记录
-            var pStationTaskMain = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(ps => ps.IsDeleted == false && ps.StepId == inStationData.StepId && ps.PackCode == inStationData.PackCode && (ps.Status == StationTaskStatusEnum.未开始 || ps.Status == StationTaskStatusEnum.进行中));
+            var pStationTaskMain = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(ps =>
+                ps.IsDeleted == false && ps.StepId == inStationData.StepId && ps.PackCode == inStationData.PackCode &&
+                (ps.Status == StationTaskStatusEnum.未开始 || ps.Status == StationTaskStatusEnum.进行中));
             if (pStationTaskMain == null)
             {
-                var peiFID = await _PeiFangService.GetOrCreateNewPeiFangJson_MD5(JsonConvert.SerializeObject(inStationData.StationTaskList));
+                var peiFID = await _PeiFangService.GetOrCreateNewPeiFangJson_MD5(
+                    JsonConvert.SerializeObject(inStationData.StationTaskList));
                 DateTimeOffset utcTime = DateTime.Now;
 
                 // 没有主记录 新增主记录
@@ -286,8 +299,10 @@ public class SaveStationDataService
                 if (item.StationTask.Type != StationTaskTypeEnum.扫描员工卡)
                 {
                     // 2、根据生产主记录查找任务主记录
-                    var orgMainRecord = _dbContext.Proc_StationTask_Records.Include(s => s.Base_StationTask).FirstOrDefault(ps => ps.IsDeleted == false &&
-                        (ps.Status == StationTaskStatusEnum.未开始 || ps.Status == StationTaskStatusEnum.进行中) && ps.Proc_StationTask_Main == pStationTaskMain);
+                    var orgMainRecord = _dbContext.Proc_StationTask_Records.Include(s => s.Base_StationTask).FirstOrDefault(ps =>
+                        ps.IsDeleted == false &&
+                        (ps.Status == StationTaskStatusEnum.未开始 || ps.Status == StationTaskStatusEnum.进行中) &&
+                        ps.Proc_StationTask_Main == pStationTaskMain);
                     if (orgMainRecord == null)
                     {
                         // 没有任务主记录 新增
@@ -303,17 +318,16 @@ public class SaveStationDataService
                         orgMainRecord = newMainRecord.Entity;
                     }
                 }
-
             }
 
             _dbContext.SaveChanges();
-
         }
         catch (Exception ex)
         {
             result.Code = 500;
             result.Message = "保存失败！";
         }
+
         return result;
     }
 
@@ -335,6 +349,7 @@ public class SaveStationDataService
                 result.Message = "未提供物料扫码信息";
                 return result;
             }
+
             // 1、 查找生产主记录
             var pStationTaskMain = await GetMainData(dto.MainId);
             if (pStationTaskMain == null)
@@ -354,7 +369,9 @@ public class SaveStationDataService
             }
 
             // 3、根据任务主记录查找任务BOM
-            var orgTaskBom = await _dbContext.Proc_StationTask_Boms.FirstOrDefaultAsync(ps => ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id);
+            var orgTaskBom =
+                await _dbContext.Proc_StationTask_Boms.FirstOrDefaultAsync(ps =>
+                    ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id);
             if (orgTaskBom == null)
             {
                 var newBom = new Proc_StationTask_Bom
@@ -375,6 +392,7 @@ public class SaveStationDataService
                 await _dbContext.SaveChangesAsync();
                 orgTaskBom = newBom;
             }
+
             var bomdeatil = new Proc_StationTask_BomDetail
             {
                 Proc_StationTask_BomId = orgTaskBom.Id,
@@ -401,6 +419,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = "保存失败！";
         }
+
         return result;
     }
 
@@ -409,7 +428,8 @@ public class SaveStationDataService
         Response result = new();
         if (TracingType == TracingTypeEnum.扫库存)
         {
-            var exiest = await _dbContext.Proc_StationTask_BomDetails.Where(w => !w.IsDeleted && w.StepId == stepId && w.UniBarCode == Code).AnyAsync();
+            var exiest = await _dbContext.Proc_StationTask_BomDetails.Where(w => !w.IsDeleted && w.StepId == stepId && w.UniBarCode == Code)
+                .AnyAsync();
             if (exiest)
             {
                 result.Code = 500;
@@ -420,7 +440,8 @@ public class SaveStationDataService
 
         if (TracingType == TracingTypeEnum.精追)
         {
-            var exiest = await _dbContext.Proc_StationTask_BomDetails.Where(w => !w.IsDeleted && w.StepId == stepId && w.GoodsOuterCode == Code).AnyAsync();
+            var exiest = await _dbContext.Proc_StationTask_BomDetails
+                .Where(w => !w.IsDeleted && w.StepId == stepId && w.GoodsOuterCode == Code).AnyAsync();
             if (exiest)
             {
                 result.Code = 500;
@@ -428,6 +449,7 @@ public class SaveStationDataService
                 return result;
             }
         }
+
         return result;
     }
 
@@ -449,8 +471,12 @@ public class SaveStationDataService
                 result.Message = $"未找到工位代码{stationCode}对应的数据";
                 return result;
             }
-            result.Result.TotalCount = _dbContext.Proc_StationTask_Mains.Count(t => t.StepId == station.StepId && t.Status == StationTaskStatusEnum.已完成 && t.CreateTime > beginTime && t.CreateTime < endTime && t.IsDeleted == false);
-            var mainDatas = _dbContext.Proc_StationTask_Mains.Where(t => t.StepId == station.StepId && t.CreateTime > beginTime && t.CreateTime < endTime && t.IsDeleted == false).ToList();
+
+            result.Result.TotalCount = _dbContext.Proc_StationTask_Mains.Count(t =>
+                t.StepId == station.StepId && t.Status == StationTaskStatusEnum.已完成 && t.CreateTime > beginTime && t.CreateTime < endTime &&
+                t.IsDeleted == false);
+            var mainDatas = _dbContext.Proc_StationTask_Mains.Where(t =>
+                t.StepId == station.StepId && t.CreateTime > beginTime && t.CreateTime < endTime && t.IsDeleted == false).ToList();
             foreach (var record in mainDatas)
             {
                 result.Result.Items.Add(new PackTaskRecordDataDTO
@@ -467,6 +493,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = ex.Message;
         }
+
         return result;
     }
 
@@ -501,6 +528,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(scanAccount.ResultValue);
                     break;
                 case StationTaskTypeEnum.人工拧螺丝:
@@ -509,6 +537,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(tightenData.ResultValue);
                     break;
                 case StationTaskTypeEnum.称重:
@@ -517,6 +546,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(weightData.ResultValue);
                     break;
                 case StationTaskTypeEnum.用户输入:
@@ -525,6 +555,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(userInputData.ResultValue);
                     break;
                 case StationTaskTypeEnum.扫码输入:
@@ -533,6 +564,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(scanCollectData.ResultValue);
                     break;
                 case StationTaskTypeEnum.时间记录:
@@ -541,6 +573,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(timeRecord.ResultValue);
                     break;
                 case StationTaskTypeEnum.超时检测:
@@ -549,6 +582,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(timeOut.ResultValue);
                     break;
                 case StationTaskTypeEnum.补拧:
@@ -557,6 +591,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(tightenRework.ResultValue);
                     break;
                 case StationTaskTypeEnum.图示拧紧:
@@ -565,7 +600,17 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(tightenImage.ResultValue);
+                    break;
+                case StationTaskTypeEnum.人工充气:
+                    var leakData = await LoadLeakData(record.Id);
+                    if (leakData.IsError)
+                    {
+                        return new UploadCATLData();
+                    }
+
+                    dcParams.AddRange(leakData.ResultValue);
                     break;
             }
         }
@@ -594,13 +639,34 @@ public class SaveStationDataService
 
             var torqueData = latestOkByOrder
                 .Where(s => !string.IsNullOrEmpty(s.UpMesCodeTor))
-                .Select(s => new DcParamValue { DataType = ValueTypeEnum.NUMBER, ParamValue = s.FinalTorque.ToString(), UpMesCode = s.UpMesCodeTor! });
+                .Select(s => new DcParamValue
+                    { DataType = ValueTypeEnum.NUMBER, ParamValue = s.FinalTorque.ToString(), UpMesCode = s.UpMesCodeTor! });
 
             var angleData = latestOkByOrder
                 .Where(s => !string.IsNullOrEmpty(s.UpMesCodeAng))
-                .Select(s => new DcParamValue { DataType = ValueTypeEnum.NUMBER, ParamValue = s.FinalAngle.ToString(), UpMesCode = s.UpMesCodeAng! });
+                .Select(s => new DcParamValue
+                    { DataType = ValueTypeEnum.NUMBER, ParamValue = s.FinalAngle.ToString(), UpMesCode = s.UpMesCodeAng! });
 
             return torqueData.Concat(angleData).ToList().ToOkResult<IList<DcParamValue>, string>();
+        }
+        catch (Exception ex)
+        {
+            return ex.Message.ToErrResult<IList<DcParamValue>, string>();
+        }
+    }
+
+    private async Task<FSharpResult<IList<DcParamValue>, string>> LoadLeakData(int recordId)
+    {
+        try
+        {
+            var q = from leak in _dbContext.Proc_StationTask_Leaks
+                join detail in _dbContext.Proc_StationTask_LeakDetails on leak.Id equals detail.Proc_StationTask_LeakId
+                where leak.StationTask_RecordId == recordId && !leak.IsDeleted && !detail.IsDeleted &&
+                      detail.Status == StationTaskStatusEnum.已完成
+                select new DcParamValue
+                    { DataType = detail.ParamType, ParamValue = detail.ParamValue ?? "", UpMesCode = detail.UploadCode ?? "" };
+            var leakData = await q.ToListAsync();
+            return leakData.ToOkResult<IList<DcParamValue>, string>();
         }
         catch (Exception ex)
         {
@@ -613,21 +679,19 @@ public class SaveStationDataService
         try
         {
             var q = from blotGunDetail in _dbContext.Proc_StationTask_BlotGunDetails
-                    join blotGun in _dbContext.Proc_StationTask_BlotGuns on blotGunDetail.Proc_StationTask_BlotGunId equals blotGun.Id
-                    where blotGun.StationTask_RecordId == recordId && blotGunDetail.ResultIsOK && !blotGun.IsDeleted && !blotGunDetail.IsDeleted
-                    select blotGunDetail;
+                join blotGun in _dbContext.Proc_StationTask_BlotGuns on blotGunDetail.Proc_StationTask_BlotGunId equals blotGun.Id
+                where blotGun.StationTask_RecordId == recordId && blotGunDetail.ResultIsOK && !blotGun.IsDeleted && !blotGunDetail.IsDeleted
+                select blotGunDetail;
             var boltGunData = await q.ToListAsync();
 
             var torqueData = boltGunData.Select(s => new DcParamValue
             {
-                DataType = ValueTypeEnum.NUMBER,
-                ParamValue = s.FinalTorque.ToString(CultureInfo.InvariantCulture),
+                DataType = ValueTypeEnum.NUMBER, ParamValue = s.FinalTorque.ToString(CultureInfo.InvariantCulture),
                 UpMesCode = s.UploadCode ?? ""
             });
             var angleData = boltGunData.Select(s => new DcParamValue
             {
-                DataType = ValueTypeEnum.NUMBER,
-                ParamValue = s.FinalAngle.ToString(CultureInfo.InvariantCulture),
+                DataType = ValueTypeEnum.NUMBER, ParamValue = s.FinalAngle.ToString(CultureInfo.InvariantCulture),
                 UpMesCode = s.UploadCode_JD ?? ""
             });
 
@@ -646,9 +710,7 @@ public class SaveStationDataService
             var scanAccountData = await _dbContext.Proc_StationTask_ScanAccountCards
                 .Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).Select(s => new DcParamValue
                 {
-                    DataType = ValueTypeEnum.TEXT,
-                    ParamValue = s.AccountValue!.ToString(),
-                    UpMesCode = s.UpMesCode!
+                    DataType = ValueTypeEnum.TEXT, ParamValue = s.AccountValue!.ToString(), UpMesCode = s.UpMesCode!
                 }).ToListAsync();
 
             return scanAccountData.Where(w => !string.IsNullOrEmpty(w.UpMesCode)).ToList()
@@ -667,8 +729,7 @@ public class SaveStationDataService
             var weightData = await _dbContext.Proc_StationTask_AnyLoads
                 .Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).Select(s => new DcParamValue
                 {
-                    DataType = ValueTypeEnum.NUMBER,
-                    ParamValue = s.WeightData.ToString(CultureInfo.InvariantCulture),
+                    DataType = ValueTypeEnum.NUMBER, ParamValue = s.WeightData.ToString(CultureInfo.InvariantCulture),
                     UpMesCode = s.UpMesCode ?? ""
                 }).ToListAsync();
             return weightData.ToOkResult<IList<DcParamValue>, string>();
@@ -685,7 +746,7 @@ public class SaveStationDataService
         {
             var userInputData = await _dbContext.Proc_StationTask_UserInputs
                 .Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).Select(s => new DcParamValue
-                { DataType = ValueTypeEnum.NUMBER, ParamValue = s.UserInputData, UpMesCode = s.UpMesCode })
+                    { DataType = ValueTypeEnum.NUMBER, ParamValue = s.UserInputData, UpMesCode = s.UpMesCode })
                 .ToListAsync();
             return userInputData.ToOkResult<IList<DcParamValue>, string>();
         }
@@ -701,7 +762,7 @@ public class SaveStationDataService
         {
             var userInputData = await _dbContext.Proc_StationTask_ScanCollects
                 .Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).Select(s => new DcParamValue
-                { DataType = ValueTypeEnum.NUMBER, ParamValue = s.ScanCollectData, UpMesCode = s.UpMesCode })
+                    { DataType = ValueTypeEnum.NUMBER, ParamValue = s.ScanCollectData, UpMesCode = s.UpMesCode })
                 .ToListAsync();
             return userInputData.ToOkResult<IList<DcParamValue>, string>();
         }
@@ -717,7 +778,7 @@ public class SaveStationDataService
         {
             var timeRecord = await _dbContext.Proc_StationTask_TimeRecords
                 .Where(w => !w.IsDeleted && w.Proc_StationTask_RecordId == recordId).Select(s => new DcParamValue
-                { DataType = ValueTypeEnum.TEXT, ParamValue = s.TimeValue, UpMesCode = s.UploadMesCode })
+                    { DataType = ValueTypeEnum.TEXT, ParamValue = s.TimeValue, UpMesCode = s.UploadMesCode })
                 .ToListAsync();
             return timeRecord.ToOkResult<IList<DcParamValue>, string>();
         }
@@ -733,7 +794,9 @@ public class SaveStationDataService
         {
             var timeRecord = await _dbContext.Proc_StationTask_CheckTimeouts
                 .Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).Select(s => new DcParamValue
-                { DataType = ValueTypeEnum.NUMBER, ParamValue = s.Time.ToString(CultureInfo.InvariantCulture), UpMesCode = s.UpMesCode! })
+                {
+                    DataType = ValueTypeEnum.NUMBER, ParamValue = s.Time.ToString(CultureInfo.InvariantCulture), UpMesCode = s.UpMesCode!
+                })
                 .ToListAsync();
             return timeRecord.ToOkResult<IList<DcParamValue>, string>();
         }
@@ -755,7 +818,7 @@ public class SaveStationDataService
         {
             #region 配方判空
 
-            var tightenFormula =
+            Base_StationTask_TightenRework? tightenFormula =
                 await _dbContext.Base_StationTask_TightenReworks.FirstOrDefaultAsync(f =>
                     f.StationTaskId == record.Base_StationTaskId && !f.IsDeleted);
             if (tightenFormula == null)
@@ -765,37 +828,37 @@ public class SaveStationDataService
 
             #endregion
 
-            # region 处理人工补拧数据（扭矩、角度）
-            var tightenRework = await _dbContext.Proc_StationTask_TightenReworks
+            #region 处理人工补拧数据（扭矩、角度）
+
+            List<Proc_StationTask_TightenRework> tightenRework = await _dbContext.Proc_StationTask_TightenReworks
                 .Where(w => !w.IsDeleted && w.StationTaskRecordId == record.Id && w.ResultOk).ToListAsync();
             var dcParamsTorqueR = tightenRework.Select(s => new DcParamValue
             {
-                DataType = ValueTypeEnum.NUMBER,
-                ParamValue = s.TorqueValue.ToString(CultureInfo.InvariantCulture),
+                DataType = ValueTypeEnum.NUMBER, ParamValue = s.TorqueValue.ToString(CultureInfo.InvariantCulture),
                 UpMesCode = s.UpMesCode
             }).ToList();
             var dcParamsAngleR = tightenRework.Select(s => new DcParamValue
             {
-                DataType = ValueTypeEnum.NUMBER,
-                ParamValue = s.AngleValue.ToString(CultureInfo.InvariantCulture),
+                DataType = ValueTypeEnum.NUMBER, ParamValue = s.AngleValue.ToString(CultureInfo.InvariantCulture),
                 UpMesCode = s.UpMesCodeJD
             }).ToList();
+
             #endregion
 
             #region 处理自动拧紧数据（扭矩、角度）
 
             var tightenData = new List<DcParamValue>();
             // 优先处理新自动站的拧紧数据
-            var external = await _dbContext.Proc_ExternalAutoTightenDatas
+            Proc_ExternalAutoTightenData? external = await _dbContext.Proc_ExternalAutoTightenDatas
                 .Where(w => !w.IsDeleted && w.Sfc == packCode && w.TightenType == tightenFormula.ReworkType)
                 .FirstOrDefaultAsync();
             if (external != null)
             {
-                var tighteningResults =
+                List<TighteningResult> tighteningResults =
                     JsonConvert.DeserializeObject<List<TighteningResult>>(external.TighteningResultJson) ??
                     new List<TighteningResult>();
 
-                foreach (var item in tighteningResults.Where(w => w.IsOk).OrderBy(o => o.OrderNo))
+                foreach (TighteningResult item in tighteningResults.Where(w => w.IsOk).OrderBy(o => o.OrderNo))
                 {
                     if (!TryParseDecimal(item.TorqueResult?.TagValue, out var torque))
                     {
@@ -806,6 +869,7 @@ public class SaveStationDataService
                     {
                         return $"Angle TagValue无法解析, OrderNo={item.OrderNo}".ToErrResult<IList<DcParamValue>, string>();
                     }
+
                     // 上传代码还是使用人工补拧的配方，若有需要可换成自动拧紧config中写的上传代码
                     tightenData.Add(new DcParamValue
                     {
@@ -826,11 +890,11 @@ public class SaveStationDataService
             else
             {
                 // 兼容老的自动站程序：如果新的表里没有数据则回退至旧表查询
-                var autoTightenData = await _dbContext.Proc_AutoBoltInfo_Details
+                List<Proc_AutoBoltInfo_Detail> autoTightenData = await _dbContext.Proc_AutoBoltInfo_Details
                     .Where(w => !w.IsDeleted && w.PackPN == packCode && w.BoltType == tightenFormula.ReworkType.ToString())
                     .ToListAsync();
 
-                foreach (var item in autoTightenData)
+                foreach (Proc_AutoBoltInfo_Detail item in autoTightenData)
                 {
                     if (item.AutoBlotInfoArray == null)
                     {
@@ -886,8 +950,10 @@ public class SaveStationDataService
                 result.Message = $"主记录未查询到";
                 return result;
             }
+
             // 2、根据生产主记录查找任务主记录
-            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.AnyLoadData?.AnyLoadName ?? "", dto.AnyLoadData?.CreateUserID);
+            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.AnyLoadData?.AnyLoadName ?? "",
+                dto.AnyLoadData?.CreateUserID);
             if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
             {
                 await trans.RollbackAsync();
@@ -897,7 +963,9 @@ public class SaveStationDataService
             }
 
             // 3、根据任务主记录查找任务
-            var orgTaskBom = _dbContext.Proc_StationTask_AnyLoads.FirstOrDefault(ps => ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id);
+            var orgTaskBom =
+                _dbContext.Proc_StationTask_AnyLoads.FirstOrDefault(ps =>
+                    ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id);
             if (orgTaskBom == null)
             {
                 var newTaskBom = _dbContext.Proc_StationTask_AnyLoads.Add(new Proc_StationTask_AnyLoad
@@ -917,7 +985,6 @@ public class SaveStationDataService
 
             await _dbContext.SaveChangesAsync();
             await trans.CommitAsync();
-
         }
         catch (Exception ex)
         {
@@ -927,6 +994,7 @@ public class SaveStationDataService
             _logger.LogError("工位任务称重数据保存失败，参数为：{SerializeObject}，异常消息为：{O}",
                 JsonConvert.SerializeObject(dto.AnyLoadData), JsonConvert.SerializeObject(ex));
         }
+
         return result;
     }
 
@@ -968,6 +1036,7 @@ public class SaveStationDataService
                     org.IsDeleted = true;
                 }
             }
+
             _dbContext.Proc_StationTask_ScanAccountCards.Add(new Proc_StationTask_ScanAccountCard
             {
                 StationTask_RecordId = orgMainRecord.Id,
@@ -988,8 +1057,10 @@ public class SaveStationDataService
         {
             result.Code = 500;
             result.Message = "保存失败！";
-            _logger.LogError($"扫描员工卡保存失败，参数为：{JsonConvert.SerializeObject(dto.ScanAccountCardData)}，异常消息为：{JsonConvert.SerializeObject(ex)}");
+            _logger.LogError(
+                $"扫描员工卡保存失败，参数为：{JsonConvert.SerializeObject(dto.ScanAccountCardData)}，异常消息为：{JsonConvert.SerializeObject(ex)}");
         }
+
         return result;
     }
 
@@ -1013,8 +1084,10 @@ public class SaveStationDataService
                 result.Message = $"主记录未查询到";
                 return result;
             }
+
             // 2、根据生产主记录查找任务主记录
-            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.UserInputData?.UserScanName ?? "", dto.UserInputData?.CreateUserID);
+            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.UserInputData?.UserScanName ?? "",
+                dto.UserInputData?.CreateUserID);
             if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
             {
                 await trans.RollbackAsync();
@@ -1022,8 +1095,11 @@ public class SaveStationDataService
                 result.Message = "此任务已完成！";
                 return result;
             }
+
             // 3、根据任务主记录查找任务
-            var orgTaskBom = _dbContext.Proc_StationTask_UserInputs.FirstOrDefault(ps => ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id);
+            var orgTaskBom =
+                _dbContext.Proc_StationTask_UserInputs.FirstOrDefault(ps =>
+                    ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id);
             if (orgTaskBom == null)
             {
                 // 没有任务新增
@@ -1040,6 +1116,7 @@ public class SaveStationDataService
                     PackPN = userInput.PackPN,
                 });
             }
+
             await _dbContext.SaveChangesAsync();
             await trans.CommitAsync();
         }
@@ -1050,6 +1127,7 @@ public class SaveStationDataService
             result.Message = "保存失败！";
             _logger.LogError($"用户输入数据保存失败，参数为：{JsonConvert.SerializeObject(dto.UserInputData)}，异常消息为：{JsonConvert.SerializeObject(ex)}");
         }
+
         return result;
     }
 
@@ -1067,8 +1145,10 @@ public class SaveStationDataService
                 result.Message = $"主记录未查询到";
                 return result;
             }
+
             // 2、根据生产主记录查找任务主记录
-            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.ScanCollectData?.ScanCollectName ?? "", dto.ScanCollectData?.CreateUserID);
+            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.ScanCollectData?.ScanCollectName ?? "",
+                dto.ScanCollectData?.CreateUserID);
             if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
             {
                 await trans.RollbackAsync();
@@ -1078,7 +1158,9 @@ public class SaveStationDataService
             }
 
             // 3、根据任务主记录查找任务
-            var orgTaskBom = _dbContext.Proc_StationTask_ScanCollects.FirstOrDefault(ps => ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id);
+            var orgTaskBom =
+                _dbContext.Proc_StationTask_ScanCollects.FirstOrDefault(ps =>
+                    ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id);
             if (orgTaskBom == null)
             {
                 // 没有任务新增
@@ -1096,6 +1178,7 @@ public class SaveStationDataService
                     PackPN = scanCollect.PackPN
                 });
             }
+
             await _dbContext.SaveChangesAsync();
             await trans.CommitAsync();
         }
@@ -1105,6 +1188,7 @@ public class SaveStationDataService
             result.Message = "保存失败！";
             _logger.LogError($"扫码收数数据保存失败，参数为：{JsonConvert.SerializeObject(dto.ScanCollectData)}，异常消息为：{JsonConvert.SerializeObject(ex)}");
         }
+
         return result;
     }
 
@@ -1122,6 +1206,7 @@ public class SaveStationDataService
                 response.Message = $"主记录未查询到";
                 return response;
             }
+
             // 2、根据生产主记录查找任务主记录
             var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.TaskName ?? "", main.CreateUserID);
             if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
@@ -1133,7 +1218,8 @@ public class SaveStationDataService
             }
 
             //删除历史
-            var his = await _dbContext.Proc_StationTask_TimeRecords.Where(w => !w.IsDeleted && w.Proc_StationTask_RecordId == orgMainRecord.Id).ToListAsync();
+            var his = await _dbContext.Proc_StationTask_TimeRecords
+                .Where(w => !w.IsDeleted && w.Proc_StationTask_RecordId == orgMainRecord.Id).ToListAsync();
             his.ForEach(f => f.IsDeleted = true);
             _dbContext.UpdateRange(his);
             var newData = new Proc_StationTask_TimeRecord
@@ -1156,6 +1242,7 @@ public class SaveStationDataService
             response.Code = 500;
             response.Message = ex.Message;
         }
+
         return response;
     }
 
@@ -1177,6 +1264,7 @@ public class SaveStationDataService
                 result.Message = $"未提供拧紧数据";
                 return result;
             }
+
             var main = await GetMainData(dto.MainId);
             if (main == null)
             {
@@ -1184,8 +1272,10 @@ public class SaveStationDataService
                 result.Message = $"主记录未查询到";
                 return result;
             }
+
             // 2、根据生产主记录查找任务主记录
-            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.ScrewData?.ScrewSpecs ?? "", dto.ScrewData?.CreateUserID);
+            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.ScrewData?.ScrewSpecs ?? "",
+                dto.ScrewData?.CreateUserID);
             if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
             {
                 await trans.RollbackAsync();
@@ -1195,7 +1285,8 @@ public class SaveStationDataService
             }
 
             // 3、根据任务主记录查找拧紧任务主记录
-            var orgTaskBlotGun = _dbContext.Proc_StationTask_BlotGuns.FirstOrDefault(ps => ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id && ps.Base_ScrewTaskId == screw.Id);
+            var orgTaskBlotGun = _dbContext.Proc_StationTask_BlotGuns.FirstOrDefault(ps =>
+                ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id && ps.Base_ScrewTaskId == screw.Id);
             if (orgTaskBlotGun == null)
             {
                 // 没有拧紧任务主记录 新增
@@ -1225,13 +1316,15 @@ public class SaveStationDataService
                 orgTaskBlotGun.Status = StationTaskStatusEnum.已完成;
             }
 
-            var baseScrew = _dbContext.Base_StationTaskScrews.FirstOrDefault(s => s.IsDeleted == false && s.StationTaskId == dto.StationTaskId);
+            var baseScrew =
+                _dbContext.Base_StationTaskScrews.FirstOrDefault(s => s.IsDeleted == false && s.StationTaskId == dto.StationTaskId);
             if (baseScrew == null)
             {
                 result.Code = 500;
                 result.Message = "配方未查询到";
                 return result;
             }
+
             if (baseScrew.UseNum > 1)
             {
                 // 4、根据拧紧任务主记录 新增拧紧任务详情
@@ -1299,15 +1392,16 @@ public class SaveStationDataService
 
             await _dbContext.SaveChangesAsync();
             await trans.CommitAsync();
-
         }
         catch (Exception ex)
         {
             await trans.RollbackAsync();
             result.Code = 500;
             result.Message = "保存失败！";
-            _logger.LogError("工位任务螺丝详情保存失败，参数为：{SerializeObject}，异常消息为：{O}", JsonConvert.SerializeObject(dto.ScrewData), JsonConvert.SerializeObject(ex));
+            _logger.LogError("工位任务螺丝详情保存失败，参数为：{SerializeObject}，异常消息为：{O}", JsonConvert.SerializeObject(dto.ScrewData),
+                JsonConvert.SerializeObject(ex));
         }
+
         return result;
     }
 
@@ -1324,6 +1418,7 @@ public class SaveStationDataService
                 result.Message = $"主记录未查询到";
                 return result;
             }
+
             // 2、根据生产主记录查找任务主记录
             var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.TaskName ?? "", main.CreateUserID);
             if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
@@ -1358,6 +1453,7 @@ public class SaveStationDataService
             result.Message = "保存失败！";
             _logger.LogError($"工位任务螺丝详情保存失败，参数为：{JsonConvert.SerializeObject(dto.ScrewData)}，异常消息为：{JsonConvert.SerializeObject(ex)}");
         }
+
         return result;
     }
 
@@ -1378,6 +1474,7 @@ public class SaveStationDataService
                 result.Message = $"主记录未查询到";
                 return result;
             }
+
             var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.TaskName ?? "", main.CreateUserID);
             if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
             {
@@ -1411,6 +1508,7 @@ public class SaveStationDataService
             result.Message = "保存失败！";
             _logger.LogError($"图示拧紧NG数据保存失败，参数为：{JsonConvert.SerializeObject(dto)}，异常：{ex.Message}");
         }
+
         return result;
     }
 
@@ -1430,6 +1528,7 @@ public class SaveStationDataService
                 result.Message = $"主记录未查询到";
                 return result;
             }
+
             var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.TaskName ?? "", main.CreateUserID);
             if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
             {
@@ -1463,6 +1562,7 @@ public class SaveStationDataService
             result.Message = "保存失败！";
             _logger.LogError($"图示拧紧反拧数据保存失败，参数为：{JsonConvert.SerializeObject(dto)}，异常：{ex.Message}");
         }
+
         return result;
     }
 
@@ -1473,7 +1573,8 @@ public class SaveStationDataService
 
     public async Task<Proc_StationTask_Record> CreateOrGetRecordData(int mainId, int TsakId, string TaskName, int? UserId)
     {
-        var record = await _dbContext.Proc_StationTask_Records.Include(s => s.Base_StationTask).FirstOrDefaultAsync(ps => ps.IsDeleted == false && ps.Proc_StationTask_MainId == mainId && ps.Base_StationTaskId == TsakId);
+        var record = await _dbContext.Proc_StationTask_Records.Include(s => s.Base_StationTask).FirstOrDefaultAsync(ps =>
+            ps.IsDeleted == false && ps.Proc_StationTask_MainId == mainId && ps.Base_StationTaskId == TsakId);
         if (record != null)
         {
             return record;
@@ -1512,13 +1613,15 @@ public class SaveStationDataService
                 return result;
             }
 
-            var orgMainRecord = await _dbContext.Proc_StationTask_Records.FirstOrDefaultAsync(f => f.Proc_StationTask_MainId == mainId && f.Base_StationTaskId == screw.StationTaskId && !f.IsDeleted);
+            var orgMainRecord = await _dbContext.Proc_StationTask_Records.FirstOrDefaultAsync(f =>
+                f.Proc_StationTask_MainId == mainId && f.Base_StationTaskId == screw.StationTaskId && !f.IsDeleted);
             if (orgMainRecord == null)
             {
                 result.Code = 500;
                 result.Message = $"任务记录未查询到";
                 return result;
             }
+
             if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
             {
                 result.Code = 500;
@@ -1526,13 +1629,15 @@ public class SaveStationDataService
                 return result;
             }
 
-            var orgTaskBolt = _dbContext.Proc_StationTask_BlotGuns.FirstOrDefault(ps => ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id && ps.Base_ScrewTaskId == screw.Id);
+            var orgTaskBolt = _dbContext.Proc_StationTask_BlotGuns.FirstOrDefault(ps =>
+                ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id && ps.Base_ScrewTaskId == screw.Id);
             if (orgTaskBolt == null)
             {
                 result.Code = 500;
                 result.Message = $"当前拧紧任务记录不存在无法设置拧紧完成";
                 return result;
             }
+
             orgTaskBolt.Status = StationTaskStatusEnum.已完成;
             orgTaskBolt.UpdateTime = DateTime.Now;
             _dbContext.Update(orgTaskBolt);
@@ -1546,6 +1651,7 @@ public class SaveStationDataService
             result.Message = "保存失败！";
             _logger.LogError($"工位任务螺丝详情保存失败，参数为：{JsonConvert.SerializeObject(screw)}，异常消息为：{JsonConvert.SerializeObject(ex)}");
         }
+
         return result;
     }
 
@@ -1568,18 +1674,22 @@ public class SaveStationDataService
                 result.Message = "设置任务完成时，未查询到工位任务主记录";
                 return result;
             }
-            var taskRecords = await _dbContext.Proc_StationTask_Records.Where(t => t.Proc_StationTask_MainId == main.Id && !t.IsDeleted).ToListAsync();
+
+            var taskRecords = await _dbContext.Proc_StationTask_Records.Where(t => t.Proc_StationTask_MainId == main.Id && !t.IsDeleted)
+                .ToListAsync();
             var taskRecord = taskRecords.FirstOrDefault(t => t.Base_StationTaskId == taskDTO.StationTaskId);
             if (taskRecord == null)
             {
                 taskRecord = await CreateOrGetRecordData(main.Id, taskDTO.StationTask!.Id, taskDTO.StationTask.Name!, main.CreateUserID);
             }
+
             if (taskRecord.Status == StationTaskStatusEnum.已完成)
             {
                 result.Code = 200;
                 result.Message = $"当前任务【{taskRecord.TaskName}】已完成，请继续作业";
                 return result;
             }
+
             taskRecord.Status = StationTaskStatusEnum.已完成;
             taskRecord.UpdateTime = DateTime.Now;
             _dbContext.Update(taskRecord);
@@ -1596,6 +1706,7 @@ public class SaveStationDataService
             result.Message = "保存失败！";
             _logger.LogError($"工位任务状态保存失败，参数为：{JsonConvert.SerializeObject(taskDTO)}，异常消息为：{JsonConvert.SerializeObject(ex)}");
         }
+
         return result;
     }
 
@@ -1617,7 +1728,9 @@ public class SaveStationDataService
                 result.Message = "设置任务完成时，未查询到工位任务主记录";
                 return result;
             }
-            var taskRecords = await _dbContext.Proc_StationTask_Records.Where(t => t.Proc_StationTask_MainId == main.Id && !t.IsDeleted).ToListAsync();
+
+            var taskRecords = await _dbContext.Proc_StationTask_Records.Where(t => t.Proc_StationTask_MainId == main.Id && !t.IsDeleted)
+                .ToListAsync();
             var taskRecord = taskRecords.FirstOrDefault(t => t.Base_StationTaskId == taskDTO.StationTaskId);
             if (taskRecord == null)
             {
@@ -1634,6 +1747,7 @@ public class SaveStationDataService
                 await _dbContext.SaveChangesAsync();
                 taskRecord = newRecord;
             }
+
             taskRecord.Status = StationTaskStatusEnum.已完成;
             taskRecord.UpdateTime = DateTime.Now;
             taskRecord.UpdateUserID = taskDTO.CreateUserID;
@@ -1643,7 +1757,7 @@ public class SaveStationDataService
             _dbContext.Update(main);
             await _dbContext.SaveChangesAsync();
 
-            await SaveToOffline(main);//保存下线记录
+            await SaveToOffline(main); //保存下线记录
 
             await trans.CommitAsync();
         }
@@ -1653,6 +1767,7 @@ public class SaveStationDataService
             result.Message = "保存失败！";
             _logger.LogError($"工位任务状态保存失败，参数为：{JsonConvert.SerializeObject(taskDTO)}，异常消息为：{JsonConvert.SerializeObject(ex)}");
         }
+
         return result;
     }
 
@@ -1661,13 +1776,15 @@ public class SaveStationDataService
         var flow = await _dbContext.Base_Flows.FirstOrDefaultAsync(f => !f.IsDeleted && f.ProductId == main.ProductId);
         if (flow == null) return;
 
-        var lastStep = await _dbContext.Base_FlowStepMappings.Where(w => !w.IsDeleted && w.FlowId == flow.Id).OrderBy(o => o.OrderNo).LastOrDefaultAsync();
+        var lastStep = await _dbContext.Base_FlowStepMappings.Where(w => !w.IsDeleted && w.FlowId == flow.Id).OrderBy(o => o.OrderNo)
+            .LastOrDefaultAsync();
         if (lastStep == null) return;
 
         if (main.StepId != lastStep.StepId)
         {
             return;
         }
+
         var newOffline = new Proc_Product_Offline
         {
             ProductCode = main.PackCode,
@@ -1707,22 +1824,25 @@ public class SaveStationDataService
     /// </summary>
     /// <param name="listRes"></param>
     /// <returns></returns>
-    public async Task<Response<List<Base_ProResource>>> SaveStationEquipmentConifgData(List<Base_ProResource> listRes, ProResourceTypeEnum resourceType, string stationCode, string Operator)
+    public async Task<Response<List<Base_ProResource>>> SaveStationEquipmentConifgData(List<Base_ProResource> listRes,
+        ProResourceTypeEnum resourceType, string stationCode, string Operator)
     {
         var result = new Response<List<Base_ProResource>>();
 
         var user = _dbContext.Users.FirstOrDefault(u => u.Account == Operator && !u.IsDeleted);
         try
         {
-            var Resource = _dbContext.Base_ProResources.Where(p => p.StationCode == stationCode && p.ProResourceType == resourceType && !p.IsDeleted);
+            var Resource =
+                _dbContext.Base_ProResources.Where(p => p.StationCode == stationCode && p.ProResourceType == resourceType && !p.IsDeleted);
             if (listRes.Count == 0)
             {
-
                 foreach (var r in Resource)
                 {
                     r.IsDeleted = true;
-                    await sysLogService.AddLog(new SysLog { LogType = Sys_LogType.删除生产资源, Message = $"删除生产资源: {r.Name}", Operator = user?.Name });
+                    await sysLogService.AddLog(new SysLog
+                        { LogType = Sys_LogType.删除生产资源, Message = $"删除生产资源: {r.Name}", Operator = user?.Name });
                 }
+
                 _dbContext.Base_ProResources.UpdateRange(Resource);
             }
             else
@@ -1740,26 +1860,39 @@ public class SaveStationDataService
                             if (exiestRes.IpAddress != res.IpAddress)
                             {
                                 exiestRes.IpAddress = res.IpAddress;
-                                await sysLogService.AddLog(new SysLog { LogType = Sys_LogType.修改生产资源, Message = $"修改生产资源: {res.Name}的IP修改为{res.IpAddress}", Operator = user?.Name });
+                                await sysLogService.AddLog(new SysLog
+                                {
+                                    LogType = Sys_LogType.修改生产资源, Message = $"修改生产资源: {res.Name}的IP修改为{res.IpAddress}",
+                                    Operator = user?.Name
+                                });
                             }
 
                             if (exiestRes.Port != res.Port)
                             {
                                 exiestRes.Port = res.Port;
-                                await sysLogService.AddLog(new SysLog { LogType = Sys_LogType.修改生产资源, Message = $"修改生产资源: {res.Name}的端口修改为{res.Port}", Operator = user?.Name });
+                                await sysLogService.AddLog(new SysLog
+                                {
+                                    LogType = Sys_LogType.修改生产资源, Message = $"修改生产资源: {res.Name}的端口修改为{res.Port}", Operator = user?.Name
+                                });
                             }
 
                             if (exiestRes.Baud != res.Baud)
                             {
                                 exiestRes.Baud = res.Baud;
-                                await sysLogService.AddLog(new SysLog { LogType = Sys_LogType.修改生产资源, Message = $"修改生产资源: {res.Name}的波特率修改为{res.Baud}", Operator = user?.Name });
+                                await sysLogService.AddLog(new SysLog
+                                {
+                                    LogType = Sys_LogType.修改生产资源, Message = $"修改生产资源: {res.Name}的波特率修改为{res.Baud}", Operator = user?.Name
+                                });
                             }
 
                             if (exiestRes.IsEnable != res.IsEnable)
                             {
                                 exiestRes.IsEnable = res.IsEnable;
-                                await sysLogService.AddLog(new SysLog { LogType = Sys_LogType.修改生产资源, Message = $"修改生产资源: {res.Name}{(res.IsEnable ? "启用" : "禁用")}", Operator = user?.Name });
-
+                                await sysLogService.AddLog(new SysLog
+                                {
+                                    LogType = Sys_LogType.修改生产资源, Message = $"修改生产资源: {res.Name}{(res.IsEnable ? "启用" : "禁用")}",
+                                    Operator = user?.Name
+                                });
                             }
 
                             _dbContext.Base_ProResources.Update(exiestRes);
@@ -1767,6 +1900,7 @@ public class SaveStationDataService
                             break;
                         }
                     }
+
                     if (!add)
                     {
                         continue;
@@ -1774,9 +1908,11 @@ public class SaveStationDataService
                     else
                     {
                         _dbContext.Base_ProResources.Add(res);
-                        await sysLogService.AddLog(new SysLog { LogType = Sys_LogType.新增生产资源, Message = $"新增生产资源: {res.Name}", Operator = user?.Name });
+                        await sysLogService.AddLog(new SysLog
+                            { LogType = Sys_LogType.新增生产资源, Message = $"新增生产资源: {res.Name}", Operator = user?.Name });
                     }
                 }
+
                 bool b = false;
                 foreach (var exiestRes in Resource)
                 {
@@ -1790,6 +1926,7 @@ public class SaveStationDataService
                             break;
                         }
                     }
+
                     if (b)
                     {
                         continue;
@@ -1798,13 +1935,16 @@ public class SaveStationDataService
                     {
                         exiestRes.IsDeleted = true;
                         _dbContext.Base_ProResources.Update(exiestRes);
-                        await sysLogService.AddLog(new SysLog { LogType = Sys_LogType.删除生产资源, Message = $"删除生产资源: {exiestRes.Name}", Operator = user?.Name });
+                        await sysLogService.AddLog(new SysLog
+                            { LogType = Sys_LogType.删除生产资源, Message = $"删除生产资源: {exiestRes.Name}", Operator = user?.Name });
                     }
                 }
             }
+
             _dbContext.SaveChanges();
 
-            var resourceList = _dbContext.Base_ProResources.Where(r => r.StationCode == stationCode && r.ProResourceType == resourceType && r.IsDeleted == false).ToList();
+            var resourceList = _dbContext.Base_ProResources
+                .Where(r => r.StationCode == stationCode && r.ProResourceType == resourceType && r.IsDeleted == false).ToList();
 
             result.Code = 200;
             result.Message = "读取成功";
@@ -1834,8 +1974,10 @@ public class SaveStationDataService
                 result.Message = $"主记录未查询到";
                 return result;
             }
+
             // 2、根据生产主记录查找任务主记录
-            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.CheckTimeOutData?.TimeOutTaskName ?? "", dto.CheckTimeOutData?.CreateUserID);
+            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.CheckTimeOutData?.TimeOutTaskName ?? "",
+                dto.CheckTimeOutData?.CreateUserID);
             if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
             {
                 await trans.RollbackAsync();
@@ -1845,7 +1987,9 @@ public class SaveStationDataService
             }
 
             // 3、根据任务主记录查找任务
-            var orgTaskBom = _dbContext.Proc_StationTask_CheckTimeouts.FirstOrDefault(ps => ps.IsDeleted == false && (ps.Status == StationTaskStatusEnum.未开始 || ps.Status == StationTaskStatusEnum.进行中) && ps.StationTask_Record == orgMainRecord);
+            var orgTaskBom = _dbContext.Proc_StationTask_CheckTimeouts.FirstOrDefault(ps =>
+                ps.IsDeleted == false && (ps.Status == StationTaskStatusEnum.未开始 || ps.Status == StationTaskStatusEnum.进行中) &&
+                ps.StationTask_Record == orgMainRecord);
             if (orgTaskBom == null)
             {
                 // 没有任务新增
@@ -1867,6 +2011,7 @@ public class SaveStationDataService
                     StationId = main.StationId,
                 });
             }
+
             await _dbContext.SaveChangesAsync();
             await trans.CommitAsync();
         }
@@ -1875,6 +2020,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = ex.Message;
         }
+
         return result;
     }
 
@@ -1889,7 +2035,9 @@ public class SaveStationDataService
             var stationId = proc.StationId;
 
             // 1、 查找生产主记录
-            var pStationTaskMain = _dbContext.Proc_StationTask_Mains.FirstOrDefault(ps => ps.IsDeleted == false && ps.StepId == stepId && ps.PackCode == proc.PackCode && (ps.Status == StationTaskStatusEnum.未开始 || ps.Status == StationTaskStatusEnum.进行中));
+            var pStationTaskMain = _dbContext.Proc_StationTask_Mains.FirstOrDefault(ps =>
+                ps.IsDeleted == false && ps.StepId == stepId && ps.PackCode == proc.PackCode &&
+                (ps.Status == StationTaskStatusEnum.未开始 || ps.Status == StationTaskStatusEnum.进行中));
             if (pStationTaskMain == null)
             {
                 DateTimeOffset utcTime = DateTime.Now;
@@ -1961,6 +2109,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = ex.Message;
         }
+
         return result;
     }
 
@@ -1970,13 +2119,16 @@ public class SaveStationDataService
         var response = new Response<Proc_StationTask_TimeRecord>();
         try
         {
-            var result = await _dbContext.Proc_StationTask_TimeRecords.Where(w => !w.IsDeleted && w.TimeFlag == TimeFlag && w.SerialCode == packCode).FirstOrDefaultAsync(); //、理论上一个Pack可以有多个时间标志，但一个时间标志只能代表一个时间，如果有多个时间，则默认第一个
+            var result = await _dbContext.Proc_StationTask_TimeRecords
+                .Where(w => !w.IsDeleted && w.TimeFlag == TimeFlag && w.SerialCode == packCode)
+                .FirstOrDefaultAsync(); //、理论上一个Pack可以有多个时间标志，但一个时间标志只能代表一个时间，如果有多个时间，则默认第一个
             if (result == null)
             {
                 response.Code = 500;
                 response.Message = $"未找到PACK-{packCode}的 {TimeFlag}的记录";
                 return response;
             }
+
             response.Result = result;
         }
         catch (Exception ex)
@@ -1984,8 +2136,8 @@ public class SaveStationDataService
             response.Code = 500;
             response.Message = ex.Message;
         }
-        return response;
 
+        return response;
     }
 
     /// <summary>
@@ -2017,7 +2169,8 @@ public class SaveStationDataService
                 return response;
             }
 
-            var main = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(f => !f.IsDeleted && f.PackCode == packCode && f.StepId == station.StepId);
+            var main = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(f =>
+                !f.IsDeleted && f.PackCode == packCode && f.StepId == station.StepId);
             // 首次作业，创建任务主记录
             if (main == null)
             {
@@ -2042,7 +2195,8 @@ public class SaveStationDataService
             dto.StationTaskMain = main;
             dto.IsNew = false;
 
-            var Records = await _dbContext.Proc_StationTask_Records.Where(w => !w.IsDeleted && w.Proc_StationTask_MainId == main.Id).Include(i => i.Base_StationTask).ToListAsync();
+            var Records = await _dbContext.Proc_StationTask_Records.Where(w => !w.IsDeleted && w.Proc_StationTask_MainId == main.Id)
+                .Include(i => i.Base_StationTask).ToListAsync();
             var recordList = new List<RecordHistoryDTO>();
             foreach (var item in Records)
             {
@@ -2055,51 +2209,70 @@ public class SaveStationDataService
                 switch (stationTask.Type)
                 {
                     case StationTaskTypeEnum.扫描员工卡:
-                        record.ScanAccountCards = await _dbContext.Proc_StationTask_ScanAccountCards.FirstOrDefaultAsync(f => f.StationTask_RecordId == item.Id && !f.IsDeleted);
+                        record.ScanAccountCards =
+                            await _dbContext.Proc_StationTask_ScanAccountCards.FirstOrDefaultAsync(f =>
+                                f.StationTask_RecordId == item.Id && !f.IsDeleted);
                         break;
                     case StationTaskTypeEnum.扫码:
                         var bomDtos = new List<BomHistoryDTO>();
-                        var boms = await _dbContext.Proc_StationTask_Boms.Where(w => !w.IsDeleted && w.StationTask_RecordId == item.Id).ToListAsync();
+                        var boms = await _dbContext.Proc_StationTask_Boms.Where(w => !w.IsDeleted && w.StationTask_RecordId == item.Id)
+                            .ToListAsync();
                         foreach (var bom in boms)
                         {
                             bomDtos.Add(new BomHistoryDTO
                             {
                                 StationTaskBom = bom,
-                                BomDetails = await _dbContext.Proc_StationTask_BomDetails.Where(w => !w.IsDeleted && w.Proc_StationTask_BomId == bom.Id).ToListAsync(),
+                                BomDetails = await _dbContext.Proc_StationTask_BomDetails
+                                    .Where(w => !w.IsDeleted && w.Proc_StationTask_BomId == bom.Id).ToListAsync(),
                             });
                         }
+
                         record.Boms = bomDtos;
                         break;
                     case StationTaskTypeEnum.人工拧螺丝:
                         var screwDtos = new List<ScrewHistoryDTO>();
-                        var screws = await _dbContext.Proc_StationTask_BlotGuns.Where(w => !w.IsDeleted && w.StationTask_RecordId == item.Id).ToListAsync();
+                        var screws = await _dbContext.Proc_StationTask_BlotGuns
+                            .Where(w => !w.IsDeleted && w.StationTask_RecordId == item.Id).ToListAsync();
                         foreach (var screw in screws)
                         {
                             screwDtos.Add(new ScrewHistoryDTO
                             {
                                 StationTaskScrew = screw,
-                                ScrewDetails = await _dbContext.Proc_StationTask_BlotGunDetails.Where(w => !w.IsDeleted && w.Proc_StationTask_BlotGunId == screw.Id).ToListAsync(),
+                                ScrewDetails = await _dbContext.Proc_StationTask_BlotGunDetails
+                                    .Where(w => !w.IsDeleted && w.Proc_StationTask_BlotGunId == screw.Id).ToListAsync(),
                             });
                         }
+
                         record.Screws = screwDtos;
                         break;
                     case StationTaskTypeEnum.扫码输入:
-                        record.ScanCollects = await _dbContext.Proc_StationTask_ScanCollects.FirstOrDefaultAsync(f => f.StationTask_RecordId == item.Id && !f.IsDeleted);
+                        record.ScanCollects =
+                            await _dbContext.Proc_StationTask_ScanCollects.FirstOrDefaultAsync(f =>
+                                f.StationTask_RecordId == item.Id && !f.IsDeleted);
                         break;
                     case StationTaskTypeEnum.用户输入:
-                        record.UserInputs = await _dbContext.Proc_StationTask_UserInputs.FirstOrDefaultAsync(f => f.StationTask_RecordId == item.Id && !f.IsDeleted);
+                        record.UserInputs =
+                            await _dbContext.Proc_StationTask_UserInputs.FirstOrDefaultAsync(f =>
+                                f.StationTask_RecordId == item.Id && !f.IsDeleted);
                         break;
                     case StationTaskTypeEnum.超时检测:
-                        record.CheckTimeouts = await _dbContext.Proc_StationTask_CheckTimeouts.FirstOrDefaultAsync(f => f.StationTask_RecordId == item.Id && !f.IsDeleted);
+                        record.CheckTimeouts =
+                            await _dbContext.Proc_StationTask_CheckTimeouts.FirstOrDefaultAsync(f =>
+                                f.StationTask_RecordId == item.Id && !f.IsDeleted);
                         break;
                     case StationTaskTypeEnum.时间记录:
-                        record.TimeRecords = await _dbContext.Proc_StationTask_TimeRecords.FirstOrDefaultAsync(f => f.Proc_StationTask_RecordId == item.Id && !f.IsDeleted);
+                        record.TimeRecords =
+                            await _dbContext.Proc_StationTask_TimeRecords.FirstOrDefaultAsync(f =>
+                                f.Proc_StationTask_RecordId == item.Id && !f.IsDeleted);
                         break;
                     case StationTaskTypeEnum.称重:
-                        record.AnyLoads = await _dbContext.Proc_StationTask_AnyLoads.FirstOrDefaultAsync(f => f.StationTask_RecordId == item.Id && !f.IsDeleted);
+                        record.AnyLoads =
+                            await _dbContext.Proc_StationTask_AnyLoads.FirstOrDefaultAsync(f =>
+                                f.StationTask_RecordId == item.Id && !f.IsDeleted);
                         break;
                     case StationTaskTypeEnum.补拧:
-                        record.TightenReworks = await _dbContext.Proc_StationTask_TightenReworks.Where(f => f.StationTaskRecordId == item.Id && !f.IsDeleted).ToListAsync();
+                        record.TightenReworks = await _dbContext.Proc_StationTask_TightenReworks
+                            .Where(f => f.StationTaskRecordId == item.Id && !f.IsDeleted).ToListAsync();
                         break;
                     case StationTaskTypeEnum.图示拧紧:
                         record.TightenByImages = await _dbContext.Proc_StationTask_TightenByImages
@@ -2109,6 +2282,7 @@ public class SaveStationDataService
                             .ToListAsync();
                         break;
                 }
+
                 recordList.Add(record);
             }
 
@@ -2169,7 +2343,7 @@ public class SaveStationDataService
 
                     boltDataList.Add(new AutoBlotInfo
                     {
-                        ResultIsOK = item.ResultOK == 1,
+                        ResultIsOK = item.IsOk,
                         ProgramNo = item.ProgramNo,
                         FinalTorque = torque,
                         FinalAngle = angle,
@@ -2180,11 +2354,11 @@ public class SaveStationDataService
             else
             {
                 // 兼容老的自动站程序：如果新的表里没有数据则回退至旧表查询
-                var oldDataList = await _dbContext.Proc_AutoBoltInfo_Details
+                List<Proc_AutoBoltInfo_Detail> oldDataList = await _dbContext.Proc_AutoBoltInfo_Details
                     .Where(w => !w.IsDeleted && w.PackPN == packCode && w.BoltType == autoTightenType.ToString())
                     .ToListAsync();
 
-                foreach (var item in oldDataList)
+                foreach (Proc_AutoBoltInfo_Detail item in oldDataList)
                 {
                     boltDataList.AddRange(item.AutoBlotInfoArray ?? new List<AutoBlotInfo>());
                 }
@@ -2201,6 +2375,7 @@ public class SaveStationDataService
                 result.Code = 500;
                 result.Message = $"螺栓数量不匹配，需求数量:{screwNum},实际数量:{boltDataList.Count},请校验自动工位提供的数量是否正确，或补拧配方是否正确！";
             }
+
             result.Result = boltDataList;
         }
         catch (Exception ex)
@@ -2208,6 +2383,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = ex.Message;
         }
+
         return result;
     }
 
@@ -2218,11 +2394,13 @@ public class SaveStationDataService
         {
             return false;
         }
+
         var trimmed = raw.Trim();
         if (decimal.TryParse(trimmed, NumberStyles.Any, CultureInfo.InvariantCulture, out value))
         {
             return true;
         }
+
         return decimal.TryParse(trimmed, NumberStyles.Any, CultureInfo.CurrentCulture, out value);
     }
 
@@ -2292,6 +2470,7 @@ public class SaveStationDataService
                 result.Message = $"生产主记录不存在";
                 return result;
             }
+
             var record = await CreateOrGetRecordData(mainId, dto.StationTaskId, dto.StationTask?.Name ?? "", main.CreateUserID);
             record.Status = StationTaskStatusEnum.已完成;
             _dbContext.Update(record);
@@ -2302,6 +2481,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = ex.Message;
         }
+
         return result;
     }
 
@@ -2318,6 +2498,7 @@ public class SaveStationDataService
                 result.Message = $"生产主记录不存在";
                 return result;
             }
+
             foreach (var item in Tasks)
             {
                 var record = await CreateOrGetRecordData(mainId, item.Item1, item.Item2 ?? "", main.CreateUserID);
@@ -2332,6 +2513,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = ex.Message;
         }
+
         return result;
     }
 
@@ -2347,32 +2529,40 @@ public class SaveStationDataService
                 switch (item.StationTaskType)
                 {
                     case StationTaskTypeEnum.扫码:
-                        var bom = await _dbContext.Proc_StationTask_Boms.Include(i => i.StationTask_Record).Where(w => !w.IsDeleted && w.Id == item.Id).FirstOrDefaultAsync();
+                        var bom = await _dbContext.Proc_StationTask_Boms.Include(i => i.StationTask_Record)
+                            .Where(w => !w.IsDeleted && w.Id == item.Id).FirstOrDefaultAsync();
                         if (bom == null) continue;
 
                         bom.Status = StationTaskStatusEnum.进行中;
                         if (item.IsNeedRemoveAll)
                         {
-                            var details = await _dbContext.Proc_StationTask_BomDetails.Where(w => w.Proc_StationTask_BomId == bom.Id).ToListAsync();
+                            var details = await _dbContext.Proc_StationTask_BomDetails.Where(w => w.Proc_StationTask_BomId == bom.Id)
+                                .ToListAsync();
                             foreach (var detail in details)
                             {
                                 detail.IsDeleted = true;
                             }
+
                             _dbContext.UpdateRange(details);
                         }
+
                         _dbContext.Update(bom);
                         MainId = await SetRecordWorking(bom.StationTask_RecordId);
                         break;
                     case StationTaskTypeEnum.人工拧螺丝:
-                        var screw = await _dbContext.Proc_StationTask_BlotGuns.Include(i => i.StationTask_Record).Where(w => !w.IsDeleted && w.Id == item.Id).FirstOrDefaultAsync();
+                        var screw = await _dbContext.Proc_StationTask_BlotGuns.Include(i => i.StationTask_Record)
+                            .Where(w => !w.IsDeleted && w.Id == item.Id).FirstOrDefaultAsync();
                         if (screw == null) continue;
                         screw.Status = StationTaskStatusEnum.进行中;
                         screw.CurCompleteNum = screw.CurCompleteNum >= item.ReworkNum ? screw.CurCompleteNum - item.ReworkNum : 0;
-                        var screwDetails = await _dbContext.Proc_StationTask_BlotGunDetails.Where(w => !w.IsDeleted && w.Proc_StationTask_BlotGunId == screw.Id && w.ResultIsOK).OrderByDescending(o => o.Id).Take(item.ReworkNum).ToListAsync();
+                        var screwDetails = await _dbContext.Proc_StationTask_BlotGunDetails
+                            .Where(w => !w.IsDeleted && w.Proc_StationTask_BlotGunId == screw.Id && w.ResultIsOK)
+                            .OrderByDescending(o => o.Id).Take(item.ReworkNum).ToListAsync();
                         foreach (var screwDetail in screwDetails)
                         {
                             screwDetail.IsDeleted = true;
                         }
+
                         _dbContext.UpdateRange(screwDetails);
                         _dbContext.Update(screw);
                         MainId = await SetRecordWorking(screw.StationTask_RecordId);
@@ -2387,12 +2577,14 @@ public class SaveStationDataService
                         if (item.OrderNo > 0)
                         {
                             var sameOrder = await _dbContext.Proc_StationTask_TightenByImages
-                                .Where(w => !w.IsDeleted && w.Proc_StationTask_RecordId == screwImage.Proc_StationTask_RecordId && w.OrderNo == item.OrderNo)
+                                .Where(w => !w.IsDeleted && w.Proc_StationTask_RecordId == screwImage.Proc_StationTask_RecordId &&
+                                            w.OrderNo == item.OrderNo)
                                 .ToListAsync();
                             foreach (var d in sameOrder)
                             {
                                 d.IsDeleted = true;
                             }
+
                             _dbContext.UpdateRange(sameOrder);
                         }
                         else
@@ -2404,7 +2596,8 @@ public class SaveStationDataService
                         MainId = await SetRecordWorking(screwImage.Proc_StationTask_RecordId);
                         break;
                     case StationTaskTypeEnum.称重:
-                        var anyload = await _dbContext.Proc_StationTask_AnyLoads.Where(w => !w.IsDeleted && w.Id == item.Id).FirstOrDefaultAsync();
+                        var anyload = await _dbContext.Proc_StationTask_AnyLoads.Where(w => !w.IsDeleted && w.Id == item.Id)
+                            .FirstOrDefaultAsync();
                         if (anyload == null) continue;
                         anyload.IsDeleted = true;
                         _dbContext.Update(anyload);
@@ -2412,31 +2605,36 @@ public class SaveStationDataService
 
                         break;
                     case StationTaskTypeEnum.超时检测:
-                        var glueTime = await _dbContext.Proc_StationTask_CheckTimeouts.Where(w => !w.IsDeleted && w.Id == item.Id).FirstOrDefaultAsync();
+                        var glueTime = await _dbContext.Proc_StationTask_CheckTimeouts.Where(w => !w.IsDeleted && w.Id == item.Id)
+                            .FirstOrDefaultAsync();
                         if (glueTime == null) continue;
                         glueTime.IsDeleted = true;
                         _dbContext.Update(glueTime);
                         MainId = await SetRecordWorking(glueTime.StationTask_RecordId);
                         break;
                     case StationTaskTypeEnum.用户输入:
-                        var userInput = await _dbContext.Proc_StationTask_UserInputs.Where(w => !w.IsDeleted && w.Id == item.Id).FirstOrDefaultAsync();
+                        var userInput = await _dbContext.Proc_StationTask_UserInputs.Where(w => !w.IsDeleted && w.Id == item.Id)
+                            .FirstOrDefaultAsync();
                         if (userInput == null) continue;
                         userInput.IsDeleted = true;
                         MainId = await SetRecordWorking(userInput.StationTask_RecordId);
                         _dbContext.Update(userInput);
                         break;
                     case StationTaskTypeEnum.补拧: //特殊逻辑特殊处理
-                        var repairScrews = await _dbContext.Proc_StationTask_TightenReworks.Where(w => !w.IsDeleted && w.StationTaskRecordId == item.Id).OrderByDescending(o => o.OrderNo).ToListAsync();
+                        var repairScrews = await _dbContext.Proc_StationTask_TightenReworks
+                            .Where(w => !w.IsDeleted && w.StationTaskRecordId == item.Id).OrderByDescending(o => o.OrderNo).ToListAsync();
                         if (repairScrews == null || repairScrews.Count == 0) continue;
                         foreach (var repairScrew in repairScrews)
                         {
                             repairScrew.IsDeleted = true;
                         }
+
                         _dbContext.UpdateRange(repairScrews);
                         MainId = await SetRecordWorking(item.Id);
                         break;
                     case StationTaskTypeEnum.扫码输入:
-                        var scanCollect = await _dbContext.Proc_StationTask_ScanCollects.Where(w => !w.IsDeleted && w.Id == item.Id).FirstOrDefaultAsync();
+                        var scanCollect = await _dbContext.Proc_StationTask_ScanCollects.Where(w => !w.IsDeleted && w.Id == item.Id)
+                            .FirstOrDefaultAsync();
                         if (scanCollect == null)
                             continue;
                         scanCollect.IsDeleted = true;
@@ -2444,7 +2642,8 @@ public class SaveStationDataService
                         MainId = await SetRecordWorking(scanCollect.StationTask_RecordId);
                         break;
                     case StationTaskTypeEnum.时间记录:
-                        var timeRecord = await _dbContext.Proc_StationTask_TimeRecords.Where(w => !w.IsDeleted && w.Id == item.Id).FirstOrDefaultAsync();
+                        var timeRecord = await _dbContext.Proc_StationTask_TimeRecords.Where(w => !w.IsDeleted && w.Id == item.Id)
+                            .FirstOrDefaultAsync();
                         if (timeRecord == null)
                             continue;
                         timeRecord.IsDeleted = true;
@@ -2454,7 +2653,8 @@ public class SaveStationDataService
                 }
             }
 
-            var records = await _dbContext.Proc_StationTask_Records.Where(w => w.Proc_StationTask_MainId == MainId).Include(i => i.Base_StationTask).ToListAsync();
+            var records = await _dbContext.Proc_StationTask_Records.Where(w => w.Proc_StationTask_MainId == MainId)
+                .Include(i => i.Base_StationTask).ToListAsync();
             var letGoRecord = records.Where(w => w.Base_StationTask.Type == StationTaskTypeEnum.放行).ToList();
             var account = records.Where(w => w.Base_StationTask.Type == StationTaskTypeEnum.扫描员工卡).ToList();
             /*// 网页上一键返工自动将工位设置为未完成
@@ -2475,6 +2675,7 @@ public class SaveStationDataService
             result.Code = 500;
             result.Message = ex.Message;
         }
+
         return result;
     }
 
@@ -2486,11 +2687,13 @@ public class SaveStationDataService
         {
             return 0;
         }
+
         record.Status = StationTaskStatusEnum.进行中;
         _dbContext.Update(record);
         await _dbContext.SaveChangesAsync();
         return record.Proc_StationTask_MainId;
     }
+
     public async Task<Response<List<ReWorkData>>> LoadReworkList(LoadReworkDataDto dto)
     {
         var result = new Response<List<ReWorkData>>();
@@ -2503,6 +2706,7 @@ public class SaveStationDataService
                 result.Message = $"工位{dto.StepCode}不存在";
                 return result;
             }
+
             var mains = await _dbContext.Proc_StationTask_Mains.Where(f => f.StepId == Station.StepId && !f.IsDeleted).ToListAsync();
             var main = mains.FirstOrDefault(f => f.PackCode == dto.PackCode);
             if (main == null)
@@ -2511,6 +2715,7 @@ public class SaveStationDataService
                 result.Message = "没有可以返工的项";
                 return result;
             }
+
             var product = await _dbContext.Products.FirstOrDefaultAsync(f => !f.IsDeleted && f.Id == main.ProductId);
             if (product == null)
             {
@@ -2519,7 +2724,8 @@ public class SaveStationDataService
                 return result;
             }
 
-            var tasks = await _dbContext.Base_StationTasks.Where(w => w.ProductId == product.Id && !w.IsDeleted && w.StepId == Station.StepId).OrderBy(o => o.Sequence).ToListAsync();
+            var tasks = await _dbContext.Base_StationTasks
+                .Where(w => w.ProductId == product.Id && !w.IsDeleted && w.StepId == Station.StepId).OrderBy(o => o.Sequence).ToListAsync();
             if (tasks.Count() == 0)
             {
                 result.Code = 500;
@@ -2527,7 +2733,8 @@ public class SaveStationDataService
                 return result;
             }
 
-            var records = await _dbContext.Proc_StationTask_Records.Where(w => !w.IsDeleted && w.Proc_StationTask_MainId == main.Id).ToListAsync();
+            var records = await _dbContext.Proc_StationTask_Records.Where(w => !w.IsDeleted && w.Proc_StationTask_MainId == main.Id)
+                .ToListAsync();
             result.Result = await PacketReworkData(tasks, records);
         }
         catch (Exception ex)
@@ -2536,6 +2743,7 @@ public class SaveStationDataService
             result.Message = $"{ex.Message}";
             return result;
         }
+
         return result;
     }
 
@@ -2550,6 +2758,7 @@ public class SaveStationDataService
             {
                 continue;
             }
+
             var reworkData = new ReWorkData()
             {
                 Id = record.Id,
@@ -2562,6 +2771,7 @@ public class SaveStationDataService
             };
             result.Add(reworkData);
         }
+
         return result;
     }
 
@@ -2571,7 +2781,8 @@ public class SaveStationDataService
         switch (type)
         {
             case StationTaskTypeEnum.扫码:
-                var boms = await _dbContext.Proc_StationTask_Boms.Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).ToListAsync();
+                var boms = await _dbContext.Proc_StationTask_Boms.Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId)
+                    .ToListAsync();
                 foreach (var bom in boms)
                 {
                     result.Add(new WorkRecord()
@@ -2584,9 +2795,11 @@ public class SaveStationDataService
                         StationTaskType = StationTaskTypeEnum.扫码
                     });
                 }
+
                 break;
             case StationTaskTypeEnum.人工拧螺丝:
-                var screws = await _dbContext.Proc_StationTask_BlotGuns.Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).ToListAsync();
+                var screws = await _dbContext.Proc_StationTask_BlotGuns.Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId)
+                    .ToListAsync();
                 foreach (var screw in screws)
                 {
                     result.Add(new WorkRecord()
@@ -2597,10 +2810,16 @@ public class SaveStationDataService
                         ReworkNum = screw.CurCompleteNum,
                         Statue = screw.Status,
                         ReworkNums = CreateReworkNum(screw.CurCompleteNum),
-                        ScrewDatas = await _dbContext.Proc_StationTask_BlotGunDetails.Where(w => !w.IsDeleted && w.Proc_StationTask_BlotGunId == screw.Id).Select(s => new ScrewDatas { Id = s.Id, OrderNo = (int)s.OrderNo!, ResultOk = s.ResultIsOK, Torque = s.FinalTorque + "N", Angle = s.FinalAngle + "°" }).ToListAsync(),
+                        ScrewDatas = await _dbContext.Proc_StationTask_BlotGunDetails
+                            .Where(w => !w.IsDeleted && w.Proc_StationTask_BlotGunId == screw.Id).Select(s => new ScrewDatas
+                            {
+                                Id = s.Id, OrderNo = (int)s.OrderNo!, ResultOk = s.ResultIsOK, Torque = s.FinalTorque + "N",
+                                Angle = s.FinalAngle + "°"
+                            }).ToListAsync(),
                         StationTaskType = StationTaskTypeEnum.人工拧螺丝
                     });
                 }
+
                 break;
             case StationTaskTypeEnum.图示拧紧:
                 var screwImage = await _dbContext.Proc_StationTask_TightenByImages
@@ -2628,10 +2847,12 @@ public class SaveStationDataService
                         StationTaskType = StationTaskTypeEnum.图示拧紧
                     });
                 }
+
                 break;
             case StationTaskTypeEnum.称重:
 
-                var anyloads = await _dbContext.Proc_StationTask_AnyLoads.Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).ToListAsync();
+                var anyloads = await _dbContext.Proc_StationTask_AnyLoads.Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId)
+                    .ToListAsync();
                 foreach (var anyload in anyloads)
                 {
                     result.Add(new WorkRecord()
@@ -2644,9 +2865,11 @@ public class SaveStationDataService
                         StationTaskType = StationTaskTypeEnum.称重
                     });
                 }
+
                 break;
             case StationTaskTypeEnum.超时检测:
-                var chekTimeOuts = await _dbContext.Proc_StationTask_CheckTimeouts.Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).ToListAsync();
+                var chekTimeOuts = await _dbContext.Proc_StationTask_CheckTimeouts
+                    .Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).ToListAsync();
                 foreach (var chekTimeOut in chekTimeOuts)
                 {
                     result.Add(new WorkRecord()
@@ -2659,9 +2882,11 @@ public class SaveStationDataService
                         StationTaskType = StationTaskTypeEnum.超时检测
                     });
                 }
+
                 break;
             case StationTaskTypeEnum.用户输入:
-                var userInputs = await _dbContext.Proc_StationTask_UserInputs.Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).ToListAsync();
+                var userInputs = await _dbContext.Proc_StationTask_UserInputs.Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId)
+                    .ToListAsync();
                 foreach (var userInput in userInputs)
                 {
                     result.Add(new WorkRecord()
@@ -2674,9 +2899,11 @@ public class SaveStationDataService
                         StationTaskType = StationTaskTypeEnum.用户输入
                     });
                 }
+
                 break;
             case StationTaskTypeEnum.补拧:
-                var repairScrews = await _dbContext.Proc_StationTask_TightenReworks.Where(w => !w.IsDeleted && w.StationTaskRecordId == recordId).ToListAsync();
+                var repairScrews = await _dbContext.Proc_StationTask_TightenReworks
+                    .Where(w => !w.IsDeleted && w.StationTaskRecordId == recordId).ToListAsync();
                 result.Add(new WorkRecord()
                 {
                     Id = recordId,
@@ -2688,40 +2915,43 @@ public class SaveStationDataService
                 });
                 break;
             case StationTaskTypeEnum.扫码输入:
-                var scanCollects = await _dbContext.Proc_StationTask_ScanCollects.Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).ToListAsync();
+                var scanCollects = await _dbContext.Proc_StationTask_ScanCollects
+                    .Where(w => !w.IsDeleted && w.StationTask_RecordId == recordId).ToListAsync();
                 foreach (var scanCollect in scanCollects)
                 {
                     result.Add(new WorkRecord()
                     {
                         Id = scanCollect.Id,
                         WorkName = scanCollect.ScanCollectName ?? "",
-                        CurNo = 1,//TODO增加数量
+                        CurNo = 1, //TODO增加数量
                         ReworkNum = 1,
                         Statue = scanCollect.Status,
                         ReworkNums = CreateReworkNum(1),
                         StationTaskType = StationTaskTypeEnum.扫码输入
                     });
                 }
+
                 break;
             case StationTaskTypeEnum.时间记录:
-                var timeRecords = await _dbContext.Proc_StationTask_TimeRecords.Where(w => !w.IsDeleted && w.Proc_StationTask_RecordId == recordId).ToListAsync();
+                var timeRecords = await _dbContext.Proc_StationTask_TimeRecords
+                    .Where(w => !w.IsDeleted && w.Proc_StationTask_RecordId == recordId).ToListAsync();
                 foreach (var timeRecord in timeRecords)
                 {
                     result.Add(new WorkRecord()
                     {
                         Id = timeRecord.Id,
                         WorkName = "时间记录",
-                        CurNo = 1,//TODO增加数量
+                        CurNo = 1, //TODO增加数量
                         ReworkNum = 1,
                         Statue = StationTaskStatusEnum.已完成,
                         StationTaskType = StationTaskTypeEnum.时间记录
                     });
                 }
+
                 break;
         }
 
         return result;
-
     }
 
     private List<int> CreateReworkNum(int TotalNum)
@@ -2743,16 +2973,19 @@ public class SaveStationDataService
         result.DCParams = new List<DcParamValue>();
         result.ScanCodeData = new List<BomData>();
 
-        var station = await _dbContext.Base_Stations.AsNoTracking().Where(e => e.Code == stationCode).FirstOrDefaultAsync() ?? throw new Exception($"未找到工位信息，[{stationCode}]");
+        var station = await _dbContext.Base_Stations.AsNoTracking().Where(e => e.Code == stationCode).FirstOrDefaultAsync() ??
+                      throw new Exception($"未找到工位信息，[{stationCode}]");
         var dcParams = new List<DcParamValue>();
-        var main = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(f => !f.IsDeleted && f.StepId == station.StepId && f.PackCode == packCode);
+        var main = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(f =>
+            !f.IsDeleted && f.StepId == station.StepId && f.PackCode == packCode);
         if (main == null)
         {
             return result;
         }
 
         //var records = await _dbContext.Proc_StationTask_Records.Include(i => i.Base_StationTask).Where(w => w.Base_StationTask != null && !w.Base_StationTask.IsDeleted && !w.IsDeleted && w.Proc_StationTask_MainId == main.Id).ToListAsync();
-        var records = await _dbContext.Proc_StationTask_Records.Include(i => i.Base_StationTask).Where(w => !w.IsDeleted && w.Proc_StationTask_MainId == main.Id).ToListAsync();
+        var records = await _dbContext.Proc_StationTask_Records.Include(i => i.Base_StationTask)
+            .Where(w => !w.IsDeleted && w.Proc_StationTask_MainId == main.Id).ToListAsync();
 
         foreach (var record in records)
         {
@@ -2764,6 +2997,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(scanAccount.ResultValue);
                     break;
                 case StationTaskTypeEnum.人工拧螺丝:
@@ -2772,6 +3006,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(tightenData.ResultValue);
                     break;
                 case StationTaskTypeEnum.称重:
@@ -2780,6 +3015,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(weightData.ResultValue);
                     break;
                 case StationTaskTypeEnum.用户输入:
@@ -2788,6 +3024,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(userInputData.ResultValue);
                     break;
                 case StationTaskTypeEnum.扫码输入:
@@ -2796,6 +3033,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(scanCollectData.ResultValue);
                     break;
                 case StationTaskTypeEnum.时间记录:
@@ -2804,6 +3042,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(timeRecord.ResultValue);
                     break;
                 case StationTaskTypeEnum.超时检测:
@@ -2812,6 +3051,7 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(timeOut.ResultValue);
                     break;
                 case StationTaskTypeEnum.补拧:
@@ -2820,10 +3060,12 @@ public class SaveStationDataService
                     {
                         return new UploadCATLData();
                     }
+
                     dcParams.AddRange(tightenRework.ResultValue);
                     break;
             }
         }
+
         result.DCParams = dcParams;
         return result;
     }
@@ -2840,6 +3082,7 @@ public class SaveStationDataService
                 resp.Result = p.Code;
                 return resp;
             }
+
             resp.Code = 500;
 
             resp.Message = "产品未找到";
@@ -2849,18 +3092,22 @@ public class SaveStationDataService
             resp.Code = 500;
             resp.Message = ex.Message;
         }
+
         return resp;
     }
+
     public bool CompareCodeRuleAsync(string rule, string Code)
     {
         if (string.IsNullOrEmpty(rule))
         {
             return true;
         }
+
         if (rule.Length != Code.Length)
         {
             return false;
         }
+
         var z = rule.Zip(Code);
         var tuple = z.Where(w => w.First != '*').ToList();
         var checkError = tuple.Any(f => f.First != f.Second);
@@ -2868,6 +3115,82 @@ public class SaveStationDataService
         {
             return false;
         }
+
         return true;
+    }
+
+    public async Task<Response> Save_StationLeak(LeakDataDTO dto)
+    {
+        var result = new Response();
+        using var trans = await _dbContext.Database.BeginTransactionAsync();
+        try
+        {
+            var leak = dto.LeakDatas;
+            var main = await GetMainData(dto.MainId);
+            if (main == null)
+            {
+                result.Code = 500;
+                result.Message = $"主记录未查询到";
+                return result;
+            }
+
+            // 2、根据生产主记录查找任务主记录
+            var orgMainRecord = await CreateOrGetRecordData(main.Id, dto.StationTaskId, dto.LeakDatas?[0].StationTask?.Name ?? "",
+                dto.LeakDatas?[0].CreateUserID);
+            if (orgMainRecord.Status == StationTaskStatusEnum.已完成)
+            {
+                await trans.RollbackAsync();
+                result.Code = 500;
+                result.Message = "此任务已完成！";
+                return result;
+            }
+
+            var orgTaskLeak =
+                _dbContext.Proc_StationTask_Leaks.FirstOrDefault(ps =>
+                    ps.IsDeleted == false && ps.StationTask_RecordId == orgMainRecord.Id);
+            if (orgTaskLeak == null)
+            {
+                // 没有充气任务主记录 新增
+                var newTaskLeak = _dbContext.Proc_StationTask_Leaks.Add(new Proc_StationTask_Leak
+                {
+                    StationTask_Record = orgMainRecord,
+                    CreateTime = DateTime.Now,
+                    CreateUserID = leak[0]?.CreateUserID,
+                    Status = StationTaskStatusEnum.已完成,
+                });
+                orgTaskLeak = newTaskLeak.Entity;
+            }
+
+            // 4、根据充气任务主记录 新增充气任务详情
+
+            foreach (var detail in leak)
+            {
+                _dbContext.Proc_StationTask_LeakDetails.Add(new Proc_StationTask_LeakDetail
+                {
+                    StationId = main.StationId,
+                    StepId = detail.StepID,
+                    Proc_StationTask_Leak = orgTaskLeak,
+                    CreateTime = DateTime.Now,
+                    CreateUserID = detail.CreateUserID,
+                    Status = StationTaskStatusEnum.已完成,
+                    PackPN = detail.PackCode,
+                    UploadCode = detail.UpMesCodePN,
+                    ParamValue = detail.ParamValue,
+                    ParamName = detail.ParameterName,
+                    ParamType = ValueTypeEnum.NUMBER,
+                });
+            }
+
+            await _dbContext.SaveChangesAsync();
+            await trans.CommitAsync();
+        }
+        catch (Exception ex)
+        {
+            result.Code = 500;
+            result.Message = "保存失败！";
+            _logger.LogError($"充气收数数据保存失败，参数为：{JsonConvert.SerializeObject(dto.LeakDatas)}，异常消息为：{JsonConvert.SerializeObject(ex)}");
+        }
+
+        return result;
     }
 }

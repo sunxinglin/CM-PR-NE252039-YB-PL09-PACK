@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -22,6 +22,7 @@ namespace Ctp0600P.Client.UserControls.ScrewView
             {
                 screwView.bkImgOK.Visibility = Visibility.Hidden;
                 screwView.bkImgNG.Visibility = Visibility.Hidden;
+                screwView.bkImgNext.Visibility = Visibility.Hidden;
                 screwView.bkImgDoing.Visibility = Visibility.Hidden;
             }
             else
@@ -29,10 +30,11 @@ namespace Ctp0600P.Client.UserControls.ScrewView
                 screwView.bkImgOK.Visibility = e.NewValue.ToString() == "OK" ? Visibility.Visible : Visibility.Hidden;
                 screwView.bkImgUndo.Visibility = e.NewValue.ToString() == "Undo" ? Visibility.Visible : Visibility.Hidden;
                 screwView.bkImgNG.Visibility = e.NewValue.ToString() == "NG" ? Visibility.Visible : Visibility.Hidden;
+                screwView.bkImgNext.Visibility = e.NewValue.ToString() == "Next" ? Visibility.Visible : Visibility.Hidden;
                 screwView.bkImgDoing.Visibility = e.NewValue.ToString() == "Doing" ? Visibility.Visible : Visibility.Hidden;
                 screwView.bkImgWait.Visibility = e.NewValue.ToString() == "Wait" ? Visibility.Visible : Visibility.Hidden;
                 if (screwView.Status == "OK") screwView.txb_OrderNo.Foreground = Brushes.White;
-                if (screwView.Status == "NG") screwView.txb_OrderNo.Foreground = Brushes.Black;
+                if (screwView.Status is "NG" or "Next") screwView.txb_OrderNo.Foreground = Brushes.Black;
             }
         }
 

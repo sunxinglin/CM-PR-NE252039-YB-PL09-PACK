@@ -95,6 +95,9 @@ public enum AlarmCode
         
     返工错误 = 12001,
 
+    充气错误 = 13001,
+    充气NG = 13002,
+    充气参数异常 = 13003
 }
 
 public static class AlarmName

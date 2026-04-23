@@ -14,6 +14,8 @@
               </el-button>
               <el-button type="danger" icon="el-icon-delete" size="small" @click="handleDelete">删除
               </el-button>
+              <!-- <el-button type="primary" icon="el-icon-delete" size="small" @click="domainvisible">模组条码规则
+              </el-button> -->
             </el-col>
             <el-col :span="3">
               <el-input @keyup.enter.native="handleFilter" prefix-icon="el-icon-search" size="small"

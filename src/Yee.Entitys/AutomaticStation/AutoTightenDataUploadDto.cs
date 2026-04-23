@@ -25,11 +25,6 @@ public class AutoTightenDataUploadDto
     public IList<AutoBlotInfo> TightenDatas { get; set; } = null!;
 }
 
-public enum TighteningResultOkFlag : short
-{
-    Ok = 1,
-    Ng = 2
-}
 
 public class AutoTighteningDataDto
 {
@@ -38,17 +33,21 @@ public class AutoTighteningDataDto
     public List<TighteningResult> TighteningResultList { get; set; } = null!;
 }
 
+public enum TighteningResultOkFlag : short
+{
+    Ok = 1,
+    Ng = 2
+}
+
 public sealed class TighteningResult
 {
     public short Index { get; set; }
-    /// <summary>
-    /// 拧紧结果：1代表true；0代表false
-    /// </summary>
     public short ResultOK { get; set; }
     public short OrderNo { get; set; }
     public short ProgramNo { get; set; }
     public MesMeasuredValue TorqueResult { get; set; }
     public MesMeasuredValue AngleResult { get; set; }
+
     [JsonIgnore]
     public bool IsOk => ResultOK == (short)TighteningResultOkFlag.Ok;
 }

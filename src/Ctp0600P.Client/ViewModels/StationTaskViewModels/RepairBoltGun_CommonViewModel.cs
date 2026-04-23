@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -58,6 +58,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             this.CurrentScrewNo = new ReactiveProperty<int> { Value = 0 };
             this.FlipX = new ReactiveProperty<double> { Value = 1 };
             this.FlipY = new ReactiveProperty<double> { Value = 1 };
+            this.PageScale = new ReactiveProperty<double> { Value = 1.0 };
 
             BindHistory();
             if (!_StationTaskDTO.HasFinish)
@@ -72,9 +73,11 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             {
                 FlipX.Value = settings.RepairBoltFlipX ? -1 : 1;
                 FlipY.Value = settings.RepairBoltFlipY ? -1 : 1;
+                PageScale.Value = settings.RepairPageScale > 0 ? settings.RepairPageScale : 1.0;
             });
             FlipX.Value = stepStationSettings.CurrentValue.RepairBoltFlipX ? -1 : 1;
             FlipY.Value = stepStationSettings.CurrentValue.RepairBoltFlipY ? -1 : 1;
+            PageScale.Value = stepStationSettings.CurrentValue.RepairPageScale > 0 ? stepStationSettings.CurrentValue.RepairPageScale : 1.0;
         }
 
         /// <summary>
@@ -187,6 +190,18 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
                 }
 
                 this.CurrentScrewNo.Value = CurDoingScrew.OrderNo;
+
+                // 寻找下一颗需要补拧的螺丝（在当前螺丝之后），标记为 Next (橙色实线)
+                var nextScrewData = AutoScrewDataList.OrderBy(x => x.OrderNo).FirstOrDefault(a => !a.ResultIsOK && a.OrderNo > CurDoingScrew.OrderNo);
+                if (nextScrewData != null)
+                {
+                    nextScrewData.Status = "Next";
+                    var nextScrewUI = this.ScrewListObserver.FirstOrDefault(f => f.OrderNo == nextScrewData.OrderNo);
+                    if (nextScrewUI != null)
+                    {
+                        nextScrewUI.Status = "Next";
+                    }
+                }
             });
         }
 
@@ -514,5 +529,6 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
 
         public ReactiveProperty<double> FlipX { get; }
         public ReactiveProperty<double> FlipY { get; }
+        public ReactiveProperty<double> PageScale { get; }
     }
 }

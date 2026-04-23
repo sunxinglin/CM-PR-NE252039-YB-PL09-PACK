@@ -258,6 +258,25 @@ public class StationTaskExcel
     public decimal? BlockMaxValue { get; set; }
 
     #endregion
+
+    #region 充气
+    [ExcelToEntity(55)]
+    [EntityToexcel("充气时长", 55)]
+    public int? LeakTimes { get; set; }
+
+    [ExcelToEntity(56)]
+    [EntityToexcel("充气压力", 56)]
+    public decimal? LeakPress { get; set; }
+
+    [ExcelToEntity(57)]
+    [EntityToexcel("保压时长", 57)]
+    public int? KeepTimes { get; set; }
+
+    [ExcelToEntity(58)]
+    [EntityToexcel("保压压力", 58)]
+    public decimal? KeepPress { get; set; }
+
+    #endregion
 }
 
 /// <summary>

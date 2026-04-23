@@ -32,7 +32,9 @@ namespace RogerTech.BussnessCore.Bussness
             try
             {
                 #region Tag获取和数据校验
-          
+                Tag moduleCode = group.GetTag("Code");
+                if (moduleCode == null) OnTagNullError("Code", group.GroupName);
+
                 List<object> inputs = new List<object>();
                 List<UploadData> uploadDatas = new List<UploadData>();
                 List<UploadData> localDatas = new List<UploadData>();
@@ -123,8 +125,8 @@ namespace RogerTech.BussnessCore.Bussness
                     resultCode = (int)output[0];
                     ModuleCode = output[3].ToString();
                     ModulePN = output[4].ToString();
-                    WriteResult(output[2].ToString());
-                    message.Append("调用mes接口[FindSfcByInventory]获取物料数据成功");
+                    WriteResult(output[2].ToString(), moduleCode.TagName);
+                    message.Append($"调用mes接口[FindSfcByInventory]获取物料数据{output[2].ToString()}成功");
                 }
                 else
                 {

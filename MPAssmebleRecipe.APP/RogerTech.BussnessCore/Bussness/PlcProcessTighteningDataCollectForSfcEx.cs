@@ -1,3 +1,9 @@
+using CatlMesBase;
+using dataCollectForSfcEx.dataCollectForSfcEx;
+using Newtonsoft.Json;
+using RogerTech.Common;
+using RogerTech.Common.Models;
+using RogerTech.Tool;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -5,10 +11,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using RogerTech.Common;
-using RogerTech.Common.Models;
-using RogerTech.Tool;
 
 namespace RogerTech.BussnessCore.Bussness
 {
@@ -18,9 +20,11 @@ namespace RogerTech.BussnessCore.Bussness
     public class PlcProcessTighteningDataCollectForSfcEx : PlcInProgressBase
     {
         private readonly string _serverAddress = ConfigurationManager.AppSettings["ServerAddress"];
-        
+        private readonly MesInterface _mesInterface;
+
         public PlcProcessTighteningDataCollectForSfcEx(string groupName, MesInterface mesInterface) : base(groupName, mesInterface)
         {
+            _mesInterface = mesInterface;
         }
 
         public override void Execute(Group group)
@@ -30,6 +34,7 @@ namespace RogerTech.BussnessCore.Bussness
             WriteFinishSignal(true);
             StringBuilder message = new StringBuilder();
             string sfc = string.Empty;
+            var db = DbContext.GetInstance();
             int resultCode = 30001;
             try
             {
@@ -48,6 +53,120 @@ namespace RogerTech.BussnessCore.Bussness
                     WriteResult(resultCode);
                     return;
                 }
+
+                #endregion
+
+                #region 压条拧紧收数
+
+                if (StationName.Contains("压条"))
+                {
+                    List<object> inputs = new List<object> { sfc };
+                    List<machineIntegrationParametricData> datas = new List<machineIntegrationParametricData>();
+                    List<UploadData> uploadDatas = new List<UploadData>();
+                    List<UploadData> localDatas = new List<UploadData>();
+                    foreach (var item in group.Tags)
+                    {
+                        if (item.Result.Value != null)
+                        {
+                            // 安全上下限检查
+                            if (item.IsChecked)
+                            {
+                                if (float.TryParse(item.Result.Value.ToString(), out float value))
+                                {
+                                    if (value < item.LowerLimit || value > item.UpperLimit)
+                                    {
+                                        message.Append($"上传失败:[{item.TagName}]超出上下限限制[{item.LowerLimit}-{item.UpperLimit}]");
+                                        WriteResult(30001);
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    message.Append($"上传失败:[{item.TagName}]值格式错误");
+                                    WriteResult(30001);
+                                    return;
+                                }
+                            }
+                            // 根据 是否上传至工厂MES 执行 本地数据存储
+                            if (item.IsUpload)
+                            {
+                                // 打包工厂MES上传数据
+                                datas.Add(new machineIntegrationParametricData
+                                {
+                                    name = item.MesName,
+                                    value = item.Result.Value.ToString(),
+                                    dataType = (dataCollectForSfcEx.dataCollectForSfcEx.ParameterDataType)item.MesDataType
+                                });
+                                // 存储数据至uploadDatas表
+                                uploadDatas.Add(new UploadData
+                                {
+                                    InterfaceName = _mesInterface.ToString(),
+                                    StationName = StationName,
+                                    UploadDataName = item.MesName,
+                                    UploadDataType = item.MesDataType,
+                                    UploadDataValue = item.Result.Value.ToString(),
+                                    Time = DateTime.Now,
+                                    IsReupload = false,
+                                    SFC = sfc
+                                });
+                            }
+                            else
+                            {
+                                // 存储数据至localDatas表
+                                localDatas.Add(new UploadData
+                                {
+                                    InterfaceName = _mesInterface.ToString(),
+                                    StationName = StationName,
+                                    UploadDataName = item.MesName,
+                                    UploadDataType = item.MesDataType,
+                                    UploadDataValue = item.Result.Value.ToString(),
+                                    Time = DateTime.Now,
+                                    IsReupload = false,
+                                    SFC = sfc
+                                });
+                            }
+                        }
+                        else
+                        {
+                            message.Append($"上传失败:[{item.TagName}]变量读取异常");
+                            WriteResult(30001);
+                            return;
+                        }
+                    }
+
+                    inputs.Add(datas);
+
+                    #region 调用MES接口
+
+                    BussnessUtility business = BussnessUtility.GetInstance();
+                    List<object> output = business.MesInvoke(inputs, _mesInterface);
+
+                    // 若数据已存在，则标记为已被重新上传
+                    if (db.Queryable<UploadData>().AS("UploadData").Where(p => p.SFC == sfc).Any())
+                    {
+                        db.Updateable<UploadData>()
+                            .AS("UploadData")
+                            .SetColumns(u => u.IsReupload == true)
+                            .Where(u => u.SFC == sfc)
+                            .ExecuteCommand();
+                    }
+
+                    db.Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
+                    db.Insertable(localDatas).AS("LocalData").ExecuteCommand();
+                    if ((int)output[0] == 0)
+                    {
+                        resultCode = (int)output[0];
+                        message.Append("调用mes接口[datacollectForsfcEx]上传数据成功");
+                    }
+                    else
+                    {
+                        resultCode = (int)output[0];
+                        message.Append($"调用mes接口[datacollectForsfcEx]上传数据失败MES代码[{output[0]}] MES信息[{output[1]}]");
+                    }
+
+                    #endregion
+                }
+
                 #endregion
 
                 #region 自动拧紧站专用逻辑
@@ -55,7 +174,7 @@ namespace RogerTech.BussnessCore.Bussness
                 if (StationName.Contains("拧紧"))
                 {
                     TighteningDataDto tighteningDataDto = BuildTighteningDataDto(group, sfc);
-                
+
                     if (tighteningDataDto != null)
                     {
                         if (!UploadAutoTightenExternalData(tighteningDataDto, out string errorMessage))
@@ -65,7 +184,7 @@ namespace RogerTech.BussnessCore.Bussness
                         }
                     }
                 }
-                
+
                 #endregion
             }
             catch (Exception ex)
@@ -91,7 +210,7 @@ namespace RogerTech.BussnessCore.Bussness
         private bool UploadAutoTightenExternalData(TighteningDataDto dto, out string errorMessage)
         {
             errorMessage = null;
-            
+
             if (string.IsNullOrWhiteSpace(_serverAddress))
             {
                 errorMessage = "调用自动拧紧接口失败:未配置ServerAddress";
@@ -118,6 +237,7 @@ namespace RogerTech.BussnessCore.Bussness
                     HttpResponseMessage response = client.PostAsync(url, content).GetAwaiter().GetResult();
                     string responseBody = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
+                    // 1. 判断 HTTP 状态码是否非 200 (网络错误、500 服务器崩溃等)
                     if ((int)response.StatusCode != 200)
                     {
                         if (!string.IsNullOrWhiteSpace(responseBody) && responseBody.Length > 500)
@@ -148,12 +268,13 @@ namespace RogerTech.BussnessCore.Bussness
                         return false;
                     }
 
+                    // 一切正常，业务成功
                     return true;
                 }
             }
         }
-        
-        
+
+
         /// <summary>
         /// 从点位组中提取拧紧相关标签（XXX[索引].字段），按索引聚合为 TighteningResult 列表
         /// </summary>
@@ -231,7 +352,7 @@ namespace RogerTech.BussnessCore.Bussness
             foreach (var item in resultsByIndex.OrderBy(kvp => kvp.Key))
             {
                 TighteningResult result = item.Value;
-                if (result.TorqueResult == null && result.AngleResult == null && result.ResultOK == 0 && result.OrderNo == 0 && result.ProgramNo == 0)
+                if (result.OrderNo <= 0 || result.ProgramNo <= 0 || result.ResultOK < 0 || result.TorqueResult == null && result.AngleResult == null)
                 {
                     continue;
                 }
@@ -295,6 +416,6 @@ namespace RogerTech.BussnessCore.Bussness
         }
 
         #endregion
-        
+
     }
 }

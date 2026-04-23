@@ -108,6 +108,9 @@ public class HostStartup
 
         services.AddSingleton<IAPIHelper, APIHelper>();
 
+        //充气
+        services.AddSingleton<LeakCoreVM>();
+
         //CORS
         services.AddCors(option =>
         {

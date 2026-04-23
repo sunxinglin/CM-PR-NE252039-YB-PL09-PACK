@@ -78,20 +78,20 @@
           >
           </el-table-column>
           <el-table-column
-            prop="stationCode"
-            label="工位编码"
-            min-width="20px"
-            sortable
-            align="center"
+          prop="stationCode"
+          label="工位编码"
+          min-width="20px"
+          sortable
+          align="center"
           >
-          </el-table-column>
+        </el-table-column>
           <el-table-column
-            prop="packPN"
+          prop="packPN"
             label="PACK码"
             min-width="60px"
             sortable
             align="center"
-          >
+            >
           </el-table-column>
           <el-table-column
             prop="holderBarCode"
@@ -356,11 +356,6 @@ export default {
           },
         ],
         holderBarCode: [
-          {
-            required: true,
-            message: "出货码不能为空",
-            trigger: "blur",
-          },
           {
             validator: validateHolderBarCode,
             trigger: "blur",

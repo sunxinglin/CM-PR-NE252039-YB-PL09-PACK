@@ -27,6 +27,8 @@ public class RecordHistoryDTO
     public IList<Proc_StationTask_TightenRework>? TightenReworks { get; set; }
     public IList<Proc_StationTask_TightenByImage>? TightenByImages { get; set; }
 
+    public Proc_StationTask_Leak? Leaks { get; set; }
+    public IList<Proc_StationTask_LeakDetail>? LeakDetails { get; set; }
 }
 
 public class BomHistoryDTO

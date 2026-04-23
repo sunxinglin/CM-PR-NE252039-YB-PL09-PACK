@@ -221,4 +221,7 @@ public interface ITraceApi
     [Post("/api/WPFClientData/SaveReverseData")]
     public Task<Response> SaveReverseData(ScrewDataDTO dto);
 
+
+    [Post("/api/WPFClientData/Save_StationLeak")]
+    public Task<IApiResponse<Response>> Save_StationLeak(LeakDataDTO input);
 }

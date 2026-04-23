@@ -26,7 +26,7 @@ namespace RogerTech.BussnessCore.Bussness
             WriteFinishSignal(true);
             StringBuilder message = new StringBuilder();
             string sfc = string.Empty;
-            BussnessUtility business =  BussnessUtility.GetInstance();
+            BussnessUtility business = BussnessUtility.GetInstance();
             int resultCode = 30001;
             try
             {
@@ -36,8 +36,8 @@ namespace RogerTech.BussnessCore.Bussness
                         "SFC",
                         message,
                         ref resultCode,
-                        Convert.ToInt16(ErrorCode.AutomaticLabelingStation.变量读取异常),
-                        Convert.ToInt16(ErrorCode.AutomaticLabelingStation.传值为空),
+                        30001,
+                        30001,
                         "SFC变量读取异常",
                         "绑定进站失败:传输的Pack码为空",
                         out sfc))

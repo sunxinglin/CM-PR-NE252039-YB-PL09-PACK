@@ -1,0 +1,191 @@
+{
+  "ProductType": "770252-01819",
+  "ImageUrl": "file:///E:/Mes软件/人工补拧图/上盖拧紧布局图.png",
+  "LimitCount": 45,
+  "StepCode": "OP350",
+  "LayOut_Width": 750,
+  "LayOut_Height": 522,
+  "pointList": null,
+  "ScrewLocationList": [
+    {
+      "OrderNo": 1,
+      "Margin": { "Left": 376.0, "Top": 56.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 2,
+      "Margin": { "Left": 410.0, "Top": 55.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 3,
+      "Margin": { "Left": 446.0, "Top": 57.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 4,
+      "Margin": { "Left": 483.0, "Top": 56.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 5,
+      "Margin": { "Left": 518.0, "Top": 55.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 6,
+      "Margin": { "Left": 574.0, "Top": 96.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 7,
+      "Margin": { "Left": 573.0, "Top": 125.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 8,
+      "Margin": { "Left": 574.0, "Top": 156.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 9,
+      "Margin": { "Left": 572.0, "Top": 189.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 10,
+      "Margin": { "Left": 574.0, "Top": 223.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 11,
+      "Margin": { "Left": 572.0, "Top": 253.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 12,
+      "Margin": { "Left": 574.0, "Top": 291.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 13,
+      "Margin": { "Left": 571.0, "Top": 320.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 14,
+      "Margin": { "Left": 572.0, "Top": 352.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 15,
+      "Margin": { "Left": 571.0, "Top": 380.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 16,
+      "Margin": { "Left": 573.0, "Top": 411.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 17,
+      "Margin": { "Left": 518.0, "Top": 450.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 18,
+      "Margin": { "Left": 484.0, "Top": 449.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 19,
+      "Margin": { "Left": 444.0, "Top": 449.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 20,
+      "Margin": { "Left": 408.0, "Top": 446.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 21,
+      "Margin": { "Left": 372.0, "Top": 448.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 22,
+      "Margin": { "Left": 334.0, "Top": 446.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 23,
+      "Margin": { "Left": 296.0, "Top": 448.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 24,
+      "Margin": { "Left": 259.0, "Top": 446.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 25,
+      "Margin": { "Left": 218.0, "Top": 446.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 26,
+      "Margin": { "Left": 182.0, "Top": 445.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 27,
+      "Margin": { "Left": 153.0, "Top": 446.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 28,
+      "Margin": { "Left": 102.0, "Top": 403.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 29,
+      "Margin": { "Left": 100.0, "Top": 371.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 30,
+      "Margin": { "Left": 101.0, "Top": 341.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 31,
+      "Margin": { "Left": 102.0, "Top": 306.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 32,
+      "Margin": { "Left": 103.0, "Top": 274.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 33,
+      "Margin": { "Left": 103.0, "Top": 244.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 34,
+      "Margin": { "Left": 103.0, "Top": 217.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 35,
+      "Margin": { "Left": 103.0, "Top": 186.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 36,
+      "Margin": { "Left": 103.0, "Top": 160.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 37,
+      "Margin": { "Left": 104.0, "Top": 130.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 38,
+      "Margin": { "Left": 105.0, "Top": 98.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 39,
+      "Margin": { "Left": 140.0, "Top": 53.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 40,
+      "Margin": { "Left": 169.0, "Top": 54.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 41,
+      "Margin": { "Left": 197.0, "Top": 55.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 42,
+      "Margin": { "Left": 224.0, "Top": 56.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 43,
+      "Margin": { "Left": 264.0, "Top": 57.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 44,
+      "Margin": { "Left": 303.0, "Top": 56.0, "Right": 0.0, "Bottom": 0.0 }
+    },
+    {
+      "OrderNo": 45,
+      "Margin": { "Left": 341.0, "Top": 58.0, "Right": 0.0, "Bottom": 0.0 }
+    }
+  ]
+}

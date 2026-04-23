@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -14,12 +14,15 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 
+using AutoUpdaterDotNET;
+
 using Ctp0600P.Client.CommonEntity;
 using Ctp0600P.Client.CommonHelper;
 using Ctp0600P.Client.Notifications;
 using Ctp0600P.Client.PLC.Context;
 using Ctp0600P.Client.Protocols;
 using Ctp0600P.Client.Protocols.BoltGun.Models;
+using Ctp0600P.Client.Protocols.Leak.Models;
 using Ctp0600P.Client.Protocols.ScanCode.Models;
 using Ctp0600P.Client.UserControls;
 using Ctp0600P.Client.UserControls.AGV;
@@ -32,9 +35,6 @@ using Ctp0600P.Client.Views.StationTaskPages;
 using Ctp0600P.Client.Views.Windows;
 using Ctp0600P.Shared;
 using Ctp0600P.SignalRs;
-
-using FSLib.App.SimpleUpdater;
-
 using MediatR;
 
 using Microsoft.Extensions.Configuration;
@@ -88,6 +88,9 @@ public partial class App : Application
 
     //拧紧数据
     public static Subject<BoltGunRequest> BoltGunRequestSubject { get; } = new();
+
+    //充气数据
+    public static Subject<LeakCompleteRequest> LeakCompleteRequestSubject { get; } = new();
 
     //称重数据
     public static Subject<AnyLoadRequest> AnyLoadRequestSubject { get; } = new();
@@ -239,7 +242,7 @@ public partial class App : Application
         var updateUrl = config.GetSection("updateUrl").Get<Update>();
         if (updateUrl is { IsDebug: false })
         {
-            var dd = Updater.CheckUpdateSimple("http://" + updateUrl.ServerAddress, "update_c.xml");
+            AutoUpdater.Start("http://" + updateUrl.ServerAddress);
         }
 
         // 订阅设备消息流（扫码、拧紧、称重）
@@ -257,6 +260,13 @@ public partial class App : Application
 
     private async void Application_Startup(object sender, StartupEventArgs e)
     {
+        // 动态读取程序集版本号，更新字典中的版本，避免 App.xaml 中写死
+        var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+        if (!string.IsNullOrEmpty(version))
+        {
+            this.Resources["AppVersion"] = version;
+        }
+
         // 设置渲染模式为软件渲染，避免 GPU 渲染问题
         RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
         try

@@ -79,6 +79,10 @@ namespace Yee.Services.HistoryData
                 result = await DeleteRealTimeBomInfoAsync(entityList.Select(m => m.Id).ToList());
                 if (result.Code != 200)
                     return result;
+
+                result = await DeleteRealTimeLeakInfoAsync(entityList.Select(m => m.Id).ToList());
+                if (result.Code != 200)
+                    return result;
                 _dBContext.Proc_StationTask_Records.RemoveRange(entityList);
 
                 return result;
@@ -172,6 +176,31 @@ namespace Yee.Services.HistoryData
             if (entityList != null && entityList.Count > 0)
             {
                 _dBContext.Proc_StationTask_BomDetails.RemoveRange(entityList);
+            }
+            return new Response() { Code = 200 };
+        }
+
+        private async Task<Response> DeleteRealTimeLeakInfoAsync(List<int> recordIds)
+        {
+            var result = new Response();
+            var entityList = await _dBContext.Proc_StationTask_Leaks.Where(d => recordIds.Contains(d.StationTask_RecordId)).ToListAsync();
+            if (entityList != null && entityList.Count > 0)
+            {
+                result = await DeleteRealTimeLeakDetailsAsync(entityList.Select(m => m.Id).ToList());
+                if (result.Code != 200)
+                    return result;
+
+                _dBContext.Proc_StationTask_Leaks.RemoveRange(entityList);
+            }
+            return new Response() { Code = 200 };
+        }
+
+        private async Task<Response> DeleteRealTimeLeakDetailsAsync(List<int> leakIds)
+        {
+            var entityList = await _dBContext.Proc_StationTask_LeakDetails.Where(d => leakIds.Contains(d.Proc_StationTask_LeakId)).ToListAsync();
+            if (entityList != null && entityList.Count > 0)
+            {
+                _dBContext.Proc_StationTask_LeakDetails.RemoveRange(entityList);
             }
             return new Response() { Code = 200 };
         }

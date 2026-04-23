@@ -134,7 +134,7 @@ public class AutoTightenService
         var resp = new Response<IList<Proc_AutoBoltInfo_Detail>>();
         try
         {
-            var datas = _dbContext.Proc_AutoBoltInfo_Details.Where(w => !w.IsDeleted && w.CreateTime != null);
+            var datas = _dbContext.Proc_AutoBoltInfo_Details.Where(w => !w.IsDeleted);
             if (!string.IsNullOrEmpty(dto.PackCode))
             {
                 datas = datas.Where(w => w.PackPN == dto.PackCode);

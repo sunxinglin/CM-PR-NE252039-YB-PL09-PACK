@@ -34,6 +34,12 @@ public partial class MainWindow : Window
         this.AppVM = appvm;
         this.DataContext = this.AppVM;
 
+        if (App._StepStationSetting != null && !App._StepStationSetting.OccupyTaskbar)
+        {
+            this.MaxHeight = SystemParameters.WorkArea.Height;
+            this.MaxWidth = SystemParameters.WorkArea.Width;
+        }
+
         App.DoingWorkTime = DateTime.Now;
         
         // 监听page变化，控制MainWindow中Frame的跳转

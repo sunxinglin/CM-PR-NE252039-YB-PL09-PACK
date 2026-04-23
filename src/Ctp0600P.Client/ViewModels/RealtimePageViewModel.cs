@@ -71,6 +71,7 @@ public class RealtimePageViewModel : ViewModelBase
     private readonly AppViewModel _appvm;
     private readonly StationPLCContext _stationPLCContext;
     private readonly IOptionsMonitor<StepStationSetting> _stepStationSetting;
+    public LeakCoreVM LeakCoreVM { get; }
 
     public delegate void NGBack(string packcode, bool ngresult);
 
@@ -86,7 +87,7 @@ public class RealtimePageViewModel : ViewModelBase
         PLC01MonitorViewModel plc01MonitorViewModel,
         APIHelper apiHelper, IAnyLoadApi anyLoadApi, IServiceProvider service,
         IMediator mediator, ICatlMesInvoker catlMesInvoker, StationPLCContext stationPLCContext,
-        IOptionsMonitor<StepStationSetting> stepStationSetting)
+        IOptionsMonitor<StepStationSetting> stepStationSetting, LeakCoreVM leakCoreVM)
     {
         #region 基础初始化和依赖注入
         this._appvm = appvm;
@@ -99,6 +100,7 @@ public class RealtimePageViewModel : ViewModelBase
         this.PLC01MonitorViewModel = new ReactiveProperty<PLC01MonitorViewModel>(plc01MonitorViewModel);
         this._stationPLCContext = stationPLCContext;
         this._stepStationSetting = stepStationSetting;
+        this.LeakCoreVM = leakCoreVM;
 
         if (App._StepStationSetting.StepType == StepTypeEnum.线外人工站)
         {
@@ -251,7 +253,7 @@ public class RealtimePageViewModel : ViewModelBase
                             {
                                 return;
                             }
-                            
+
                             // 若操作员清除的是“拧紧NG”，则通知BoltGun上使能
                             if (hasTightenNGReset)
                             {
@@ -530,44 +532,36 @@ public class RealtimePageViewModel : ViewModelBase
     {
         try
         {
-            switch (type)
+            return type switch
             {
-                case StationTaskTypeEnum.扫码:
-                    return Task.FromResult<Page>(new ScanCode(new ScanCodeViewModel(mapping, taskBomList.First(),
-                        _mediator, _catlMesInvoker, _apiHelper)));
-                case StationTaskTypeEnum.扫描员工卡:
-                    return Task.FromResult<Page>(
-                        new ScanAccountCard(new ScanAccountCardViewModel(mapping, _apiHelper, _mediator)));
-                case StationTaskTypeEnum.超时检测:
-                    return Task.FromResult<Page>(
-                        new CheckTimeout(new CheckTimeoutViewModel(mapping, _apiHelper, _mediator)));
-                case StationTaskTypeEnum.人工拧螺丝:
-                    return Task.FromResult<Page>(new BoltGun(new BoltGunViewModel(mapping, taskScrew, _mediator, _sp,
-                        _apiHelper, _stationPLCContext, screwCountBeforeCurrentTask)));
-                case StationTaskTypeEnum.称重:
-                    return Task.FromResult<Page>(new AnyLoad(new AnyLoadViewModel(mapping, _anyLoadApi, _mediator)));
-                case StationTaskTypeEnum.放行:
-                    return Task.FromResult<Page>(new LetGoPage(mapping, _apiHelper, _mediator, _stationPLCContext));
-                case StationTaskTypeEnum.补拧:
-                    return Task.FromResult<Page>(new RepairBoltGunCommon(
-                        new RepairBoltGun_CommonViewModel(mapping, _sp, _apiHelper, _mediator, _stationPLCContext,
-                            _stepStationSetting), _sp, _mediator));
-                case StationTaskTypeEnum.用户输入:
-                    return Task.FromResult<Page>(
-                        new UserInputCollect(new UserInputCollectViewModel(mapping, _mediator, _apiHelper)));
-                case StationTaskTypeEnum.扫码输入:
-                    return Task.FromResult<Page>(
-                        new ScanCollect(new ScanCollectViewModel(mapping, _mediator, _apiHelper)));
-                case StationTaskTypeEnum.时间记录:
-                    return Task.FromResult<Page>(
-                        new RecordTimeTaskPage(new RecordTimeViewModel(mapping, _apiHelper, _mediator)));
-                case StationTaskTypeEnum.图示拧紧:
-                    return Task.FromResult<Page>(new TightenByImage(
-                        new TightenByImageViewModel(_apiHelper, _mediator, _sp, mapping, _stationPLCContext)));
-
-                default:
-                    throw new Exception($"未知的任务类型={type}");
-            }
+                StationTaskTypeEnum.扫码 => Task.FromResult<Page>(
+                    new ScanCode(new ScanCodeViewModel(mapping, taskBomList.First(), _mediator, _catlMesInvoker, _apiHelper))),
+                StationTaskTypeEnum.扫描员工卡 => Task.FromResult<Page>(
+                    new ScanAccountCard(new ScanAccountCardViewModel(mapping, _apiHelper, _mediator))),
+                StationTaskTypeEnum.超时检测 => Task.FromResult<Page>(
+                    new CheckTimeout(new CheckTimeoutViewModel(mapping, _apiHelper, _mediator))),
+                StationTaskTypeEnum.人工拧螺丝 => Task.FromResult<Page>(
+                    new BoltGun(new BoltGunViewModel(mapping, taskScrew,
+                    _mediator, _sp, _apiHelper, _stationPLCContext, screwCountBeforeCurrentTask))),
+                StationTaskTypeEnum.称重 => Task.FromResult<Page>(
+                    new AnyLoad(new AnyLoadViewModel(mapping, _anyLoadApi, _mediator))),
+                StationTaskTypeEnum.放行 => Task.FromResult<Page>(
+                    new LetGoPage(mapping, _apiHelper, _mediator, _stationPLCContext)),
+                StationTaskTypeEnum.补拧 => Task.FromResult<Page>(
+                    new RepairBoltGunCommon(new RepairBoltGun_CommonViewModel(mapping, _sp, _apiHelper,
+                        _mediator, _stationPLCContext, _stepStationSetting), _sp, _mediator)),
+                StationTaskTypeEnum.用户输入 => Task.FromResult<Page>(
+                    new UserInputCollect(new UserInputCollectViewModel(mapping, _mediator, _apiHelper))),
+                StationTaskTypeEnum.扫码输入 => Task.FromResult<Page>(
+                    new ScanCollect(new ScanCollectViewModel(mapping, _mediator, _apiHelper))),
+                StationTaskTypeEnum.时间记录 => Task.FromResult<Page>(
+                    new RecordTimeTaskPage(new RecordTimeViewModel(mapping, _apiHelper, _mediator))),
+                StationTaskTypeEnum.图示拧紧 => Task.FromResult<Page>(
+                    new TightenByImage(new TightenByImageViewModel(_apiHelper, _mediator, _sp, mapping, _stationPLCContext, _stepStationSetting))),
+                StationTaskTypeEnum.人工充气 => Task.FromResult<Page>(
+                   new LeakPage(new LeakViewModel(mapping, _apiHelper, _mediator, _stationPLCContext, LeakCoreVM))),
+                _ => throw new Exception($"未知的任务类型={type}")
+            };
         }
         catch (Exception ex)
         {
@@ -746,7 +740,7 @@ public class RealtimePageViewModel : ViewModelBase
                 hisStatus = hisTaskRecord.StationTaskRecord.Status;
             }
         }
-        
+
         var taskScrew = mapping.StationTaskScrew == null
             ? new ObservableCollection<Base_StationTaskScrew>() // 非拧紧任务：赋值空集合
             : new ObservableCollection<Base_StationTaskScrew>(mapping.StationTaskScrew);    // 拧紧任务：赋值到可观察对象集合
@@ -825,7 +819,7 @@ public class RealtimePageViewModel : ViewModelBase
                 hisStatus = hisTaskRecord.StationTaskRecord.Status;
             }
         }
-        
+
         // 创建显示数据对象
         return new StationTaskLeftTagData
         {
@@ -1097,8 +1091,6 @@ public class RealtimePageViewModel : ViewModelBase
                 needStart = false;
             }
 
-     
-
             var
                 q = //from isQueue in CheckSfcHasWorking(request.ScanCodeContext, App._StepStationSetting.StationCode)//判断条码是否需要进站
                     from ProductPN in
@@ -1197,9 +1189,9 @@ public class RealtimePageViewModel : ViewModelBase
     {
         if (App._StepStationSetting.IsDebug)
         {
-            return "00000".ToOkResult<string, string>();
-            /*
-            // 如果你希望在调试模式下比对Pack码规则，请恢复这段代码 
+            // return "00000".ToOkResult<string, string>();
+
+            // 如果你希望在调试模式下比对Pack码规则，请启用下面这段代码，禁用上面那段代码
             var resp = await _apiHelper.GetProductPnFormDb(sfc);
             if (resp.Code != 200)
             {
@@ -1211,8 +1203,8 @@ public class RealtimePageViewModel : ViewModelBase
                 return "未找到当前Pack码匹配的产品条码规则".ToErrResult<string, string>();
             }
 
-            return resp.Result.ToOkResult<string, string>(); 
-            */
+            return resp.Result.ToOkResult<string, string>();
+
         }
 
         var result = await _catlMesInvoker.MiFindCustomAndSfcData(sfc, modeProcessSFC.MODE_NONE, stationCode);
@@ -1233,7 +1225,7 @@ public class RealtimePageViewModel : ViewModelBase
         return await _apiHelper.CreateOrLoadTraceInfo(packCode, stationCode, productCode);
     }
 
-    private async Task<FSharpResult<string, string>> LoadPages(ScanCodeGunRequest request, 
+    private async Task<FSharpResult<string, string>> LoadPages(ScanCodeGunRequest request,
         StationTaskHistoryDTO HisDto, IList<StationTaskDTO> taskDto)
     {
         App.HisTaskData2 = HisDto;
@@ -1264,7 +1256,7 @@ public class RealtimePageViewModel : ViewModelBase
     }
 
 
-    private async Task<FSharpResult<bool, string>> DealBindAGV(string agvNo, string packCode, 
+    private async Task<FSharpResult<bool, string>> DealBindAGV(string agvNo, string packCode,
         string holderBarcode, string stationCode)
     {
         //获取配置确认当前工位是否需要绑定AGV

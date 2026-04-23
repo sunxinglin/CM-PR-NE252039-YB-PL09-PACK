@@ -1,12 +1,13 @@
+using GetParametricValue.GetParametricValue;
+using ImTools;
+using RogerTech.Common;
+using RogerTech.Common.Models;
+using RogerTech.Tool;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
 using System.Threading.Tasks;
-using GetParametricValue.GetParametricValue;
-using RogerTech.Common;
-using RogerTech.Common.Models;
-using RogerTech.Tool;
 
 namespace RogerTech.BussnessCore.Bussness
 {
@@ -17,6 +18,8 @@ namespace RogerTech.BussnessCore.Bussness
     {
         private readonly MesInterface _mesInterface;
         private readonly string GetParametricValueUpMesCode = ConfigurationManager.AppSettings["GetParametricValueUpMesCode"];
+        private readonly string _getParametricValueName = ConfigurationManager.AppSettings["GetParametricValueName"];
+        private readonly int _glueUseMaxTime = int.Parse(ConfigurationManager.AppSettings["GlueUseMaxTime"]);
         public PlcProcessGetParametricValue(string groupName, MesInterface mesInterface) : base(groupName, mesInterface)
         {
             _mesInterface= mesInterface;
@@ -29,6 +32,8 @@ namespace RogerTech.BussnessCore.Bussness
             WriteFinishSignal(true);
             StringBuilder message = new StringBuilder();
             string sfc = string.Empty;
+            DateTime dtNow = DateTime.Now;
+            DateTime dt = new DateTime();
             var db = DbContext.GetInstance();
             BussnessUtility business = BussnessUtility.GetInstance();
             int resultCode = 30001;
@@ -49,6 +54,11 @@ namespace RogerTech.BussnessCore.Bussness
                     WriteResult(resultCode);
                     return;
                 }
+                Tag minutes = group.GetTag("Minutes");
+                if (minutes == null) OnTagNullError("Minutes", group.GroupName);
+                #endregion
+
+                #region 针对不同工位的获取参数逻辑
                 List<object> inputs = new List<object> { sfc };
                 var parameter = new List<GetParametricValueRequestData>();
                 switch (StationName)
@@ -56,14 +66,14 @@ namespace RogerTech.BussnessCore.Bussness
                     case "下箱体涂胶":
                         for (int i = 1; i < 109; i++)
                         {
-                            parameter.Add(new GetParametricValueRequestData { parameter = GetParametricValueUpMesCode + i, parameterDec = string.Empty });
+                            parameter.Add(new GetParametricValueRequestData { parameter = GetParametricValueUpMesCode + i, parameterDec = _getParametricValueName + i });
                         }
                         break;
                     case "模组入箱":
-                        parameter.Add(new GetParametricValueRequestData { parameter = GetParametricValueUpMesCode, parameterDec = string.Empty });
+                        parameter.Add(new GetParametricValueRequestData { parameter = GetParametricValueUpMesCode, parameterDec = _getParametricValueName });
                         break;
                     case "压条自动加压和拧紧":
-                        parameter.Add(new GetParametricValueRequestData { parameter = GetParametricValueUpMesCode, parameterDec = string.Empty });
+                        parameter.Add(new GetParametricValueRequestData { parameter = GetParametricValueUpMesCode, parameterDec = _getParametricValueName });
                         break;
                     default:
                         break;
@@ -95,18 +105,14 @@ namespace RogerTech.BussnessCore.Bussness
                 db.Insertable(localDatas).AS("LocalData").ExecuteCommand();
                 if ((int)output[0] == 0)
                 {
-                    var dt = DateTime.Now;
-
-
                     resultCode = (int)output[0];
-                    PlcGroup.GetTag("Year").WriteValue(dt.Year);
-                    PlcGroup.GetTag("Month").WriteValue(dt.Month);
-                    PlcGroup.GetTag("Day").WriteValue(dt.Day);
-                    PlcGroup.GetTag("Hour").WriteValue(dt.Hour);
-                    PlcGroup.GetTag("Minute").WriteValue(dt.Minute);
-                    PlcGroup.GetTag("Seconds").WriteValue(dt.Second);
-                    WriteResult((object[])output[3], GetParametricValueUpMesCode);
-                    message.Append("调用mes接口[GetParametricValue]成功");
+                    List<GetParametricValueData> parametricValueData = (List<GetParametricValueData>)output[3];
+                    message.Append($"调用mes接口[GetParametricValue]获取参数成功{parametricValueData[0].value}");
+                    var catldatetime = DateTime.TryParse(parametricValueData[0].value, out dt);
+                    var time = DateTime.Now - dt;
+                    var totalMinutes = (_glueUseMaxTime - time.TotalMinutes) > 0 ? (_glueUseMaxTime - time.TotalMinutes) : 0;
+                    message.Append($"涂胶可操作时间剩余{totalMinutes}");
+                    WriteResult((int)totalMinutes, minutes.TagName);
                 }
                 else
                 {

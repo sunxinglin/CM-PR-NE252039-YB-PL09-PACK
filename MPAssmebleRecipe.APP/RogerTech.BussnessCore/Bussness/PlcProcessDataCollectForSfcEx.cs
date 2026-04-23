@@ -155,7 +155,7 @@ namespace RogerTech.BussnessCore.Bussness
                 else
                 {
                     resultCode = (int)output[0];
-                    message.Append($"调用mes接口[datacollectForsfcEx]上传清洗数据失败MES代码[{output[0]}] MES信息[{output[1]}]");
+                    message.Append($"调用mes接口[datacollectForsfcEx]上传数据失败MES代码[{output[0]}] MES信息[{output[1]}]");
                 }
 
                 #endregion

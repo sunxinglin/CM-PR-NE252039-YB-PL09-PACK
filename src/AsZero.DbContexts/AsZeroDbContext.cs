@@ -203,6 +203,10 @@ public partial class AsZeroDbContext : DbContext
         // moduleEntityType.HasData(new FuncModule { Id = 237, CascadeId = ".0.9", Name = "模组入箱管理", Url = "/", ParentName = "模组入箱管理", SortNo = 10, ParentId = null, Code = "moduleinbox" });
         // moduleEntityType.HasData(new FuncModule { Id = 238, CascadeId = ".0.9.1", Name = "模组入箱详情", Url = "/moduleinbox/datacollect", ParentName = "模组入箱管理", SortNo = 1, ParentId = 237, Code = "moduleinboxdatacollect" });
 
+        moduleEntityType.HasData(new FuncModule { Id = 239, CascadeId = ".0.10", Name = "充气数据管理", Url = "/", ParentName = "充气数据管理", SortNo = 11, ParentId = null, Code = "leak" });
+        moduleEntityType.HasData(new FuncModule { Id = 240, CascadeId = ".0.10.1", Name = "充气数据详情", Url = "/leak/leakdetail", ParentName = "充气数据管理", SortNo = 1, ParentId = 239, Code = "leakdetail" });
+
+
         moduleEntityType.HasData(new FuncModule { Id = 900, CascadeId = ".0.999.", Name = "日志管理", Url = "/", ParentName = "根节点", SortNo = 999, ParentId = null, Code = null });
         moduleEntityType.HasData(new FuncModule { Id = 901, CascadeId = ".0.999.1", Name = "系统日志", Url = "/syslogs/index", ParentName = "日志管理", SortNo = 999, ParentId = 900, Code = "SysLog" });
         moduleEntityType.HasData(new FuncModule { Id = 902, CascadeId = ".0.999.2", Name = "错误日志", Url = "/syslogs/alarm", ParentName = "日志管理", SortNo = 999, ParentId = 900, Code = "AlarmLog" });
@@ -241,6 +245,8 @@ public partial class AsZeroDbContext : DbContext
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 221, FuncModuleId = 221, RoleName = Defines.Claim_Admin });
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 223, FuncModuleId = 223, RoleName = Defines.Claim_Admin });
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 225, FuncModuleId = 225, RoleName = Defines.Claim_Admin });
+        funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 239, FuncModuleId = 239, RoleName = Defines.Claim_Admin });
+        funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 240, FuncModuleId = 240, RoleName = Defines.Claim_Admin });
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 900, FuncModuleId = 900, RoleName = Defines.Claim_Admin });
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 901, FuncModuleId = 901, RoleName = Defines.Claim_Admin });
         funcModuleRoleMappingEntityType.HasData(new FuncModuleRoleMapping { Id = 902, FuncModuleId = 902, RoleName = Defines.Claim_Admin });
@@ -950,6 +956,13 @@ public partial class AsZeroDbContext : DbContext
             IsEnable = true, DeviceBrand = DeviceBrand.华睿
         };
 
+        var ProResource50_3 = new Base_ProResource
+        {
+            Id = 65, IpAddress = "", Name = "OP500电子秤", StationCode = "OP500", ProResourceType = ProResourceTypeEnum.无线电子秤,
+            ProtocolType = ProtocolTypeEnum.RS232, Port = "COM3", DeviceNo = "4", Baud = 4800, IsDeleted = false,
+            IsEnable = true, DeviceBrand = DeviceBrand.Anyload
+        };
+
         ProResourceEntityType.HasData(new Base_ProResource[]
         {
             ProResource1_1, ProResource1_2,
@@ -979,8 +992,109 @@ public partial class AsZeroDbContext : DbContext
             ProResource42_1, ProResource42_2,
             ProResource43_1, ProResource43_2,
             ProResource44_1, ProResource44_2,
-            ProResource45_1, ProResource45_2
+            ProResource45_1, ProResource45_2,
+            ProResource50_3
         });
+
+        #endregion
+
+        # region 产品
+
+        EntityTypeBuilder<Base_Product> productEntityType = modelBuilder.Entity<Base_Product>();
+        var product00000 = new Base_Product
+        {
+            Id = 1,
+            Code = "00000",
+            Name = "00000",
+            TypeId = 1,
+            Specification = "00000",
+            PackPNRule = "************************",
+            PackOutCodeRule = "************",
+            ModelRulesstr = "[]",
+            Remark = "00000",
+            IsDeleted = false
+        };
+
+        productEntityType.HasData(product00000);
+
+        #endregion
+
+        # region 工艺路线
+
+        EntityTypeBuilder<Base_Flow> flowEntityType = modelBuilder.Entity<Base_Flow>();
+        var flow00000 = new Base_Flow
+        {
+            Id = 1,
+            Code = "00000",
+            Name = "00000",
+            Version = "00000",
+            ProductId = product00000.Id,
+            Description = "00000",
+            Remark = "00000",
+            IsDeleted = false
+        };
+        flowEntityType.HasData(flow00000);
+
+        EntityTypeBuilder<Base_FlowStepMapping> flowStepMappingEntityType = modelBuilder.Entity<Base_FlowStepMapping>();
+        var flowStepMapping00000 = new Base_FlowStepMapping
+        {
+            Id = 1,
+            FlowId = flow00000.Id,
+            StepId = 1,
+            OrderNo = 1,
+            Remark = "00000",
+            IsDeleted = false
+        };
+        flowStepMappingEntityType.HasData(flowStepMapping00000);
+
+        #endregion
+
+        #region 工艺配方
+
+        EntityTypeBuilder<Base_StationTask> stationTaskEntityType = modelBuilder.Entity<Base_StationTask>();
+        var stationTaskScanAccountCard = new Base_StationTask
+        {
+            Id = 1,
+            Code = "00000_ScanAccountCard",
+            Name = "扫描员工卡",
+            Type = StationTaskTypeEnum.扫描员工卡,
+            HasPage = true,
+            Clock = 30,
+            StepId = 1,
+            ProductId = product00000.Id,
+            Sequence = 1,
+            Description = "00000",
+            Remark = "00000",
+            IsDeleted = false
+        };
+        var stationTaskRelease = new Base_StationTask
+        {
+            Id = 2,
+            Code = "00000_Release",
+            Name = "放行",
+            Type = StationTaskTypeEnum.放行,
+            HasPage = true,
+            Clock = 0,
+            StepId = 1,
+            ProductId = product00000.Id,
+            Sequence = 2,
+            Description = "00000",
+            Remark = "00000",
+            IsDeleted = false
+        };
+        stationTaskEntityType.HasData(stationTaskScanAccountCard, stationTaskRelease);
+
+        EntityTypeBuilder<Base_StationTaskScanAccountCard> scanAccountCardEntityType = modelBuilder.Entity<Base_StationTaskScanAccountCard>();
+        var scanAccountCard00000 = new Base_StationTaskScanAccountCard
+        {
+            Id = 1,
+            ScanAccountCardName = "扫描员工卡",
+            StationTaskId = stationTaskScanAccountCard.Id,
+            UpMesCode = "YGK",
+            Remark = "00000",
+            IsDeleted = false
+        };
+        scanAccountCardEntityType.HasData(scanAccountCard00000);
 
         #endregion
     }
@@ -1101,6 +1215,10 @@ public partial class AsZeroDbContext : DbContext
     public DbSet<Alarm> Alarms { get; set; }
     public DbSet<SysLog> Sys_Logs { get; set; }
     #endregion
+
+    public DbSet<Base_StationTaskLeak> Base_StationTaskLeaks { get; set; }
+    public DbSet<Proc_StationTask_Leak> Proc_StationTask_Leaks { get; set; }
+    public DbSet<Proc_StationTask_LeakDetail> Proc_StationTask_LeakDetails { get; set; }
 
     # region 拧紧NG管控
     public DbSet<Proc_ScrewNGResetRecord> Proc_ScrewNGResetRecords { get; set; }

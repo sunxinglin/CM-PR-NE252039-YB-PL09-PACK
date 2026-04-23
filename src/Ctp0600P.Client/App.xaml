@@ -16,6 +16,7 @@
                 <ResourceDictionary>
                     <!-- 应用基础信息（可在关于页/标题等处通过 StaticResource 引用） -->
                     <sys:String x:Key="AppName">CATL 宁德时代</sys:String>
+                    <!-- 这里的版本号仅为设计时占位，程序运行时会从 App.xaml.cs 中读取 csproj 的 AssemblyVersion -->
                     <sys:String x:Key="AppVersion">1.1.0.0</sys:String>
                     <sys:String x:Key="Manufacturer">Mentechs+</sys:String>
                     <!-- 行号转换器（常用于 DataGrid/List 的序号列展示） -->

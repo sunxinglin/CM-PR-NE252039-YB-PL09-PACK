@@ -1,4 +1,5 @@
 ﻿using Yee.Entitys.Common;
+using Yee.Entitys.DBEntity;
 using Yee.Entitys.DBEntity.Production;
 using Yee.Entitys.Production;
 
@@ -32,4 +33,5 @@ public  class StationTaskDTO : CommonData
     public Base_StationTask_RecordTime? StationTask_RecordTime { get; set; }
     public Base_StationTask_TightenRework? Base_StationTask_TightenRework { get; set; }
     public Base_StationTask_TightenByImage? Base_StationTask_TightenByImage { get; set; }
+    public List<Base_StationTaskLeak>? Base_StationTaskLeak { get; set; }
 }

@@ -42,7 +42,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
 
         private ScrewLayoutInfo CurrentWorkScrew => this.ScrewLayout.Value.FirstOrDefault(f => f.Status.Value != "OK");
 
-        public TightenByImageViewModel(APIHelper apiHepler, IMediator mediator, IServiceProvider service, StationTaskDTO stationTaskDTO, StationPLCContext stationPLCContext)
+        public TightenByImageViewModel(APIHelper apiHepler, IMediator mediator, IServiceProvider service, StationTaskDTO stationTaskDTO, StationPLCContext stationPLCContext, IOptionsMonitor<StepStationSetting> stepStationSettings)
         {
             _taskTightenByImage = stationTaskDTO.Base_StationTask_TightenByImage;
             _apiHepler = apiHepler;
@@ -50,6 +50,13 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             _service = service;
             _StationTaskDTO = stationTaskDTO;
             _stationPLCContext = stationPLCContext;
+
+            this.PageScale = new ReactiveProperty<double> { Value = 1.0 };
+            stepStationSettings.OnChange(settings =>
+            {
+                PageScale.Value = settings.TightenByImagePageScale > 0 ? settings.TightenByImagePageScale : 1.0;
+            });
+            PageScale.Value = stepStationSettings.CurrentValue.TightenByImagePageScale > 0 ? stepStationSettings.CurrentValue.TightenByImagePageScale : 1.0;
 
             Canva_Width = new ReactiveProperty<float> { Value = _taskTightenByImage?.Layout?.CanvasWidth ?? 0 };
             Canva_Height = new ReactiveProperty<float> { Value = _taskTightenByImage?.Layout?.CanvasHeight ?? 0 };
@@ -65,14 +72,23 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             resourceImage.BeginInit();
             resourceImage.UriSource = new Uri(uri + _taskTightenByImage.ImageUrl); // 项目资源路径
             resourceImage.EndInit();
-            if(_taskTightenByImage.Layout==null)
+            if (_taskTightenByImage.Layout == null)
             {
-                mediator.Publish(new AlarmSYSNotification() { Code = AlarmCode.系统运行错误, Name = AlarmCode.系统运行错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"未配置图示拧紧布图" });
+                mediator.Publish(new AlarmSYSNotification
+                {
+                    Code = AlarmCode.系统运行错误, Name = nameof(AlarmCode.系统运行错误), Module = AlarmModule.SERVER_MODULE,
+                    Description = $"未配置图示拧紧布图!"
+                });
                 return;
             }
-            if(_taskTightenByImage.Layout.Points.Count() != _taskTightenByImage.ScrewNum)
+
+            if (_taskTightenByImage.Layout.Points.Count != _taskTightenByImage.ScrewNum)
             {
-                mediator.Publish(new AlarmSYSNotification() { Code = AlarmCode.系统运行错误, Name = AlarmCode.系统运行错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"图示拧紧布局点位数量与配方数量不匹配" });
+                mediator.Publish(new AlarmSYSNotification
+                {
+                    Code = AlarmCode.系统运行错误, Name = nameof(AlarmCode.系统运行错误), Module = AlarmModule.SERVER_MODULE,
+                    Description = $"图示拧紧布局点位数量与配方数量不匹配!"
+                });
                 return;
             }
             ImageSource = new ReactiveProperty<ImageSource> { Value = resourceImage };
@@ -128,8 +144,8 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
                 return;
             }
 
-          
-            foreach (var s in ScrewLayout.Value)
+
+            foreach (ScrewLayoutInfo s in ScrewLayout.Value)
             {
                 if (s.Status.Value == "Doing" || s.Status.Value == "Wait")
                 {
@@ -168,7 +184,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             }
 
             this.ScrewNo.Value = first.OrderNo;
-            
+
             // 由 MES 主动通过 PLC 发起当前序号的拧紧请求
             _ = RequestTightenForOrderAsync(first.OrderNo, IsNeedReverse);
         }
@@ -308,7 +324,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
                 ((CheckPowerViewModel)wincheck.DataContext).Action = async delegate
                 {
                     wincheck.Close();
-                    this.ReverseScrew(_taskTightenByImage); 
+                    this.ReverseScrew(_taskTightenByImage);
                     IsNeedReverse = !IsNeedReverse;
                 };
                 ((CheckPowerViewModel)wincheck.DataContext).ModuleName = "正反转切换";
@@ -568,6 +584,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
         public ReactiveProperty<string> Angle { get;  }
         public ReactiveProperty<int?> ScrewNo { get;  }
         public ReactiveCommand ChangeReverse { get; }
+        public ReactiveProperty<double> PageScale { get; set; }
         public class ScrewLayoutInfo
         {
             public ScrewLayoutInfo(int orderNo, Thickness marginLayout, string status)

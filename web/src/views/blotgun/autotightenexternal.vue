@@ -276,8 +276,8 @@ export default {
       });
     },
     formatResultOK(row, column, cellValue) {
-      if (cellValue === 1 || cellValue === true) return "OK";
-      if (cellValue === 0 || cellValue === false) return "NG";
+      if (cellValue === 1) return "OK";
+      if (cellValue === 2) return "NG";
       return cellValue;
     },
     downloadBlob(blob, fileName) {

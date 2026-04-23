@@ -73,7 +73,21 @@ namespace Ctp0600P.Client.PLC.PLC01.Models
         [Endian(Endianness.BigEndian)]
         public float LeakRealTime;
 
-        public string LeakStartTime => new DateTime(LeakStartTime_Year, LeakStartTime_Month, LeakStartTime_Day, LeakStartTime_Hour, LeakStartTime_Minute, LeakStartTime_Second).ToString("yyyy-MM-dd HH:mm:ss");
-        public string LeakCompleteTime => new DateTime(LeakCompleteTime_Year, LeakCompleteTime_Month, LeakCompleteTime_Day, LeakCompleteTime_Hour, LeakCompleteTime_Minute, LeakCompleteTime_Second).ToString("yyyy-MM-dd HH:mm:ss");
+        public string LeakStartTime => TryParseDateTime(LeakStartTime_Year, LeakStartTime_Month, LeakStartTime_Day, LeakStartTime_Hour, LeakStartTime_Minute, LeakStartTime_Second);
+        public string LeakCompleteTime => TryParseDateTime(LeakCompleteTime_Year, LeakCompleteTime_Month, LeakCompleteTime_Day, LeakCompleteTime_Hour, LeakCompleteTime_Minute, LeakCompleteTime_Second);
+
+        private static string TryParseDateTime(ushort year, ushort month, ushort day, ushort hour, ushort minute, ushort second)
+        {
+            if (year == 0 || month == 0 || day == 0)
+                return string.Empty;
+            try
+            {
+                return new DateTime(year, month, day, hour, minute, second).ToString("yyyy-MM-dd HH:mm:ss");
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
     }
 }

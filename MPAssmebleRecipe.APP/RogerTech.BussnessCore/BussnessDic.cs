@@ -144,9 +144,9 @@ namespace RogerTech.BussnessCore
                     group = new Group("压条自动加压和拧紧首件.csv", PlcServer);
                     ProcessDics.Add(group.GroupName, new PlcProcessDataCollectForResourceInspectTask(group.GroupName, MesInterface.DataCollectForResourceInspectTask));
                     PlcGroups.Add(group);
-                    group = new Group("压条自动加压和拧紧申请SFC.csv", PlcServer);
-                    ProcessDics.Add(group.GroupName, new PlcProcessReleaseSfcByShopOrder(group.GroupName, MesInterface.ReleaseSfcByShopOrder));
-                    PlcGroups.Add(group);
+                    //group = new Group("压条自动加压和拧紧申请SFC.csv", PlcServer);
+                    //ProcessDics.Add(group.GroupName, new PlcProcessReleaseSfcByShopOrder(group.GroupName, MesInterface.ReleaseSfcByShopOrder));
+                    //PlcGroups.Add(group);
                     //group = new Group("压条自动加压和拧紧校验涂胶超时.csv", PlcServer);
                     //ProcessDics.Add(group.GroupName, new PlcProcessGetParametricValue(group.GroupName, MesInterface.GetParametricValue));
                     //PlcGroups.Add(group);

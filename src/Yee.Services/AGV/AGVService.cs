@@ -646,6 +646,9 @@ namespace Yee.Services.AGV
                         case StationTaskTypeEnum.图示拧紧:
                             dto.Base_StationTask_TightenByImage = await _dbContext.Base_StationTask_TightenByImages.FirstOrDefaultAsync(f => f.StationTaskId == task.Id && !f.IsDeleted);
                             break;
+                        case StationTaskTypeEnum.人工充气:
+                            dto.Base_StationTaskLeak = await _dbContext.Base_StationTaskLeaks.Where(f => f.StationTaskId == task.Id && !f.IsDeleted).ToListAsync();
+                            break;
                     }
                     stationTaskDto.Add(dto);
                 }

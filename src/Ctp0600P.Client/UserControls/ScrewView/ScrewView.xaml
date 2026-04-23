@@ -36,6 +36,7 @@
 
         <Rectangle x:Name="bkImgOK"  Fill="SkyBlue"  Width="20" Height="20"   Margin="-20"/>
         <Ellipse x:Name ="bkImgNG" Stroke="Red" StrokeThickness="5"  Fill="#0000" Width="20" Height="20"   Margin="-20"/>
+        <Ellipse x:Name ="bkImgNext" Stroke="Orange" StrokeThickness="5"  Fill="#0000" Width="20" Height="20"   Margin="-20"/>
         <Ellipse x:Name ="bkImgUndo" Stroke="Gray" StrokeThickness="5"  Fill="#0000" Width="20" Height="20"   Margin="-20"/>
         <Ellipse x:Name ="bkImgWait" Stroke="SkyBlue" StrokeThickness="5"  Fill="#0000" Width="20" Height="20"   Margin="-20"/>
         <TextBlock x:Name="txb_OrderNo" Foreground="Red" Panel.ZIndex="999" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2" FontSize="16" RenderTransformOrigin="0.5 0.5">

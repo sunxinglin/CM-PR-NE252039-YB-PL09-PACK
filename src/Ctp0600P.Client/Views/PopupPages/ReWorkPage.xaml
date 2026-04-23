@@ -259,6 +259,9 @@
                                                             <DataTrigger Binding="{Binding StationTaskType}" Value="{x:Static model:StationTaskTypeEnum.用户输入}">
                                                                 <Setter Property="StackPanel.Visibility" Value="Collapsed" />
                                                             </DataTrigger>
+                                                            <DataTrigger Binding="{Binding StationTaskType}" Value="{x:Static model:StationTaskTypeEnum.人工充气}">
+                                                                <Setter Property="StackPanel.Visibility" Value="Collapsed" />
+                                                            </DataTrigger>
                                                             <DataTrigger Binding="{Binding StationTaskType}" Value="{x:Static model:StationTaskTypeEnum.图示拧紧}">
                                                                 <Setter Property="StackPanel.Visibility" Value="Collapsed" />
                                                             </DataTrigger>

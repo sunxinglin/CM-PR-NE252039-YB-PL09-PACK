@@ -1,0 +1,6 @@
+Microsoft.NET.Test.Sdk
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.Extensions.FileProviders.Abstractions
+xunit
+xunit.runner.visualstudio
+coverlet.collector

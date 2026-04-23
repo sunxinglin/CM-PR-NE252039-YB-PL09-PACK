@@ -1,0 +1,9 @@
+Microsoft.NET.Test.Sdk
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.Extensions.Configuration
+Microsoft.Extensions.Configuration.Binder
+Microsoft.Extensions.Configuration.Json
+Microsoft.Extensions.Hosting.Abstractions
+xunit
+xunit.runner.visualstudio
+coverlet.collector

@@ -1,4 +1,4 @@
-using AsZero.Core.Services.Repos;
+﻿using AsZero.Core.Services.Repos;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,8 +30,10 @@ namespace Yee.WebApi.Controllers
             try
             {
                 var (list, count) = await stationTask_BlotGunDetailService.GetBlotGunDetail(dto);
-                result.Data = list;
-                result.Count = count;
+
+             
+                    result.Data = list;
+                    result.Count = count;
             }
             catch (Exception ex)
             {
@@ -49,9 +51,9 @@ namespace Yee.WebApi.Controllers
             {
                 var (list, count) = await stationTask_BlotGunDetailService.GetAutoBlotGunDetail(dto);
 
-
-                result.Data = list;
-                result.Count = count;
+           
+                    result.Data = list;
+                    result.Count = count;
             }
             catch (Exception ex)
             {

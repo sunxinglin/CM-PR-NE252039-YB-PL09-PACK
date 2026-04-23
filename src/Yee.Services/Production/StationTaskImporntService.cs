@@ -203,6 +203,20 @@ namespace Yee.Services.Production
                                         };
                                         await dbContext.AddAsync(userInput);
                                         break;
+                                    case StationTaskTypeEnum.人工充气:
+                                        Base_StationTaskLeak base_StationTaskLeak = new Base_StationTaskLeak()
+                                        {
+                                            ParameterName = task.TaskDetailName ?? "",
+                                            UpMesCodePN = task.UpMesCode,
+                                            KeepPress = task.KeepPress,
+                                            KeepTimes = task.KeepTimes,
+                                            LeakTimes = task.LeakTimes,
+                                            LeakPress = task.LeakTimes,
+                                            StationTaskId = baseTask.Id,
+                                        };
+                                        this.dbContext.Add(base_StationTaskLeak);
+                                        await this.dbContext.SaveChangesAsync();
+                                        break;
                                     case StationTaskTypeEnum.超时检测:
                                         var checkTimeOut = new Base_StationTaskCheckTimeOut
                                         {
@@ -589,6 +603,28 @@ namespace Yee.Services.Production
                                     .FirstOrDefaultAsync();
                                 if (tightenByImage != null)
                                     excelList.Add(tightenByImage);
+                                break;
+                            case StationTaskTypeEnum.人工充气:
+                                var leaks = await this.dbContext.Base_StationTaskLeaks.Where(o => !o.IsDeleted && o.StationTaskId == stationTask.Id).ToListAsync();
+                                foreach (var leak in leaks)
+                                {
+                                    StationTaskExcel taskExcelAutoStation = new StationTaskExcel()
+                                    {
+                                        FlowCode = flow.Code,
+                                        ProductCode = product.Code ?? "",
+                                        StepCode = step.Code ?? "",
+                                        Sequence = stationTask.Sequence,
+                                        Type = stationTask.Type,
+                                        TaskName = stationTask.Name ?? "",
+                                        TaskDetailName = leak.ParameterName,
+                                        UpMesCode = leak.UpMesCodePN,
+                                        KeepPress = leak.KeepPress,
+                                        KeepTimes = leak.KeepTimes,
+                                        LeakTimes = leak.LeakTimes,
+                                        LeakPress = leak.LeakPress,
+                                    };
+                                    excelList.Add(taskExcelAutoStation);
+                                }
                                 break;
                             case StationTaskTypeEnum.放行:
                                 var letgo = new StationTaskExcel

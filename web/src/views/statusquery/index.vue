@@ -48,16 +48,16 @@
               align="center"
               prop="createUser.name"
             ></el-table-column> -->
-            <el-table-column label="操作" align="center" width="150">
+            <el-table-column label="操作" align="center" width="500">
               <template slot-scope="scope">
-                <!-- <el-button size="mini" @click="ViewTaskDetails(scope.row)"  type="success">查看详情</el-button> -->
+                <el-button size="mini" @click="ViewTaskDetails(scope.row)"  type="success">查看详情</el-button>
 
                 <el-button size="mini" @click="SetCompleteTask(scope.row, 1)" v-show="scope.row.status != 2"
                   type="danger">设置完工</el-button>
                 <el-button size="mini" @click="SetCompleteTask(scope.row, 0)" v-show="scope.row.status == 2"
                   type="danger">设置未完工</el-button>
-                <!-- <el-button size="mini" @click="ClearBomDataById(scope.row)" type="danger">清除Bom数据</el-button>
-                <el-button size="mini" @click="ClearDataById(scope.row)" type="danger">清除收数数据</el-button> -->
+                <el-button size="mini" @click="ClearBomDataById(scope.row)" type="danger">清除Bom数据</el-button>
+                <el-button size="mini" @click="ClearDataById(scope.row)" type="danger">清除收数数据</el-button>
               </template>
             </el-table-column>
           </el-table>

@@ -122,6 +122,10 @@ public class StationTaskCommonPage : Page
                 App.ActivePage = (RecordTimeTaskPage)sender;
                 ((RecordTimeTaskPage)App.ActivePage)._vm.CatchRecordTime();
                 break;
+            case "Ctp0600P.Client.Views.StationTaskPages.LeakPage":
+                App.ActivePage = (LeakPage)sender;
+                await ((LeakPage)App.ActivePage)._VM.StartLeakAsync();
+                break;
 
         }
     }

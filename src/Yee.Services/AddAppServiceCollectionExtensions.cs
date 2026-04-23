@@ -38,6 +38,7 @@ public static class AddAppServiceCollectionExtensions
         services.AddScoped<Base_StationTaskUserInputService>();
         services.AddScoped<Base_StationTaskScanCollectService>();
         services.AddScoped<Base_StationTaskGluingTimeService>();
+        services.AddScoped<Base_StationTaskLeakService>();
         services.AddScoped<StationTaskImporntService>();
         services.AddScoped<Proc_StationTask_Main_StatusQueryService>();
         services.AddScoped<AGVService>();
@@ -70,6 +71,7 @@ public static class AddAppServiceCollectionExtensions
         services.AddScoped<Proc_ModuleInBoxRecordService>();
         services.AddScoped<Base_StationTaskTightenReworkService>();
         services.AddScoped<Proc_StationTask_ScanCollectService>();
+        services.AddScoped<Proc_StationTask_LeakDetailService>();
 
         //自动站
         services.AddScoped<AutomicCommonService>();

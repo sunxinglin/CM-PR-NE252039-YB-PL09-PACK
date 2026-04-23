@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,7 +18,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using Yee.Entitys.AlarmMgmt;
-
 namespace Ctp0600P.Client.ViewModels;
 
 public class CheckPowerViewModel : ViewModelBase

@@ -797,4 +797,25 @@ public class WPFClientDataController : ControllerBase
         var result = await _SaveStationDataService.GetProductPnFormDb(packCode);
         return result;
     }
+
+    /// <summary>
+    /// 保存充气数据
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<Response> Save_StationLeak(LeakDataDTO input)
+    {
+        var result = new Response();
+        try
+        {
+            result = await _SaveStationDataService.Save_StationLeak(input);
+        }
+        catch (Exception ex)
+        {
+            result.Code = 500;
+            result.Message = ex.InnerException?.Message ?? ex.Message;
+        }
+        return result;
+    }
 }

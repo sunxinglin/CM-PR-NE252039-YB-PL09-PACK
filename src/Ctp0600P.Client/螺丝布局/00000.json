@@ -1,0 +1,85 @@
+{
+  "ProductType": "00000",
+  "ImageUrl": "D:\\DevData\\螺丝布局\\00000.png",
+  "LimitCount": 8,
+  "StepCode": "OP010",
+  "LayOut_Width": 522,
+  "LayOut_Height": 522,
+  "ScrewLocationList": [
+    {
+      "OrderNo": 1,
+      "Margin": {
+        "Left": 44.0,
+        "Top": 37.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 2,
+      "Margin": {
+        "Left": 55.0,
+        "Top": 90.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 3,
+      "Margin": {
+        "Left": 66.0,
+        "Top": 129.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 4,
+      "Margin": {
+        "Left": 77.0,
+        "Top": 165.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    },
+    {
+      "OrderNo": 5,
+      "Margin": {
+        "Left": 88.0,
+        "Top": 199.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    }
+	,
+    {
+      "OrderNo": 6,
+      "Margin": {
+        "Left": 99.0,
+        "Top": 219.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    }
+	,
+    {
+      "OrderNo": 7,
+      "Margin": {
+        "Left": 111.0,
+        "Top": 239.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    }
+	,
+    {
+      "OrderNo": 8,
+      "Margin": {
+        "Left": 122.0,
+        "Top": 259.0,
+        "Right": 0.0,
+        "Bottom": 0.0
+      }
+    }
+  ]
+}

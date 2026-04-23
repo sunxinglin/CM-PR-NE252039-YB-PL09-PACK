@@ -5,7 +5,7 @@
         <el-col :span="24">
           <el-card shadow="never" class="boby-small">
             <div slot="header" class="clearfix">
-              <span>工序表</span>
+              <span>工艺配方</span>
             </div>
             <div style="margin-bottom: 10px">
               <el-row :gutter="4">
@@ -42,6 +42,7 @@
                 v-Lodaing="stepListLodaing"
                 row-key="id"
                 style="width: 100%"
+                :height="tableHeight"
                 @selection-change="handleSelectionChange"
                 border
                 fit
@@ -146,6 +147,7 @@ export default {
   },
   data() {
     return {
+      tableHeight: 500, // 默认给个高度，后续计算
       stepMultipleSelection: [], //勾选的数据表值
     
       stepTotal: 0, //数据条数
@@ -185,8 +187,25 @@ export default {
   },
   mounted() {
     this.Loda();
+    this.$nextTick(() => {
+      this.calcTableHeight();
+      window.addEventListener('resize', this.calcTableHeight);
+    });
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.calcTableHeight);
   },
   methods: {
+    calcTableHeight() {
+      // 获取浏览器可用高度
+      const h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+      // 获取表格距离顶部的距离
+      if (this.$refs.mainTable && this.$refs.mainTable.$el) {
+        const topH = this.$refs.mainTable.$el.offsetTop;
+        // 减去顶部距离，再减去底部分页等预留空间
+        this.tableHeight = h - topH - 100;
+      }
+    },
     //勾选框
     handleSelectionChange(val) {
       this.stepMultipleSelection = val;

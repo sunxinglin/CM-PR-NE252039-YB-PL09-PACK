@@ -16,6 +16,9 @@
                              mc:Ignorable="d">
 
     <Grid Margin="0">
+        <Grid.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding PageScale.Value}" ScaleY="{Binding PageScale.Value}" />
+        </Grid.LayoutTransform>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="80" />

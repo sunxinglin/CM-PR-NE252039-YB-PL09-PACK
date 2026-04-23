@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-
 using AsZero.Core.Services.Messages;
 
 using Ctp0600P.Client.Apis;
@@ -13,11 +12,17 @@ using Ctp0600P.Client.Command.NoticeHelp.Handle;
 using Ctp0600P.Client.Protocols;
 using Ctp0600P.Client.ViewModels;
 using Ctp0600P.Client.Views.StationTaskPages;
-
+using DocumentFormat.OpenXml.Bibliography;
 using MediatR;
 
 using Microsoft.Extensions.Logging;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys;
 using Yee.Entitys.AlarmMgmt;
@@ -308,6 +313,22 @@ public class RealTimeCommonPage : Page
             Description = "保存用户输入数据失败"
         });
         return false;
+    }
+
+    public async Task<bool> SaveLeakData(List<Base_StationTaskLeak> taskLeaks, int taskId)
+    {
+        var response = await ApiHelper.SaveLeakData(taskLeaks, taskId);
+        if (response != null && response.Code == 200)
+        {
+            Vm.AddLogMsg.Execute(new LogMessage { Timestamp = DateTime.Now, Content = "保存充气数据成功" });
+            return true;
+        }
+        else
+        {
+            await _mediator.Publish(new AlarmSYSNotification { Code = AlarmCode.充气错误, Name = AlarmCode.充气错误.ToString(), Module = AlarmModule.DESOUTTER_MODULE, Description = $"保存充气数据失败" });
+
+            return false;
+        }
     }
 
     /// <summary>

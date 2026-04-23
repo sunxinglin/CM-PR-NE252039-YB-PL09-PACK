@@ -23,6 +23,11 @@ nuget Microsoft.Extensions.Options < 7.0.0
 nuget Microsoft.Extensions.Configuration.Abstractions < 7.0.0
 nuget Microsoft.Extensions.DependencyInjection.Abstractions < 7.0.0
 nuget Microsoft.Extensions.Options.ConfigurationExtensions < 7.0.0
+nuget Microsoft.Extensions.Configuration < 7.0.0
+nuget Microsoft.Extensions.Configuration.Binder < 7.0.0
+nuget Microsoft.Extensions.Configuration.Json < 7.0.0
+nuget Microsoft.Extensions.FileProviders.Abstractions < 7.0.0
+nuget Microsoft.CodeAnalysis.Common 4.5.0
 nuget Newtonsoft.Json 13.0.1
 nuget AsZero.Core <= 0.2.0
 nuget MediatR ~> 9.0.0
@@ -86,3 +91,4 @@ nuget Refit.HttpClientFactory 6.0.1
 nuget Refit.Newtonsoft.Json 6.0.1
 nuget Microsoft.EntityFrameworkCore.SqlServer <= 6.0.35
 nuget Itminus.FSharpExtensions 0.1.5
+nuget autoupdater.net.official 1.9.2

@@ -54,14 +54,14 @@ public class ExternalAutoTightenDataService
                     .ToErrResult<ServiceErrResponse, ServiceErrResponse>();
             }
 
-            var tightenType = ResolveTightenType(dto.StationName);
+            TightenReworkType? tightenType = ResolveTightenType(dto.StationName);
             if (tightenType == null)
             {
                 return new ServiceErrResponse()
                     .ToError(ResponseErrorType.数据异常, 400, $"无法识别StationName={dto.StationName}")
                     .ToErrResult<ServiceErrResponse, ServiceErrResponse>();
             }
-            
+
             var torquePrefix = dto.TighteningResultList[0].TorqueResult?.MesName?.Trim() ?? string.Empty;
             var anglePrefix = dto.TighteningResultList[0].AngleResult?.MesName?.Trim() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(torquePrefix) || string.IsNullOrWhiteSpace(anglePrefix))
@@ -70,7 +70,7 @@ public class ExternalAutoTightenDataService
                     .ToError(ResponseErrorType.数据异常, 400, "MesName为空")
                     .ToErrResult<ServiceErrResponse, ServiceErrResponse>();
             }
-            
+
             var orderNoSet = new HashSet<short>();
             foreach (TighteningResult item in dto.TighteningResultList)
             {
@@ -112,37 +112,32 @@ public class ExternalAutoTightenDataService
 
             var sfc = dto.SFC.Trim();
             var stationName = dto.StationName.Trim();
-            
+
             #endregion
 
             #region 存储数据到本地
-            
-            var existing = await _dbContext.Proc_ExternalAutoTightenDatas.FirstOrDefaultAsync(e =>
-                !e.IsDeleted && e.Sfc == sfc && e.StationName == stationName);
 
-            if (existing == null)
+            Proc_ExternalAutoTightenData? existing = await _dbContext.Proc_ExternalAutoTightenDatas.FirstOrDefaultAsync(e =>
+                !e.IsDeleted && e.Sfc == sfc && e.StationName == stationName);
+            // 1. 如果本地已存在数据，则将旧数据标记为软删除
+            if (existing != null)
             {
-                existing = new Proc_ExternalAutoTightenData
-                {
-                    Sfc = sfc,
-                    StationName = stationName,
-                    TightenType = tightenType.Value,
-                    TighteningResultJson = JsonConvert.SerializeObject(dto.TighteningResultList),
-                };
-                await _dbContext.AddAsync(existing);
-            }
-            else
-            {
-                existing.TightenType = tightenType.Value;
-                existing.TighteningResultJson = JsonConvert.SerializeObject(dto.TighteningResultList);
-                existing.UpdateTime = DateTime.Now;
+                existing.IsDeleted = true;
                 _dbContext.Update(existing);
             }
-
+            // 2. 永远插入一条全新的数据记录
+            var newData = new Proc_ExternalAutoTightenData
+            {
+                Sfc = sfc,
+                StationName = stationName,
+                TightenType = tightenType.Value,
+                TighteningResultJson = JsonConvert.SerializeObject(dto.TighteningResultList),
+            };
+            await _dbContext.AddAsync(newData);
             await _dbContext.SaveChangesAsync();
-            
+
             #endregion
-            
+
             return new ServiceErrResponse().ToSuccess().ToOkResult<ServiceErrResponse, ServiceErrResponse>();
         }
         catch (Exception ex)
@@ -355,14 +350,14 @@ public class ExternalAutoTightenDataService
                     AngleMesName = item.AngleResult?.MesName,
                 });
             }
-            
+
             await using (var stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
             {
                 using var excelPackage = new ExcelPackage();
                 var sheet = excelPackage.Workbook.Worksheets.Add("新自动拧紧明细");
                 sheet.Cells.LoadFromCollection(rows, true);
                 excelPackage.SaveAs(stream);
-                return (true, filePath);    
+                return (true, filePath);
             }
         }
         catch (Exception ex)

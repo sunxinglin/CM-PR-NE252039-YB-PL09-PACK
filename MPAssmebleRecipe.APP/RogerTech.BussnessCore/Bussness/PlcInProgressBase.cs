@@ -159,12 +159,13 @@ namespace RogerTech.BussnessCore
             }
         }
 
-        protected void WriteResult(string result)
+
+        protected void WriteResult(string result, string tagName)
         {
-            Tag Code = PlcGroup.GetTag("Code");
+            Tag Code = PlcGroup.GetTag(tagName);
             if (Code == null)
             {
-                OnTagNullError("Code", PlcGroup.GroupName);
+                OnTagNullError(tagName, PlcGroup.GroupName);
             }
             else
             {
@@ -172,7 +173,19 @@ namespace RogerTech.BussnessCore
                 Task.Run(() => { DbContext.Info("Code", $"写入PLC成功:{result}", 0, PlcGroup.GroupName); });
             }
         }
-
+        protected void WriteResult(int result, string tagName)
+        {
+            Tag Code = PlcGroup.GetTag(tagName);
+            if (Code == null)
+            {
+                OnTagNullError(tagName, PlcGroup.GroupName);
+            }
+            else
+            {
+                Code.WriteValue(result);
+                Task.Run(() => { DbContext.Info("Code", $"写入PLC成功:{result}", 0, PlcGroup.GroupName); });
+            }
+        }
 
         protected void WriteFinishSignal(bool result)
         {
