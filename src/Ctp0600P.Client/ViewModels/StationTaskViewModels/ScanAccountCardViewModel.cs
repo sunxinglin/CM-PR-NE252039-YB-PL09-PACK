@@ -1,8 +1,11 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+using Microsoft.Extensions.Options;
+
+using Reactive.Bindings;
 using Ctp0600P.Client.Apis;
 using Ctp0600P.Client.Protocols;
 using Ctp0600P.Client.Protocols.ScanCode.Models;
@@ -15,6 +18,8 @@ using Yee.Entitys.DBEntity;
 using Yee.Entitys.DTOS;
 using Yee.Entitys.Production;
 
+using Ctp0600P.Shared;
+
 namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
 {
     public class ScanAccountCardViewModel : TaskViewModelBase
@@ -25,12 +30,21 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
 
         public StationTaskDTO _StationTaskDTO { get; }
 
-        public ScanAccountCardViewModel(StationTaskDTO stationTaskDTO, APIHelper apiHelper, IMediator mediator)
+        public ReactiveProperty<double> PageScale { get; set; }
+
+        public ScanAccountCardViewModel(StationTaskDTO stationTaskDTO, APIHelper apiHelper, IMediator mediator, IOptionsMonitor<PageScaleConfig> pageScaleConfig)
         {
             _apiHelper = apiHelper;
             _mediator = mediator;
             _StationTaskDTO = stationTaskDTO;
             TaskScanAccountCard = _StationTaskDTO.StationTaskScanAccountCard;
+
+            this.PageScale = new ReactiveProperty<double> { Value = 1.0 };
+            pageScaleConfig.OnChange(settings =>
+            {
+                PageScale.Value = settings.ScanAccountCard > 0 ? settings.ScanAccountCard : 1.0;
+            });
+            PageScale.Value = pageScaleConfig.CurrentValue.ScanAccountCard > 0 ? pageScaleConfig.CurrentValue.ScanAccountCard : 1.0;
 
             BindHisData();
         }

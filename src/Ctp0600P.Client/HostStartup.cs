@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -49,6 +49,7 @@ public class HostStartup
     {
         services.AddClientApis();
         services.AddOptions<StepStationSetting>().Bind(context.Configuration.GetSection("StepSetting"));
+        services.AddOptions<PageScaleConfig>().Bind(context.Configuration.GetSection("PageScale"));
         services.AddOptions<CatlMesOpt>().Bind(context.Configuration.GetSection("CatlMesOpt"));
         services.AddOptions<ApiServerSetting>().Bind(context.Configuration.GetSection("ApiServerSettings"));
         services.AddOptions<AGVBindConfig>().Bind(context.Configuration.GetSection("AGVBindConfig"));

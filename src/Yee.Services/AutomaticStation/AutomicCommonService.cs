@@ -100,7 +100,9 @@ namespace Yee.Services.AutomaticStation
                     return resp.ToError(ResponseErrorType.载具绑定错误, 500, ErrorMessage).ToErrResult<ServiceErrResponse, ServiceErrResponse>();
                 }
 
-                var main = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(f => !f.IsDeleted && f.StepId == prevStep.StepId && f.Status == StationTaskStatusEnum.已完成 && f.PackCode == packCode);
+                var main = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(f =>
+                    !f.IsDeleted && f.StepId == prevStep.StepId && f.Status == StationTaskStatusEnum.已完成 && f.PackCode == packCode &&
+                    prevStep.Step.StepType != StepTypeEnum.线内可跳过人工站);
                 if (main == null)
                 {
                     var ErrorMessage = $"前置工序未完成";
@@ -162,7 +164,9 @@ namespace Yee.Services.AutomaticStation
                     return resp.ToSuccess().ToOkResult<ServiceErrResponse, ServiceErrResponse>();
                 }
 
-                var main = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(f => !f.IsDeleted && f.StepId == prevStep.StepId && f.Status == StationTaskStatusEnum.已完成 && f.PackCode == packCode);
+                var main = await _dbContext.Proc_StationTask_Mains.FirstOrDefaultAsync(f =>
+                    !f.IsDeleted && f.StepId == prevStep.StepId && f.Status == StationTaskStatusEnum.已完成 && f.PackCode == packCode &&
+                    prevStep.Step.StepType != StepTypeEnum.线内可跳过人工站);
                 if (main == null)
                 {
                     var ErrorMessage = $"前置工序未完成";

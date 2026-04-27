@@ -49,3 +49,19 @@ public class StepStationSetting
     /// </summary>
     public double TightenByImagePageScale { get; set; } = 1.0;
 }
+
+/// <summary>
+/// 每种任务类型页面的整体大小缩放配置
+/// </summary>
+public class PageScaleConfig
+{
+    public double ScanAccountCard { get; set; } = 1.0;
+
+    public double ScanCode { get; set; } = 1.0;
+
+    public double ScanCollect { get; set; } = 1.0;
+
+    public double BoltGun { get; set; } = 1.0;
+
+    public double AnyLoad { get; set; } = 1.0;
+}

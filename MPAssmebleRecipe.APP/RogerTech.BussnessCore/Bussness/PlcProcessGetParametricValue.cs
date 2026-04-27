@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RogerTech.BussnessCore.Bussness
@@ -72,6 +73,9 @@ namespace RogerTech.BussnessCore.Bussness
                     case "模组入箱":
                         parameter.Add(new GetParametricValueRequestData { parameter = GetParametricValueUpMesCode, parameterDec = _getParametricValueName });
                         break;
+                    case "压条加压":
+                        parameter.Add(new GetParametricValueRequestData { parameter = GetParametricValueUpMesCode, parameterDec = _getParametricValueName });
+                        break;
                     case "压条自动加压和拧紧":
                         parameter.Add(new GetParametricValueRequestData { parameter = GetParametricValueUpMesCode, parameterDec = _getParametricValueName });
                         break;
@@ -83,7 +87,13 @@ namespace RogerTech.BussnessCore.Bussness
                 //空循环模式
                 if (business.bMesSimulation)
                 {
+                    Thread.Sleep(1000);
                     resultCode = 0;
+                    message.Append($"SFC{sfc}在空循环模式下获取参数完毕！");
+                    if (!StationName.Equals("下箱体涂胶"))
+                    {
+                        WriteResult(20, minutes.TagName);
+                    }
                     return;
                 }
 

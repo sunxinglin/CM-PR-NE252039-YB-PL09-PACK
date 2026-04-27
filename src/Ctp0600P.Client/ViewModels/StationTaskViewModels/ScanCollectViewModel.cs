@@ -7,8 +7,13 @@ using Ctp0600P.Client.Command.NoticeHelp.Enum;
 using Ctp0600P.Client.Command.NoticeHelp.Handle;
 using Ctp0600P.Client.Protocols;
 using Ctp0600P.Client.Protocols.ScanCode.Models;
+using Ctp0600P.Shared;
 
 using MediatR;
+
+using Microsoft.Extensions.Options;
+
+using Reactive.Bindings;
 
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.AlarmMgmt;
@@ -23,12 +28,21 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
         public StationTaskDTO StationTaskDTO { get; }
         public Base_StationTaskScanCollect TaskScanCollect { get; }
         private readonly APIHelper _ApiHelper;
-        public ScanCollectViewModel(StationTaskDTO stationTaskDTO, IMediator mediator, APIHelper ApiHelper)
+
+        public ReactiveProperty<double> PageScale { get; set; }
+
+        public ScanCollectViewModel(StationTaskDTO stationTaskDTO, IMediator mediator, APIHelper ApiHelper, IOptionsMonitor<PageScaleConfig> pageScaleConfig)
         {
             StationTaskDTO = stationTaskDTO;
             TaskScanCollect = StationTaskDTO.StationTaskScanCollect;
             this.mediator = mediator;
             this._ApiHelper = ApiHelper;
+            this.PageScale = new ReactiveProperty<double> { Value = 1.0 };
+            pageScaleConfig.OnChange(settings =>
+            {
+                PageScale.Value = settings.ScanCollect > 0 ? settings.ScanCollect : 1.0;
+            });
+            PageScale.Value = pageScaleConfig.CurrentValue.ScanCollect > 0 ? pageScaleConfig.CurrentValue.ScanCollect : 1.0;
             BindHisData();
         }
 
@@ -136,7 +150,7 @@ namespace Ctp0600P.Client.ViewModels.StationTaskViewModels
             get => _Status;
             set
             {
-                if (this._Status != null)
+                if (this._Status != value)
                 {
                     _Status = value;
                     OnPropertyChanged(nameof(Status));

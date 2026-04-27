@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using DataCollectForResourceInspectTask.DataCollectForResourceInspectTask;
+﻿using DataCollectForResourceInspectTask.DataCollectForResourceInspectTask;
 using RogerTech.Common;
 using RogerTech.Common.Models;
 using RogerTech.Tool;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using ParameterDataType = DataCollectForResourceInspectTask.DataCollectForResourceInspectTask.ParameterDataType;
 
 namespace RogerTech.BussnessCore.Bussness
@@ -112,10 +113,15 @@ namespace RogerTech.BussnessCore.Bussness
                 }
                 inputs.Add(datas);
 
+                db.Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
+                db.Insertable(localDatas).AS("LocalData").ExecuteCommand();
+
                 //空循环模式
-                if (business.bMesSimulation)
+                if (bSimulation)
                 {
+                    Thread.Sleep(1000);
                     resultCode = 0;
+                    message.Append("空循环模式下首件数据收集完毕！");
                     return;
                 }
 
@@ -130,9 +136,7 @@ namespace RogerTech.BussnessCore.Bussness
                         .Where(u => u.SFC == sfc)
                         .ExecuteCommand();
                 }
-
-                db.Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
-                db.Insertable(localDatas).AS("LocalData").ExecuteCommand();
+                
                 if ((int)output[0] == 0)
                 {
                     resultCode = (int)output[0];

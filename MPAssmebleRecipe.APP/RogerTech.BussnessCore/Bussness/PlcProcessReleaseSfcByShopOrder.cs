@@ -1,10 +1,11 @@
-﻿using System;
+﻿using RogerTech.Common;
+using RogerTech.Tool;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using RogerTech.Common;
-using RogerTech.Tool;
 
 namespace RogerTech.BussnessCore.Bussness
 {
@@ -32,7 +33,9 @@ namespace RogerTech.BussnessCore.Bussness
                 //空循环模式
                 if (business.bMesSimulation)
                 {
+                    Thread.Sleep(1000);
                     resultCode = 0;
+                    message.Append("空循环模式下申请条码完毕！");
                     return;
                 }
 

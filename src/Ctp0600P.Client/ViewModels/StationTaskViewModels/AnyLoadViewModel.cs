@@ -1,7 +1,9 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
+using Ctp0600P.Shared;
 
 using Ctp0600P.Client.Command.NoticeHelp.Enum;
 using Ctp0600P.Client.Command.NoticeHelp.Handle;
@@ -11,6 +13,10 @@ using Ctp0600P.Client.Protocols.AnyLoad;
 using FutureTech.Mvvm;
 
 using MediatR;
+
+using Microsoft.Extensions.Options;
+
+using Reactive.Bindings;
 
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.AlarmMgmt;
@@ -29,12 +35,22 @@ public class AnyLoadViewModel : TaskViewModelBase
     public bool IsDealingWeightData = false;
     public IAnyLoadApi _anyLoadApi { get; }
     
-    public AnyLoadViewModel(StationTaskDTO stationTaskDTO, IAnyLoadApi ianyLoadApi, IMediator mediator)
+    public ReactiveProperty<double> PageScale { get; }
+    
+    public AnyLoadViewModel(StationTaskDTO stationTaskDTO, IAnyLoadApi ianyLoadApi, IMediator mediator, IOptionsMonitor<PageScaleConfig> pageScaleConfig)
     {
         StationTaskDTO = stationTaskDTO;
         TaskAnyLoad = StationTaskDTO.StationTaskAnyLoad;
         _anyLoadApi = ianyLoadApi;
         this.mediator = mediator;
+
+        PageScale = new ReactiveProperty<double> { Value = 1.0 };
+        pageScaleConfig.OnChange(settings =>
+        {
+            PageScale.Value = settings.AnyLoad > 0 ? settings.AnyLoad : 1.0;
+        });
+        PageScale.Value = pageScaleConfig.CurrentValue.AnyLoad > 0 ? pageScaleConfig.CurrentValue.AnyLoad : 1.0;
+
         this.CatchWeightData = new AsyncRelayCommand<object>(
             obj =>
             {

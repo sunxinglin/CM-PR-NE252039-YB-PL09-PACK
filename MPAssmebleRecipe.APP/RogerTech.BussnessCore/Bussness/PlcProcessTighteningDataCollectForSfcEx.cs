@@ -1,4 +1,3 @@
-using CatlMesBase;
 using dataCollectForSfcEx.dataCollectForSfcEx;
 using Newtonsoft.Json;
 using RogerTech.Common;
@@ -183,6 +182,11 @@ namespace RogerTech.BussnessCore.Bussness
                             message.Append(errorMessage);
                         }
                     }
+                    else
+                    {
+                        resultCode = 0;
+                        message.Append($"Pack码{sfc}拧紧数据收集成功！");
+                    }
                 }
 
                 #endregion
@@ -237,7 +241,6 @@ namespace RogerTech.BussnessCore.Bussness
                     HttpResponseMessage response = client.PostAsync(url, content).GetAwaiter().GetResult();
                     string responseBody = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-                    // 1. 判断 HTTP 状态码是否非 200 (网络错误、500 服务器崩溃等)
                     if ((int)response.StatusCode != 200)
                     {
                         if (!string.IsNullOrWhiteSpace(responseBody) && responseBody.Length > 500)
@@ -248,18 +251,15 @@ namespace RogerTech.BussnessCore.Bussness
                         return false;
                     }
 
-                    // 2. HTTP 200 成功，解析业务响应对象 ServiceErrResponse
                     try
                     {
-                        // 你可能需要引入 Newtonsoft.Json 的反序列化，并定义一个简单的匿名类或复用 ServiceErrResponse 结构
                         var apiResult = JsonConvert.DeserializeObject<dynamic>(responseBody);
 
-                        // 判断 JSON 中是否包含 isError 并且为 true (注意 C# 序列化后首字母可能变小写)
                         if (apiResult != null && apiResult.isError != null && (bool)apiResult.isError)
                         {
                             string msg = apiResult.errorMessage ?? "未知业务错误";
                             errorMessage = $"接口返回业务失败: {msg}";
-                            return false; // 业务失败，返回 false
+                            return false;
                         }
                     }
                     catch (Exception ex)
@@ -267,8 +267,6 @@ namespace RogerTech.BussnessCore.Bussness
                         errorMessage = $"解析接口返回值失败: {ex.Message}";
                         return false;
                     }
-
-                    // 一切正常，业务成功
                     return true;
                 }
             }

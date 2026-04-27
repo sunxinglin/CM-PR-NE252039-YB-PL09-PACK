@@ -1,4 +1,4 @@
-﻿<local:StationTaskCommonPage x:Class="Ctp0600P.Client.Views.StationTaskPages.BoltGun"
+<local:StationTaskCommonPage x:Class="Ctp0600P.Client.Views.StationTaskPages.BoltGun"
                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,6 +14,9 @@
                              mc:Ignorable="d">
 
     <Grid MouseDown="ListBox_MouseDown">
+        <Grid.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding PageScale.Value}" ScaleY="{Binding PageScale.Value}" />
+        </Grid.LayoutTransform>
         <Grid.RowDefinitions>
             <RowDefinition Height="0" />
             <RowDefinition Height="Auto" />

@@ -22,6 +22,6 @@ namespace Ctp0600P.Client.PLC.PLC01.Models.Notifications
 
         public float LeakKeepPressPower { get; set; }
 
-        public float LeakRealTime { get; set; }
+        public ushort LeakRealTime { get; set; }
     }
 }

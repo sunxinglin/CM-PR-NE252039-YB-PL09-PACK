@@ -71,7 +71,7 @@ namespace Ctp0600P.Client.PLC.PLC01.Models
         public float LeakKeepPressPower;
 
         [Endian(Endianness.BigEndian)]
-        public float LeakRealTime;
+        public ushort LeakRealTime;
 
         public string LeakStartTime => TryParseDateTime(LeakStartTime_Year, LeakStartTime_Month, LeakStartTime_Day, LeakStartTime_Hour, LeakStartTime_Minute, LeakStartTime_Second);
         public string LeakCompleteTime => TryParseDateTime(LeakCompleteTime_Year, LeakCompleteTime_Month, LeakCompleteTime_Day, LeakCompleteTime_Hour, LeakCompleteTime_Minute, LeakCompleteTime_Second);

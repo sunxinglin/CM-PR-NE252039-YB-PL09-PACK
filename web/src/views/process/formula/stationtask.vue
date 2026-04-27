@@ -116,6 +116,7 @@
     <Pressure v-if="pressurevisible" ref="Pressure" :taskId="taskId" />
     <LowerBoxGlue v-if="lowerBoxGlueVisible" ref="LowerBoxGlue" :taskId="taskId" />
     <DialogImageTighten v-if="imageTightenVisible" ref="NgUpload" :taskId="taskId" />
+    <DialogLeak v-if="leakVisible" ref="DialogLeak" :taskId="taskId" />
   </div>
 </template>
 
@@ -136,6 +137,7 @@ import BlockIncase from "./dialogBlockIncase.vue"
 import Pressure from "./dialogPressure.vue"
 import LowerBoxGlue from "./dialogLowerBoxGlue.vue"
 import DialogImageTighten from "./dialogImageTighten.vue"
+import DialogLeak from "./dialogLeak.vue"
 
 import * as axios from "axios";
 import waves from "@/directive/waves"; // 水波纹指令
@@ -168,6 +170,7 @@ export default {
     Pressure,
     LowerBoxGlue,
     DialogImageTighten,
+    DialogLeak,
   },
   directives: {
     waves,
@@ -298,6 +301,10 @@ export default {
           name: "图示拧紧",
         },
         {
+          id: 12,
+          name: "人工充气",
+        },
+        {
           id: 31,
           name: "涂胶检测",
         },
@@ -342,6 +349,7 @@ export default {
       blockIncaseVisiable: false,
       lowerBoxGlueVisible: false,
       imageTightenVisible:false,
+      leakVisible:false,
       stepname: "",
     };
   },
@@ -410,6 +418,9 @@ export default {
              case 11:
           this.imageTightenVisible = true;
           break
+        case 12:
+          this.leakVisible = true;
+          break;
 
 
         case 32:
@@ -509,6 +520,8 @@ export default {
           return "放行";
         case 11:
           return "图示拧紧";
+        case 12:
+          return "人工充气";
         case 31:
           return "涂胶检测";
         case 32:

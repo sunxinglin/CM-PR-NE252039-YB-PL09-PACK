@@ -532,19 +532,20 @@ public class RealtimePageViewModel : ViewModelBase
     {
         try
         {
+            var pageScaleConfig = _sp.GetRequiredService<IOptionsMonitor<PageScaleConfig>>();
             return type switch
             {
                 StationTaskTypeEnum.扫码 => Task.FromResult<Page>(
-                    new ScanCode(new ScanCodeViewModel(mapping, taskBomList.First(), _mediator, _catlMesInvoker, _apiHelper))),
+                    new ScanCode(new ScanCodeViewModel(mapping, taskBomList.First(), _mediator, _catlMesInvoker, _apiHelper, pageScaleConfig))),
                 StationTaskTypeEnum.扫描员工卡 => Task.FromResult<Page>(
-                    new ScanAccountCard(new ScanAccountCardViewModel(mapping, _apiHelper, _mediator))),
+                    new ScanAccountCard(new ScanAccountCardViewModel(mapping, _apiHelper, _mediator, pageScaleConfig))),
                 StationTaskTypeEnum.超时检测 => Task.FromResult<Page>(
                     new CheckTimeout(new CheckTimeoutViewModel(mapping, _apiHelper, _mediator))),
                 StationTaskTypeEnum.人工拧螺丝 => Task.FromResult<Page>(
                     new BoltGun(new BoltGunViewModel(mapping, taskScrew,
-                    _mediator, _sp, _apiHelper, _stationPLCContext, screwCountBeforeCurrentTask))),
+                    _mediator, _sp, _apiHelper, _stationPLCContext, screwCountBeforeCurrentTask, pageScaleConfig))),
                 StationTaskTypeEnum.称重 => Task.FromResult<Page>(
-                    new AnyLoad(new AnyLoadViewModel(mapping, _anyLoadApi, _mediator))),
+                    new AnyLoad(new AnyLoadViewModel(mapping, _anyLoadApi, _mediator, pageScaleConfig))),
                 StationTaskTypeEnum.放行 => Task.FromResult<Page>(
                     new LetGoPage(mapping, _apiHelper, _mediator, _stationPLCContext)),
                 StationTaskTypeEnum.补拧 => Task.FromResult<Page>(
@@ -553,7 +554,7 @@ public class RealtimePageViewModel : ViewModelBase
                 StationTaskTypeEnum.用户输入 => Task.FromResult<Page>(
                     new UserInputCollect(new UserInputCollectViewModel(mapping, _mediator, _apiHelper))),
                 StationTaskTypeEnum.扫码输入 => Task.FromResult<Page>(
-                    new ScanCollect(new ScanCollectViewModel(mapping, _mediator, _apiHelper))),
+                    new ScanCollect(new ScanCollectViewModel(mapping, _mediator, _apiHelper, pageScaleConfig))),
                 StationTaskTypeEnum.时间记录 => Task.FromResult<Page>(
                     new RecordTimeTaskPage(new RecordTimeViewModel(mapping, _apiHelper, _mediator))),
                 StationTaskTypeEnum.图示拧紧 => Task.FromResult<Page>(

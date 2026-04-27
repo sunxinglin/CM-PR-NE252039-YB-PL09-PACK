@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -9,10 +9,15 @@ using Ctp0600P.Client.Command.NoticeHelp.Handle;
 using Ctp0600P.Client.PLC.Context;
 using Ctp0600P.Client.Protocols;
 using Ctp0600P.Client.Protocols.BoltGun.Models;
+using Ctp0600P.Shared;
 
 using MediatR;
 
+using Microsoft.Extensions.Options;
+
 using Newtonsoft.Json;
+
+using Reactive.Bindings;
 
 using Yee.Common.Library.CommonEnum;
 using Yee.Entitys.AlarmMgmt;
@@ -32,6 +37,8 @@ public class BoltGunViewModel : TaskViewModelBase
 
     private StationTaskDTO StationTaskDTO { get; }
 
+    public ReactiveProperty<double> PageScale { get; }
+
     public ObservableCollection<Base_StationTaskScrew> StationTaskScrewList
     {
         get => _StationTaskScrewList;
@@ -46,13 +53,20 @@ public class BoltGunViewModel : TaskViewModelBase
     }
     private ObservableCollection<Base_StationTaskScrew> _StationTaskScrewList = new();
 
-    public BoltGunViewModel(StationTaskDTO stationTaskDTO, ObservableCollection<Base_StationTaskScrew> taskScrew, IMediator mediator, IServiceProvider service, IAPIHelper apiHelper, StationPLCContext manualStationNotifyPLCContext, int screwCountBeforeCurrentTask)
+    public BoltGunViewModel(StationTaskDTO stationTaskDTO, ObservableCollection<Base_StationTaskScrew> taskScrew, IMediator mediator, IServiceProvider service, IAPIHelper apiHelper, StationPLCContext manualStationNotifyPLCContext, int screwCountBeforeCurrentTask, IOptionsMonitor<PageScaleConfig> pageScaleConfig)
     {
         _mediator = mediator;
         _service = service;
         _apiHelper = apiHelper;
         StationTaskDTO = stationTaskDTO;
         StationTaskScrewList = taskScrew;
+
+        PageScale = new ReactiveProperty<double> { Value = 1.0 };
+        pageScaleConfig.OnChange(settings =>
+        {
+            PageScale.Value = settings.BoltGun > 0 ? settings.BoltGun : 1.0;
+        });
+        PageScale.Value = pageScaleConfig.CurrentValue.BoltGun > 0 ? pageScaleConfig.CurrentValue.BoltGun : 1.0;
 
         BindHisData();
         _manualStationNotifyPLCContext = manualStationNotifyPLCContext;

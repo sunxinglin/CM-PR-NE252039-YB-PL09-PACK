@@ -88,7 +88,7 @@ namespace Yee.Services.Production
             try
             {
                 var records = await _dBContext.Proc_StationTask_Records.Include(i => i.Base_StationTask).Where(w => !w.IsDeleted && w.Proc_StationTask_MainId == id && w.Base_StationTask.Type == StationTaskTypeEnum.扫码).ToListAsync();
-                
+
                 foreach(var item in records)
                 {
                     item.IsDeleted = true;
@@ -219,7 +219,7 @@ namespace Yee.Services.Production
                                     record.GoodsOuterCode = bomDetail.GoodsOuterCode;
                                     record.BatchBarCode = bomDetail.BatchBarCode;
                                     record.UniBarCode = bomDetail.UniBarCode;
-                                    record.HasUpMesDone = bomDetail.HasUpMesDone;   
+                                    record.HasUpMesDone = bomDetail.HasUpMesDone;
                                 }
                             }
                             resultDTO.Proc_StationTask_Record_DTO_List.Add(record);
@@ -264,7 +264,7 @@ namespace Yee.Services.Production
                         var stationname = await this._dBContext.Base_Stations.Where(s => s.Id == main.StationId && !s.IsDeleted).FirstOrDefaultAsync();
                         await sysLogService.AddLog(new SysLog() { LogType = Sys_LogType.踢料, Message = $"站点：{stationname.Name},Pack码{main.PackCode},批次码{bomDetail.BatchBarCode}，精追码{bomDetail.GoodsOuterCode},PN{bomDetail.GoodsPN},任务名称{bomDetail.GoodsName} ", Operator = user });
                     }
-                    
+
                     break;
                 default:
                     return (false, "只有扫码类型可踢料");
@@ -309,5 +309,36 @@ namespace Yee.Services.Production
             return (true, string.Empty);
         }
 
+        public async Task<Response> CheckPreTighteningCompleted(string SFC)
+        {
+            var result = new Response();
+            try
+            {
+                var mainRecord = await _dBContext.Proc_StationTask_Mains
+                    .Include(s => s.Step)
+                    .Where(s => s.PackCode == SFC && !s.IsDeleted && s.Step != null && s.Step.Name == "上盖预拧")
+                    .FirstOrDefaultAsync();
+
+                if (mainRecord == null)
+                {
+                    result.Code = 500;
+                    result.Data = false;
+                    result.Message = $"未找到Pack码[{SFC}]对应的上盖预拧记录";
+                    return result;
+                }
+
+                var isCompleted = mainRecord.Status == StationTaskStatusEnum.已完成;
+
+                result.Code = 200;
+                result.Data = isCompleted;
+                result.Message = isCompleted ? $"Pack码[{SFC}]的上盖预拧已完成" : $"Pack码[{SFC}]的上盖预拧未完成";
+            }
+            catch (Exception ex)
+            {
+                result.Code = 500;
+                result.Message = ex.InnerException?.Message ?? ex.Message;
+            }
+            return result;
+        }
     }
 }

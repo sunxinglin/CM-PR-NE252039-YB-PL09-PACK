@@ -1,11 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using dataCollectForSfcEx.dataCollectForSfcEx;
 using RogerTech.Common;
 using RogerTech.Common.Models;
 using RogerTech.Tool;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using ParameterDataType = dataCollectForSfcEx.dataCollectForSfcEx.ParameterDataType;
 
 namespace RogerTech.BussnessCore.Bussness
@@ -126,10 +127,15 @@ namespace RogerTech.BussnessCore.Bussness
                 }
                 inputs.Add(datas);
 
+                db.Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
+                db.Insertable(localDatas).AS("LocalData").ExecuteCommand();
+
                 //空循环模式
                 if (business.bMesSimulation)
                 {
+                    Thread.Sleep(1000);
                     resultCode = 0;
+                    message.Append($"SFC{sfc}在空循环模式下数据收集成功！");
                     return;
                 }
 
@@ -145,8 +151,7 @@ namespace RogerTech.BussnessCore.Bussness
                         .ExecuteCommand();
                 }
 
-                db.Insertable(uploadDatas).AS("UploadData").ExecuteCommand();
-                db.Insertable(localDatas).AS("LocalData").ExecuteCommand();
+               
                 if ((int)output[0] == 0)
                 {
                     resultCode = (int)output[0];

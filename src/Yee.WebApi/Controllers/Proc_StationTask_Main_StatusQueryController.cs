@@ -1,4 +1,4 @@
-﻿using AsZero.Core.Services.Repos;
+using AsZero.Core.Services.Repos;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -228,6 +228,24 @@ namespace Yee.WebApi.Controllers.BaseData
                 result.Message = ex.InnerException?.Message ?? ex.Message;
                 return result;
             }
+        }
+
+        /// <summary>
+        /// 校验人工预拧是否完成
+        /// </summary>
+        /// <param name="SFC">Pack码</param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Response> CheckPreTighteningCompleted([FromQuery]string SFC)
+        {
+            var result = new Response();
+            if (string.IsNullOrEmpty(SFC))
+            {
+                result.Code = 500;
+                result.Message = "Pack码不可为空！";
+                return result;
+            }
+            return await _stationTask_Main_StatusQuery.CheckPreTighteningCompleted(SFC);
         }
 
     }

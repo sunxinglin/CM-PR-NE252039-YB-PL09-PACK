@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,8 +10,11 @@ using AsZero.Core.Services.Messages;
 using Ctp0600P.Client.Apis;
 using Ctp0600P.Client.Protocols;
 using Ctp0600P.Client.Protocols.ScanCode.Models;
+using Ctp0600P.Shared;
 
 using MediatR;
+
+using Microsoft.Extensions.Options;
 
 using Reactive.Bindings;
 
@@ -29,14 +32,31 @@ public class ScanCodeViewModel : TaskViewModelBase
 {
     private static bool IsDoingScanJob = false;
     private readonly APIHelper _apiHelper;
-    public ScanCodeViewModel(StationTaskDTO stationTaskDTO, Base_StationTaskBom taskBom, IMediator mediator, ICatlMesInvoker catlMesInvoker, APIHelper _apiHelper)
+
+    public ReactiveProperty<double> PageScale { get; }
+
+    public ScanCodeViewModel(
+        StationTaskDTO stationTaskDTO,
+        Base_StationTaskBom taskBom,
+        IMediator mediator,
+        ICatlMesInvoker catlMesInvoker,
+        APIHelper apiHelper,
+        IOptionsMonitor<PageScaleConfig> pageScaleConfig)
     {
         StationTaskDTO = stationTaskDTO;
         this._mediator = mediator;
-        this._apiHelper = _apiHelper;
+        this._apiHelper = apiHelper;
         _catlMesInvoker = catlMesInvoker;
         StationTaskBom = taskBom;
         StationTaskBomList = new ReactiveCollection<Base_StationTaskBom> { taskBom };
+
+        PageScale = new ReactiveProperty<double> { Value = 1.0 };
+        pageScaleConfig.OnChange(settings =>
+        {
+            PageScale.Value = settings.ScanCode > 0 ? settings.ScanCode : 1.0;
+        });
+        PageScale.Value = pageScaleConfig.CurrentValue.ScanCode > 0 ? pageScaleConfig.CurrentValue.ScanCode : 1.0;
+
         BindHisData();
     }
 
